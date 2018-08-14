@@ -1,0 +1,54 @@
+.nav-parent {
+    background: #fff;
+    border-radius: 0;
+    border: 0;
+    z-index: 9998;
+    border-bottom: 2px solid #FF9800;
+}
+.nav-parent .navbar-brand {
+    margin-right: 30px;
+}
+.nav-parent .brand-a {
+    width: 105px;
+    overflow: hidden;
+    padding: 0 !important;
+    .brand-img {
+        width: 100%;
+    }
+}
+.nav-parent .brand-a .brand-img {
+    width: 100%;
+}
+
+.nav-parent .nav-item-custome {
+    text-decoration: none;
+    cursor: pointer;
+}
+.nav-parent .nav-item-custome a {
+    color: #337ab7;
+    font-size: 14px;
+}
+.nav-parent .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background: #ddd;
+    color: #ff6b00 !important;
+    border-radius: 0;
+}
+.nav-parent .dropdown-title {
+    text-transform: capitalize;
+    color: #000;
+    font-size: 14px;
+}  
+.nav-parent .dropdown-toggle::after {
+    color: #000;
+    vertical-align: middle;
+    margin-left: 7px;
+}
+.nav-parent .dropdown-icon {
+    padding-right: 15px;
+    color: #999;
+    width: 20px;
+}
+.nav-parent  .dropdown-item.custome-item {
+    color: #555;
+    font-size: 14px;
+}

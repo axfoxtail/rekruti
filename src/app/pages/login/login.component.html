@@ -1,3 +1,72 @@
-<p>
-  login works!
-</p>
+<ngx-spinner
+    bdColor = "rgba(51, 51, 51, 0.8)"
+    size = "medium"
+    color = "#fff"
+    type = "ball-spin"> 
+</ngx-spinner>
+
+<div class="container login-container">
+    <div class="loginForm">
+        
+        <div class="header">
+            <h3 class="header-h3">Sign-in</h3>
+            <p class="header-p"><span>*</span>Required Field</p>
+        </div>
+
+        <div class="content">
+            <div class="alert alert-light alert-dismissible fade show alert-message login-error-alert" role="alert" *ngIf="loginWasWrong">
+                {{errorMessage}}
+            </div>
+            
+            <form [formGroup]="loginForm" novalidate (ngSubmit)="submitLogin()"> 
+                <div class="step-group">
+                    <div class="form-row">
+                        <div class="form-group  col-md-12"> 
+                            <div class="input-group">
+                                <label for="inputEmail" class="me_required">Email</label>
+                                <input type="email" class="form-control input-control" id="inputEmail" placeholder="" formControlName="email" required autocomplete="on" autofocus 
+                                       [ngClass]="{'input-has-error': emailError.hasError('*', ['touched'])}">
+                                
+                                <div ngxErrors="email" #emailError="ngxErrors">
+                                    <div class="span-error" ngxError="required" when="touched">
+                                        Email is required
+                                    </div>
+                                    <div class="span-error" ngxError="email" when="touched">
+                                        Not valid email!
+                                    </div>
+                                </div>
+                                       
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <div class="input-group">
+                                <label for="password" class="me_required">Password</label>
+                                <input type="password" class="form-control input-control" id="inputPassword" placeholder="" formControlName="password" required autocomplete="on" autofocus 
+                                       [ngClass]="{'input-has-error': passwordError.hasError('*', ['touched'])}">
+                                       
+                                <div ngxErrors="password" #passwordError="ngxErrors">
+                                    <div class="span-error" ngxError="required" when="touched">
+                                        Password is required
+                                    </div>
+                                </div>
+                                       
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <a class="login-a" href="#/">Lost password</a> 
+                            <a class="login-a register-link" href="#/">Register</a>
+                        </div>
+                        <div class="form-group submit-button-col col-md-6">
+                            <button type="submit" class="btn btn-primary submit-button">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</div>
