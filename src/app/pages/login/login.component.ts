@@ -6,6 +6,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
 import { ApiService } from '../../services/api/api.service';
+import { GlobalVariablesService } from '../../services/global-variables/global-variables.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,8 @@ export class LoginComponent implements OnInit {
         private api:ApiService, 
         private spinner: NgxSpinnerService, 
         private toastr: ToastrService, 
-        private router: Router) { }
+        private router: Router,
+        private globalVar:GlobalVariablesService) { }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -51,12 +53,14 @@ export class LoginComponent implements OnInit {
             this.api.login(this.loginForm.value).then(reply => {
                 console.log(reply);
                 if(reply.result === 1) {
+                    this.globalVar.setCookieCurrentUser(reply);
+                    console.log(this.globalVar.getCookieCurrentUser());
                     this.loginWasWrong = false;
-                    this.router.navigate(['/people']);
                     this.toastr.success('Login successful!', '', {
                         timeOut: 5000,
                         positionClass: 'toast-bottom-right'
                     });
+                    this.router.navigate(['/people']);
                 } else {
                     this.loginWasWrong = true;
                     this.errorMessage = reply.message;
@@ -71,49 +75,6 @@ export class LoginComponent implements OnInit {
              this.validateAllFormFields(this.loginForm);
              this.spinner.hide();
         }
-
-        
-        
-//        
-//        this.spinnerService.show();
-//        var th = this;
-//        this.api.login(loginData).then(reply => {
-//            if(reply.token !== undefined) {
-//                this.loginWasWrong = false;
-//                this.globalVariables.setToken(reply.token); 
-//                
-//                this.api.getProfileData(reply.token).then(userData => {
-//                    
-//                    if(userData.email !== undefined) {
-//                        this.sendGTM(userData.id);
-//                        this.oneSignalFunction(reply.token, userData.device_tokens, userData.id);
-//                        this.loginWasWrong = false;
-//                        this.globalVariables.setUserData(userData);
-//                        
-//                        this.zendeskService.zendeskIdentifyMethod(userData);
-//    
-//                        this.spinnerService.hide();
-//
-//                        this.ckeckUserPlan(userData.registration_state, userData.trial_info.in_trial);
-//                        
-//                    } else {
-//                        console.log('ERROR get profile');
-//                        this.loginWasWrong = true;
-//                        this.spinnerService.hide();
-//                    }
-//                });
-//            } else {
-//                console.log('ERROR b2c');
-//                console.log(reply);
-//                this.loginWasWrong = true;
-//                this.spinnerService.hide();
-//            }
-//        }, function(error) {
-//            th.loginWasWrong = true;
-//            console.log(error);
-//            th.errorMessage = th.validationService.checkAPIError(error);
-//            th.spinnerService.hide();
-//        });
     }
 
 }

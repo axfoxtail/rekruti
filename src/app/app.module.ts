@@ -9,6 +9,7 @@ import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { CookieModule } from 'ngx-cookie';
 
 import { AppComponent } from './app.component';
 
@@ -48,14 +49,16 @@ import { AuthSecurityService } from './services/auth-security/auth-security.serv
     NgxErrorsModule,
     NgxSpinnerModule,
     ToastrModule.forRoot(),
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    CookieModule.forRoot()
   ],
   providers: [
       HttpService,
       ApiService,
       ValidationService,
       GlobalVariablesService,
-      AuthSecurityService
+      AuthSecurityService,
+      
   ],
   bootstrap: [AppComponent]
 })
