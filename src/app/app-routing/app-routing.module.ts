@@ -8,6 +8,10 @@ import { AppLayoutComponent } from '../_layout/app-layout/app-layout.component';
 
 import { LoginComponent } from '../pages/login/login.component'; 
 import { PeopleComponent } from '../pages/people/people.component';
+import { EmployersComponent } from '../pages/employers/employers.component';
+import { MyProfileComponent } from '../pages/my-profile/my-profile.component';
+import { JobsComponent } from '../pages/jobs/jobs.component';
+import { TasksComponent } from '../pages/tasks/tasks.component';
 
 const routes: Routes = [ 
     //no layout routes
@@ -16,7 +20,7 @@ const routes: Routes = [
         redirectTo: '/login', 
         pathMatch: 'full', 
         data: {access:'public', component:'LoginComponent'}, 
-//        canActivate: [Auth] 
+        canActivate: [Auth] 
     },
     
     // Free-app routes goes here
@@ -28,7 +32,7 @@ const routes: Routes = [
                 path: 'login', 
                 component: LoginComponent, 
                 data: {access:'public', component:'LoginComponent'}, 
-//                canActivate: [Auth] 
+                canActivate: [Auth] 
             },
         ]
     },
@@ -42,8 +46,32 @@ const routes: Routes = [
                 path: 'people',  
                 component: PeopleComponent, 
                 data: {access:'private', component:'PeopleComponent'}, 
-//                canActivate: [Auth]
+                canActivate: [Auth]
             },
+            { 
+                path: 'employers',  
+                component: EmployersComponent, 
+                data: {access:'private', component:'EmployersComponent'}, 
+                canActivate: [Auth]
+            },
+            { 
+                path: 'my-profile',  
+                component: MyProfileComponent, 
+                data: {access:'private', component:'MyProfileComponent'}, 
+                canActivate: [Auth]
+            },
+            { 
+                path: 'jobs',  
+                component: JobsComponent, 
+                data: {access:'private', component:'JobsComponent'}, 
+                canActivate: [Auth]
+            },
+            { 
+                path: 'tasks',  
+                component: TasksComponent, 
+                data: {access:'private', component:'TasksComponent'}, 
+                canActivate: [Auth]
+            }
         ]
     },
     

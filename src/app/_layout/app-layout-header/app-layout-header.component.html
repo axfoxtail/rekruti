@@ -1,3 +1,10 @@
+<ngx-spinner
+    bdColor = "rgba(51, 51, 51, 0.8)"
+    size = "medium"
+    color = "#fff"
+    type = "ball-spin"> 
+</ngx-spinner>
+
 <nav class="navbar navbar-expand-lg navbar-light navbar-default navbar-fixed-top nav-parent">
     <a class="navbar-brand brand-a" href="http://www.rekruti.com/#/main/">
         <img class="brand-img" src="assets/img/logo.png"> 
@@ -10,38 +17,38 @@
         
         <ul class="nav nav-pills mr-auto" id="pills-tab" role="tablist">
             <li class="nav-item nav-item-custome">
-              <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">My Profile</a>
+              <a class="nav-link" id="my-profile-menu-item" [ngClass]="{'active': activeMenuItem === 'my-profile-menu-item' }" role="tab" (click)="navigateToNavBarPage('my-profile-menu-item', '/my-profile')">My Profile</a>
             </li>
             <li class="nav-item nav-item-custome">
-              <a class="nav-link active" id="pills-people-tab" data-toggle="pill" href="#pills-people" role="tab" aria-controls="pills-people" aria-selected="true">People</a>
+              <a class="nav-link" id="people-menu-item" [ngClass]="{'active': activeMenuItem === 'people-menu-item' }" role="tab" (click)="navigateToNavBarPage('people-menu-item', '/people')">People</a>
             </li>
             <li class="nav-item nav-item-custome">
-              <a class="nav-link" id="pills-jobs-tab" data-toggle="pill" href="#pills-jobs" role="tab" aria-controls="pills-jobs" aria-selected="false">Jobs</a>
+              <a class="nav-link" id="jobs-menu-item" [ngClass]="{'active': activeMenuItem === 'jobs-menu-item' }" role="tab" (click)="navigateToNavBarPage('jobs-menu-item', '/jobs')">Jobs</a>
             </li>
             <li class="nav-item nav-item-custome">
-              <a class="nav-link" id="pills-employers-tab" data-toggle="pill" href="#pills-employers" role="tab" aria-controls="pills-employers" aria-selected="false">Employers</a>
+              <a class="nav-link" id="employers-menu-item" [ngClass]="{'active': activeMenuItem === 'employers-menu-item' }" role="tab" (click)="navigateToNavBarPage('employers-menu-item', '/employers')">Employers</a>
             </li>
-            <li class="nav-item nav-item-custome">
-              <a class="nav-link" id="pills-tasks-tab" data-toggle="pill" href="#pills-tasks" role="tab" aria-controls="pills-tasks" aria-selected="false">Tasks</a>
+            <li class="nav-item nav-item-custome" *ngIf="currentUser.accountType === 4">
+              <a class="nav-link" id="tasks-menu-item" [ngClass]="{'active': activeMenuItem === 'tasks-menu-item' }" href="/#/tasks" role="tab" (click)="navigateToNavBarPage('tasks-menu-item', '/tasks')">Tasks</a>
             </li>
         </ul>
         
         <ul class="navbar-nav my-2 my-lg-0">
              <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="dropdown-title">test test</span>
+                    <span class="dropdown-title">{{currentUser.firstName}}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item custome-item" href="#"><fa class="dropdown-icon" name="user"></fa>Account</a>
-                    <a class="dropdown-item custome-item" href="#"><fa class="dropdown-icon" name="level-up"></fa>Upgrade</a>
-                    <a class="dropdown-item custome-item" href="#"><fa class="dropdown-icon" name="line-chart"></fa>Statistic</a>
-                    <a class="dropdown-item custome-item" href="#"><fa class="dropdown-icon" name="database"></fa>Sourcing</a>
-                    <a class="dropdown-item custome-item" href="#"><fa class="dropdown-icon" name="cogs"></fa>Settings</a>
+                    <a class="dropdown-item custome-item"><fa class="dropdown-icon" name="user"></fa><span class="dropdown-menu-item">Account</span></a>
+                    <a class="dropdown-item custome-item"><fa class="dropdown-icon" name="level-up"></fa><span class="dropdown-menu-item">Upgrade</span></a>
+                    <a class="dropdown-item custome-item" *ngIf="currentUser.accountType === 5"><fa class="dropdown-icon" name="line-chart"></fa><span class="dropdown-menu-item">Statistic</span></a>
+                    <a class="dropdown-item custome-item" *ngIf="currentUser.accountType === 5"><fa class="dropdown-icon" name="database"></fa><span class="dropdown-menu-item">Sourcing</span></a>
+                    <a class="dropdown-item custome-item" *ngIf="currentUser.accountType === 4 || currentUser.accountType === 5 || currentUser.accountType === 6"><fa class="dropdown-icon" name="cogs"></fa><span class="dropdown-menu-item">Settings</span></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item custome-item" href="#"><fa class="dropdown-icon" name="question"></fa>Help</a>
-                    <a class="dropdown-item custome-item" href="#"><fa class="dropdown-icon" name="compress"></fa>Contact us</a>
+                    <a class="dropdown-item custome-item"><fa class="dropdown-icon" name="question"></fa><span class="dropdown-menu-item">Help</span></a>
+                    <a class="dropdown-item custome-item"><fa class="dropdown-icon" name="compress"></fa><span class="dropdown-menu-item">Contact us</span></a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item custome-item" href="#"><fa class="dropdown-icon" name="sign-out"></fa>Logout</a>
+                    <a class="dropdown-item custome-item" (click)="logout()"><fa class="dropdown-icon" name="sign-out"></fa><span class="dropdown-menu-item">Logout</span></a>
                 </div>
             </li>
         </ul>

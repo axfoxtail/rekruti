@@ -28,5 +28,8 @@ export class GlobalVariablesService {
     getCookieCurrentUser():any {
         return this.cookieService.getObject('globals');
     }
+    removeCookieCurrentUser() {
+        this.cookieService.remove('globals');
+    }
     
 }

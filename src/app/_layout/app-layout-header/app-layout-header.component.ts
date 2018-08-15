@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+
+import { NgxSpinnerService } from 'ngx-spinner';
+
+import { GlobalVariablesService } from '../../services/global-variables/global-variables.service';
+import { ApiService } from '../../services/api/api.service';
+
+import 'rxjs/add/operator/pairwise';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-app-layout-header',
@@ -6,10 +15,63 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app-layout-header.component.css']
 })
 export class AppLayoutHeaderComponent implements OnInit {
+    
+    activeMenuItem:string;
+    currentUser:any;
 
-    constructor() { }
+    constructor(private router: Router, 
+        private activatedRoute:ActivatedRoute, 
+        private globalVar:GlobalVariablesService, 
+        private api:ApiService,
+        private spinner: NgxSpinnerService) {
+        
+            this.checkActiveComponent(this.activatedRoute.children[0].data['_value'].component);
 
-    ngOnInit() {
+            this.router.events
+                 .filter(e => e instanceof NavigationEnd)
+                 .pairwise()
+                 .subscribe((event: any[]) => {
+                     this.checkActiveComponent(this.activatedRoute.children[0].data['_value'].component);
+                 });
     }
 
+    ngOnInit() {
+        this.currentUser = this.globalVar.getCookieCurrentUser().currentUser;
+    }
+    
+    checkActiveComponent(component:any) {
+        switch(component) {
+            case 'PeopleComponent':
+                this.activeMenuItem = 'people-menu-item';
+                break;
+            case 'EmployersComponent':
+                this.activeMenuItem = 'employers-menu-item';
+                break;
+            case 'MyProfileComponent':
+                this.activeMenuItem = 'my-profile-menu-item';
+                break;
+            case 'JobsComponent':
+                this.activeMenuItem = 'jobs-menu-item';
+                break;
+            case 'TasksComponent':
+                this.activeMenuItem = 'tasks-menu-item';
+                break;
+            default:
+                this.activeMenuItem = '';
+        }
+    }
+    
+    navigateToNavBarPage(menuItemId:string, link:string) {
+        this.activeMenuItem = menuItemId;
+        this.router.navigate([link]);
+    }
+    
+    logout() {
+        this.spinner.show();
+        this.api.logout().then(reply => {
+            this.globalVar.removeCookieCurrentUser();
+            this.router.navigate(['/login']);
+            this.spinner.hide();
+        });
+    }
 }

@@ -10,7 +10,7 @@ export class ApiService {
 
     constructor(private http:HttpService) { }
     
-    //login
+    //login start
     login(data:any):Promise<any> {
         return new Promise((resolve, reject) => {
             this.http.get("/account/wLogin?email=" + data.email + "&password=" + data.password).then(data => {
@@ -20,5 +20,17 @@ export class ApiService {
             });
         });
     };
-    //login
+    //login end
+    
+    //logout start
+    logout():Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.get("/account/wLogout?").then(data => {
+                resolve(data);
+            }, function(error) {
+                reject(error);
+            });
+        });
+    };
+    //logout end
 }

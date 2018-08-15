@@ -20,6 +20,10 @@ import { AppLayoutHeaderComponent } from './_layout/app-layout-header/app-layout
 
 import { LoginComponent } from './pages/login/login.component';
 import { PeopleComponent } from './pages/people/people.component';
+import { EmployersComponent } from './pages/employers/employers.component';
+import { MyProfileComponent } from './pages/my-profile/my-profile.component';
+import { JobsComponent } from './pages/jobs/jobs.component';
+import { TasksComponent } from './pages/tasks/tasks.component';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpService } from './services/http/http.service';
@@ -36,7 +40,11 @@ import { AuthSecurityService } from './services/auth-security/auth-security.serv
     AppFreeLayoutHeaderComponent,
     AppLayoutComponent,
     PeopleComponent,
-    AppLayoutHeaderComponent
+    AppLayoutHeaderComponent,
+    EmployersComponent,
+    MyProfileComponent,
+    JobsComponent,
+    TasksComponent
   ],
   imports: [
     CommonModule,

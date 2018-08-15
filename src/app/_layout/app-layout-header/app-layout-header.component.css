@@ -44,11 +44,29 @@
     margin-left: 7px;
 }
 .nav-parent .dropdown-icon {
-    padding-right: 15px;
     color: #999;
-    width: 20px;
+    font-size: 14px;
+    margin: 0 10px 0 0;
+    width: 20px !important;
+}
+.nav-parent .dropdown-menu-item {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
 .nav-parent  .dropdown-item.custome-item {
     color: #555;
     font-size: 14px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #1192C4;
+    background: transparent;
+}
+.dropdown-item:focus, .dropdown-item:hover {
+    cursor: pointer;
 }
