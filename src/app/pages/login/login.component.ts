@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
     }
     
     validateAllFormFields(formGroup: FormGroup) {
+        console.log('1');
         Object.keys(formGroup.controls).forEach((field) => {
             const control = formGroup.get(field);
             if (control instanceof FormControl) {

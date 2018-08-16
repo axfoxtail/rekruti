@@ -2,7 +2,7 @@
     background: #fff;
     border-radius: 0;
     border: 0;
-    z-index: 9998;
+    z-index: 9999999999;
     border-bottom: 2px solid #FF9800;
 }
 .nav-parent .navbar-brand {
@@ -26,7 +26,7 @@
 }
 .nav-parent .nav-item-custome a {
     color: #337ab7;
-    font-size: 14px;
+    font-size: 13px;
 }
 .nav-parent .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     background: #ddd;
@@ -61,6 +61,9 @@
     list-style: none;
     display: flex;
     align-items: center;
+}
+.nav-parent .navbar-toggler {
+    border: none;
 }
 
 .dropdown-item.active, .dropdown-item:active {

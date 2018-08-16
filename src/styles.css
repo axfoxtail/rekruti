@@ -15,4 +15,53 @@ body {
     -webkit-overflow-scrolling: touch;
     -moz-overflow-scrolling: touch;
     overflow-scrolling: touch;
+    
+    font-size: 13px;
+    font-family: Arial;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #555;
+    line-height: 22px;
+}
+
+.ng-sidebar {
+    background-color: white;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    width: 18%;
+    font-size: 13px;
+}
+.ng-sidebar__content {
+    left: 18% !important;
+    padding: 0 !important;
+}
+.ng-sidebar__backdrop {
+    opacity: 0.55 !important;
+}
+
+.modal-backdrop {
+    z-index: 99999999 !important;
+}
+.modal-backdrop.show {
+    opacity: .3 !important;
+}
+.modal {
+    z-index: 999999999 !important;
+}
+
+
+@media only screen and (max-width : 1100px) {
+    .ng-sidebar {
+        width: 35%;
+    }
+    .ng-sidebar__content {
+        left: 0 !important;
+    }  
+}
+@media only screen and (max-width : 600px) {
+    .ng-sidebar {
+        width: 50%;
+    }
 }

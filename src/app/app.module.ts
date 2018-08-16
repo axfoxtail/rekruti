@@ -10,6 +10,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { ToastrModule } from 'ngx-toastr';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { CookieModule } from 'ngx-cookie';
+import { SidebarModule } from 'ng-sidebar';
 
 import { AppComponent } from './app.component';
 
@@ -58,7 +59,8 @@ import { AuthSecurityService } from './services/auth-security/auth-security.serv
     NgxSpinnerModule,
     ToastrModule.forRoot(),
     AngularFontAwesomeModule,
-    CookieModule.forRoot()
+    CookieModule.forRoot(),
+    SidebarModule.forRoot()
   ],
   providers: [
       HttpService,
