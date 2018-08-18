@@ -24,6 +24,7 @@ body {
     line-height: 22px;
 }
 
+
 .ng-sidebar {
     background-color: white;
     border-radius: 2px;
@@ -32,6 +33,7 @@ body {
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
     width: 18%;
     font-size: 13px;
+    z-index: 999 !important;
 }
 .ng-sidebar__content {
     left: 18% !important;
@@ -42,14 +44,22 @@ body {
 }
 
 .modal-backdrop {
-    z-index: 99999999 !important;
+    z-index: 999 !important;
 }
 .modal-backdrop.show {
     opacity: .3 !important;
 }
 .modal {
-    z-index: 999999999 !important;
+    z-index: 9999 !important;
 }
+
+.ngx-pagination {
+    padding: 0;
+}
+.ngx-pagination .current {
+    background: #1192c4;
+}
+
 
 
 @media only screen and (max-width : 1100px) {

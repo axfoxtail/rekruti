@@ -33,4 +33,31 @@ export class ApiService {
         });
     };
     //logout end
+    
+    //people list
+//    getPeopleList():Promise<any> {
+//        return new Promise((resolve, reject) => {
+//            var body = {
+//                sort: "lastUpdate", from: 0
+//            }
+//            this.http.post("/person/wSearch", body).then(data => {
+//                resolve(data);
+//            }, function(error) {
+//                reject(error);
+//            });
+//        });
+//    };
+    getPeopleList():Promise<any> {
+        return new Promise((resolve, reject) => {
+            var body = {
+                sort: "lastUpdate", from: 0
+            }
+            this.http.getTest().then(data => {
+                resolve(data);
+            }, function(error) {
+                reject(error);
+            });
+        });
+    };
+    //people list
 }

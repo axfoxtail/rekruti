@@ -2,7 +2,7 @@
     background: #fff;
     border-radius: 0;
     border: 0;
-    z-index: 9999999999;
+    z-index: 9999;
     border-bottom: 2px solid #FF9800;
 }
 .nav-parent .navbar-brand {

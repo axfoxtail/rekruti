@@ -1,0 +1,84 @@
+<div class="row list-header">
+    <div class="col col-6 results-col">
+        {{peopleData.total | currency: "": "": "0.0-0": "" }}
+        <span *ngIf="peopleData.total === 0">result</span>
+        <span *ngIf="peopleData.total > 0">results</span>
+    </div>
+    <div class="col col-6 sort-col">
+        <div class="input-group search_sort" *ngIf="currentUserData.currentUser.accountType >= 4">
+            <span class="input-group-addon">sort</span>
+            <select name="searchSort" id="searchSort" class="form-control">
+                <option value="string:lastUpdate" selected>Last Update</option>
+                <option value="string:readyForChangeIndex">Ready For Change Index</option>
+                <option value="string:relocationIndex">Relocation Index</option>
+            </select>
+        </div>
+    </div>
+</div>
+<!--totalItems: peopleData.data.total-->
+<div class="table-responsive" *ngIf="peopleData.hits.length > 0">
+    <table class="table table-hover">
+        <tbody>
+            <tr *ngFor="let item of peopleList | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: peopleData.hits.length }">
+                <td class="people-list-td" data-toggle="modal" data-target="#detailsModal" (click)="openDetailsModal(item)" [ngClass]="checkActiveItem(item.id)" #list>
+                    <div class="people-list-item-div">
+                        <div class="avatar-container">
+                            <a>
+                                <!--ng-src="{{url_img}}{{obj.pictureKey}}"-->
+                                <img *ngIf="item.pictureKey" [src]="item.pictureKey" alt="{{item.fullName}}"/>
+                                <img *ngIf="!item.pictureKey" src="assets/img/user-new.png" alt="{{item.fullName}}"/>
+                            </a>
+                        </div>
+                        <div class="details-container">
+                            <div class="row item-title-div">
+                                <div class="col">
+                                    <a class="people-item-title-name">
+                                        <h3>{{item.fullName}}</h3>
+                                    </a>
+                                </div>
+                                <div class="col item-contact-div">
+                                    <a class="option" title="View email" *ngIf="item.hasEmail">
+                                        <fa name="envelope-o"></fa>
+                                    </a>
+                                    <a class="option" title="View phone" *ngIf="item.hasPhone">
+                                        <fa name="phone"></fa>
+                                    </a>
+                                    <a class="option" title="View facebook" *ngIf="item.hasFacebook">
+                                        <fa name="facebook"></fa>
+                                    </a>
+                                    <a class="option" title="Add notes">
+                                        <i class="fa fa-edit">
+                                            <span class="badge red-badge">{{item.noteCount}}</span>
+                                        </i>
+                                    </a>
+                                    <a class="option" title="Add to list">
+                                        <i class="fa fa-folder-o">
+                                            <span class="badge green-badge">{{item.listCount}}</span>
+                                        </i>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="item-city-name">{{item.cityName}}</div>
+                            <div class="item-last-name">{{item.lastTitle}}</div>
+                            <div class="item-last-company">{{item.lastCompany}}</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <!--<div me-pagination></div>-->
+    <div class="has-text-centered">
+        <pagination-controls [id]="config.id"
+            [maxSize]="maxSize"
+            [directionLinks]="directionLinks"
+            [autoHide]="autoHide"
+            [responsive]="responsive"
+            [previousLabel]="labels.previousLabel"
+            [nextLabel]="labels.nextLabel"
+            [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+            [screenReaderPageLabel]="labels.screenReaderPageLabel"
+            [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+            (pageChange)="onPageChange($event)"></pagination-controls>
+    </div>
+</div>

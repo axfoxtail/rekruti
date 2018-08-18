@@ -11,6 +11,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { CookieModule } from 'ngx-cookie';
 import { SidebarModule } from 'ng-sidebar';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { AppComponent } from './app.component';
 
@@ -20,7 +21,11 @@ import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 import { AppLayoutHeaderComponent } from './_layout/app-layout-header/app-layout-header.component';
 
 import { LoginComponent } from './pages/login/login.component';
-import { PeopleComponent } from './pages/people/people.component';
+import { PeopleComponent } from './pages/people/people/people.component';
+import { PeopleSidebarComponent } from './pages/people/people-sidebar/people-sidebar.component';
+import { PeopleListComponent } from './pages/people/people-list/people-list.component';
+import { PeopleDetailsModalComponent } from './pages/people/people-details-modal/people-details-modal.component';
+import { PeopleSearchBarComponent } from './pages/people/people-search-bar/people-search-bar.component';
 import { EmployersComponent } from './pages/employers/employers.component';
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { JobsComponent } from './pages/jobs/jobs.component';
@@ -45,7 +50,11 @@ import { AuthSecurityService } from './services/auth-security/auth-security.serv
     EmployersComponent,
     MyProfileComponent,
     JobsComponent,
-    TasksComponent
+    TasksComponent,
+    PeopleSidebarComponent,
+    PeopleListComponent,
+    PeopleDetailsModalComponent,
+    PeopleSearchBarComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +69,8 @@ import { AuthSecurityService } from './services/auth-security/auth-security.serv
     ToastrModule.forRoot(),
     AngularFontAwesomeModule,
     CookieModule.forRoot(),
-    SidebarModule.forRoot()
+    SidebarModule.forRoot(),
+    NgxPaginationModule
   ],
   providers: [
       HttpService,

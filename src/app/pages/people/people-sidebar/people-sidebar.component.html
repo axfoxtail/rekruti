@@ -1,0 +1,134 @@
+<div class="search-label-left">
+    <span>Search People</span>
+    <a class="pull-right">Clear</a>
+</div>
+
+<div class="filter" *ngFor="let filter of filtersList">
+    <div *ngIf="filter.isVisible && filter.label != 'Ready for a Change'">
+        <div class="filter-title">
+            <h4 class="title">
+                <a class="btn btn-primary collapse-btn collapsed" data-toggle="collapse" href="#{{filter.name}}" role="button" aria-expanded="filter.isComputed" aria-controls="collapseExample">
+                    {{filter.label}}
+                    <i class="fa icon-arrow" aria-hidden="true"></i>
+                </a>
+            </h4>
+        </div>
+
+        <div class="collapse" id="{{filter.name}}">
+            <div class="filter-body">
+                <div class="filter-item" *ngFor="let cb of filter.buckets; let i = index">
+                    <div *ngIf="filter.name !== 'lists'">
+                         <!--ng-change="selectCheckedFacets(cb, obj, cb.isSelected)"-->
+                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected">
+                        <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
+                            {{cb.label}}
+                        </label>
+                        <!--ng-click="showInfoFacets(cb.key)"-->
+                        <a class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                    </div>
+                    <div *ngIf="filter.name === 'lists' && cb.accountOwnerId === peopleData.accountId">
+                         <!--ng-change="selectCheckedFacets(cb, obj, cb.isSelected)"-->
+                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected">
+                        <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
+                            {{cb.label}}
+                        </label>
+                        <!--ng-click="showInfoFacets(cb.key)"-->
+                        <a class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                    </div>
+                    <!--popover-->
+<!--                    <div class="btn-group show_info_facets boxShadow" ng-show="openInfo && id_openFacets === cb.key && cb.isSelected &&  obj.name !== 'options' "
+                        style="display: flex; min-width: 350px; position: absolute; left: 100%; top: 0; font-size: 12px; right: auto;" >
+                        <div style="padding: 15px; min-width: 350px; position: relative;">
+                            <a href="" style="position: absolute; top: 0px; right: 5px; font-weight: bold; color: #000; cursor: pointer; font-size: 14px;"
+                                ng-click="closeInfo(cb, obj)">x</a>
+                            <h3>{{ cb.label }}</h3>
+                            <div ng-show="obj.HasTimeline" class="form-group" style="font-size: 12px;">
+                                <label>Timeline</label>
+                                <select style="font-size: 12px; padding: 4px 7px; height: auto;" class="form-control" ng-model="cb.timeline" name="valueTimeline"
+                                    ng-change="changeInfoFacets('valueTimeline', cb.timeline, cb, obj)">
+                                    <option ng-selected="cb.timeline === null " value="null">Current or Past</option>
+                                    <option value="past">Past</option>
+                                    <option value="current">Current</option>
+                                </select>
+                            </div>
+                            <div style="font-size: 12px;" ng-show="obj.HasLogicalOperator" class="form-group">
+                                <label>Logical Operator</label>
+                                <select style="font-size: 12px; padding: 4px 7px; height: auto;" name="valueLogicalOperator" class="form-control" ng-model="cb.logicalOperator "
+                                    ng-change="changeInfoFacets('valueLogicalOperator', cb.logicalOperator, cb, obj)">
+                                    <option ng-repeat="(k, v) in listLogicalOperator" value="{{v.key}}">{{ v.value }}</option>
+                                </select>
+                            </div>
+                            <div style="font-size: 12px;" class="form-group" ng-show="obj.HasExperience">
+                                <label>Experience (years)</label>
+                                <div class="row" style="margin-left: -15px !important; margin-right: -15px !important; font-size: 12px;">
+                                    <div class="col-sm-6 col-xs-12" style="margin-bottom: 0;">
+                                        <input style="font-size: 12px; padding: 4px 7px; height: auto;" type="number" name="min_exp" class="form-control" placeholder="Min"
+                                            ng-model="cb.experienceMin" ng-change="changeInfoFacets('min_exp', cb.experienceMin, cb, obj)">
+                                    </div>
+                                    <div class="col-sm-6 col-xs-12" style="margin-bottom: 0;">
+                                        <input style="font-size: 12px; padding: 4px 7px; height: auto;" type="number" name="max_exp" class="form-control" placeholder="Max"
+                                            ng-model="cb.experienceMax" value="" ng-change="changeInfoFacets('max_exp', cb.experienceMax, cb, obj)">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" ng-show="obj.HasRadius && obj.name === 'cities' ">
+                                <label>Radius (in miles)</label>
+                                <input class="form-control" type="number" min="0" name="radius" ng-model="cb.radius" ng-change="changeInfoFacets('radius', cb.radius, cb, obj)">
+                            </div>
+                            <div style="text-align: center;">
+                                <button style="background: #1192C4 !important; padding: 3px 7px !important;" class="btn btn-primary" ng-click="saveInfoFacets(cb, obj)">Update Search</button>
+                            </div>
+                        </div>
+                    </div>-->
+                    <!--popover-->
+                </div>
+                <div class="add-filter-block"> 
+                    <!--ng-hide="isReplyFormOpen || !obj.isAddButton" ng-click="isReplyFormOpen = !isReplyFormOpen" ng-class="ShowUrlAdd"-->
+                    <a *ngIf="filter.isAddButton"
+                        class="add-label-a">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="filter">
+    <div class="filter-title">
+        <h4 class="title">
+            <a class="btn btn-primary collapse-btn collapsed" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
+                Domain / Specialty
+                <i class="fa icon-arrow" aria-hidden="true"></i>
+            </a>
+        </h4>
+    </div>
+
+    <div class="collapse" id="collapseExample1">
+        <div class="filter-body">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+    </div>
+</div>
+
+<div class="filter">
+    <div class="filter-title">
+        <h4 class="title">
+            <a class="btn btn-primary collapse-btn collapsed" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+                Domain / Specialty
+                <i class="fa icon-arrow" aria-hidden="true"></i>
+            </a>
+        </h4>
+    </div>
+
+    <div class="collapse" id="collapseExample2">
+        <div class="filter-body">
+          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+        </div>
+    </div>
+</div>-->
+
