@@ -37,6 +37,10 @@ import { ApiService } from './services/api/api.service';
 import { ValidationService } from './services/validation/validation.service';
 import { GlobalVariablesService } from './services/global-variables/global-variables.service';
 import { AuthSecurityService } from './services/auth-security/auth-security.service';
+import { EmployersDetailsModalComponent } from './employers-details-modal/employers-details-modal.component';
+import { EmployersListComponent } from './employers-list/employers-list.component';
+import { EmployersSearchBarComponent } from './employers-search-bar/employers-search-bar.component';
+import { EmployersSidebarComponent } from './employers-sidebar/employers-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +58,11 @@ import { AuthSecurityService } from './services/auth-security/auth-security.serv
     PeopleSidebarComponent,
     PeopleListComponent,
     PeopleDetailsModalComponent,
-    PeopleSearchBarComponent
+    PeopleSearchBarComponent,
+    EmployersDetailsModalComponent,
+    EmployersListComponent,
+    EmployersSearchBarComponent,
+    EmployersSidebarComponent
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    endpoint: 'http://app.rekruti.com'
+    endpoint: 'https://app.rekruti.com'
 };

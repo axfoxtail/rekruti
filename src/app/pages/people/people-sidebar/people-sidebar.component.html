@@ -23,8 +23,9 @@
                         <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
                             {{cb.label}}
                         </label>
-                        <!--ng-click="showInfoFacets(cb.key)"-->
-                        <a class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )">
+
+                        <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )"
+                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover">
                             <i class="fa fa-cog"></i>
                         </a>
                     </div>
@@ -34,101 +35,128 @@
                         <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
                             {{cb.label}}
                         </label>
-                        <!--ng-click="showInfoFacets(cb.key)"-->
-                        <a class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )">
+
+                        <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )"
+                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover">
                             <i class="fa fa-cog"></i>
                         </a>
                     </div>
-                    <!--popover-->
-<!--                    <div class="btn-group show_info_facets boxShadow" ng-show="openInfo && id_openFacets === cb.key && cb.isSelected &&  obj.name !== 'options' "
-                        style="display: flex; min-width: 350px; position: absolute; left: 100%; top: 0; font-size: 12px; right: auto;" >
-                        <div style="padding: 15px; min-width: 350px; position: relative;">
-                            <a href="" style="position: absolute; top: 0px; right: 5px; font-weight: bold; color: #000; cursor: pointer; font-size: 14px;"
-                                ng-click="closeInfo(cb, obj)">x</a>
-                            <h3>{{ cb.label }}</h3>
-                            <div ng-show="obj.HasTimeline" class="form-group" style="font-size: 12px;">
-                                <label>Timeline</label>
-                                <select style="font-size: 12px; padding: 4px 7px; height: auto;" class="form-control" ng-model="cb.timeline" name="valueTimeline"
-                                    ng-change="changeInfoFacets('valueTimeline', cb.timeline, cb, obj)">
-                                    <option ng-selected="cb.timeline === null " value="null">Current or Past</option>
-                                    <option value="past">Past</option>
-                                    <option value="current">Current</option>
-                                </select>
-                            </div>
-                            <div style="font-size: 12px;" ng-show="obj.HasLogicalOperator" class="form-group">
-                                <label>Logical Operator</label>
-                                <select style="font-size: 12px; padding: 4px 7px; height: auto;" name="valueLogicalOperator" class="form-control" ng-model="cb.logicalOperator "
-                                    ng-change="changeInfoFacets('valueLogicalOperator', cb.logicalOperator, cb, obj)">
-                                    <option ng-repeat="(k, v) in listLogicalOperator" value="{{v.key}}">{{ v.value }}</option>
-                                </select>
-                            </div>
-                            <div style="font-size: 12px;" class="form-group" ng-show="obj.HasExperience">
-                                <label>Experience (years)</label>
-                                <div class="row" style="margin-left: -15px !important; margin-right: -15px !important; font-size: 12px;">
-                                    <div class="col-sm-6 col-xs-12" style="margin-bottom: 0;">
-                                        <input style="font-size: 12px; padding: 4px 7px; height: auto;" type="number" name="min_exp" class="form-control" placeholder="Min"
-                                            ng-model="cb.experienceMin" ng-change="changeInfoFacets('min_exp', cb.experienceMin, cb, obj)">
-                                    </div>
-                                    <div class="col-sm-6 col-xs-12" style="margin-bottom: 0;">
-                                        <input style="font-size: 12px; padding: 4px 7px; height: auto;" type="number" name="max_exp" class="form-control" placeholder="Max"
-                                            ng-model="cb.experienceMax" value="" ng-change="changeInfoFacets('max_exp', cb.experienceMax, cb, obj)">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group" ng-show="obj.HasRadius && obj.name === 'cities' ">
-                                <label>Radius (in miles)</label>
-                                <input class="form-control" type="number" min="0" name="radius" ng-model="cb.radius" ng-change="changeInfoFacets('radius', cb.radius, cb, obj)">
-                            </div>
-                            <div style="text-align: center;">
-                                <button style="background: #1192C4 !important; padding: 3px 7px !important;" class="btn btn-primary" ng-click="saveInfoFacets(cb, obj)">Update Search</button>
-                            </div>
-                        </div>
-                    </div>-->
-                    <!--popover-->
                 </div>
+                
                 <div class="add-filter-block"> 
                     <!--ng-hide="isReplyFormOpen || !obj.isAddButton" ng-click="isReplyFormOpen = !isReplyFormOpen" ng-class="ShowUrlAdd"-->
                     <a *ngIf="filter.isAddButton"
                         class="add-label-a">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add
                     </a>
+<!--                    <div ng-show="isReplyFormOpen">
+                        <form name="form" role="form">
+                            <div class="form-group">
+                                <input type="text" ng-if="obj.name === 'city'" ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
+                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
+                                    class="form-control me-facets-add-input">
+
+                                <input type="text" ng-if="obj.name === 'countries'" ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
+                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
+                                    class="form-control me-facets-add-input">
+
+                                <input type="text" ng-if="obj.name === 'states'" ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
+                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
+                                    class="form-control me-facets-add-input">
+
+                                <input ng-show="obj.name === 'keywords' " class="form-control me-facets-add-input" type="text" name="keywords" value="keywords"
+                                    ng-model="keywords" ng-keydown="$event.keyCode === 13 && addKeywordFacets(keywords)">
+
+                                <input type="text" ng-if="obj.name !== 'city' && obj.name !== 'states' && obj.name !== 'countries' && obj.name !== 'keywords' "
+                                    ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
+                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
+                                    class="form-control me-facets-add-input">
+                            </div>
+                        </form>
+                    </div>-->
+                </div>
+                
+                <div *ngIf="filter.name === 'lists'" class="col-xs-12">
+<!--                    <div class="filter-title">
+                        <h4 class="title">
+                            <a class="btn btn-primary collapse-btn collapsed" data-toggle="collapse" href="#shared" role="button" aria-expanded="filter.isComputed" aria-controls="collapseExample">
+                                Shared
+                                <i class="fa icon-arrow" aria-hidden="true"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="collapse" id="{{filter.name}}">
+                        <div class="filter-body">
+                            
+                        </div>
+                    </div>-->
+                    <!--ng-click="showShared = !showShared"ng-class="{'fa fa-caret-down' : showShared, 'fa fa-caret-up': !showShared}"-->
+                    <a style="font-size: 13px; font-weight: bold; margin-bottom: 15px; cursor: pointer; color: #555;">
+                        Shared <i class="pull-right glyphicon" ></i>
+                    </a>
+<!--                    <div ng-if="showShared" class="search_checkBox meCheckbox">
+                        <div ng-repeat="cb in obj.buckets track by $index" style="line-height: 20px; position: relative;">
+                            <input ng-if="obj.name === 'lists' && cb.accountOwnerId !== accountId" type="checkbox" id="{{obj.name}}_{{cb.key}}_{{$index}}" ng-change="selectCheckedFacets(cb, obj, cb.isSelected)" ng-model="cb.isSelected"
+                                ng-checked="cb.isSelected" />
+                            <label ng-if="obj.name === 'lists' && cb.accountOwnerId !== accountId" for="{{obj.name}}_{{cb.key}}_{{$index}}" get-width>
+                                <span class="pull-left text_align_left limit_text_message " style="width: 95%;" title="{{cb.label}}"> {{cb.label}}</span>
+                                <a style="width: 5%; text-align: right;" ng-show="cb.isSelected && obj.name !== 'options' && (obj.HasLogicalOperator &&  obj.name !== 'lists' ) "
+                                    href="" ng-click="showInfoFacets(cb.key)">
+                                    <i class="fa fa-cog"></i>
+                                </a>
+                            </label>
+                        </div>
+                    </div>-->
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!--<div class="filter">
-    <div class="filter-title">
-        <h4 class="title">
-            <a class="btn btn-primary collapse-btn collapsed" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample1">
-                Domain / Specialty
-                <i class="fa icon-arrow" aria-hidden="true"></i>
-            </a>
-        </h4>
-    </div>
 
-    <div class="collapse" id="collapseExample1">
-        <div class="filter-body">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+<div id="popover-content">
+    <div *ngIf="currentActiveFilter" class="popover-content-div">
+        <h3>{{ currentActiveFilter.buckets[currentActiveFilterOption].label }}</h3>
+        <div *ngIf="currentActiveFilter.HasTimeline" class="form-group timeline-div">
+            <label class="timeline-title">Timeline</label>
+            <!--ng-change="changeInfoFacets('valueTimeline', cb.timeline, cb, obj)"[(ngSelected)]="cb.timeline === null"-->
+            <select class="form-control timeline-select" [(ngModel)]="currentActiveFilter.buckets[currentActiveFilterOption].timeline" name="valueTimeline">
+                <option value="null">Current or Past</option>
+                <option value="past">Past</option>
+                <option value="current">Current</option>
+            </select>
+        </div>
+        <div *ngIf="currentActiveFilter.HasLogicalOperator" class="form-group logical-operator-div">
+            <label class="logical-operator-title">Logical Operator</label>
+            <!--ng-change="changeInfoFacets('valueLogicalOperator', cb.logicalOperator, cb, obj)"-->
+            <select name="valueLogicalOperator" class="form-control logical-operator-select" [(ngModel)]="currentActiveFilter.buckets[currentActiveFilterOption].logicalOperator">
+                <!--<option ng-repeat="(k, v) in listLogicalOperator" value="{{v.key}}">{{ v.value }}</option>-->
+            </select>
+        </div>
+        <div style="font-size: 12px;" *ngIf="currentActiveFilter.HasExperience" class="form-group experience-div">
+            <label class="experience-title">Experience (years)</label>
+            <div class="row experience-row">
+                <div class="col-sm-6 col-xs-12  experience-col">
+                    <!--ng-change="changeInfoFacets('min_exp', cb.experienceMin, cb, obj)"-->
+                    <input type="number" name="min_exp" class="form-control experience-input" placeholder="Min"
+                        [(ngModel)]="currentActiveFilter.buckets[currentActiveFilterOption].experienceMin" >
+                </div>
+                <div class="col-sm-6 col-xs-12 experience-col">
+                    <!--ng-change="changeInfoFacets('max_exp', cb.experienceMax, cb, obj)"-->
+                    <input type="number" name="max_exp" class="form-control experience-input" placeholder="Max"
+                        [(ngModel)]="currentActiveFilter.buckets[currentActiveFilterOption].experienceMax" value="" >
+                </div>
+            </div>
+        </div>
+        <div *ngIf="currentActiveFilter.HasRadius && currentActiveFilter.name === 'cities'" class="form-group radius-div">
+            <label class="radius-title">Radius (in miles)</label>
+            <!--ng-change="changeInfoFacets('radius', cb.radius, cb, obj)"-->
+            <input class="form-control radius-input" type="number" min="0" name="radius" [(ngModel)]="currentActiveFilter.buckets[currentActiveFilterOption].radius">
+        </div>
+        <div class="submit-button-div">
+            <!--ng-click="saveInfoFacets(cb, obj)"-->
+            <button class="btn btn-primary popover-submit-button" >Update Search</button>
         </div>
     </div>
 </div>
-
-<div class="filter">
-    <div class="filter-title">
-        <h4 class="title">
-            <a class="btn btn-primary collapse-btn collapsed" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
-                Domain / Specialty
-                <i class="fa icon-arrow" aria-hidden="true"></i>
-            </a>
-        </h4>
-    </div>
-
-    <div class="collapse" id="collapseExample2">
-        <div class="filter-body">
-          Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-        </div>
-    </div>
-</div>-->
 

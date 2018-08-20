@@ -50,7 +50,62 @@
 }
 .filter .filter-body .filter-item .filter-label-options {
     float: right;
+    color: #337ab7;
 }
+
+
+
+#popover-content {
+    display:none;
+}
+.popover-content-div h3 {
+    font-size: 18px;
+    font-family: Arial; 
+}
+.popover-content-div .timeline-div,
+.popover-content-div .logical-operator-div,
+.popover-content-div .experience-div,
+.popover-content-div .radius-div {
+    font-size: 12px; 
+}
+.popover-content-div .timeline-div .timeline-title,
+.popover-content-div .logical-operator-div .logical-operator-title,
+.popover-content-div .experience-div .experience-title,
+.popover-content-div .radius-div .radius-title {
+    margin-bottom: 2px;
+}
+.popover-content-div .timeline-div .timeline-select,
+.popover-content-div .logical-operator-div .logical-operator-select,
+.popover-content-div .experience-div .experience-row .experience-col .experience-input,
+.popover-content-div .radius-div .radius-input {
+    font-size: 12px; 
+    padding: 4px 7px;  
+    height: auto;
+    border-radius: 0;
+}
+.popover-content-div .experience-div .experience-row {
+    margin-left: -15px !important; 
+    margin-right: -15px !important; 
+    font-size: 12px;
+}
+.popover-content-div .experience-div .experience-row .experience-col {
+    margin-bottom: 0;
+}
+.popover-content-div .submit-button-div {
+    text-align: center;
+}
+.popover-content-div .submit-button-div .popover-submit-button {
+    background: #1192C4;
+    padding: 3px 7px;
+    text-transform: capitalize;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 20px;
+    border-color: #1192C4;
+    border-radius: 0;
+}
+
+
 
 .filter .filter-body .add-filter-block {
     margin-top: 10px;
@@ -75,4 +130,11 @@ btn-primary.focus, .btn-primary:focus {
 .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
     box-shadow: none;
 }
+a:hover,
+a:active,
+a:focus {
+     outline: none;
+}
+
+
 

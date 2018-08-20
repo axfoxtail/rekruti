@@ -34,6 +34,7 @@ body {
     width: 18%;
     font-size: 13px;
     z-index: 999 !important;
+    /*overflow: visible !important;*/
 }
 .ng-sidebar__content {
     left: 18% !important;
@@ -60,7 +61,20 @@ body {
     background: #1192c4;
 }
 
-
+.popover {
+    min-width: 350px;
+    min-height: 215px;
+    /*top: 6.2% !important;*/
+    left: 4px !important;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    font-size: 12px;
+}
+.bs-popover-auto[x-placement^=right] .arrow, .bs-popover-right .arrow {
+    /*top: 40px !important;*/
+}
+.popover-body {
+    padding: 15px;
+}
 
 @media only screen and (max-width : 1100px) {
     .ng-sidebar {
