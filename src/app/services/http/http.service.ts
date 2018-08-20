@@ -15,9 +15,9 @@ export class HttpService {
 
     constructor(public http: HttpClient) {
         this.httpOptions_ = {
-            headers: new HttpHeaders({
-              'Content-Type':  'undefined',
-            }),
+            headers: {
+              'Content-Type':  'text/plain',
+            },
             withCredentials: true
         };
     }
