@@ -26,7 +26,11 @@ import { PeopleSidebarComponent } from './pages/people/people-sidebar/people-sid
 import { PeopleListComponent } from './pages/people/people-list/people-list.component';
 import { PeopleDetailsModalComponent } from './pages/people/people-details-modal/people-details-modal.component';
 import { PeopleSearchBarComponent } from './pages/people/people-search-bar/people-search-bar.component';
-import { EmployersComponent } from './pages/employers/employers.component';
+import { EmployersComponent } from './pages/employers/employers/employers.component';
+import { EmployersDetailsModalComponent } from './pages/employers/employers-details-modal/employers-details-modal.component';
+import { EmployersListComponent } from './pages/employers/employers-list/employers-list.component';
+import { EmployersSearchBarComponent } from './pages/employers/employers-search-bar/employers-search-bar.component';
+import { EmployersSidebarComponent } from './pages/employers/employers-sidebar/employers-sidebar.component';
 import { MyProfileComponent } from './pages/my-profile/my-profile.component';
 import { JobsComponent } from './pages/jobs/jobs.component';
 import { TasksComponent } from './pages/tasks/tasks.component';
@@ -37,10 +41,6 @@ import { ApiService } from './services/api/api.service';
 import { ValidationService } from './services/validation/validation.service';
 import { GlobalVariablesService } from './services/global-variables/global-variables.service';
 import { AuthSecurityService } from './services/auth-security/auth-security.service';
-import { EmployersDetailsModalComponent } from './employers-details-modal/employers-details-modal.component';
-import { EmployersListComponent } from './employers-list/employers-list.component';
-import { EmployersSearchBarComponent } from './employers-search-bar/employers-search-bar.component';
-import { EmployersSidebarComponent } from './employers-sidebar/employers-sidebar.component';
 
 @NgModule({
   declarations: [

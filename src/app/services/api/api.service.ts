@@ -49,9 +49,6 @@ export class ApiService {
 //    };
     getPeopleList():Promise<any> {
         return new Promise((resolve, reject) => {
-            var body = {
-                sort: "lastUpdate", from: 0
-            }
             this.http.getTest().then(data => {
                 resolve(data);
             }, function(error) {
@@ -60,4 +57,28 @@ export class ApiService {
         });
     };
     //people list
+    
+    //employers list
+//    getPeopleList():Promise<any> {
+//        return new Promise((resolve, reject) => {
+//            var body = {
+//                sort: "lastUpdate", from: 0
+//            }
+//            this.http.post("/person/wSearch", body).then(data => {
+//                resolve(data);
+//            }, function(error) {
+//                reject(error);
+//            });
+//        });
+//    };
+    getEmployersList():Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.getTest2().then(data => {
+                resolve(data);
+            }, function(error) {
+                reject(error);
+            });
+        });
+    };
+    //employers list
 }

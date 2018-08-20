@@ -15,6 +15,25 @@
         </div>
     </div>
 </div>
+
+<div class="active-filters-list">
+    <div *ngFor="let filter of activeFiltersList">
+        <span *ngIf="filter.isVisible">
+            <span *ngFor="let bk of filter.buckets">
+                <div *ngIf="bk.isSelected" class="filter-div">
+                    <span *ngIf="filter.name !=='experience'">{{bk.label}}</span>
+                    <span *ngIf="filter.name ==='experience'">{{bk.label}}</span>
+                    <!--ng-click="removeTagFacet(bk, obj)"-->
+                    <a class="remove-active-tag">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </span>
+        </span>
+    </div>
+    <!--<a href="" ng-click="resetBuckets()" ng-if="showResetButton" class="reset_tag_buckets">Reset</a>-->
+</div>
+
 <!--totalItems: peopleData.data.total-->
 <div class="table-responsive" *ngIf="peopleData.hits.length > 0">
     <table class="table table-hover">
@@ -26,7 +45,7 @@
                             <a>
                                 <!--ng-src="{{url_img}}{{obj.pictureKey}}"-->
                                 <img *ngIf="item.pictureKey" [src]="item.pictureKey" alt="{{item.fullName}}"/>
-                                <img *ngIf="!item.pictureKey" src="assets/img/user-new.png" alt="{{item.fullName}}"/>
+                                <img class="default-img"  *ngIf="!item.pictureKey" src="assets/img/user-new.png" alt="{{item.fullName}}"/>
                             </a>
                         </div>
                         <div class="details-container">

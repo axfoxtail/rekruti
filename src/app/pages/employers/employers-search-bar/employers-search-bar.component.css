@@ -1,0 +1,35 @@
+.form-search-employers {
+    padding : 25px;
+}
+.form-search-employers .search-step-group {
+    width: 60%;
+    margin: 0 auto;
+}
+.form-search-employers .search-step-group .search-input {
+    width: 80%;
+    height: 30px;
+    border-radius: 0;
+    font-size: 13px;
+}
+.form-search-employers .search-step-group .search-submit-button {
+    border-color: #ced4da;
+    background: #eee;
+    font-size: 13px;
+    padding: 3px 16px;
+}
+.filters-toggle {
+    padding: 25px 0 25px 10px;
+}
+.filters-toggle .filters-button {
+    height: 30px;
+    border: none;
+    background: none; 
+    color: #337ab7;
+}
+
+
+@media only screen and (max-width : 1100px) {
+    .form-search-employers .search-step-group {
+        width: 100%;
+    }
+}

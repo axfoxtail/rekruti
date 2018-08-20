@@ -37,6 +37,7 @@ export class PeopleListComponent implements OnInit {
     currentUserData:any;
     peopleData:any = {};
     peopleList:any = [];
+    activeFiltersList:any = [];
     currentActiveItemInPeopleList:any;
 
     constructor(private globalVar:GlobalVariablesService, private spinner: NgxSpinnerService, private api:ApiService) {
@@ -56,6 +57,7 @@ export class PeopleListComponent implements OnInit {
         
         this.globalVar.peopleListEvent.subscribe((list:any) => {
             this.peopleData = list.data;
+            this.activeFiltersList = list.data.aggregations;
             this.peopleList = this.peopleData.hits.slice(0, this.config.itemsPerPage);
         });
         

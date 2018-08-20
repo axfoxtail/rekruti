@@ -42,7 +42,7 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
             content: function () {
                 return $('#popover-content').html();
             },
-            trigger: 'focus',
+//            trigger: 'focus',
             boundary: 'window',
             delay: { "show": 200, "hide": 100 }
         }
@@ -50,8 +50,14 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
             this.currentActiveFilter = null;
             this.currentActiveFilterOption = null;
             // hide all other popovers
-//            $("[rel=popover]").not(e.target).popover("hide");
-//            $(".popover").remove();                    
+            $("[rel=popover]").not(e.target).popover("hide");
+            $(".popover").remove();  
+            
+            $('body').on("click", (e=> {
+                var container = $(".popover");
+                if (!container.is(e.target) && container.has(e.target).length === 0) 
+                    container.popover("hide");
+            }));                  
         }));
     }
     

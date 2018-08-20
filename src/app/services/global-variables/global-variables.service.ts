@@ -7,11 +7,15 @@ import { CookieService } from 'ngx-cookie';
 export class GlobalVariablesService {
     
     public sidebarStateChangedEvent: EventEmitter<any> = new EventEmitter();
+    public employersSidebarStateChangedEvent: EventEmitter<any> = new EventEmitter();
     public windowWidthChangedEvent: EventEmitter<any> = new EventEmitter();
+    public employersWindowWidthChangedEvent: EventEmitter<any> = new EventEmitter();
     
     public scrollPeopleContentToTopEvent: EventEmitter<any> = new EventEmitter();
+    public scrollEmployersContentToTopEvent: EventEmitter<any> = new EventEmitter();
     
     public peopleListEvent: EventEmitter<any> = new EventEmitter();
+    public employersListEvent: EventEmitter<any> = new EventEmitter();
 
     constructor(private cookieService:CookieService) { }
     
@@ -39,17 +43,29 @@ export class GlobalVariablesService {
         this.cookieService.remove('globals');
     }
     
+    employersSidebarStateChanged() {
+        this.employersSidebarStateChangedEvent.emit();
+    }
     sidebarStateChanged() {
         this.sidebarStateChangedEvent.emit();
     }
     windowWidthChanged(width:any) {
         this.windowWidthChangedEvent.emit(width);
     }
+    employersWindowWidthChanged(width:any) {
+        this.employersWindowWidthChangedEvent.emit(width);
+    }
     scrollPeopleContentToTop() {
         this.scrollPeopleContentToTopEvent.emit();
     }
+    scrollEmployersContentToTop() {
+        this.scrollEmployersContentToTopEvent.emit();
+    }
     peopleList(list:any) {
         this.peopleListEvent.emit(list);
+    }
+    employersList(list:any) {
+        this.employersListEvent.emit(list);
     }
     
 }

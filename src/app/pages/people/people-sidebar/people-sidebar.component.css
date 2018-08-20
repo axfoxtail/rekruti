@@ -44,9 +44,14 @@
     margin-left: 10px;
     margin-bottom: 0;
     font-size: 12px;
-    text-overflow: ellipsis;
     line-height: 16px;
     max-height: 19px;
+    cursor: pointer;
+    max-width: calc(100% - 40px);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: hidden;
+    vertical-align: middle;
 }
 .filter .filter-body .filter-item .filter-label-options {
     float: right;

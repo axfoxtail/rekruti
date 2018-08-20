@@ -1,3 +1,18 @@
-<p>
-  employers works!
-</p>
+<ng-sidebar-container class="employers-page-container">
+ 
+    <ng-sidebar [(opened)]="_opened" [(mode)]="_sidebarMode" [(autoCollapseWidth)]="_autoCollapseWidth" class="sidebar-container">
+        <app-employers-sidebar></app-employers-sidebar>
+    </ng-sidebar> 
+ 
+    <div ng-sidebar-content class="employers-aria" #top>
+        <div class="container employers-list-container search-bar">
+            <app-employers-search-bar></app-employers-search-bar>
+        </div>
+
+        <div class="container employers-list-container content-aria">
+            <app-employers-list></app-employers-list>
+        </div>
+        <app-employers-details-modal></app-employers-details-modal>
+    </div>
+
+</ng-sidebar-container>

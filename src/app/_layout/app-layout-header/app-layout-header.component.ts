@@ -8,6 +8,7 @@ import { ApiService } from '../../services/api/api.service';
 
 import 'rxjs/add/operator/pairwise';
 import 'rxjs/add/operator/filter';
+declare var $:any;
 
 @Component({
   selector: 'app-app-layout-header',
@@ -62,6 +63,8 @@ export class AppLayoutHeaderComponent implements OnInit {
     }
     
     navigateToNavBarPage(menuItemId:string, link:string) {
+        $('.modal').modal('hide');
+        $('.popover').popover('hide');
         this.activeMenuItem = menuItemId;
         this.router.navigate([link]);
     }

@@ -1,0 +1,86 @@
+.list-header {
+    padding: 0 0 20px 0;
+}
+.list-header .results-div {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+
+.employers-list-td {
+    padding: 8px 8px 8px 0;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+    min-height: 145px;
+    display: block; 
+}
+.employers-list-td.active {
+    background-color: #1192c4;
+}
+.employers-list-td.active .employers-list-item-div .details-container .item-title-div .employers-item-title-name,
+.employers-list-td.active .employers-list-item-div .details-container .item-city-state-name,
+.employers-list-td.active .employers-list-item-div .details-container .item-country-name  {
+    color: white;
+}
+.employers-list-td.active .employers-list-item-div .avatar-container .default-img {
+    -webkit-filter: brightness(100);
+    filter: brightness(100);
+}
+
+.employers-list-td .employers-list-item-div {
+    position: relative;
+    display:flex;
+}
+.employers-list-td .employers-list-item-div .avatar-container {
+    width: 150px;
+}
+.employers-list-td .employers-list-item-div .details-container {
+    width: calc(100% - 150px);
+}
+.employers-list-td .employers-list-item-div .avatar-container img {
+    width: 128px;
+    margin: 0 5px;
+}
+.employers-list-td .employers-list-item-div .details-container .item-title-div .employers-item-title-name {
+    color: #337ab7; 
+    text-decoration: none; 
+    cursor: pointer;
+}
+.employers-list-td .employers-list-item-div .details-container .item-title-div .employers-item-title-name h3 {
+    font-size: 18px;
+    margin: 0;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+    padding: 3px 0;
+}
+.employers-list-td .employers-list-item-div .details-container .item-city-state-name,
+.employers-list-td .employers-list-item-div .details-container .item-country-name {
+    color: #999;
+    font-size: 13px;
+    font-family: Arial;
+    -webkit-font-smoothing: antialiased;
+}
+
+.has-text-centered {
+    text-align: center;
+}
+
+.active-filters-list {
+    padding-bottom: 10px;
+}
+.active-filters-list .filter-div {
+    background-color: #ddd;
+    margin-right: 5px;
+    padding: 2px 10px;
+    display: inline-block;
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+.active-filters-list .filter-div .remove-active-tag {
+    margin-left: 10px;
+    color: #555;
+    cursor: pointer;
+}

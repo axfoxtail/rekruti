@@ -8,7 +8,7 @@ import { AppLayoutComponent } from '../_layout/app-layout/app-layout.component';
 
 import { LoginComponent } from '../pages/login/login.component'; 
 import { PeopleComponent } from '../pages/people/people/people.component';
-import { EmployersComponent } from '../pages/employers/employers.component';
+import { EmployersComponent } from '../pages/employers/employers/employers.component';
 import { MyProfileComponent } from '../pages/my-profile/my-profile.component';
 import { JobsComponent } from '../pages/jobs/jobs.component';
 import { TasksComponent } from '../pages/tasks/tasks.component';

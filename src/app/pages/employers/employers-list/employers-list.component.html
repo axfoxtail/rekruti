@@ -1,3 +1,69 @@
-<p>
-  employers-list works!
-</p>
+<div class="list-header">
+    <div class="results-div">
+        {{employersData.total | currency: "": "": "0.0-0": "" }}
+        <span *ngIf="employersData.total === 0">result</span>
+        <span *ngIf="employersData.total > 0">results</span>
+    </div>
+</div>
+
+<div class="active-filters-list">
+    <div *ngFor="let filter of activeFiltersList">
+        <span *ngIf="filter.isVisible">
+            <span *ngFor="let bk of filter.buckets">
+                <div *ngIf="bk.isSelected" class="filter-div">
+                    <span *ngIf="filter.name !=='experience'">{{bk.label}}</span>
+                    <span *ngIf="filter.name ==='experience'">{{bk.label}}</span>
+                    <!--ng-click="removeTagFacet(bk, obj)"-->
+                    <a class="remove-active-tag">
+                        <i class="fa fa-times"></i>
+                    </a>
+                </div>
+            </span>
+        </span>
+    </div>
+    <!--<a href="" ng-click="resetBuckets()" ng-if="showResetButton" class="reset_tag_buckets">Reset</a>-->
+</div>
+
+<!--totalItems: peopleData.data.total-->
+<div class="table-responsive" *ngIf="employersData.hits.length > 0">
+    <table class="table table-hover">
+        <tbody>
+            <tr *ngFor="let item of employersList | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: employersData.hits.length }">
+                <td class="employers-list-td" data-toggle="modal" data-target="#employersDetailsModal" (click)="openDetailsModal(item)" [ngClass]="checkActiveItem(item.id)" #list>
+                    <div class="employers-list-item-div">
+                        <div class="avatar-container">
+                            <a>
+                                <!--ng-src="{{url_img}}{{obj.pictureKey}}"-->
+                                <img *ngIf="item.pictureKey" [src]="item.pictureKey" alt="{{item.name}}"/>
+                                <img class="default-img" *ngIf="!item.pictureKey" src="assets/img/employers.png" alt="{{item.name}}"/>
+                            </a>
+                        </div>
+                        <div class="details-container">
+                            <div class="item-title-div">
+                                <a class="employers-item-title-name">
+                                    <h3>{{item.name}}</h3>
+                                </a>
+                            </div>
+                            <div class="item-city-state-name">{{item.city}}<span *ngIf="item.city">,</span> {{item.state}}</div>
+                            <div class="item-country-name">{{item.country}}</div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="has-text-centered">
+        <pagination-controls [id]="config.id"
+            [maxSize]="maxSize"
+            [directionLinks]="directionLinks"
+            [autoHide]="autoHide"
+            [responsive]="responsive"
+            [previousLabel]="labels.previousLabel"
+            [nextLabel]="labels.nextLabel"
+            [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+            [screenReaderPageLabel]="labels.screenReaderPageLabel"
+            [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+            (pageChange)="onPageChange($event)"></pagination-controls>
+    </div>
+</div>

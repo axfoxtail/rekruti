@@ -8,8 +8,8 @@ import { environment } from "../../../environments/environment";
 })
 export class HttpService {
     
-    private baseUrl = environment.endpoint;
-//    private baseUrl = 'https://cors-anywhere.herokuapp.com/' + environment.endpoint;
+//    private baseUrl = environment.endpoint;
+    private baseUrl = 'https://cors-anywhere.herokuapp.com/' + environment.endpoint;
     httpOptions:any;
 
     constructor(public http: HttpClient) {
@@ -25,15 +25,24 @@ export class HttpService {
     
     
     //it's for test data
-//    getTest(): Promise<any> {
-//        return new Promise((resolve, reject) => {
-//            this.http.get('https://api.myjson.com/bins/oaoj0')
-//                .pipe(map(response => {
-//                    resolve(response);
-//            }))
-//            .subscribe(data => resolve(data), error => reject(error));
-//        })
-//    }
+    getTest(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.get('https://api.myjson.com/bins/oaoj0')
+                .pipe(map(response => {
+                    resolve(response);
+            }))
+            .subscribe(data => resolve(data), error => reject(error));
+        })
+    }
+    getTest2(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.get('https://api.myjson.com/bins/qo82w')
+                .pipe(map(response => {
+                    resolve(response);
+            }))
+            .subscribe(data => resolve(data), error => reject(error));
+        })
+    }
     //it's for test data
     
     get(query:string): Promise<any> {

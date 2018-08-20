@@ -7,14 +7,14 @@
     <div *ngIf="filter.isVisible && filter.label != 'Ready for a Change'">
         <div class="filter-title">
             <h4 class="title">
-                <a class="btn btn-primary collapse-btn collapsed" data-toggle="collapse" href="#{{filter.name}}" role="button" aria-expanded="filter.isComputed" aria-controls="collapseExample">
+                <a class="btn btn-primary collapse-btn" [ngClass]="{'collapsed': !filter.isComputed}" data-toggle="collapse" href="#{{filter.name}}" role="button">
                     {{filter.label}}
-                    <i class="fa icon-arrow" aria-hidden="true"></i>
+                    <i class="fa icon-arrow"></i>
                 </a>
             </h4>
         </div>
 
-        <div class="collapse" id="{{filter.name}}">
+        <div class="collapse" id="{{filter.name}}" [ngClass]="{'show': filter.isComputed}">
             <div class="filter-body">
                 <div class="filter-item" *ngFor="let cb of filter.buckets; let i = index">
                     <div *ngIf="filter.name !== 'lists'">
