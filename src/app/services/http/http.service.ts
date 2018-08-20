@@ -8,18 +8,17 @@ import { environment } from "../../../environments/environment";
 })
 export class HttpService {
     
-//    private baseUrl = environment.endpoint;
-    private baseUrl = 'https://cors-anywhere.herokuapp.com/' + environment.endpoint;
+    private baseUrl = environment.endpoint;
+//    private baseUrl = 'https://cors-anywhere.herokuapp.com/' + environment.endpoint;
     httpOptions:any;
+    httpOptions_:any;
 
     constructor(public http: HttpClient) {
-        this.httpOptions = {
+        this.httpOptions_ = {
             headers: new HttpHeaders({
-//              'Content-Type':  'undefined',
-              'Access-Control-Allow-Headers': '*',
-              'Accept': 'application/json; version=2'
+              'Content-Type':  'undefined',
             }),
-//            withCredentials: true
+            withCredentials: true
         };
     }
     
@@ -47,7 +46,7 @@ export class HttpService {
     
     get(query:string): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get(this.baseUrl + query, this.httpOptions)
+            this.http.get(this.baseUrl + query)
                 .pipe(map(response => {
                     resolve(response);
             }))
@@ -58,7 +57,7 @@ export class HttpService {
         console.log(this.baseUrl + query);
         console.log(body);
         return new Promise((resolve, reject) => {
-            this.http.post(this.baseUrl + query, body,this.httpOptions)
+            this.http.post(this.baseUrl + query, body,this.httpOptions_)
                 .pipe(map(response=> response)).subscribe(data => resolve(data), error => reject(error));
         });
     }
