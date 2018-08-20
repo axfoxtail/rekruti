@@ -38,9 +38,10 @@ export class ApiService {
     getPeopleList():Promise<any> {
         return new Promise((resolve, reject) => {
             var body = {
-                sort: "lastUpdate", from: 0
+                from: 0,
+                sort: "lastUpdate"
             }
-            this.http.post("/person/wSearch", body).then(data => {
+            this.http.post("/person/wSearch", JSON.stringify(body)).then(data => {
                 resolve(data);
             }, function(error) {
                 reject(error);
