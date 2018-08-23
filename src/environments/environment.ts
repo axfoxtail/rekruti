@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    endpoint: 'https://devapp.rekruti.com/entity',
+    endpoint: 'http://devapp.rekruti.com/entity',
 };
 
 /*

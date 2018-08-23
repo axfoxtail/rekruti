@@ -1,6 +1,6 @@
 <div class="search-label-left">
     <span>Search People</span>
-    <a class="pull-right">Clear</a>
+    <a class="pull-right" (click)="clearSearch()">Clear</a>
 </div>
 
 <div class="filter" *ngFor="let filter of filtersList">
@@ -18,145 +18,93 @@
             <div class="filter-body">
                 <div class="filter-item" *ngFor="let cb of filter.buckets; let i = index">
                     <div *ngIf="filter.name !== 'lists'">
-                         <!--ng-change="selectCheckedFacets(cb, obj, cb.isSelected)"-->
-                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected">
+                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="selectCheckedFacets(cb, filter)" (checked)="cb.isSelected">
                         <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
                             {{cb.label}}
                         </label>
 
                         <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )"
-                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover">
+                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover" id="openPopover">
                             <i class="fa fa-cog"></i>
                         </a>
                     </div>
                     <div *ngIf="filter.name === 'lists' && cb.accountOwnerId === peopleData.accountId">
-                         <!--ng-change="selectCheckedFacets(cb, obj, cb.isSelected)"-->
-                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected">
+                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="selectCheckedFacets(cb, filter)" (checked)="cb.isSelected">
                         <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
                             {{cb.label}}
                         </label>
 
                         <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )"
-                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover">
+                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover" id="openPopover">
                             <i class="fa fa-cog"></i>
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="add-filter-block"> 
-                    <!--ng-hide="isReplyFormOpen || !obj.isAddButton" ng-click="isReplyFormOpen = !isReplyFormOpen" ng-class="ShowUrlAdd"-->
-                    <a *ngIf="filter.isAddButton"
+                    <a [hidden]="filter.isReplyFormOpen || !filter.isAddButton" (click)="addFilterOptionFunction(filter)"
                         class="add-label-a">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add
                     </a>
-<!--                    <div ng-show="isReplyFormOpen">
-                        <form name="form" role="form">
+                    <div *ngIf="filter.isReplyFormOpen">
+                        <form [formGroup]="addFilterOption" novalidate (ngSubmit)="submitAddFilterOption(filter)">
                             <div class="form-group">
-                                <input type="text" ng-if="obj.name === 'city'" ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
-                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
-                                    class="form-control me-facets-add-input">
-
-                                <input type="text" ng-if="obj.name === 'countries'" ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
-                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
-                                    class="form-control me-facets-add-input">
-
-                                <input type="text" ng-if="obj.name === 'states'" ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
-                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
-                                    class="form-control me-facets-add-input">
-
-                                <input ng-show="obj.name === 'keywords' " class="form-control me-facets-add-input" type="text" name="keywords" value="keywords"
-                                    ng-model="keywords" ng-keydown="$event.keyCode === 13 && addKeywordFacets(keywords)">
-
-                                <input type="text" ng-if="obj.name !== 'city' && obj.name !== 'states' && obj.name !== 'countries' && obj.name !== 'keywords' "
-                                    ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
-                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
-                                    class="form-control me-facets-add-input">
+                                <input type="text" *ngIf="filter.name === 'cities'" class="form-control add-new-filter-option-input" formControlName="addFacets" (input)="citiesChangeInputEvent()"
+                                       ngxTypeahead [value]="cities" [taList]="citiesList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)"
+                                       (focusout)="addFilterOptionFunction(filter)" autofocus> 
+                                       
+                                <input type="text" *ngIf="filter.name === 'countries'" class="form-control add-new-filter-option-input" formControlName="addFacets" (input)="countriesChangeInputEvent()"
+                                       ngxTypeahead [value]="countries" [taList]="countriesList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)"
+                                       (focusout)="addFilterOptionFunction(filter)" autofocus>
+                                       
+                                <input type="text" *ngIf="filter.name === 'states'" class="form-control add-new-filter-option-input" formControlName="addFacets" (input)="statesChangeInputEvent()"
+                                       ngxTypeahead [value]="states" [taList]="statesList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)"
+                                       (focusout)="addFilterOptionFunction(filter)" autofocus>
+                                       
+                                <input type="text" *ngIf="filter.name === 'keywords'" class="form-control add-new-filter-option-input" formControlName="keywords"
+                                       (focusout)="addFilterOptionFunction(filter)" autofocus>
+                                
+                                <input type="text" *ngIf="filter.name !== 'cities' && filter.name !== 'states' && filter.name !== 'countries' && filter.name !== 'keywords'" class="form-control add-new-filter-option-input" 
+                                       formControlName="addFacets" taDisplayOnFocus="true" (input)="defaultChangeInputEvent(filter.conceptTypeId)" (focusout)="addFilterOptionFunction(filter)" 
+                                       ngxTypeahead [value]="default" [taList]="defaultList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)" autofocus>
+                                       
+                                <ng-template #itemTpl let-result class="list-item">
+                                     <div>
+                                         <span>{{ result.result.name }}</span>
+                                     </div>
+                                 </ng-template>
                             </div>
                         </form>
-                    </div>-->
+                    </div>
                 </div>
                 
                 <div *ngIf="filter.name === 'lists'" class="col-xs-12">
-<!--                    <div class="filter-title">
+                    <div class="filter-title shared">
                         <h4 class="title">
-                            <a class="btn btn-primary collapse-btn collapsed" data-toggle="collapse" href="#shared" role="button" aria-expanded="filter.isComputed" aria-controls="collapseExample">
+                            <a class="btn btn-primary collapse-btn" [ngClass]="{'collapsed': !filter.isComputed}" data-toggle="collapse" href="#shared" role="button">
                                 Shared
-                                <i class="fa icon-arrow" aria-hidden="true"></i>
+                                <i class="fa icon-arrow"></i>
                             </a>
                         </h4>
                     </div>
-                    <div class="collapse" id="{{filter.name}}">
+                    <div class="collapse" id="shared" [ngClass]="{'show': filter.isComputed}">
                         <div class="filter-body">
-                            
+                            <div class="filter-item" *ngFor="let cb of filter.buckets; let i = index">
+                                <div *ngIf="filter.name === 'lists' && cb.accountOwnerId !== peopleData.accountId">
+                                    <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="selectCheckedFacets(cb, filter)" (checked)="cb.isSelected">
+                                    <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
+                                        {{cb.label}}
+                                    </label>
+                                    <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )"
+                                        (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover" id="openPopover">
+                                         <i class="fa fa-cog"></i>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>-->
-                    <!--ng-click="showShared = !showShared"ng-class="{'fa fa-caret-down' : showShared, 'fa fa-caret-up': !showShared}"-->
-                    <a style="font-size: 13px; font-weight: bold; margin-bottom: 15px; cursor: pointer; color: #555;">
-                        Shared <i class="pull-right glyphicon" ></i>
-                    </a>
-<!--                    <div ng-if="showShared" class="search_checkBox meCheckbox">
-                        <div ng-repeat="cb in obj.buckets track by $index" style="line-height: 20px; position: relative;">
-                            <input ng-if="obj.name === 'lists' && cb.accountOwnerId !== accountId" type="checkbox" id="{{obj.name}}_{{cb.key}}_{{$index}}" ng-change="selectCheckedFacets(cb, obj, cb.isSelected)" ng-model="cb.isSelected"
-                                ng-checked="cb.isSelected" />
-                            <label ng-if="obj.name === 'lists' && cb.accountOwnerId !== accountId" for="{{obj.name}}_{{cb.key}}_{{$index}}" get-width>
-                                <span class="pull-left text_align_left limit_text_message " style="width: 95%;" title="{{cb.label}}"> {{cb.label}}</span>
-                                <a style="width: 5%; text-align: right;" ng-show="cb.isSelected && obj.name !== 'options' && (obj.HasLogicalOperator &&  obj.name !== 'lists' ) "
-                                    href="" ng-click="showInfoFacets(cb.key)">
-                                    <i class="fa fa-cog"></i>
-                                </a>
-                            </label>
-                        </div>
-                    </div>-->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-
-<div id="popover-content">
-    <div *ngIf="currentActiveFilter" class="popover-content-div">
-        <h3>{{ currentActiveFilter.buckets[currentActiveFilterOption].label }}</h3>
-        <div *ngIf="currentActiveFilter.HasTimeline" class="form-group timeline-div">
-            <label class="timeline-title">Timeline</label>
-            <!--ng-change="changeInfoFacets('valueTimeline', cb.timeline, cb, obj)"[(ngSelected)]="cb.timeline === null"-->
-            <select class="form-control timeline-select" [(ngModel)]="currentActiveFilter.buckets[currentActiveFilterOption].timeline" name="valueTimeline">
-                <option value="null">Current or Past</option>
-                <option value="past">Past</option>
-                <option value="current">Current</option>
-            </select>
-        </div>
-        <div *ngIf="currentActiveFilter.HasLogicalOperator" class="form-group logical-operator-div">
-            <label class="logical-operator-title">Logical Operator</label>
-            <!--ng-change="changeInfoFacets('valueLogicalOperator', cb.logicalOperator, cb, obj)"-->
-            <select name="valueLogicalOperator" class="form-control logical-operator-select" [(ngModel)]="currentActiveFilter.buckets[currentActiveFilterOption].logicalOperator">
-                <!--<option ng-repeat="(k, v) in listLogicalOperator" value="{{v.key}}">{{ v.value }}</option>-->
-            </select>
-        </div>
-        <div style="font-size: 12px;" *ngIf="currentActiveFilter.HasExperience" class="form-group experience-div">
-            <label class="experience-title">Experience (years)</label>
-            <div class="row experience-row">
-                <div class="col-sm-6 col-xs-12  experience-col">
-                    <!--ng-change="changeInfoFacets('min_exp', cb.experienceMin, cb, obj)"-->
-                    <input type="number" name="min_exp" class="form-control experience-input" placeholder="Min"
-                        [(ngModel)]="currentActiveFilter.buckets[currentActiveFilterOption].experienceMin" >
-                </div>
-                <div class="col-sm-6 col-xs-12 experience-col">
-                    <!--ng-change="changeInfoFacets('max_exp', cb.experienceMax, cb, obj)"-->
-                    <input type="number" name="max_exp" class="form-control experience-input" placeholder="Max"
-                        [(ngModel)]="currentActiveFilter.buckets[currentActiveFilterOption].experienceMax" value="" >
-                </div>
-            </div>
-        </div>
-        <div *ngIf="currentActiveFilter.HasRadius && currentActiveFilter.name === 'cities'" class="form-group radius-div">
-            <label class="radius-title">Radius (in miles)</label>
-            <!--ng-change="changeInfoFacets('radius', cb.radius, cb, obj)"-->
-            <input class="form-control radius-input" type="number" min="0" name="radius" [(ngModel)]="currentActiveFilter.buckets[currentActiveFilterOption].radius">
-        </div>
-        <div class="submit-button-div">
-            <!--ng-click="saveInfoFacets(cb, obj)"-->
-            <button class="btn btn-primary popover-submit-button" >Update Search</button>
-        </div>
-    </div>
-</div>
-

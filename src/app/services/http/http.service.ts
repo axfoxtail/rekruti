@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { environment } from "../../../environments/environment";
 
@@ -9,44 +9,20 @@ import { environment } from "../../../environments/environment";
 export class HttpService {
     
     private baseUrl = environment.endpoint;
-//    private baseUrl = 'https://cors-anywhere.herokuapp.com/' + environment.endpoint;
-    httpOptions:any;
-    httpOptions_:any;
+    private httpOptions:any;
 
     constructor(public http: HttpClient) {
-        this.httpOptions_ = {
-            headers: new HttpHeaders({
-              'Content-Type':  'undefined',
-            }),
+        this.httpOptions = {
+            headers: {
+              'Content-Type':  'text/plain',
+            },
             withCredentials: true
         };
     }
     
-    
-    //it's for test data
-    getTest(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            this.http.get('https://api.myjson.com/bins/oaoj0')
-                .pipe(map(response => {
-                    resolve(response);
-            }))
-            .subscribe(data => resolve(data), error => reject(error));
-        })
-    }
-    getTest2(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            this.http.get('https://api.myjson.com/bins/qo82w')
-                .pipe(map(response => {
-                    resolve(response);
-            }))
-            .subscribe(data => resolve(data), error => reject(error));
-        })
-    }
-    //it's for test data
-    
     get(query:string): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get(this.baseUrl + query)
+            this.http.get(this.baseUrl + query, this.httpOptions)
                 .pipe(map(response => {
                     resolve(response);
             }))
@@ -54,10 +30,8 @@ export class HttpService {
         })
     }
     post(query:string, body:any, options?:any):Promise<any> {
-        console.log(this.baseUrl + query);
-        console.log(body);
         return new Promise((resolve, reject) => {
-            this.http.post(this.baseUrl + query, body,this.httpOptions_)
+            this.http.post(this.baseUrl + query, body,this.httpOptions)
                 .pipe(map(response=> response)).subscribe(data => resolve(data), error => reject(error));
         });
     }

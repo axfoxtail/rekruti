@@ -35,12 +35,8 @@ export class ApiService {
     //logout end
     
     //people list
-    getPeopleList():Promise<any> {
+    getPeopleList(body:any):Promise<any> {
         return new Promise((resolve, reject) => {
-            var body = {
-                from: 0,
-                sort: "lastUpdate"
-            }
             this.http.post("/person/wSearch", JSON.stringify(body)).then(data => {
                 resolve(data);
             }, function(error) {
@@ -48,33 +44,12 @@ export class ApiService {
             });
         });
     };
-//    getPeopleList():Promise<any> {
-//        return new Promise((resolve, reject) => {
-//            this.http.getTest().then(data => {
-//                resolve(data);
-//            }, function(error) {
-//                reject(error);
-//            });
-//        });
-//    };
     //people list
     
     //employers list
-//    getPeopleList():Promise<any> {
-//        return new Promise((resolve, reject) => {
-//            var body = {
-//                sort: "lastUpdate", from: 0
-//            }
-//            this.http.post("/person/wSearch", body).then(data => {
-//                resolve(data);
-//            }, function(error) {
-//                reject(error);
-//            });
-//        });
-//    };
-    getEmployersList():Promise<any> {
+    getEmployersList(from_:any):Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.getTest2().then(data => {
+            this.http.get("/geoPlace/wSearch?keyword=&from=" + from_ + "&sort=relevancy").then(data => {
                 resolve(data);
             }, function(error) {
                 reject(error);
@@ -82,4 +57,14 @@ export class ApiService {
         });
     };
     //employers list
+    
+    getConceptComboAPI(url:any):Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.get(url).then(data => {
+                resolve(data);
+            }, function(error) {
+                reject(error);
+            });
+        });
+    }
 }

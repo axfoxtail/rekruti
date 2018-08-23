@@ -1,8 +1,10 @@
 import { Component, OnInit, ViewChildren } from '@angular/core';
 
 import {PaginationInstance} from 'ngx-pagination';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
+import { ApiService } from '../../../services/api/api.service';
 
 declare var $:any;
 
@@ -38,7 +40,7 @@ export class EmployersListComponent implements OnInit {
     activeFiltersList:any = [];
     currentActiveItemInEmployersList:any;
 
-    constructor(private globalVar:GlobalVariablesService) {
+    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService) {
         this.employersData = {
             total:0,
             hits:[] 
@@ -64,13 +66,23 @@ export class EmployersListComponent implements OnInit {
     }
     
     onPageChange(number: number) {
+        this.spinner.show();
         this.config.currentPage = number;
         
         var start = this.calcFromWhichItem(number);
         var end = start + this.config.itemsPerPage;
-        this.employersList = this.employersData.hits.slice(start, end);
         
-        this.globalVar.scrollEmployersContentToTop();
+        this.api.getEmployersList(start).then(reply => {
+            console.log(reply);
+            this.employersList = reply.data.hits;
+            this.globalVar.scrollEmployersContentToTop();
+            this.spinner.hide();
+        });
+        
+//        this.employersList = this.employersData.hits.slice(start, end);
+        
+        
+        
     }
     
     calcFromWhichItem(page: number):any {

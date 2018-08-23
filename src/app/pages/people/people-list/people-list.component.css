@@ -44,7 +44,7 @@
 .people-list-td.active .people-list-item-div .item-last-company {
     color: white;
 }
-.people-list-td .people-list-item-div .avatar-container .default-img {
+.people-list-td.active .people-list-item-div .avatar-container .default-img {
     -webkit-filter: brightness(100);
     filter: brightness(100);
 }

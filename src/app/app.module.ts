@@ -12,6 +12,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { CookieModule } from 'ngx-cookie';
 import { SidebarModule } from 'ng-sidebar';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxTypeaheadModule } from 'ngx-typeahead';
 
 import { AppComponent } from './app.component';
 
@@ -78,7 +79,8 @@ import { AuthSecurityService } from './services/auth-security/auth-security.serv
     AngularFontAwesomeModule,
     CookieModule.forRoot(),
     SidebarModule.forRoot(),
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgxTypeaheadModule
   ],
   providers: [
       HttpService,

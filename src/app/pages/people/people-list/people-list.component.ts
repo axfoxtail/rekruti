@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChildren, ChangeDetectorRef } from '@angular/core';
+import { environment } from "../../../../environments/environment";
 
-import { NgxSpinnerService } from 'ngx-spinner';
 import {PaginationInstance} from 'ngx-pagination';
 
-import { ApiService } from '../../../services/api/api.service';
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
 
 declare var $:any;
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-people-list',
@@ -16,6 +16,8 @@ declare var $:any;
 export class PeopleListComponent implements OnInit {
     
     @ViewChildren('list') listItems: any;
+    
+    urlImg:any = environment.endpoint + '/personDocument/wDownload?storeGuid=';
     
     public maxSize: number = 8;
     public directionLinks: boolean = true;
@@ -30,17 +32,21 @@ export class PeopleListComponent implements OnInit {
         previousLabel: 'Previous',
         nextLabel: 'Next',
         screenReaderPaginationLabel: 'Pagination',
-        screenReaderPageLabel: 'page',
-        screenReaderCurrentLabel: `You're on page`
+        screenReaderPageLabel: 'page'
     };
     
     currentUserData:any;
     peopleData:any = {};
     peopleList:any = [];
-    activeFiltersList:any = [];
+    searchAggregations:any = [];
     currentActiveItemInPeopleList:any;
+    
+    searchSortArray:any = [];
+    dataCheckFacets:any = [];
+    searchSort:any = 'lastUpdate';
+    showResetButtonVar:boolean;
 
-    constructor(private globalVar:GlobalVariablesService, private spinner: NgxSpinnerService, private api:ApiService) {
+    constructor(private globalVar:GlobalVariablesService, private ref: ChangeDetectorRef) {
         this.peopleData = {
             total:0,
             hits:[] 
@@ -48,24 +54,31 @@ export class PeopleListComponent implements OnInit {
         this.currentActiveItemInPeopleList = {
             id:null
         }
+        this.searchSortArray = [
+            { value: 'lastUpdate', label: 'Last Update' },
+            { value: 'readyForChangeIndex', label: 'Ready For Change Index' },
+            { value: 'relocationIndex', label: 'Relocation Index' },
+        ];
+        this.dataCheckFacets = [
+            { "facetName": "cityName", "isComputed": true, "key": [] },
+            { "facetName": "stateName", "isComputed": true, "key": [] },
+            { "facetName": "concept65", "isComputed": true, "key": [] },
+            { "facetName": "concept172", "isComputed": true, "key": [] }
+        ];
     }
 
     ngOnInit() {
         this.currentUserData = this.globalVar.getCookieCurrentUser();
-        console.log(this.currentUserData);
-//        this.getPeopleList(0, "");
+        this.showResetButtonVar = this.showResetButton();
         
         this.globalVar.peopleListEvent.subscribe((list:any) => {
             this.peopleData = list.data;
-            this.activeFiltersList = list.data.aggregations;
-            this.peopleList = this.peopleData.hits.slice(0, this.config.itemsPerPage);
+            this.searchAggregations = list.data.aggregations;
+            this.peopleList = this.peopleData.hits;
+            this.ref.detectChanges();
         });
         
-//        $('#detailsModal').on('show.bs.modal', (e=> {
-//            console.log('show.bs.modal');
-//        }));
         $('#detailsModal').on('hide.bs.modal', (e=> {
-//            console.log('hide.bs.modal');
             for (var i = 0; i < this.listItems._results.length; i++) {
                 this.listItems._results[i].nativeElement.className = "people-list-td";
             }
@@ -73,30 +86,20 @@ export class PeopleListComponent implements OnInit {
         
     }
     
-//    getPeopleList(fromVar:any, sortBy:any) {
-//        this.globalVar.peopleListEvent.subscribe((list:any) => {
-//            this.peopleData = list;
-//            this.peopleList = this.peopleData.data.hits.slice(0, this.config.itemsPerPage);
-//        });
-//        this.spinner.show();
-//        this.api.getPeopleList().then(reply => {
-////            console.log(reply);
-//            this.peopleData = reply;
-//            this.peopleList = this.peopleData.data.hits.slice(0, this.config.itemsPerPage);
-////            console.log(this.peopleList);
-//            this.spinner.hide();
-//        });
-//    }
+    updatePeopleList(start:any) {
+        var currentActiveFilters = this.globalVar.getCurrentSearchFiltersPeople();
+        console.log(currentActiveFilters);
+        currentActiveFilters.from = start;
+        currentActiveFilters.sort = this.searchSort;
+        
+        this.globalVar.setCurrentSearchFiltersPeople(currentActiveFilters);
+        this.globalVar.peopleListChanged();
+    }
     
     onPageChange(number: number) {
-//        console.log('change to page', number);
         this.config.currentPage = number;
-//        console.log(this.calcFromWhichItem(number));
-        
         var start = this.calcFromWhichItem(number);
-        var end = start + this.config.itemsPerPage;
-        this.peopleList = this.peopleData.hits.slice(start, end);
-        
+        this.updatePeopleList(start);
         this.globalVar.scrollPeopleContentToTop();
     }
     
@@ -105,13 +108,55 @@ export class PeopleListComponent implements OnInit {
     }
     
     openDetailsModal(item:any) {
-//        console.log(id);
         this.currentActiveItemInPeopleList = item;
-        console.log(item.id);
+//        console.log(item.id);
     }
     checkActiveItem(id:any) {
         if(this.currentActiveItemInPeopleList.id === id)
             return 'active';
         return '';
     }
+    
+    searchSortMain() {
+        this.config.currentPage = 1;
+        this.updatePeopleList(0);
+    }
+    
+    changeCheckedFacets(key:any, facetName:any) {
+        var currentActiveFilters = this.globalVar.getCurrentSearchFiltersPeople();
+        var currentFilter = currentActiveFilters[facetName];
+        var currentFilterOption = currentFilter.filter((e=> { return e.key !== key; }));
+        currentActiveFilters[facetName] = currentFilterOption;
+        this.updatePeopleList(0);
+    }
+    
+    showResetButton() {
+        var data;
+        var array = [];
+        if (this.dataCheckFacets.length > 0) {
+            _.forEach(this.dataCheckFacets, function(value, key) {
+                if (value.key.length) 
+                    array.push(value.facetName);
+            });
+        }
+        if (array.length > 0) {
+            data = true;
+        } else {
+            data = false;
+        }
+        return data;
+    }
+    
+    resetBuckets() {
+        this.showResetButtonVar = false;
+        _.forEach(this.dataCheckFacets, function(value, key) {
+            value.key = [];
+        });
+//        $rootScope.urlFacets = '';
+//        $rootScope.pagePersonSearch = 0;
+//        var page = $rootScope.pagePersonSearch;
+//
+//        getPersonSearch(page, $rootScope.urlFacets, $rootScope.urlFacets1, $rootScope.searchSort);
+    }
+
 }

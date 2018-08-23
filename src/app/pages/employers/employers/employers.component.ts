@@ -39,7 +39,7 @@ export class EmployersComponent implements OnInit {
     
     getEmployersList() {
         this.spinner.show();
-        this.api.getEmployersList().then(reply => {
+        this.api.getEmployersList(0).then(reply => {
             console.log(reply);
             this.employersData = reply;
             this.globalVar.employersList(this.employersData);

@@ -15,7 +15,10 @@ export class GlobalVariablesService {
     public scrollEmployersContentToTopEvent: EventEmitter<any> = new EventEmitter();
     
     public peopleListEvent: EventEmitter<any> = new EventEmitter();
+    public peopleListChangedEvent: EventEmitter<any> = new EventEmitter();
     public employersListEvent: EventEmitter<any> = new EventEmitter();
+    
+    private currentFilters:any = [];
 
     constructor(private cookieService:CookieService) { }
     
@@ -42,6 +45,13 @@ export class GlobalVariablesService {
     removeCookieCurrentUser() {
         this.cookieService.remove('globals');
     }
+    setCurrentSearchFiltersPeople(obj:any) {
+        this.currentFilters = obj;
+    }
+    getCurrentSearchFiltersPeople():any {
+        return this.currentFilters;
+    }
+    
     
     employersSidebarStateChanged() {
         this.employersSidebarStateChangedEvent.emit();
@@ -66,6 +76,9 @@ export class GlobalVariablesService {
     }
     employersList(list:any) {
         this.employersListEvent.emit(list);
+    }
+    peopleListChanged() {
+        this.peopleListChangedEvent.emit();
     }
     
 }

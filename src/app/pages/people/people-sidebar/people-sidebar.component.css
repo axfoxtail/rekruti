@@ -10,14 +10,18 @@
 .search-label-left .pull-right {
     margin-right: 15px; 
     color: #337ab7;
+    cursor: pointer;
 }
-
 
 .filter .filter-title {
     background: transparent;
     padding: 10px 15px 10px 15px;
     border-top: 1px solid #ddd;
     border-radius: 0;
+}
+.filter .filter-title.shared {
+    border: none;
+    padding: 0;
 }
 .filter .filter-title .title {
     font-size: 13px;
@@ -58,60 +62,6 @@
     color: #337ab7;
 }
 
-
-
-#popover-content {
-    display:none;
-}
-.popover-content-div h3 {
-    font-size: 18px;
-    font-family: Arial; 
-}
-.popover-content-div .timeline-div,
-.popover-content-div .logical-operator-div,
-.popover-content-div .experience-div,
-.popover-content-div .radius-div {
-    font-size: 12px; 
-}
-.popover-content-div .timeline-div .timeline-title,
-.popover-content-div .logical-operator-div .logical-operator-title,
-.popover-content-div .experience-div .experience-title,
-.popover-content-div .radius-div .radius-title {
-    margin-bottom: 2px;
-}
-.popover-content-div .timeline-div .timeline-select,
-.popover-content-div .logical-operator-div .logical-operator-select,
-.popover-content-div .experience-div .experience-row .experience-col .experience-input,
-.popover-content-div .radius-div .radius-input {
-    font-size: 12px; 
-    padding: 4px 7px;  
-    height: auto;
-    border-radius: 0;
-}
-.popover-content-div .experience-div .experience-row {
-    margin-left: -15px !important; 
-    margin-right: -15px !important; 
-    font-size: 12px;
-}
-.popover-content-div .experience-div .experience-row .experience-col {
-    margin-bottom: 0;
-}
-.popover-content-div .submit-button-div {
-    text-align: center;
-}
-.popover-content-div .submit-button-div .popover-submit-button {
-    background: #1192C4;
-    padding: 3px 7px;
-    text-transform: capitalize;
-    font-size: 12px;
-    font-weight: normal;
-    line-height: 20px;
-    border-color: #1192C4;
-    border-radius: 0;
-}
-
-
-
 .filter .filter-body .add-filter-block {
     margin-top: 10px;
 }
@@ -119,6 +69,16 @@
     font-size: 12px;
     cursor: pointer;
     color: #337ab7;
+}
+.filter .filter-body .add-filter-block .add-new-filter-option-input {
+    font-size: 12px;
+    height: 25px;
+    padding: 2px 12px;
+    border-radius: 0;
+}
+
+.filter .filter-body .add-filter-block .form-group {
+    margin-bottom: 0;
 }
 
 [data-toggle="collapse"] .fa:before {  
@@ -140,6 +100,4 @@ a:active,
 a:focus {
      outline: none;
 }
-
-
 

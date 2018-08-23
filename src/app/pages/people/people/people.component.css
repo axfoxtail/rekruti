@@ -18,7 +18,6 @@
     max-width: 100%;
 }
 .people-page-container .people-aria .people-list-container.content-aria {
-    /*height: calc(100% - 85px);*/
     padding: 20px 15px;
     margin-top: 5px;
     width: 100%;
