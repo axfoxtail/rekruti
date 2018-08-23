@@ -16,6 +16,7 @@
     background: #eee;
     font-size: 13px;
     padding: 3px 16px;
+    cursor: pointer;
 }
 .filters-toggle {
     padding: 25px 0 25px 10px;

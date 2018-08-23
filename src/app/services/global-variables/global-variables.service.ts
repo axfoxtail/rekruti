@@ -1,6 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { CookieService } from 'ngx-cookie';
 
+import { UtilsService } from '../utils/utils.service';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -17,10 +19,19 @@ export class GlobalVariablesService {
     public peopleListEvent: EventEmitter<any> = new EventEmitter();
     public peopleListChangedEvent: EventEmitter<any> = new EventEmitter();
     public employersListEvent: EventEmitter<any> = new EventEmitter();
+    public employersListChangedEvent: EventEmitter<any> = new EventEmitter();
     
-    private currentFilters:any = [];
+    public employersShowResetButtonEvent: EventEmitter<any> = new EventEmitter();
+    
+    private currentFiltersPeople:any = [];
+    private currentFiltersEmployers:any = [];
+    
+    private urlFacets:any;
+    private employersRequestBody:any = {};
+    private dataCheckFacets:any = [];
+    private showResetButtonVar:any;
 
-    constructor(private cookieService:CookieService) { }
+    constructor(private cookieService:CookieService, private utils:UtilsService) { }
     
     setCookieCurrentUser(_object:any) {
         var currentUser = {
@@ -46,13 +57,50 @@ export class GlobalVariablesService {
         this.cookieService.remove('globals');
     }
     setCurrentSearchFiltersPeople(obj:any) {
-        this.currentFilters = obj;
+        this.currentFiltersPeople = obj;
     }
     getCurrentSearchFiltersPeople():any {
-        return this.currentFilters;
+        return this.currentFiltersPeople;
+    }
+    setCurrentSearchFiltersEmployers(obj:any) {
+        this.currentFiltersEmployers = obj;
+    }
+    getCurrentSearchFiltersEmployers():any {
+        return this.currentFiltersEmployers;
+    }
+    setUrlFacets(data:any) {
+        this.urlFacets = this.utils.urlFacets(data);
+    }
+    getUrlFacets() {
+        return this.urlFacets;
+    }
+    setEmployersRequestBody(keyword:any, from_:any, sort:any) {
+        this.employersRequestBody = {
+            keyword: keyword,
+            from: from_,
+            sort: sort
+        };
+    }
+    getEmployersRequestBody() {
+        return this.employersRequestBody;
+    }
+    setDataCheckFacets(data:any) {
+        this.dataCheckFacets = data;
+    }
+    getDataCheckFacets() {
+        return this.dataCheckFacets;
+    }
+    setShowResetButtonVar(data:any) {
+        this.employersShowResetButton(data);
+        this.showResetButtonVar = data;
+    }
+    getShowResetButtonVar() {
+        return this.showResetButtonVar;
     }
     
-    
+    employersShowResetButton(data:any) {
+        this.employersShowResetButtonEvent.emit(data);
+    }
     employersSidebarStateChanged() {
         this.employersSidebarStateChangedEvent.emit();
     }
@@ -80,5 +128,7 @@ export class GlobalVariablesService {
     peopleListChanged() {
         this.peopleListChangedEvent.emit();
     }
-    
+    employersListChanged() {
+        this.employersListChangedEvent.emit();
+    }
 }

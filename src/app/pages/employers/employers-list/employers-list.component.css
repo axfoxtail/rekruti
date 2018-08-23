@@ -5,8 +5,6 @@
     font-size: 13px;
     font-weight: bold;
 }
-
-
 .employers-list-td {
     padding: 8px 8px 8px 0;
     line-height: 1.42857143;
@@ -78,9 +76,56 @@
     display: inline-block;
     margin-bottom: 3px;
     margin-top: 3px;
+    
+    animation: pulse 1s;
+}
+@keyframes pulse {
+  0% {
+    background-color: rgba(221,221,221, 0);
+  }
+  100% {
+    background-color: rgba(221,221,221, 1);
+  }
 }
 .active-filters-list .filter-div .remove-active-tag {
     margin-left: 10px;
     color: #555;
     cursor: pointer;
 }
+.active-filters-list  .reset-tag-buckets {
+    background-color: #ddd;
+    margin-right: 5px;
+    padding: 1px 10px;
+    display: inline-block;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #555;
+    cursor: pointer;
+}
+.active-filters-list  .reset-tag-buckets:hover {
+    background: #ddd;
+    text-decoration: none;
+}
+
+/*.filter-div.ng-enter{
+    -webkit-transition: .5s linear all;
+    -moz-transition: .5s linear all;
+    -ms-transition: .5s linear all;
+    -o-transition: .5s linear all;
+    transition: .5s linear all;
+}
+.filter-div.ng-enter {
+    opacity: 0;
+}
+.filter-div.ng-enter.ng-enter-active {
+    opacity:1;
+}
+.filter-div.ng-leave {
+    opacity:1;
+}
+.filter-div.ng-leave.ng-leave-active {
+    max-height: 0;
+    opacity:1;
+}*/

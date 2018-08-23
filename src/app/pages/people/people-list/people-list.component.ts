@@ -88,7 +88,6 @@ export class PeopleListComponent implements OnInit {
     
     updatePeopleList(start:any) {
         var currentActiveFilters = this.globalVar.getCurrentSearchFiltersPeople();
-        console.log(currentActiveFilters);
         currentActiveFilters.from = start;
         currentActiveFilters.sort = this.searchSort;
         
@@ -109,7 +108,6 @@ export class PeopleListComponent implements OnInit {
     
     openDetailsModal(item:any) {
         this.currentActiveItemInPeopleList = item;
-//        console.log(item.id);
     }
     checkActiveItem(id:any) {
         if(this.currentActiveItemInPeopleList.id === id)
@@ -148,15 +146,7 @@ export class PeopleListComponent implements OnInit {
     }
     
     resetBuckets() {
-        this.showResetButtonVar = false;
-        _.forEach(this.dataCheckFacets, function(value, key) {
-            value.key = [];
-        });
-//        $rootScope.urlFacets = '';
-//        $rootScope.pagePersonSearch = 0;
-//        var page = $rootScope.pagePersonSearch;
-//
-//        getPersonSearch(page, $rootScope.urlFacets, $rootScope.urlFacets1, $rootScope.searchSort);
+        
     }
 
 }

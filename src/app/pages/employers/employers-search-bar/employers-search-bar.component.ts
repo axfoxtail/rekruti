@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
@@ -9,6 +9,8 @@ import { GlobalVariablesService } from '../../../services/global-variables/globa
   styleUrls: ['./employers-search-bar.component.css']
 })
 export class EmployersSearchBarComponent implements OnInit {
+    
+    @ViewChild('searchField_') searchField: ElementRef;
     
     _autoCollapseWidth:any = 1100;
     windowWidth:any = window.innerWidth;
@@ -31,7 +33,16 @@ export class EmployersSearchBarComponent implements OnInit {
     }
     
     submitSearch() {
-        
+        if(this.searchEmployersForm.valid) {
+            var currentOption = this.globalVar.getEmployersRequestBody();
+            this.globalVar.setEmployersRequestBody(this.searchEmployersForm.value.searchRequest, 0, currentOption.sort);
+            this.globalVar.employersListChanged();
+            
+            this.searchEmployersForm.patchValue({
+                searchRequest: ''
+            });
+            this.searchField.nativeElement.blur();
+        }
     }
 
 }

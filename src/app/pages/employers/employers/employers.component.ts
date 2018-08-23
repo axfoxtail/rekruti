@@ -28,19 +28,26 @@ export class EmployersComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.globalVar.setEmployersRequestBody('', 0, 'relevancy');
+        this.globalVar.setUrlFacets([]);
         this.getEmployersList();
+        
         this.globalVar.employersSidebarStateChangedEvent.subscribe(() => {
             this._toggleSidebar();
         });
         this.globalVar.scrollEmployersContentToTopEvent.subscribe(() => {
             this.scrollToTop();
         });
+        
+        this.globalVar.employersListChangedEvent.subscribe(() => {
+            this.getEmployersList();
+        });
     }
     
     getEmployersList() {
         this.spinner.show();
-        this.api.getEmployersList(0).then(reply => {
-            console.log(reply);
+        var body = this.globalVar.getEmployersRequestBody();
+        this.api.getEmployersList(body.keyword, body.from, this.globalVar.getUrlFacets(), body.sort).then(reply => {
             this.employersData = reply;
             this.globalVar.employersList(this.employersData);
             this.spinner.hide();

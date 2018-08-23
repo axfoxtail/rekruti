@@ -7,7 +7,7 @@
             <form [formGroup]="searchEmployersForm" novalidate (ngSubmit)="submitSearch()">
                 <div class="step-group search-step-group">
                     <div class="form-row">
-                        <input type="string" class="form-control input-control search-input" id="inputSearch" placeholder="Search" formControlName="searchRequest">
+                        <input type="string" class="form-control input-control search-input" id="inputSearch" placeholder="Search" formControlName="searchRequest" #searchField_>
                         <button type="submit" class="search-submit-button"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
@@ -15,3 +15,4 @@
         </div> 
     </div>
 </div>
+

@@ -7,24 +7,22 @@
 </div>
 
 <div class="active-filters-list">
-    <div *ngFor="let filter of activeFiltersList">
+    <span *ngFor="let filter of activeFiltersList">
         <span *ngIf="filter.isVisible">
             <span *ngFor="let bk of filter.buckets">
                 <div *ngIf="bk.isSelected" class="filter-div">
                     <span *ngIf="filter.name !=='experience'">{{bk.label}}</span>
                     <span *ngIf="filter.name ==='experience'">{{bk.label}}</span>
-                    <!--ng-click="removeTagFacet(bk, obj)"-->
-                    <a class="remove-active-tag">
+                    <a class="remove-active-tag" (click)="search.changeCheckedFacets(false, bk.key, filter.name, bk.isMore)">
                         <i class="fa fa-times"></i>
                     </a>
                 </div>
             </span>
         </span>
-    </div>
-    <!--<a href="" ng-click="resetBuckets()" ng-if="showResetButton" class="reset_tag_buckets">Reset</a>-->
+    </span>
+    <a (click)="search.clearSearch()" *ngIf="showResetButtonVar" class="reset-tag-buckets">Reset</a>
 </div>
 
-<!--totalItems: peopleData.data.total-->
 <div class="table-responsive" *ngIf="employersData.hits.length > 0">
     <table class="table table-hover">
         <tbody>
@@ -33,8 +31,7 @@
                     <div class="employers-list-item-div">
                         <div class="avatar-container">
                             <a>
-                                <!--ng-src="{{url_img}}{{obj.pictureKey}}"-->
-                                <img *ngIf="item.pictureKey" [src]="item.pictureKey" alt="{{item.name}}"/>
+                                <img *ngIf="item.pictureKey" src="{{urlImg}}{{item.pictureKey}}" alt="{{item.name}}"/>
                                 <img class="default-img" *ngIf="!item.pictureKey" src="assets/img/employers.png" alt="{{item.name}}"/>
                             </a>
                         </div>

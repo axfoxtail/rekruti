@@ -10,8 +10,8 @@
 .search-label-left .pull-right {
     margin-right: 15px; 
     color: #337ab7;
+    cursor: pointer;
 }
-
 
 .filter .filter-title {
     background: transparent;
@@ -72,6 +72,16 @@
     cursor: pointer;
     color: #337ab7;
 }
+.filter .filter-body .add-filter-block .add-new-filter-option-input {
+    font-size: 12px;
+    height: 25px;
+    padding: 2px 12px;
+    border-radius: 0;
+}
+
+.filter .filter-body .add-filter-block .form-group {
+    margin-bottom: 0;
+}
 
 [data-toggle="collapse"] .fa:before {  
   content: "\f0d8";
@@ -91,6 +101,10 @@ a:hover,
 a:active,
 a:focus {
      outline: none;
+}
+
+.filter-body [type="checkbox"]:not(:checked) + label:hover, .filter-body [type="checkbox"]:checked + label:hover {
+    color: #999;
 }
 
 

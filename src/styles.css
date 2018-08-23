@@ -34,7 +34,6 @@ body {
     width: 18%;
     font-size: 13px;
     z-index: 999 !important;
-    /*overflow: visible !important;*/
 }
 .ng-sidebar__content {
     left: 18% !important;

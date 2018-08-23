@@ -159,7 +159,7 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
             var str = '<div id="popover-content">' + 
                 '<div ' + ((this.currentActiveFilter !== undefined && this.currentActiveFilter !== null) ? '' : 'hidden') + ' class="popover-content-div">' +
                     '<h3>' + filter.buckets[id].label + '</h3>' +
-                    '<div ' + ((this.currentActiveFilter.HasTimeline === true) ? '' : 'hidden') + ' class="form-group timeline-div">' +
+                    '<div ' + ((this.currentActiveFilter.hasTimeline === true) ? '' : 'hidden') + ' class="form-group timeline-div">' +
                         '<label class="timeline-title">Timeline</label>' + 
                         '<select class="form-control timeline-select" name="valueTimeline" id="valueTimeline">' + 
                             '<option ' + ((filter.buckets[id].timeline === null) ? 'selected' : '') + ' value="null">Current or Past</option>' +
@@ -167,7 +167,7 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
                             '<option ' + ((filter.buckets[id].timeline === 'current') ? 'selected' : '') + ' value="current">Current</option>' + 
                         '</select>' + 
                     '</div>' + 
-                    '<div ' + ((this.currentActiveFilter.HasLogicalOperator === true) ? '' : 'hidden') + ' class="form-group logical-operator-div">' + 
+                    '<div ' + ((this.currentActiveFilter.hasLogicalOperator === true) ? '' : 'hidden') + ' class="form-group logical-operator-div">' + 
                         '<label class="logical-operator-title">Logical Operator</label>' + 
                         '<select name="valueLogicalOperator" class="form-control logical-operator-select" id="valueLogicalOperator">' + 
                             '<option ' + ((filter.buckets[id].logicalOperator === 'and') ? 'selected' : '') + ' value="and">And</option>' + 
@@ -175,7 +175,7 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
                             '<option ' + ((filter.buckets[id].logicalOperator === 'not') ? 'selected' : '') + ' value="not">Not</option>' + 
                         '</select>' +
                     '</div>' + 
-                    '<div ' + ((this.currentActiveFilter.HasExperience === true) ? '' : 'hidden') + ' class="form-group experience-div">' + 
+                    '<div ' + ((this.currentActiveFilter.hasExperience === true) ? '' : 'hidden') + ' class="form-group experience-div">' + 
                         '<label class="experience-title">Experience (years)</label>' + 
                         '<div class="row experience-row">' + 
                             '<div class="col-sm-6 col-xs-12  experience-col">' + 
@@ -186,7 +186,7 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
                             '</div>' + 
                         '</div>' + 
                     '</div>' +
-                    '<div ' + ((this.currentActiveFilter.HasRadius === true && this.currentActiveFilter.name === 'cities') ? '' : 'hidden') + ' class="form-group radius-div">' + 
+                    '<div ' + ((this.currentActiveFilter.hasRadius === true && this.currentActiveFilter.name === 'cities') ? '' : 'hidden') + ' class="form-group radius-div">' + 
                         '<label class="radius-title">Radius (in miles)</label>' + 
                         '<input class="form-control radius-input" type="number" min="0" name="radius" id="radius" value="' + (filter.buckets[id].radius !== undefined ? filter.buckets[id].radius : '') + '">' + 
                     '</div>' + 

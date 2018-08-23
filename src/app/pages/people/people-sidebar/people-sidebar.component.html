@@ -22,9 +22,8 @@
                         <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
                             {{cb.label}}
                         </label>
-
-                        <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )"
-                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover" id="openPopover">
+                        <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.hasLogicalOperator &&  filter.name !== 'lists' )"
+                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover">
                             <i class="fa fa-cog"></i>
                         </a>
                     </div>
@@ -34,8 +33,8 @@
                             {{cb.label}}
                         </label>
 
-                        <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )"
-                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover" id="openPopover">
+                        <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.hasLogicalOperator &&  filter.name !== 'lists' )"
+                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover">
                             <i class="fa fa-cog"></i>
                         </a>
                     </div>
@@ -95,7 +94,7 @@
                                     <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
                                         {{cb.label}}
                                     </label>
-                                    <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.HasLogicalOperator &&  filter.name !== 'lists' )"
+                                    <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.hasLogicalOperator &&  filter.name !== 'lists' )"
                                         (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover" id="openPopover">
                                          <i class="fa fa-cog"></i>
                                     </a>

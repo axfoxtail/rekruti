@@ -1,5 +1,4 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -23,10 +22,8 @@ export class PeopleComponent implements OnInit {
     windowWidth:any = window.innerWidth;
     
     peopleData:any = {};
-    
-    test: FormGroup;
 
-    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService, private formBuilder: FormBuilder) {
+    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService) {
         if(this.windowWidth <= this._autoCollapseWidth) {
             this._opened = false;
         } else this._opened = true;
@@ -49,21 +46,12 @@ export class PeopleComponent implements OnInit {
         this.globalVar.peopleListChangedEvent.subscribe(() => {
             this.getPeopleList(this.globalVar.getCurrentSearchFiltersPeople());
         });
-        this.test = this.formBuilder.group({
-            t1: ['past'],
-            t2: ['not'],
-            t3: [3],
-            t4: [4],
-            t5: [5]
-        });
     }
     
     getPeopleList(body:any) {
-        console.log(body);
         this.spinner.show();
         this.api.getPeopleList(body).then(reply => {
             this.peopleData = reply;
-            console.log(reply);
             this.globalVar.peopleList(this.peopleData);
             this.spinner.hide();
             $('ng-sidebar-container').click();

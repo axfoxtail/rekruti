@@ -1,6 +1,6 @@
 <div class="search-label-left">
     <span>Search Employer</span>
-    <a class="pull-right">Clear</a>
+    <a class="pull-right" (click)="search.clearSearch()">Clear</a>
 </div>
 
 <div class="filter" *ngFor="let filter of filtersList">
@@ -17,8 +17,8 @@
         <div class="collapse" id="{{filter.name}}" [ngClass]="{'show': filter.isComputed}">
             <div class="filter-body">
                 <div class="filter-item" *ngFor="let cb of filter.buckets; let i = index">
-                     <!--ng-change="changeCheckedFacets(cb.isSelected, cb.key, obj.name, cb.isMore)" ng-checked="isCheckedFacets(cb.isSelected)"-->
-                    <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected">
+                    <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" 
+                       [(ngModel)]="cb.isSelected" (ngModelChange)="search.changeCheckedFacets(cb.isSelected, cb.key, filter.name, cb.isMore)" (checked)="isCheckedFacets(cb.isSelected)">
                     
                     <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
                         <p class="title-option-span" *ngIf="filter.name !== 'experience'"  
@@ -30,36 +30,40 @@
                 </div>
                 
                 <div class="add-filter-block"> 
-                    <!--ng-hide="isReplyFormOpen || !obj.isAddButton" ng-click="isReplyFormOpen = !isReplyFormOpen" ng-class="ShowUrlAdd"-->
-                    <a *ngIf="filter.isAddButton"
+                    <a [hidden]="filter.isReplyFormOpen || !filter.isAddButton" (click)="addFilterOptionFunction(filter)"
                         class="add-label-a">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add
                     </a>
-<!--                    <div ng-show="isReplyFormOpen">
-                        <form name="form" role="form">
+                    <div *ngIf="filter.isReplyFormOpen">
+                        <form [formGroup]="addFilterOption" novalidate (ngSubmit)="submitAddFilterOption(filter)">
                             <div class="form-group">
-                                <input type="text" ng-if="obj.name === 'city'" ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
-                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
-                                    class="form-control me-facets-add-input">
+                                <input type="text" *ngIf="filter.name === 'cityFormatted'" class="form-control add-new-filter-option-input" formControlName="addFacets" (input)="citiesChangeInputEvent()"
+                                       ngxTypeahead [value]="cities" [taList]="citiesList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)"
+                                       (focusout)="addFilterOptionFunction(filter)" autofocus> 
 
-                                <input type="text" ng-if="obj.name === 'countries'" ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
-                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
-                                    class="form-control me-facets-add-input">
+                                <input type="text" *ngIf="filter.name === 'country'" class="form-control add-new-filter-option-input" formControlName="addFacets" (input)="countriesChangeInputEvent()"
+                                       ngxTypeahead [value]="countries" [taList]="countriesList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)"
+                                       (focusout)="addFilterOptionFunction(filter)" autofocus>
 
-                                <input type="text" ng-if="obj.name === 'states'" ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
-                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
-                                    class="form-control me-facets-add-input">
+                                <input type="text" *ngIf="filter.name === 'stateFormatted'" class="form-control add-new-filter-option-input" formControlName="addFacets" (input)="statesChangeInputEvent()"
+                                       ngxTypeahead [value]="states" [taList]="statesList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)"
+                                       (focusout)="addFilterOptionFunction(filter)" autofocus>
 
-                                <input ng-show="obj.name === 'keywords' " class="form-control me-facets-add-input" type="text" name="keywords" value="keywords"
-                                    ng-model="keywords" ng-keydown="$event.keyCode === 13 && addKeywordFacets(keywords)">
+                                <input type="text" *ngIf="filter.name === 'keywords'" class="form-control add-new-filter-option-input" formControlName="keywords"
+                                       (focusout)="addFilterOptionFunction(filter)" autofocus>
 
-                                <input type="text" ng-if="obj.name !== 'city' && obj.name !== 'states' && obj.name !== 'countries' && obj.name !== 'keywords' "
-                                    ng-model="addFacets" typeahead-on-select="onSelectAddFacets($item, $model ,obj)"
-                                    uib-typeahead="state.name as state.name for state in getConceptCombo($viewValue,obj.conceptTypeId,obj.name) "
-                                    class="form-control me-facets-add-input">
+                                <input type="text" *ngIf="filter.name === 'concepts'" class="form-control add-new-filter-option-input" 
+                                       formControlName="addFacets" taDisplayOnFocus="true" (input)="defaultChangeInputEvent(172)" (focusout)="addFilterOptionFunction(filter)" 
+                                       ngxTypeahead [value]="default" [taList]="defaultList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)" autofocus>
+
+                                <ng-template #itemTpl let-result class="list-item">
+                                     <div>
+                                         <span>{{ result.result.name }}</span>
+                                     </div>
+                                 </ng-template>
                             </div>
                         </form>
-                    </div>-->
+                    </div>
                 </div>
             </div>
         </div>

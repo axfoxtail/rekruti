@@ -1,12 +1,15 @@
 import { Component, OnInit, ViewChildren } from '@angular/core';
+import { environment } from "../../../../environments/environment";
 
 import {PaginationInstance} from 'ngx-pagination';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
 import { ApiService } from '../../../services/api/api.service';
+import { SearchService } from '../../../services/search/search.service';
 
 declare var $:any;
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-employers-list',
@@ -16,6 +19,8 @@ declare var $:any;
 export class EmployersListComponent implements OnInit {
     
     @ViewChildren('list') listItems: any;
+    
+    urlImg:any = environment.endpoint + '/personDocument/wDownload?storeGuid=';
     
     public maxSize: number = 8;
     public directionLinks: boolean = true;
@@ -39,8 +44,10 @@ export class EmployersListComponent implements OnInit {
     employersList:any = [];
     activeFiltersList:any = [];
     currentActiveItemInEmployersList:any;
+    
+    showResetButtonVar:boolean;
 
-    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService) {
+    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService, private search:SearchService) {
         this.employersData = {
             total:0,
             hits:[] 
@@ -55,7 +62,7 @@ export class EmployersListComponent implements OnInit {
         this.globalVar.employersListEvent.subscribe((list:any) => {
             this.employersData = list.data;
             this.activeFiltersList = list.data.aggregations;
-            this.employersList = this.employersData.hits.slice(0, this.config.itemsPerPage);
+            this.employersList = this.employersData.hits;
         });
         
         $('#employersDetailsModal').on('hide.bs.modal', (e=> {
@@ -63,26 +70,22 @@ export class EmployersListComponent implements OnInit {
                 this.listItems._results[i].nativeElement.className = "employers-list-td";
             }
         }));
+        this.showResetButtonVar = this.search.showResetButton();
+        this.globalVar.employersShowResetButtonEvent.subscribe((data:any) => {
+            this.showResetButtonVar = data;
+        });
+    }
+    
+    updateEmployersList(start:any) {
+        this.globalVar.setEmployersRequestBody('', start, 'relevancy');
+        this.globalVar.employersListChanged();
     }
     
     onPageChange(number: number) {
-        this.spinner.show();
         this.config.currentPage = number;
-        
         var start = this.calcFromWhichItem(number);
-        var end = start + this.config.itemsPerPage;
-        
-        this.api.getEmployersList(start).then(reply => {
-            console.log(reply);
-            this.employersList = reply.data.hits;
-            this.globalVar.scrollEmployersContentToTop();
-            this.spinner.hide();
-        });
-        
-//        this.employersList = this.employersData.hits.slice(start, end);
-        
-        
-        
+        this.updateEmployersList(start);
+        this.globalVar.scrollEmployersContentToTop();
     }
     
     calcFromWhichItem(page: number):any {
@@ -91,7 +94,6 @@ export class EmployersListComponent implements OnInit {
     
     openDetailsModal(item:any) {
         this.currentActiveItemInEmployersList = item;
-        console.log(item.id);
     }
     checkActiveItem(id:any) {
         if(this.currentActiveItemInEmployersList.id === id)

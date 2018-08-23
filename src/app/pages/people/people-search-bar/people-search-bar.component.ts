@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
+import { SearchService } from '../../../services/search/search.service';
 import * as _ from "lodash";
 
 @Component({
@@ -18,7 +19,7 @@ export class PeopleSearchBarComponent implements OnInit {
     
     searchPeopleForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private globalVar:GlobalVariablesService) { }
+    constructor(private formBuilder: FormBuilder, private globalVar:GlobalVariablesService, private search:SearchService) { }
 
     ngOnInit() {
         this.searchPeopleForm = this.formBuilder.group({
@@ -35,23 +36,7 @@ export class PeopleSearchBarComponent implements OnInit {
     
     submitSearch() {
         if(this.searchPeopleForm.valid) {
-            var currentActiveFilters = this.globalVar.getCurrentSearchFiltersPeople();
-            var searchLowerCase = this.searchPeopleForm.value.searchRequest.toLowerCase();
-            var searchData = {key: searchLowerCase};
-
-            if(currentActiveFilters.keywords === undefined) {
-                currentActiveFilters.keywords = [];
-                currentActiveFilters.keywords.push(searchData);
-            } else {
-                var index = _.findIndex(currentActiveFilters.keywords, (o) => { return o['key'] === searchLowerCase; });
-                if(index === -1) {
-                    currentActiveFilters.keywords.push(searchData);
-                }
-            }
-            
-            currentActiveFilters.from = 0;
-            this.globalVar.setCurrentSearchFiltersPeople(currentActiveFilters);
-            this.globalVar.peopleListChanged();
+            this.search.keywordSearch(this.searchPeopleForm.value.searchRequest);
             
             this.searchPeopleForm.patchValue({
                 searchRequest: ''

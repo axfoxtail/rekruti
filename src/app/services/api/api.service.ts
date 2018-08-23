@@ -47,9 +47,9 @@ export class ApiService {
     //people list
     
     //employers list
-    getEmployersList(from_:any):Promise<any> {
+    getEmployersList(keyword_:any, from_:any, urlFacets_:any, sort_:any):Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get("/geoPlace/wSearch?keyword=&from=" + from_ + "&sort=relevancy").then(data => {
+            this.http.get("/geoPlace/wSearch?keyword=" + keyword_ + "&from=" + from_ + urlFacets_ + "&sort=" + sort_).then(data => {
                 resolve(data);
             }, function(error) {
                 reject(error);

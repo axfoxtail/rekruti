@@ -42,6 +42,8 @@ import { ApiService } from './services/api/api.service';
 import { ValidationService } from './services/validation/validation.service';
 import { GlobalVariablesService } from './services/global-variables/global-variables.service';
 import { AuthSecurityService } from './services/auth-security/auth-security.service';
+import { UtilsService } from './services/utils/utils.service';
+import { SearchService } from './services/search/search.service';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,8 @@ import { AuthSecurityService } from './services/auth-security/auth-security.serv
       ValidationService,
       GlobalVariablesService,
       AuthSecurityService,
-      
+      UtilsService,
+      SearchService
   ],
   bootstrap: [AppComponent]
 })
