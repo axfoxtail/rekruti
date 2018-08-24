@@ -1,6 +1,6 @@
 <div class="search-label-left">
     <span>Search People</span>
-    <a class="pull-right" (click)="clearSearch()">Clear</a>
+    <a class="pull-right" (click)="search.clearSearchPeople()">Clear</a>
 </div>
 
 <div class="filter" *ngFor="let filter of filtersList">
@@ -18,7 +18,7 @@
             <div class="filter-body">
                 <div class="filter-item" *ngFor="let cb of filter.buckets; let i = index">
                     <div *ngIf="filter.name !== 'lists'">
-                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="selectCheckedFacets(cb, filter)" (checked)="cb.isSelected">
+                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="search.selectCheckedFacetsPeople(cb, filter)" (checked)="cb.isSelected">
                         <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
                             {{cb.label}}
                         </label>
@@ -28,7 +28,7 @@
                         </a>
                     </div>
                     <div *ngIf="filter.name === 'lists' && cb.accountOwnerId === peopleData.accountId">
-                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="selectCheckedFacets(cb, filter)" (checked)="cb.isSelected">
+                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="search.selectCheckedFacetsPeople(cb, filter)" (checked)="cb.isSelected">
                         <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
                             {{cb.label}}
                         </label>
@@ -90,7 +90,7 @@
                         <div class="filter-body">
                             <div class="filter-item" *ngFor="let cb of filter.buckets; let i = index">
                                 <div *ngIf="filter.name === 'lists' && cb.accountOwnerId !== peopleData.accountId">
-                                    <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="selectCheckedFacets(cb, filter)" (checked)="cb.isSelected">
+                                    <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="search.selectCheckedFacetsPeople(cb, filter)" (checked)="cb.isSelected">
                                     <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
                                         {{cb.label}}
                                     </label>

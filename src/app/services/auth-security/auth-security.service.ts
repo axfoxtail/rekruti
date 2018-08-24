@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRoute, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 import { GlobalVariablesService } from '../global-variables/global-variables.service';
 
@@ -11,8 +11,9 @@ export class AuthSecurityService implements CanActivate {
     constructor(private globalVar:GlobalVariablesService, private router: Router) { }
     
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+        var currentUser = this.globalVar.getCookieCurrentUser();
         
-        if(this.globalVar.getCookieCurrentUser() === undefined) {
+        if(currentUser === undefined) {
             this.globalVar.removeCookieCurrentUser();
             if(route.data.component !== 'LoginComponent') 
                 this.router.navigate(['/login']);
@@ -22,10 +23,14 @@ export class AuthSecurityService implements CanActivate {
                 case 'LoginComponent':
                     this.router.navigate(['/people']);
                     return true;
+                case 'MyProfileComponent':
+                    if(currentUser.currentUser.accountType === 5)
+                        return true;
+                    return false;
                 case 'TasksComponent':
-                    if(this.globalVar.getCookieCurrentUser().currentUser.accountType !== 4)
-                        return false;
-                    return true;
+                    if(currentUser.currentUser.accountProfile === 4 || currentUser.currentUser.accountType === 5) 
+                        return true; 
+                    return false;
                 default:
                     return true;
             }

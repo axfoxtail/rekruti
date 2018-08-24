@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
 import { ApiService } from '../../../services/api/api.service';
+import { UtilsService } from '../../../services/utils/utils.service';
 
 @Component({
   selector: 'app-employers',
@@ -21,21 +22,21 @@ export class EmployersComponent implements OnInit {
     
     employersData:any = {};
 
-    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService) {
+    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService, private utils:UtilsService) {
         if(this.windowWidth <= this._autoCollapseWidth) {
             this._opened = false;
         } else this._opened = true;
     }
 
     ngOnInit() {
-        this.globalVar.setEmployersRequestBody('', 0, 'relevancy');
-        this.globalVar.setUrlFacets([]);
+        this.globalVar.setRequestBodyEmployers('', 0, 'relevancy');
+        this.globalVar.setUrlFacetsEmployers([]);
         this.getEmployersList();
         
-        this.globalVar.employersSidebarStateChangedEvent.subscribe(() => {
+        this.globalVar.sidebarStateChangedEmployersEvent.subscribe(() => {
             this._toggleSidebar();
         });
-        this.globalVar.scrollEmployersContentToTopEvent.subscribe(() => {
+        this.globalVar.scrollContentToTopEmployersEvent.subscribe(() => {
             this.scrollToTop();
         });
         
@@ -46,10 +47,12 @@ export class EmployersComponent implements OnInit {
     
     getEmployersList() {
         this.spinner.show();
-        var body = this.globalVar.getEmployersRequestBody();
-        this.api.getEmployersList(body.keyword, body.from, this.globalVar.getUrlFacets(), body.sort).then(reply => {
+        var body = this.globalVar.getRequestBodyEmployers();
+        this.api.getEmployersList(body.keyword, body.from, this.globalVar.getUrlFacetsEmployers(), body.sort).then(reply => {
             this.employersData = reply;
+            this.globalVar.setHasFacetSelectedEmployers(this.utils.countFacetSelected(reply.data.aggregations));
             this.globalVar.employersList(this.employersData);
+            this.scrollToTop();
             this.spinner.hide();
         });
     }
@@ -57,7 +60,7 @@ export class EmployersComponent implements OnInit {
     @HostListener('window:resize', ['$event'])
     onResize(event) {
         this.windowWidth = event.target.innerWidth;
-        this.globalVar.employersWindowWidthChanged(this.windowWidth);
+        this.globalVar.windowWidthChangedEmployers(this.windowWidth);
         if(this.windowWidth <= this._autoCollapseWidth) {
             this._opened = false;
         } else this._opened = true;

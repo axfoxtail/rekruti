@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChildren, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChildren } from '@angular/core';
 import { environment } from "../../../../environments/environment";
 
 import {PaginationInstance} from 'ngx-pagination';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
+import { SearchService } from '../../../services/search/search.service';
 
 declare var $:any;
 import * as _ from "lodash";
@@ -44,9 +45,8 @@ export class PeopleListComponent implements OnInit {
     searchSortArray:any = [];
     dataCheckFacets:any = [];
     searchSort:any = 'lastUpdate';
-    showResetButtonVar:boolean;
 
-    constructor(private globalVar:GlobalVariablesService, private ref: ChangeDetectorRef) {
+    constructor(private globalVar:GlobalVariablesService, private search:SearchService) {
         this.peopleData = {
             total:0,
             hits:[] 
@@ -69,13 +69,12 @@ export class PeopleListComponent implements OnInit {
 
     ngOnInit() {
         this.currentUserData = this.globalVar.getCookieCurrentUser();
-        this.showResetButtonVar = this.showResetButton();
         
         this.globalVar.peopleListEvent.subscribe((list:any) => {
             this.peopleData = list.data;
             this.searchAggregations = list.data.aggregations;
             this.peopleList = this.peopleData.hits;
-            this.ref.detectChanges();
+            this.config.currentPage = this.globalVar.getCurrentPagePeople();
         });
         
         $('#detailsModal').on('hide.bs.modal', (e=> {
@@ -83,7 +82,6 @@ export class PeopleListComponent implements OnInit {
                 this.listItems._results[i].nativeElement.className = "people-list-td";
             }
         }));
-        
     }
     
     updatePeopleList(start:any) {
@@ -97,9 +95,10 @@ export class PeopleListComponent implements OnInit {
     
     onPageChange(number: number) {
         this.config.currentPage = number;
+        this.globalVar.setCurrentPagePeople(this.config.currentPage);
         var start = this.calcFromWhichItem(number);
         this.updatePeopleList(start);
-        this.globalVar.scrollPeopleContentToTop();
+        this.globalVar.scrollContentToTopPeople();
     }
     
     calcFromWhichItem(page: number):any {
@@ -109,6 +108,7 @@ export class PeopleListComponent implements OnInit {
     openDetailsModal(item:any) {
         this.currentActiveItemInPeopleList = item;
     }
+    
     checkActiveItem(id:any) {
         if(this.currentActiveItemInPeopleList.id === id)
             return 'active';
@@ -117,36 +117,12 @@ export class PeopleListComponent implements OnInit {
     
     searchSortMain() {
         this.config.currentPage = 1;
+        this.globalVar.setCurrentPagePeople(this.config.currentPage)
         this.updatePeopleList(0);
     }
     
-    changeCheckedFacets(key:any, facetName:any) {
-        var currentActiveFilters = this.globalVar.getCurrentSearchFiltersPeople();
-        var currentFilter = currentActiveFilters[facetName];
-        var currentFilterOption = currentFilter.filter((e=> { return e.key !== key; }));
-        currentActiveFilters[facetName] = currentFilterOption;
-        this.updatePeopleList(0);
+    removeBucket(bucket:any, filter:any) {
+        bucket.isSelected = false;
+        this.search.selectCheckedFacetsPeople(bucket, filter);
     }
-    
-    showResetButton() {
-        var data;
-        var array = [];
-        if (this.dataCheckFacets.length > 0) {
-            _.forEach(this.dataCheckFacets, function(value, key) {
-                if (value.key.length) 
-                    array.push(value.facetName);
-            });
-        }
-        if (array.length > 0) {
-            data = true;
-        } else {
-            data = false;
-        }
-        return data;
-    }
-    
-    resetBuckets() {
-        
-    }
-
 }

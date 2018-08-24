@@ -23,19 +23,20 @@ export class EmployersSearchBarComponent implements OnInit {
         this.searchEmployersForm = this.formBuilder.group({
             searchRequest: ['', Validators.required]
         });
-        this.globalVar.employersWindowWidthChangedEvent.subscribe((width:any) => {
+        this.globalVar.windowWidthChangedEmployersEvent.subscribe((width:any) => {
             this.windowWidth = width;
         });
     }
     
     _toggleSidebar() {
-        this.globalVar.employersSidebarStateChanged();
+        this.globalVar.sidebarStateChangedEmployers();
     }
     
     submitSearch() {
         if(this.searchEmployersForm.valid) {
-            var currentOption = this.globalVar.getEmployersRequestBody();
-            this.globalVar.setEmployersRequestBody(this.searchEmployersForm.value.searchRequest, 0, currentOption.sort);
+            var currentOption = this.globalVar.getRequestBodyEmployers();
+            this.globalVar.setCurrentPageEmployers(0);
+            this.globalVar.setRequestBodyEmployers(this.searchEmployersForm.value.searchRequest, 0, currentOption.sort);
             this.globalVar.employersListChanged();
             
             this.searchEmployersForm.patchValue({

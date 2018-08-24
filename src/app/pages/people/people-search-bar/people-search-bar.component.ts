@@ -25,18 +25,18 @@ export class PeopleSearchBarComponent implements OnInit {
         this.searchPeopleForm = this.formBuilder.group({
             searchRequest: ['', Validators.required]
         });
-        this.globalVar.windowWidthChangedEvent.subscribe((width:any) => {
+        this.globalVar.windowWidthChangedPeopleEvent.subscribe((width:any) => {
             this.windowWidth = width;
         });
     }
     
     _toggleSidebar() {
-        this.globalVar.sidebarStateChanged();
+        this.globalVar.sidebarStateChangedPeople();
     }
     
     submitSearch() {
         if(this.searchPeopleForm.valid) {
-            this.search.keywordSearch(this.searchPeopleForm.value.searchRequest);
+            this.search.keywordSearchPeople(this.searchPeopleForm.value.searchRequest);
             
             this.searchPeopleForm.patchValue({
                 searchRequest: ''

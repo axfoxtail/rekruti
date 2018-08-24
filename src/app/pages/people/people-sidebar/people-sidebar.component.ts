@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
 import { ApiService } from '../../../services/api/api.service';
+import { SearchService } from '../../../services/search/search.service';
 
 declare var $:any;
 import * as _ from "lodash";
@@ -17,13 +18,7 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
     filtersList:any;
     peopleData:any;
     
-    currentActiveFilter:any;
-    currentActiveFilterOption:any;
-    currentActiveFilterOptionKey:any;
-    
     isReplyFormOpen:boolean = false;
-    
-    _dataFacet:any;
     
     citiesList:any=[];
     statesList:any=[];
@@ -37,61 +32,12 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
     
     addFilterOption:FormGroup;
 
-    constructor(private globalVar:GlobalVariablesService, private ref: ChangeDetectorRef, private formBuilder: FormBuilder, private api:ApiService) {
-        this.currentActiveFilter = null;
-        this.currentActiveFilterOption = null;
-        this.currentActiveFilterOptionKey = null;
-        
-        this.initDataFacet();
-    }
-    
-    initDataFacet() {
-        // data default filter facets
-        this._dataFacet = {
-            domains: {
-                'key': '',
-                'timeline': 'currentOrPast',
-                'logicalOperator': 'and',
-                'experienceMin': 0,
-                'experienceMax': 100,
-            },
-            jobtitles: {
-                'key': '',
-                'timeline': 'currentOrPast',
-                'logicalOperator': 'and',
-                'experienceMin': 0,
-                'experienceMax': 100,
-            },
-            degrees: {
-                'key': '',
-                'timeline': 'currentOrPast',
-                'logicalOperator': 'and',
-            },
-            cities: {
-                'key': '',
-                'timeline': 'currentOrPast',
-                'logicalOperator': 'and',
-                'radius': 25
-            },
-            states: {
-                'key': '',
-                'timeline': 'currentOrPast',
-                'logicalOperator': 'and',
-            },
-            lists: {
-                'key': '',
-                'logicalOperator': 'and',
-            },
-            keywords: {
-                'key': '',
-                'logicalOperator': 'and',
-            },
-            countries: {
-                key: '',
-                timeline: 'currentOrPast',
-                logicalOperator: 'and'
-            }
-        };
+    constructor(private globalVar:GlobalVariablesService, 
+        private ref: ChangeDetectorRef, 
+        private formBuilder: FormBuilder, 
+        private api:ApiService, 
+        private search:SearchService) {
+            
     }
 
     ngOnInit() {
@@ -113,9 +59,9 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
             html: true,
             selector: '[rel="popover"]',
             boundary: 'window',
-            delay: { "show": 150, "hide": 100 }
+            delay: { "show": 200, "hide": 100 }
         };
-//        
+        
         $('body').popover(popOverSettings).on("show.bs.popover", (e=>{
             $("[rel='popover']").not(e.target).popover("hide");
             $(".popover").remove();
@@ -149,17 +95,14 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
     }
 
     openOptionsPopover(key:any, id:any, filter:any) {
-        this.currentActiveFilter = filter;
-        this.currentActiveFilterOption = id;
-        this.currentActiveFilterOptionKey = key;
-        
+        this.globalVar.setCurrentActiveFilterPopoverOptionsPeople({filter:filter, id:id, key:key});
         var popover = $("body").data('bs.popover');
         
         popover.config.content = () => {
             var str = '<div id="popover-content">' + 
-                '<div ' + ((this.currentActiveFilter !== undefined && this.currentActiveFilter !== null) ? '' : 'hidden') + ' class="popover-content-div">' +
+                '<div ' + ((filter !== undefined && filter !== null) ? '' : 'hidden') + ' class="popover-content-div">' +
                     '<h3>' + filter.buckets[id].label + '</h3>' +
-                    '<div ' + ((this.currentActiveFilter.hasTimeline === true) ? '' : 'hidden') + ' class="form-group timeline-div">' +
+                    '<div ' + ((filter.hasTimeline === true) ? '' : 'hidden') + ' class="form-group timeline-div">' +
                         '<label class="timeline-title">Timeline</label>' + 
                         '<select class="form-control timeline-select" name="valueTimeline" id="valueTimeline">' + 
                             '<option ' + ((filter.buckets[id].timeline === null) ? 'selected' : '') + ' value="null">Current or Past</option>' +
@@ -167,7 +110,7 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
                             '<option ' + ((filter.buckets[id].timeline === 'current') ? 'selected' : '') + ' value="current">Current</option>' + 
                         '</select>' + 
                     '</div>' + 
-                    '<div ' + ((this.currentActiveFilter.hasLogicalOperator === true) ? '' : 'hidden') + ' class="form-group logical-operator-div">' + 
+                    '<div ' + ((filter.hasLogicalOperator === true) ? '' : 'hidden') + ' class="form-group logical-operator-div">' + 
                         '<label class="logical-operator-title">Logical Operator</label>' + 
                         '<select name="valueLogicalOperator" class="form-control logical-operator-select" id="valueLogicalOperator">' + 
                             '<option ' + ((filter.buckets[id].logicalOperator === 'and') ? 'selected' : '') + ' value="and">And</option>' + 
@@ -175,7 +118,7 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
                             '<option ' + ((filter.buckets[id].logicalOperator === 'not') ? 'selected' : '') + ' value="not">Not</option>' + 
                         '</select>' +
                     '</div>' + 
-                    '<div ' + ((this.currentActiveFilter.hasExperience === true) ? '' : 'hidden') + ' class="form-group experience-div">' + 
+                    '<div ' + ((filter.hasExperience === true) ? '' : 'hidden') + ' class="form-group experience-div">' + 
                         '<label class="experience-title">Experience (years)</label>' + 
                         '<div class="row experience-row">' + 
                             '<div class="col-sm-6 col-xs-12  experience-col">' + 
@@ -186,7 +129,7 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
                             '</div>' + 
                         '</div>' + 
                     '</div>' +
-                    '<div ' + ((this.currentActiveFilter.hasRadius === true && this.currentActiveFilter.name === 'cities') ? '' : 'hidden') + ' class="form-group radius-div">' + 
+                    '<div ' + ((filter.hasRadius === true && filter.name === 'cities') ? '' : 'hidden') + ' class="form-group radius-div">' + 
                         '<label class="radius-title">Radius (in miles)</label>' + 
                         '<input class="form-control radius-input" type="number" min="0" name="radius" id="radius" value="' + (filter.buckets[id].radius !== undefined ? filter.buckets[id].radius : '') + '">' + 
                     '</div>' + 
@@ -198,51 +141,21 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
         };
     }
     
-    clearSearch() {
-        var body = {
-            from: 0,
-            sort: "lastUpdate"
-        };
-        this.globalVar.setCurrentSearchFiltersPeople(body);
-
-        this.initDataFacet();
-        this.globalVar.peopleListChanged();
-    }
-    
-    selectCheckedFacets(bucket:any, filter:any) {
-        var activeFilters = this.globalVar.getCurrentSearchFiltersPeople();
-        
-        if(bucket.isSelected) {
-            var obj = {key: bucket.key};
-            if(activeFilters[filter.name] === undefined) 
-                activeFilters[filter.name] = [];
-            activeFilters[filter.name].push(obj);
-        } else {
-            if(activeFilters[filter.name] !== undefined) {
-                var arr = activeFilters[filter.name].filter((e=> { return e.key !== bucket.key; }));
-                if (arr.length > 0) {
-                    activeFilters[filter.name] = arr;
-                } else delete activeFilters[filter.name];
-                this.initDataFacet();
-            }
-        }
-        activeFilters.from = 0;
-        this.globalVar.setCurrentSearchFiltersPeople(activeFilters);
-        this.globalVar.peopleListChanged();
-    }
-    
     changeInfoFacets(field:string, value:any) {
+        var currentActiveFilter = this.globalVar.getCurrentActiveFilterPopoverOptionsPeople();
         var activeFilters = this.globalVar.getCurrentSearchFiltersPeople();
         var fieldName = '';
         field === 'valueTimeline' ? fieldName = 'timeline' : (field === 'valueLogicalOperator' ? fieldName = 'logicalOperator' : (field === 'min_exp' ? fieldName = 'experienceMin'
                 : (field === 'max_exp' ? fieldName = 'experienceMax' : fieldName = 'radius')));
-        var index = _.findIndex(activeFilters[this.currentActiveFilter.name], { 'key': this.currentActiveFilterOptionKey });
-        activeFilters[this.currentActiveFilter.name][index][fieldName] = value;
+
+        var index = _.findIndex(activeFilters[currentActiveFilter.filter.name], { 'key': currentActiveFilter.key });
+        activeFilters[currentActiveFilter.filter.name][index][fieldName] = value;
     }
     
     saveInfoFacets() { 
         var activeFilters = this.globalVar.getCurrentSearchFiltersPeople();
         activeFilters.from = 0;
+        this.globalVar.setCurrentPagePeople(1);
         this.globalVar.setCurrentSearchFiltersPeople(activeFilters);
         this.globalVar.peopleListChanged();
     }
@@ -252,69 +165,30 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
             filter.isReplyFormOpen = true;
         } else filter.isReplyFormOpen = !filter.isReplyFormOpen;
     }
+    
     submitAddFilterOption(filter:any) {
         if((this.addFilterOption.value.addFacets !== undefined && this.addFilterOption.value.addFacets !== "")) {
-            let buckets = filter.buckets;
-
-            var index = _.findIndex(buckets, (o) => { return o['key'] == this.addFilterOption.value.addFacetsObject.id; });
-
-            if(index === -1) {
-                var obj = {};
-                obj['key'] = String(this.addFilterOption.value.addFacetsObject.id);
-                obj['isSelected'] = true;
-                obj['label'] = this.addFilterOption.value.addFacetsObject.name;
-                buckets.push(obj);
-            } else {
-                buckets[index].isSelected = true;
-            }
-
-            var currentActiveFilters = this.globalVar.getCurrentSearchFiltersPeople();
-            var activeBuckets = _.filter(buckets, function (o) {return o.isSelected;});
-            currentActiveFilters[filter.name] = _.map(activeBuckets, (bucket) => { return {'key': bucket['key']};});
-            currentActiveFilters.from = 0;
-
+            this.search.addNewOptionToSelectedFiltersPeople(filter, this.addFilterOption.value.addFacetsObject);
             filter.isReplyFormOpen = false;
-            this.addFilterOption.patchValue({
-                addFacetsObject: null,
-                addFacets: "",
-                keywords: ""
-            });
-            this.cities = "";
-            this.default = "";
-            this.states = "";
-            this.countries = "";
-            this.globalVar.setCurrentSearchFiltersPeople(currentActiveFilters);
-            this.globalVar.peopleListChanged();
+            this.clearAddNewOptionForm();
             
         } else if(this.addFilterOption.value.keywords !== undefined && this.addFilterOption.value.keywords !== "") {
-            var currentActiveFilters = this.globalVar.getCurrentSearchFiltersPeople();
-            var searchLowerCase = this.addFilterOption.value.keywords.toLowerCase();
-            var searchData = {key: searchLowerCase};
-            
-            if(currentActiveFilters.keywords === undefined) {
-                currentActiveFilters.keywords = [];
-                currentActiveFilters.keywords.push(searchData);
-            } else {
-                var index = _.findIndex(currentActiveFilters.keywords, (o) => { return o['key'] === searchLowerCase; });
-                if(index === -1) {
-                    currentActiveFilters.keywords.push(searchData);
-                }
-            }
-            
-            currentActiveFilters.from = 0;
+            this.search.keywordSearchPeople(this.addFilterOption.value.keywords);
             filter.isReplyFormOpen = false;
-            this.addFilterOption.patchValue({
-                addFacetsObject: null,
-                addFacets: "",
-                keywords: ""
-            });
-            this.cities = "";
-            this.default = "";
-            this.states = "";
-            this.countries = "";
-            this.globalVar.setCurrentSearchFiltersPeople(currentActiveFilters);
-            this.globalVar.peopleListChanged();
+            this.clearAddNewOptionForm();
         }
+    }
+    
+    clearAddNewOptionForm() {
+        this.addFilterOption.patchValue({
+            addFacetsObject: null,
+            addFacets: "",
+            keywords: ""
+        });
+        this.cities = "";
+        this.default = "";
+        this.states = "";
+        this.countries = "";
     }
     
     citiesChangeInputEvent() {

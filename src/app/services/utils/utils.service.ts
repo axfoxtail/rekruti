@@ -72,4 +72,14 @@ export class UtilsService {
         }
         return dataCheckFacets;
     }
+    
+    // return number of selected facets
+    countFacetSelected(conditions:any) {
+        var count = 0;
+        _.forEach(conditions, function(v, i) {
+            var arr = _.filter(v.buckets, { 'isSelected': true });
+            count += arr.length;
+        });
+        return count;
+    }
 }

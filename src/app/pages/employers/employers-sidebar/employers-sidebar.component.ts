@@ -62,23 +62,8 @@ export class EmployersSidebarComponent implements OnInit {
     
     submitAddFilterOption(filter:any) {
         if(this.addFilterOption.value.addFacetsObject) {
-            var key = this.addFilterOption.value.addFacets;
-            _.forEach(this.filtersList, (value, i) => {
-                if (value.name === filter.name) {
-                    var c = [];
-                    _.forEach(value.buckets, (v, k) => {
-                        if (v.key === key) {
-                            v["isSelected"] = true;
-                            this.search.changeCheckedFacets(true, v.key, filter.name, false);
-                        }
-                        c.push(v.key);
-                    });
-                    if (c.indexOf(key) === -1) {
-                        value.buckets.push({ key: key, doc_count: null, isSelected: true });
-                        this.search.changeCheckedFacets(true, this.addFilterOption.value.addFacets, filter.name, true);
-                    }
-                }
-            });
+            this.search.addNewOptionToSelectedFiltersEmployers(this.addFilterOption.value.addFacets, this.filtersList, filter);
+            
             this.addFilterOption.patchValue({
                 addFacetsObject: null,
                 addFacets: "",

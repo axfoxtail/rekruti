@@ -136,9 +136,34 @@
     display: inline-block;
     margin-bottom: 3px;
     margin-top: 3px;
+    animation: pulse 1s;
+}
+@keyframes pulse {
+  0% {
+    background-color: rgba(221,221,221, 0);
+  }
+  100% {
+    background-color: rgba(221,221,221, 1);
+  }
 }
 .active-filters-list .filter-div .remove-active-tag {
     margin-left: 10px;
     color: #555;
     cursor: pointer;
+}
+.active-filters-list  .reset-tag-buckets {
+    background-color: #ddd;
+    margin-right: 5px;
+    padding: 1px 10px;
+    display: inline-block;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    background: #fff;
+    border: 1px solid #ddd;
+    color: #555;
+    cursor: pointer;
+}
+.active-filters-list  .reset-tag-buckets:hover {
+    background: #ddd;
+    text-decoration: none;
 }

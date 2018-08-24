@@ -7,32 +7,37 @@ import { UtilsService } from '../utils/utils.service';
     providedIn: 'root'
 })
 export class GlobalVariablesService {
-    
-    public sidebarStateChangedEvent: EventEmitter<any> = new EventEmitter();
-    public employersSidebarStateChangedEvent: EventEmitter<any> = new EventEmitter();
-    public windowWidthChangedEvent: EventEmitter<any> = new EventEmitter();
-    public employersWindowWidthChangedEvent: EventEmitter<any> = new EventEmitter();
-    
-    public scrollPeopleContentToTopEvent: EventEmitter<any> = new EventEmitter();
-    public scrollEmployersContentToTopEvent: EventEmitter<any> = new EventEmitter();
-    
+
+    //people start
+    public sidebarStateChangedPeopleEvent: EventEmitter<any> = new EventEmitter();
+    public windowWidthChangedPeopleEvent: EventEmitter<any> = new EventEmitter();
+    public scrollContentToTopPeopleEvent: EventEmitter<any> = new EventEmitter();
     public peopleListEvent: EventEmitter<any> = new EventEmitter();
     public peopleListChangedEvent: EventEmitter<any> = new EventEmitter();
+    
+    private currentFiltersPeople:any = [];
+    private currentPagePeople:any;
+    private hasFacetSelectedPeople:any;
+    private currentActiveFilterPopoverOptionsPeople:any;
+    //people end
+    
+    //employers start
+    public sidebarStateChangedEmployersEvent: EventEmitter<any> = new EventEmitter();
+    public windowWidthChangedEmployersEvent: EventEmitter<any> = new EventEmitter();
+    public scrollContentToTopEmployersEvent: EventEmitter<any> = new EventEmitter();
     public employersListEvent: EventEmitter<any> = new EventEmitter();
     public employersListChangedEvent: EventEmitter<any> = new EventEmitter();
     
-    public employersShowResetButtonEvent: EventEmitter<any> = new EventEmitter();
-    
-    private currentFiltersPeople:any = [];
-    private currentFiltersEmployers:any = [];
-    
-    private urlFacets:any;
+    private urlFacetsEmployers:any;
     private employersRequestBody:any = {};
-    private dataCheckFacets:any = [];
-    private showResetButtonVar:any;
+    private dataCheckFacetsEmployers:any = [];
+    private currentPageEmployers:any;
+    private hasFacetSelectedEmployers:any;
+    //employers end
 
     constructor(private cookieService:CookieService, private utils:UtilsService) { }
     
+    //general start
     setCookieCurrentUser(_object:any) {
         var currentUser = {
             currentUser: {
@@ -56,79 +61,100 @@ export class GlobalVariablesService {
     removeCookieCurrentUser() {
         this.cookieService.remove('globals');
     }
+    //general end
+    
+    //people start
+    setCurrentActiveFilterPopoverOptionsPeople(data:any) {
+        this.currentActiveFilterPopoverOptionsPeople = data;
+    }
+    getCurrentActiveFilterPopoverOptionsPeople() {
+        return this.currentActiveFilterPopoverOptionsPeople;
+    }
+    setHasFacetSelectedPeople(data:any) {
+        this.hasFacetSelectedPeople = data;
+    }
+    getHasFacetSelectedPeople() {
+        return this.hasFacetSelectedPeople;
+    }
+    setCurrentPagePeople(data:any) {
+        this.currentPagePeople = data;
+    }
+    getCurrentPagePeople() {
+        return this.currentPagePeople;
+    }
     setCurrentSearchFiltersPeople(obj:any) {
         this.currentFiltersPeople = obj;
     }
     getCurrentSearchFiltersPeople():any {
         return this.currentFiltersPeople;
     }
-    setCurrentSearchFiltersEmployers(obj:any) {
-        this.currentFiltersEmployers = obj;
+    sidebarStateChangedPeople() {
+        this.sidebarStateChangedPeopleEvent.emit();
     }
-    getCurrentSearchFiltersEmployers():any {
-        return this.currentFiltersEmployers;
+    windowWidthChangedPeople(width:any) {
+        this.windowWidthChangedPeopleEvent.emit(width);
     }
-    setUrlFacets(data:any) {
-        this.urlFacets = this.utils.urlFacets(data);
+    scrollContentToTopPeople() {
+        this.scrollContentToTopPeopleEvent.emit();
     }
-    getUrlFacets() {
-        return this.urlFacets;
+    peopleList(list:any) {
+        this.peopleListEvent.emit(list);
     }
-    setEmployersRequestBody(keyword:any, from_:any, sort:any) {
+    peopleListChanged() {
+        this.peopleListChangedEvent.emit();
+    }
+    //people end
+    
+    //employers start
+    setHasFacetSelectedEmployers(data:any) {
+        this.hasFacetSelectedEmployers = data;
+    }
+    getHasFacetSelectedEmployers() {
+        return this.hasFacetSelectedEmployers;
+    }
+    setCurrentPageEmployers(data:any) {
+        this.currentPageEmployers = data;
+    }
+    getCurrentPageEmployers() {
+        return this.currentPageEmployers;
+    }
+    setUrlFacetsEmployers(data:any) {
+        this.urlFacetsEmployers = this.utils.urlFacets(data);
+    }
+    getUrlFacetsEmployers() {
+        return this.urlFacetsEmployers;
+    }
+    setRequestBodyEmployers(keyword:any, from_:any, sort:any) {
         this.employersRequestBody = {
             keyword: keyword,
             from: from_,
             sort: sort
         };
     }
-    getEmployersRequestBody() {
+    getRequestBodyEmployers() {
         return this.employersRequestBody;
     }
-    setDataCheckFacets(data:any) {
-        this.dataCheckFacets = data;
+    setDataCheckFacetsEmployers(data:any) {
+        this.dataCheckFacetsEmployers = data;
     }
-    getDataCheckFacets() {
-        return this.dataCheckFacets;
+    getDataCheckFacetsEmployers() {
+        return this.dataCheckFacetsEmployers;
     }
-    setShowResetButtonVar(data:any) {
-        this.employersShowResetButton(data);
-        this.showResetButtonVar = data;
+    sidebarStateChangedEmployers() {
+        this.sidebarStateChangedEmployersEvent.emit();
     }
-    getShowResetButtonVar() {
-        return this.showResetButtonVar;
+    windowWidthChangedEmployers(width:any) {
+        this.windowWidthChangedEmployersEvent.emit(width);
     }
-    
-    employersShowResetButton(data:any) {
-        this.employersShowResetButtonEvent.emit(data);
-    }
-    employersSidebarStateChanged() {
-        this.employersSidebarStateChangedEvent.emit();
-    }
-    sidebarStateChanged() {
-        this.sidebarStateChangedEvent.emit();
-    }
-    windowWidthChanged(width:any) {
-        this.windowWidthChangedEvent.emit(width);
-    }
-    employersWindowWidthChanged(width:any) {
-        this.employersWindowWidthChangedEvent.emit(width);
-    }
-    scrollPeopleContentToTop() {
-        this.scrollPeopleContentToTopEvent.emit();
-    }
-    scrollEmployersContentToTop() {
-        this.scrollEmployersContentToTopEvent.emit();
-    }
-    peopleList(list:any) {
-        this.peopleListEvent.emit(list);
+    scrollContentToTopEmployers() {
+        this.scrollContentToTopEmployersEvent.emit();
     }
     employersList(list:any) {
         this.employersListEvent.emit(list);
     }
-    peopleListChanged() {
-        this.peopleListChangedEvent.emit();
-    }
     employersListChanged() {
         this.employersListChangedEvent.emit();
     }
+    //employers end
+    
 }

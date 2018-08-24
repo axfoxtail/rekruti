@@ -44,8 +44,6 @@ export class EmployersListComponent implements OnInit {
     employersList:any = [];
     activeFiltersList:any = [];
     currentActiveItemInEmployersList:any;
-    
-    showResetButtonVar:boolean;
 
     constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService, private search:SearchService) {
         this.employersData = {
@@ -63,6 +61,7 @@ export class EmployersListComponent implements OnInit {
             this.employersData = list.data;
             this.activeFiltersList = list.data.aggregations;
             this.employersList = this.employersData.hits;
+            this.config.currentPage = this.globalVar.getCurrentPageEmployers();
         });
         
         $('#employersDetailsModal').on('hide.bs.modal', (e=> {
@@ -70,22 +69,19 @@ export class EmployersListComponent implements OnInit {
                 this.listItems._results[i].nativeElement.className = "employers-list-td";
             }
         }));
-        this.showResetButtonVar = this.search.showResetButton();
-        this.globalVar.employersShowResetButtonEvent.subscribe((data:any) => {
-            this.showResetButtonVar = data;
-        });
     }
     
     updateEmployersList(start:any) {
-        this.globalVar.setEmployersRequestBody('', start, 'relevancy');
+        this.globalVar.setRequestBodyEmployers('', start, 'relevancy');
         this.globalVar.employersListChanged();
     }
     
     onPageChange(number: number) {
         this.config.currentPage = number;
+        this.globalVar.setCurrentPageEmployers(this.config.currentPage);
         var start = this.calcFromWhichItem(number);
         this.updateEmployersList(start);
-        this.globalVar.scrollEmployersContentToTop();
+        this.globalVar.scrollContentToTopEmployers();
     }
     
     calcFromWhichItem(page: number):any {
@@ -95,6 +91,7 @@ export class EmployersListComponent implements OnInit {
     openDetailsModal(item:any) {
         this.currentActiveItemInEmployersList = item;
     }
+    
     checkActiveItem(id:any) {
         if(this.currentActiveItemInEmployersList.id === id)
             return 'active';

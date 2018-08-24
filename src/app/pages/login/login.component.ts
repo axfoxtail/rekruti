@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
     }
     
     validateAllFormFields(formGroup: FormGroup) {
-        console.log('1');
         Object.keys(formGroup.controls).forEach((field) => {
             const control = formGroup.get(field);
             if (control instanceof FormControl) {
@@ -47,15 +46,11 @@ export class LoginComponent implements OnInit {
     
     submitLogin() {
         this.spinner.show();
-        console.log(this.loginForm.value);
-        console.log(this.loginForm.valid);
         
         if(this.loginForm.valid) { 
             this.api.login(this.loginForm.value).then(reply => {
-                console.log(reply);
                 if(reply.result === 1) {
                     this.globalVar.setCookieCurrentUser(reply);
-                    console.log(this.globalVar.getCookieCurrentUser());
                     this.loginWasWrong = false;
                     this.toastr.success('Login successful!', '', {
                         timeOut: 5000,

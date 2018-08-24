@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
 import { ApiService } from '../../../services/api/api.service';
+import { UtilsService } from '../../../services/utils/utils.service';
 
 declare var $:any;
 
@@ -23,7 +24,7 @@ export class PeopleComponent implements OnInit {
     
     peopleData:any = {};
 
-    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService) {
+    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService, private utils:UtilsService) {
         if(this.windowWidth <= this._autoCollapseWidth) {
             this._opened = false;
         } else this._opened = true;
@@ -37,10 +38,10 @@ export class PeopleComponent implements OnInit {
         this.globalVar.setCurrentSearchFiltersPeople(body);
         this.getPeopleList(body);
         
-        this.globalVar.sidebarStateChangedEvent.subscribe(() => {
+        this.globalVar.sidebarStateChangedPeopleEvent.subscribe(() => {
             this._toggleSidebar();
         });
-        this.globalVar.scrollPeopleContentToTopEvent.subscribe(() => {
+        this.globalVar.scrollContentToTopPeopleEvent.subscribe(() => {
             this.scrollToTop();
         });
         this.globalVar.peopleListChangedEvent.subscribe(() => {
@@ -52,7 +53,9 @@ export class PeopleComponent implements OnInit {
         this.spinner.show();
         this.api.getPeopleList(body).then(reply => {
             this.peopleData = reply;
+            this.globalVar.setHasFacetSelectedPeople(this.utils.countFacetSelected(reply.data.aggregations));
             this.globalVar.peopleList(this.peopleData);
+            this.scrollToTop();
             this.spinner.hide();
             $('ng-sidebar-container').click();
         });
@@ -61,7 +64,7 @@ export class PeopleComponent implements OnInit {
     @HostListener('window:resize', ['$event'])
     onResize(event) {
         this.windowWidth = event.target.innerWidth;
-        this.globalVar.windowWidthChanged(this.windowWidth);
+        this.globalVar.windowWidthChangedPeople(this.windowWidth);
         if(this.windowWidth <= this._autoCollapseWidth) {
             this._opened = false;
         } else this._opened = true;

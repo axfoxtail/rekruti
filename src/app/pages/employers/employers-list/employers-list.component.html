@@ -6,7 +6,7 @@
     </div>
 </div>
 
-<div class="active-filters-list">
+<div class="active-filters-list" *ngIf="globalVar.getHasFacetSelectedEmployers() > 0">
     <span *ngFor="let filter of activeFiltersList">
         <span *ngIf="filter.isVisible">
             <span *ngFor="let bk of filter.buckets">
@@ -20,7 +20,7 @@
             </span>
         </span>
     </span>
-    <a (click)="search.clearSearch()" *ngIf="showResetButtonVar" class="reset-tag-buckets">Reset</a>
+    <a (click)="search.clearSearchEmployers()" class="reset-tag-buckets">Reset</a>
 </div>
 
 <div class="table-responsive" *ngIf="employersData.hits.length > 0">

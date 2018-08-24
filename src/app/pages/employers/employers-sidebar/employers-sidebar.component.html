@@ -1,6 +1,6 @@
 <div class="search-label-left">
     <span>Search Employer</span>
-    <a class="pull-right" (click)="search.clearSearch()">Clear</a>
+    <a class="pull-right" (click)="search.clearSearchEmployers()">Clear</a>
 </div>
 
 <div class="filter" *ngFor="let filter of filtersList">
@@ -18,7 +18,7 @@
             <div class="filter-body">
                 <div class="filter-item" *ngFor="let cb of filter.buckets; let i = index">
                     <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" 
-                       [(ngModel)]="cb.isSelected" (ngModelChange)="search.changeCheckedFacets(cb.isSelected, cb.key, filter.name, cb.isMore)" (checked)="isCheckedFacets(cb.isSelected)">
+                       [(ngModel)]="cb.isSelected" (ngModelChange)="search.changeCheckedFacetsEmployers(cb.isSelected, cb.key, filter.name, cb.isMore)" (checked)="isCheckedFacets(cb.isSelected)">
                     
                     <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
                         <p class="title-option-span" *ngIf="filter.name !== 'experience'"  

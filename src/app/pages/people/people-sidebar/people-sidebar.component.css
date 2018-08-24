@@ -101,3 +101,7 @@ a:focus {
      outline: none;
 }
 
+.filter-body [type="checkbox"]:not(:checked) + label:hover, .filter-body [type="checkbox"]:checked + label:hover {
+    color: #999;
+}
+
