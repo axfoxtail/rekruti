@@ -4,7 +4,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
 import { ApiService } from '../../../services/api/api.service';
-import { UtilsService } from '../../../services/utils/utils.service';
+import { SearchService } from '../../../services/search/search.service';
+import { NotificationsService } from '../../../services/notifications/notifications.service';
 
 declare var $:any;
 
@@ -23,20 +24,24 @@ export class PeopleComponent implements OnInit {
     windowWidth:any = window.innerWidth;
     
     peopleData:any = {};
+    openFacets:any = {};
 
-    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService, private utils:UtilsService) {
-        if(this.windowWidth <= this._autoCollapseWidth) {
-            this._opened = false;
-        } else this._opened = true;
+    constructor(private globalVar:GlobalVariablesService, 
+        private api:ApiService, 
+        private spinner: NgxSpinnerService, 
+        private search:SearchService,
+        private notifications:NotificationsService) {
+        
+            if(this.windowWidth <= this._autoCollapseWidth) {
+                this._opened = false;
+            } else this._opened = true;
+
+            this.globalVar.setSearchConditionsPeople([]);
     }
 
     ngOnInit() {
-        var body = {
-            from: 0,
-            sort: "lastUpdate"
-        };
-        this.globalVar.setCurrentSearchFiltersPeople(body);
-        this.getPeopleList(body);
+        this.globalVar.setSearchConditionsPeople(this.search.buildQuery(this.globalVar.getSearchConditionsPeople()));
+        this.getPeopleList(this.globalVar.getSearchConditionsPeople());
         
         this.globalVar.sidebarStateChangedPeopleEvent.subscribe(() => {
             this._toggleSidebar();
@@ -44,21 +49,44 @@ export class PeopleComponent implements OnInit {
         this.globalVar.scrollContentToTopPeopleEvent.subscribe(() => {
             this.scrollToTop();
         });
-        this.globalVar.peopleListChangedEvent.subscribe(() => {
-            this.getPeopleList(this.globalVar.getCurrentSearchFiltersPeople());
+        this.globalVar.peopleListChangedEvent.subscribe((data:any) => {
+            this.getPeopleList(data);
         });
     }
     
-    getPeopleList(body:any) {
+    getPeopleList(queryJson:any) {
         this.spinner.show();
-        this.api.getPeopleList(body).then(reply => {
-            this.peopleData = reply;
-            this.globalVar.setHasFacetSelectedPeople(this.utils.countFacetSelected(reply.data.aggregations));
-            this.globalVar.peopleList(this.peopleData);
-            this.scrollToTop();
-            this.spinner.hide();
-            $('ng-sidebar-container').click();
+        this.globalVar.setSearchQueryPeople(queryJson);
+
+        this.api.getPeopleList(queryJson).then(response => {
+            if (response.result > 0) {
+                // save conditions globally
+                var conditions = this.globalVar.getSearchConditionsPeople();
+                conditions = response.data.aggregations;
+                conditions.sort = response.data.sort;
+                conditions.from = response.data.from;
+                conditions.size = response.data.size;
+                this.globalVar.setSearchConditionsPeople(conditions);
+//                this.search.setOpenFacets(response.data.aggregations, this.openFacets);
+                // that is to get the templates to work
+                this.globalVar.setCurrentPagePeople(this.search.getPage(response.data.from, response.data.size));
+                this.globalVar.peopleList(response);
+            } else {
+                this.notifications.warning(response.message, 10000);
+            }
+            this.hideSpinnerScrollToTop();
+            
+        }),(err => {
+            console.log(err);
+            this.notifications.warning('', 10000);
+            this.hideSpinnerScrollToTop();
         });
+    }
+    
+    hideSpinnerScrollToTop() {
+        this.scrollToTop();
+        this.spinner.hide();
+        $('ng-sidebar-container').click();
     }
     
     @HostListener('window:resize', ['$event'])

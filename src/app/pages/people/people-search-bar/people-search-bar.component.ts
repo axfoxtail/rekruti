@@ -36,7 +36,10 @@ export class PeopleSearchBarComponent implements OnInit {
     
     submitSearch() {
         if(this.searchPeopleForm.valid) {
-            this.search.keywordSearchPeople(this.searchPeopleForm.value.searchRequest);
+            var peopleSearchConditions = this.globalVar.getSearchConditionsPeople();
+            var body = this.search.addBucketKeyword(this.searchPeopleForm.value.searchRequest, peopleSearchConditions[0], peopleSearchConditions);
+            this.globalVar.peopleListChanged(body);
+            this.globalVar.scrollContentToTopPeople();
             
             this.searchPeopleForm.patchValue({
                 searchRequest: ''

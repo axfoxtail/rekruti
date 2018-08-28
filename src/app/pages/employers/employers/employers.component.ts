@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
 import { ApiService } from '../../../services/api/api.service';
 import { UtilsService } from '../../../services/utils/utils.service';
+import { NotificationsService } from '../../../services/notifications/notifications.service';
 
 @Component({
   selector: 'app-employers',
@@ -22,10 +23,14 @@ export class EmployersComponent implements OnInit {
     
     employersData:any = {};
 
-    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService, private utils:UtilsService) {
-        if(this.windowWidth <= this._autoCollapseWidth) {
-            this._opened = false;
-        } else this._opened = true;
+    constructor(private globalVar:GlobalVariablesService, 
+        private api:ApiService, 
+        private spinner: NgxSpinnerService, 
+        private utils:UtilsService,
+        private notifications:NotificationsService) {
+            if(this.windowWidth <= this._autoCollapseWidth) {
+                this._opened = false;
+            } else this._opened = true;
     }
 
     ngOnInit() {
@@ -53,6 +58,10 @@ export class EmployersComponent implements OnInit {
             this.globalVar.setHasFacetSelectedEmployers(this.utils.countFacetSelected(reply.data.aggregations));
             this.globalVar.employersList(this.employersData);
             this.scrollToTop();
+            this.spinner.hide();
+        }),(err => {
+            console.log(err);
+            this.notifications.warning('', 10000);
             this.spinner.hide();
         });
     }

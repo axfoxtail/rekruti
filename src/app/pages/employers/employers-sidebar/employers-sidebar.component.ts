@@ -14,6 +14,7 @@ import * as _ from "lodash";
 })
 export class EmployersSidebarComponent implements OnInit {
     
+    pageTitle:string = 'Employers';
     filtersList:any;
     employersData:any;
     addFilterOption:FormGroup;

@@ -44,6 +44,7 @@ import { GlobalVariablesService } from './services/global-variables/global-varia
 import { AuthSecurityService } from './services/auth-security/auth-security.service';
 import { UtilsService } from './services/utils/utils.service';
 import { SearchService } from './services/search/search.service';
+import { NotificationsService } from './services/notifications/notifications.service';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { SearchService } from './services/search/search.service';
       GlobalVariablesService,
       AuthSecurityService,
       UtilsService,
-      SearchService
+      SearchService,
+      NotificationsService
   ],
   bootstrap: [AppComponent]
 })

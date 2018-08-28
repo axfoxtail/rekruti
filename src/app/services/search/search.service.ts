@@ -12,6 +12,128 @@ export class SearchService {
 
     constructor(private globalVar:GlobalVariablesService, private utils:UtilsService) { }
     
+    // return object if key property matches in array
+    findItemByKey(array:any, key:any) {
+        _.forEach(array, (v, i) => {
+            if (i == key) {
+                return v;
+            }
+        });
+        return null;
+    }
+    
+    buildQuery(conditions?:any) {
+        var query = {
+            from: 0,
+            size: 20,
+            sort: 'lastUpdate'
+        };
+        if (conditions === undefined || conditions === null) {
+            return query;
+        }
+        _.forEach(conditions, (v, i) => {
+            var facetName = v.name;
+            _.forEach(v.buckets, (val, key) => {
+                // is the bucket selected ?
+                if (val.isSelected) {
+                    // create the entry if does not exist
+                    if (query[facetName] === undefined)
+                        query[facetName] = [];
+                    if (this.findItemByKey(query[facetName], key) == null) {
+                        query[facetName].push(val);
+                    }
+                }
+            });
+        });
+        return query;
+    }
+    
+    // get current page based on from and size
+    getPage(from_:any, size:any) {
+        return Math.ceil((from_ + 1) / size);
+    }
+    
+    // return if there are selected facets
+    hasBucketSelected(conditions:any) {
+        return this.countBucketSelected(conditions) > 0;
+    }
+    
+    // return number of selected facets
+    countBucketSelected(conditions:any) {
+        var count = 0;
+        _.forEach(conditions, (v, i) => {
+            _.forEach(v.buckets, (bucket, i) => {
+                if (bucket.isSelected)
+                    count++
+            });
+        });
+        return count;
+    }
+
+    // change the sort order
+    setSort(query:any, sort:any) {
+        query.sort = sort;
+        // if we change the sort, we go back to page #1
+        query.from = 0;
+        return query;
+    } 
+    
+    // add bucket from keyword
+    addBucketKeyword(keyword:any, facet:any, conditions:any) {
+        var newItem = { id: keyword, name: keyword };
+        return this.addBucket(newItem, facet, conditions);
+    }
+    
+    // add bucket from a selected item
+    addBucket(item:any, facet:any, conditions:any) {
+        var key = item.id.toString();
+        var bucket = this.findItemByKey(facet.buckets, key);
+        if (bucket == null) {
+            bucket = {
+                label: item.name,
+                key: key,
+                isSelected: true,
+                // set the default values
+                radius: facet.hasRadius ? 25 : null,
+                logicalOperator: facet.hasLogicalOperator ? facet.defaultLogicalOperator : null,
+                timeline: facet.hasTimeline ? 'current' : null,
+                experienceMin: facet.hasExperience ? 0 : null,
+                experienceMax: facet.hasExperience ? 60 : null
+            }
+            facet.buckets.push(bucket);
+        }
+        else {
+            bucket.isSelected = true;
+        }
+        facet.isAddingFacet = false;
+        return this.buildQuery(conditions);
+    }
+    
+    // select a bucket, apply default values
+    selectBucket(bucket:any, facet:any, conditions:any) {
+        if (bucket.isSelected) {
+            // set the default values
+            bucket.radius = facet.hasRadius ? 25 : null;
+            bucket.logicalOperator = facet.hasLogicalOperator ? facet.defaultLogicalOperator : null;
+            bucket.timeline = facet.hasTimeline ? 'current' : null;
+            bucket.experienceMin = facet.hasExperience ? 0 : null;
+            bucket.experienceMax = facet.hasExperience ? 60 : null;
+        }
+        return this.buildQuery(conditions);
+    }
+    
+    // clear everything 
+    clearSearch() {
+        return this.buildQuery();
+    }
+    
+    // unselect a bucket
+    removeBucket(bucket:any, conditions:any) {
+        bucket.isSelected = false;
+        return this.buildQuery(conditions);
+    }
+
+    
     //employers start
     changeCheckedFacetsEmployers(bool:any, key:any, facetName:any, isMore:any) {
         var dataCheckFacets = this.globalVar.getDataCheckFacetsEmployers();
@@ -54,86 +176,4 @@ export class SearchService {
         this.globalVar.employersListChanged();
     }
     //employers end
-    
-    
-    //people start
-    keywordSearchPeople(searchRequest:any) {
-        var currentActiveFilters = this.globalVar.getCurrentSearchFiltersPeople();
-        var searchLowerCase = searchRequest.toLowerCase();
-        var searchData = {key: searchLowerCase};
-
-        if(currentActiveFilters.keywords === undefined) {
-            currentActiveFilters.keywords = [];
-            currentActiveFilters.keywords.push(searchData);
-        } else {
-            var index = _.findIndex(currentActiveFilters.keywords, (o) => { return o['key'] === searchLowerCase; });
-            if(index === -1) {
-                currentActiveFilters.keywords.push(searchData);
-            }
-        }
-        currentActiveFilters.from = 0;
-        this.globalVar.setCurrentPagePeople(1);
-        this.globalVar.setCurrentSearchFiltersPeople(currentActiveFilters);
-        this.globalVar.peopleListChanged();
-    }
-    
-    addNewOptionToSelectedFiltersPeople(filter:any, addFacetsObject:any) {
-        let buckets = filter.buckets;
-        var index = _.findIndex(buckets, (o) => { return o['key'] == addFacetsObject.id; });
-        
-        if(index === -1) {
-            var obj = {};
-            obj['key'] = String(addFacetsObject.id);
-            obj['isSelected'] = true;
-            obj['label'] = addFacetsObject.name;
-            buckets.push(obj);
-        } else {
-            buckets[index].isSelected = true;
-        }
-        
-        var currentActiveFilters = this.globalVar.getCurrentSearchFiltersPeople();
-        var activeBuckets = _.filter(buckets, function (o) {return o.isSelected;});
-        currentActiveFilters[filter.name] = _.map(activeBuckets, (bucket) => { 
-            delete bucket['label'];
-            delete bucket['isSelected'];
-            return bucket;
-        });
-        currentActiveFilters.from = 0;
-        this.globalVar.setCurrentPagePeople(1);
-        this.globalVar.setCurrentSearchFiltersPeople(currentActiveFilters);
-        this.globalVar.peopleListChanged();
-    }
-    
-    selectCheckedFacetsPeople(bucket:any, filter:any) {
-        var activeFilters = this.globalVar.getCurrentSearchFiltersPeople();
-        
-        if(bucket.isSelected) {
-            var obj = {key: bucket.key};
-            if(activeFilters[filter.name] === undefined) 
-                activeFilters[filter.name] = [];
-            activeFilters[filter.name].push(obj);
-        } else {
-            if(activeFilters[filter.name] !== undefined) {
-                var arr = activeFilters[filter.name].filter((e=> { return e.key !== bucket.key; }));
-                if (arr.length > 0) {
-                    activeFilters[filter.name] = arr;
-                } else delete activeFilters[filter.name];
-            }
-        }
-        activeFilters.from = 0;
-        this.globalVar.setCurrentPagePeople(1);
-        this.globalVar.setCurrentSearchFiltersPeople(activeFilters);
-        this.globalVar.peopleListChanged();
-    }
-    
-    clearSearchPeople() {
-        var body = {
-            from: 0,
-            sort: "lastUpdate"
-        };
-        this.globalVar.setCurrentPagePeople(1);
-        this.globalVar.setCurrentSearchFiltersPeople(body);
-        this.globalVar.peopleListChanged();
-    }
-    //people end
 }

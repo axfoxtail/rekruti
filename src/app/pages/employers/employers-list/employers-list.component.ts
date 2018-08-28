@@ -2,11 +2,8 @@ import { Component, OnInit, ViewChildren } from '@angular/core';
 import { environment } from "../../../../environments/environment";
 
 import {PaginationInstance} from 'ngx-pagination';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
-import { ApiService } from '../../../services/api/api.service';
-import { SearchService } from '../../../services/search/search.service';
 
 declare var $:any;
 import * as _ from "lodash";
@@ -45,7 +42,7 @@ export class EmployersListComponent implements OnInit {
     activeFiltersList:any = [];
     currentActiveItemInEmployersList:any;
 
-    constructor(private globalVar:GlobalVariablesService, private api:ApiService, private spinner: NgxSpinnerService, private search:SearchService) {
+    constructor(private globalVar:GlobalVariablesService) {
         this.employersData = {
             total:0,
             hits:[] 

@@ -1,5 +1,5 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
 import { ApiService } from '../../../services/api/api.service';
@@ -15,6 +15,7 @@ import * as _ from "lodash";
 })
 export class PeopleSidebarComponent implements OnInit, AfterViewInit {
     
+    pageTitle:string = 'People';
     filtersList:any;
     peopleData:any;
     
@@ -141,40 +142,52 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
         };
     }
     
+    selectBucket(bucket:any, filter:any) {
+        bucket.isSelected = !bucket.isSelected;
+        var body = this.search.selectBucket(bucket, filter, this.globalVar.getSearchConditionsPeople());
+        this.globalVar.peopleListChanged(body);
+    }
+    
+    clearSearch() {
+        this.globalVar.peopleListChanged(this.search.clearSearch());
+    }
+    
     changeInfoFacets(field:string, value:any) {
-        var currentActiveFilter = this.globalVar.getCurrentActiveFilterPopoverOptionsPeople();
-        var activeFilters = this.globalVar.getCurrentSearchFiltersPeople();
+        var searchConditions = this.globalVar.getSearchConditionsPeople();
+        var activeFilter = this.globalVar.getCurrentActiveFilterPopoverOptionsPeople();
         var fieldName = '';
         field === 'valueTimeline' ? fieldName = 'timeline' : (field === 'valueLogicalOperator' ? fieldName = 'logicalOperator' : (field === 'min_exp' ? fieldName = 'experienceMin'
                 : (field === 'max_exp' ? fieldName = 'experienceMax' : fieldName = 'radius')));
-
-        var index = _.findIndex(activeFilters[currentActiveFilter.filter.name], { 'key': currentActiveFilter.key });
-        activeFilters[currentActiveFilter.filter.name][index][fieldName] = value;
+        var index = _.findIndex(searchConditions, { 'name': activeFilter.filter.name });
+        searchConditions[index].buckets[activeFilter.id][fieldName] = value;
+        this.globalVar.setSearchConditionsPeople(searchConditions);
     }
     
     saveInfoFacets() { 
-        var activeFilters = this.globalVar.getCurrentSearchFiltersPeople();
-        activeFilters.from = 0;
-        this.globalVar.setCurrentPagePeople(1);
-        this.globalVar.setCurrentSearchFiltersPeople(activeFilters);
-        this.globalVar.peopleListChanged();
+        this.globalVar.peopleListChanged(this.search.buildQuery(this.globalVar.getSearchConditionsPeople()));
+    }
+    
+    addBucket(filter:any) {
+        var body = this.search.addBucket(this.addFilterOption.value.addFacetsObject, filter, this.globalVar.getSearchConditionsPeople());
+        this.globalVar.peopleListChanged(body);
+    }
+    
+    addBucketKeyword(filter:any) {
+        var body = this.search.addBucketKeyword(this.addFilterOption.value.keywords, filter, this.globalVar.getSearchConditionsPeople());
+        this.globalVar.peopleListChanged(body);
     }
     
     addFilterOptionFunction(filter:any) {
-        if(filter.isReplyFormOpen === undefined) {
-            filter.isReplyFormOpen = true;
-        } else filter.isReplyFormOpen = !filter.isReplyFormOpen;
+        filter.isAddingFacet = !filter.isAddingFacet;
     }
     
     submitAddFilterOption(filter:any) {
         if((this.addFilterOption.value.addFacets !== undefined && this.addFilterOption.value.addFacets !== "")) {
-            this.search.addNewOptionToSelectedFiltersPeople(filter, this.addFilterOption.value.addFacetsObject);
-            filter.isReplyFormOpen = false;
+            this.addBucket(filter);
             this.clearAddNewOptionForm();
             
         } else if(this.addFilterOption.value.keywords !== undefined && this.addFilterOption.value.keywords !== "") {
-            this.search.keywordSearchPeople(this.addFilterOption.value.keywords);
-            filter.isReplyFormOpen = false;
+            this.addBucketKeyword(filter);
             this.clearAddNewOptionForm();
         }
     }

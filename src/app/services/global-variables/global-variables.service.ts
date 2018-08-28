@@ -15,10 +15,11 @@ export class GlobalVariablesService {
     public peopleListEvent: EventEmitter<any> = new EventEmitter();
     public peopleListChangedEvent: EventEmitter<any> = new EventEmitter();
     
-    private currentFiltersPeople:any = [];
     private currentPagePeople:any;
-    private hasFacetSelectedPeople:any;
     private currentActiveFilterPopoverOptionsPeople:any;
+    
+    private peopleSearchConditions:any;
+    private peopleSearchQuery:any;
     //people end
     
     //employers start
@@ -41,16 +42,15 @@ export class GlobalVariablesService {
     setCookieCurrentUser(_object:any) {
         var currentUser = {
             currentUser: {
-                account: _object.account,
+//                account: _object.account,
                 authdata: _object.data.cookie,
-                accountType: _object.accountType,
-                personId: _object.data.personProfileId,
-                organizationId: _object.data.organizationId,
+                accountType: _object.accountTypeId,
+                personId: _object.data.clientId,
+//                organizationId: _object.data.organizationId,
                 accountId: _object.data.accountId,
-                firstName: _object.data.firstName,
-                lastName: _object.data.lastName,
-                accountTypeName: _object.data.accountTypeName,
-                accountProfile: _object.accountProfile,
+                name: _object.data.name,
+//                accountTypeName: _object.data.accountTypeName,
+                accountProfile: _object.accountProfileId,
             }
         };
         this.cookieService.putObject( 'globals', currentUser );
@@ -64,17 +64,17 @@ export class GlobalVariablesService {
     //general end
     
     //people start
-    setCurrentActiveFilterPopoverOptionsPeople(data:any) {
-        this.currentActiveFilterPopoverOptionsPeople = data;
+    setSearchConditionsPeople(data:any) {
+        this.peopleSearchConditions = data;
     }
-    getCurrentActiveFilterPopoverOptionsPeople() {
-        return this.currentActiveFilterPopoverOptionsPeople;
+    getSearchConditionsPeople() {
+        return this.peopleSearchConditions;
     }
-    setHasFacetSelectedPeople(data:any) {
-        this.hasFacetSelectedPeople = data;
+    setSearchQueryPeople(data:any) {
+        this.peopleSearchQuery = data;
     }
-    getHasFacetSelectedPeople() {
-        return this.hasFacetSelectedPeople;
+    getSearchQueryPeople() {
+        return this.peopleSearchQuery;
     }
     setCurrentPagePeople(data:any) {
         this.currentPagePeople = data;
@@ -82,12 +82,13 @@ export class GlobalVariablesService {
     getCurrentPagePeople() {
         return this.currentPagePeople;
     }
-    setCurrentSearchFiltersPeople(obj:any) {
-        this.currentFiltersPeople = obj;
+    setCurrentActiveFilterPopoverOptionsPeople(data:any) {
+        this.currentActiveFilterPopoverOptionsPeople = data;
     }
-    getCurrentSearchFiltersPeople():any {
-        return this.currentFiltersPeople;
+    getCurrentActiveFilterPopoverOptionsPeople() {
+        return this.currentActiveFilterPopoverOptionsPeople;
     }
+
     sidebarStateChangedPeople() {
         this.sidebarStateChangedPeopleEvent.emit();
     }
@@ -100,8 +101,8 @@ export class GlobalVariablesService {
     peopleList(list:any) {
         this.peopleListEvent.emit(list);
     }
-    peopleListChanged() {
-        this.peopleListChangedEvent.emit();
+    peopleListChanged(body:any) {
+        this.peopleListChangedEvent.emit(body);
     }
     //people end
     

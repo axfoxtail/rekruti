@@ -16,20 +16,20 @@
     </div>
 </div>
 
-<div class="active-filters-list" *ngIf="globalVar.getHasFacetSelectedPeople() > 0">
+<div class="active-filters-list" *ngIf="hasBucketSelected">
     <span *ngFor="let filter of searchAggregations">
         <span *ngIf="filter.isVisible">
             <span *ngFor="let bk of filter.buckets">
                 <div *ngIf="bk.isSelected" class="filter-div">
                     <span>{{bk.label}}</span>
-                    <a class="remove-active-tag" (click)="removeBucket(bk, filter)">
+                    <a class="remove-active-tag" (click)="removeBucket(bk)">
                         <i class="fa fa-times"></i>
                     </a>
                 </div>
             </span>
         </span>
     </span>
-    <a (click)="search.clearSearchPeople()" class="reset-tag-buckets">Reset</a>
+    <a (click)="clearSearch()" class="reset-tag-buckets">Reset</a>
 </div>
 
 <div class="table-responsive" *ngIf="peopleData.hits.length > 0">

@@ -1,10 +1,10 @@
 <div class="search-label-left">
-    <span>Search People</span>
-    <a class="pull-right" (click)="search.clearSearchPeople()">Clear</a>
+    <span>{{pageTitle}}</span>
+    <a class="pull-right" (click)="clearSearch()">Clear</a>
 </div>
 
 <div class="filter" *ngFor="let filter of filtersList">
-    <div *ngIf="filter.isVisible && filter.label != 'Ready for a Change'">
+    <div *ngIf="filter.isVisible">
         <div class="filter-title">
             <h4 class="title">
                 <a class="btn btn-primary collapse-btn" [ngClass]="{'collapsed': !filter.isComputed}" data-toggle="collapse" href="#{{filter.name}}" role="button">
@@ -16,36 +16,35 @@
 
         <div class="collapse" id="{{filter.name}}" [ngClass]="{'show': filter.isComputed}">
             <div class="filter-body">
-                <div class="filter-item" *ngFor="let cb of filter.buckets; let i = index">
-                    <div *ngIf="filter.name !== 'lists'">
-                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="search.selectCheckedFacetsPeople(cb, filter)" (checked)="cb.isSelected">
-                        <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
-                            {{cb.label}}
+                <div class="filter-item" *ngFor="let bucket of filter.buckets; let i = index">
+                    <div *ngIf="filter.hasLogicalOperator">
+                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{bucket.key}}" (ngModelChange)="selectBucket(bucket, filter)" [(ngModel)]="bucket.isSelected"/>
+                        <label for="{{filter.name}}_{{bucket.key}}" class="filter-check-label">
+                            <span title="{{bucket.label}}"> {{bucket.label}}</span>
                         </label>
-                        <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.hasLogicalOperator &&  filter.name !== 'lists' )"
-                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover">
+                        <a tabindex="0" class="filter-label-options" *ngIf="bucket.isSelected" (focus)="openOptionsPopover(bucket.key, i, filter)" rel="popover">
                             <i class="fa fa-cog"></i>
                         </a>
                     </div>
-                    <div *ngIf="filter.name === 'lists' && cb.accountOwnerId === peopleData.accountId">
-                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="search.selectCheckedFacetsPeople(cb, filter)" (checked)="cb.isSelected">
-                        <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
-                            {{cb.label}}
+                    <div *ngIf="filter.name == 'lists'">
+                        <input class="filter-check-input" *ngIf="bucket.accountOwnerId === peopleData.accountId" type="checkbox" id="{{filter.name}}_{{bucket.key}}" (ngModelChange)="selectBucket(bucket, filter)" [(ngModel)]="bucket.isSelected" />
+                        <label class="filter-check-label" *ngIf="bucket.accountOwnerId === peopleData.accountId" for="{{filter.name}}_{{bucket.key}}">
+                            <span title="{{bucket.label}}"> {{bucket.label}}</span>
                         </label>
-
-                        <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.hasLogicalOperator &&  filter.name !== 'lists' )"
-                           (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover">
-                            <i class="fa fa-cog"></i>
-                        </a>
+                    </div>
+                    <div *ngIf="filter.name == 'options'">
+                        <input class="filter-check-input" type="checkbox" id="{{filter.name}}_{{bucket.key}}" (ngModelChange)="selectBucket(bucket, filter)" [(ngModel)]="bucket.isSelected" />
+                        <label class="filter-check-label" for="{{filter.name}}_{{bucket.key}}">
+                            <span title="{{bucket.label}}"> {{bucket.label}}</span>
+                        </label>
                     </div>
                 </div>
-
                 <div class="add-filter-block"> 
-                    <a [hidden]="filter.isReplyFormOpen || !filter.isAddButton" (click)="addFilterOptionFunction(filter)"
+                    <a [hidden]="filter.isAddingFacet || !filter.isAddButton" (click)="addFilterOptionFunction(filter)"
                         class="add-label-a">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add
                     </a>
-                    <div *ngIf="filter.isReplyFormOpen">
+                    <div *ngIf="filter.isAddingFacet">
                         <form [formGroup]="addFilterOption" novalidate (ngSubmit)="submitAddFilterOption(filter)">
                             <div class="form-group">
                                 <input type="text" *ngIf="filter.name === 'cities'" class="form-control add-new-filter-option-input" formControlName="addFacets" (input)="citiesChangeInputEvent()"
@@ -59,7 +58,7 @@
                                 <input type="text" *ngIf="filter.name === 'states'" class="form-control add-new-filter-option-input" formControlName="addFacets" (input)="statesChangeInputEvent()"
                                        ngxTypeahead [value]="states" [taList]="statesList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)"
                                        (focusout)="addFilterOptionFunction(filter)" autofocus>
-                                       
+
                                 <input type="text" *ngIf="filter.name === 'keywords'" class="form-control add-new-filter-option-input" formControlName="keywords"
                                        (focusout)="addFilterOptionFunction(filter)" autofocus>
                                 
@@ -76,7 +75,6 @@
                         </form>
                     </div>
                 </div>
-                
                 <div *ngIf="filter.name === 'lists'" class="col-xs-12">
                     <div class="filter-title shared">
                         <h4 class="title">
@@ -88,16 +86,12 @@
                     </div>
                     <div class="collapse" id="shared" [ngClass]="{'show': filter.isComputed}">
                         <div class="filter-body">
-                            <div class="filter-item" *ngFor="let cb of filter.buckets; let i = index">
-                                <div *ngIf="filter.name === 'lists' && cb.accountOwnerId !== peopleData.accountId">
-                                    <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{cb.key}}_{{i}}" [(ngModel)]="cb.isSelected" (ngModelChange)="search.selectCheckedFacetsPeople(cb, filter)" (checked)="cb.isSelected">
-                                    <label class="filter-check-label" for="{{filter.name}}_{{cb.key}}_{{i}}">
-                                        {{cb.label}}
+                            <div class="filter-item" *ngFor="let bucket of filter.buckets; let i = index">
+                                <div *ngIf="bucket.accountOwnerId !== peopleData.accountId">
+                                    <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{bucket.key}}" [(ngModel)]="bucket.isSelected" (ngModelChange)="selectBucket(bucket, filter)">
+                                    <label class="filter-check-label" for="{{filter.name}}_{{bucket.key}}">
+                                        <span title="{{bucket.label}}"> {{bucket.label}}</span>
                                     </label>
-                                    <a tabindex="0" class="filter-label-options" *ngIf="cb.isSelected && filter.name !== 'options' && (filter.hasLogicalOperator &&  filter.name !== 'lists' )"
-                                        (focus)="openOptionsPopover(cb.key, i, filter)" rel="popover" id="openPopover">
-                                         <i class="fa fa-cog"></i>
-                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -107,3 +101,5 @@
         </div>
     </div>
 </div>
+
+

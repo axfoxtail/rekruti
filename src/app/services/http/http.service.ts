@@ -29,7 +29,7 @@ export class HttpService {
             .subscribe(data => resolve(data), error => reject(error));
         })
     }
-    post(query:string, body:any, options?:any):Promise<any> {
+    post(query:string, body:any, options?:any): Promise<any> {
         return new Promise((resolve, reject) => {
             this.http.post(this.baseUrl + query, body,this.httpOptions)
                 .pipe(map(response=> response)).subscribe(data => resolve(data), error => reject(error));

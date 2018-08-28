@@ -41,10 +41,10 @@ export class PeopleListComponent implements OnInit {
     peopleList:any = [];
     searchAggregations:any = [];
     currentActiveItemInPeopleList:any;
+    hasBucketSelected:any;
+    searchSort:any;
     
     searchSortArray:any = [];
-    dataCheckFacets:any = [];
-    searchSort:any = 'lastUpdate';
 
     constructor(private globalVar:GlobalVariablesService, private search:SearchService) {
         this.peopleData = {
@@ -59,22 +59,18 @@ export class PeopleListComponent implements OnInit {
             { value: 'readyForChangeIndex', label: 'Ready For Change Index' },
             { value: 'relocationIndex', label: 'Relocation Index' },
         ];
-        this.dataCheckFacets = [
-            { "facetName": "cityName", "isComputed": true, "key": [] },
-            { "facetName": "stateName", "isComputed": true, "key": [] },
-            { "facetName": "concept65", "isComputed": true, "key": [] },
-            { "facetName": "concept172", "isComputed": true, "key": [] }
-        ];
     }
 
     ngOnInit() {
         this.currentUserData = this.globalVar.getCookieCurrentUser();
         
         this.globalVar.peopleListEvent.subscribe((list:any) => {
+            this.searchSort = list.data.sort;
             this.peopleData = list.data;
             this.searchAggregations = list.data.aggregations;
             this.peopleList = this.peopleData.hits;
             this.config.currentPage = this.globalVar.getCurrentPagePeople();
+            this.hasBucketSelected = this.search.hasBucketSelected(list.data.aggregations);
         });
         
         $('#detailsModal').on('hide.bs.modal', (e=> {
@@ -84,21 +80,18 @@ export class PeopleListComponent implements OnInit {
         }));
     }
     
-    updatePeopleList(start:any) {
-        var currentActiveFilters = this.globalVar.getCurrentSearchFiltersPeople();
-        currentActiveFilters.from = start;
-        currentActiveFilters.sort = this.searchSort;
-        
-        this.globalVar.setCurrentSearchFiltersPeople(currentActiveFilters);
-        this.globalVar.peopleListChanged();
+    updatePeopleList(body:any) {
+        this.globalVar.setCurrentPagePeople(this.config.currentPage);
+        this.globalVar.peopleListChanged(body);
+        this.globalVar.scrollContentToTopPeople();
     }
     
     onPageChange(number: number) {
         this.config.currentPage = number;
-        this.globalVar.setCurrentPagePeople(this.config.currentPage);
         var start = this.calcFromWhichItem(number);
-        this.updatePeopleList(start);
-        this.globalVar.scrollContentToTopPeople();
+        var currentActiveFilters = this.globalVar.getSearchQueryPeople();
+        currentActiveFilters.from = start;
+        this.updatePeopleList(currentActiveFilters);
     }
     
     calcFromWhichItem(page: number):any {
@@ -117,12 +110,16 @@ export class PeopleListComponent implements OnInit {
     
     searchSortMain() {
         this.config.currentPage = 1;
-        this.globalVar.setCurrentPagePeople(this.config.currentPage)
-        this.updatePeopleList(0);
+        var body = this.search.setSort(this.globalVar.getSearchQueryPeople(), this.searchSort);
+        this.globalVar.setSearchConditionsPeople(body);
+        this.updatePeopleList(body);
     }
     
-    removeBucket(bucket:any, filter:any) {
-        bucket.isSelected = false;
-        this.search.selectCheckedFacetsPeople(bucket, filter);
+    removeBucket(bucket:any) {
+        this.globalVar.peopleListChanged(this.search.removeBucket(bucket, this.globalVar.getSearchConditionsPeople()));
+    }
+    
+    clearSearch() {
+        this.globalVar.peopleListChanged(this.search.clearSearch());
     }
 }

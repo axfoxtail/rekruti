@@ -3,10 +3,10 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { Router} from '@angular/router';
 
 import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
 
 import { ApiService } from '../../services/api/api.service';
 import { GlobalVariablesService } from '../../services/global-variables/global-variables.service';
+import { NotificationsService } from '../../services/notifications/notifications.service';
 
 @Component({
   selector: 'app-login',
@@ -21,10 +21,10 @@ export class LoginComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder, 
         private api:ApiService, 
-        private spinner: NgxSpinnerService, 
-        private toastr: ToastrService, 
+        private spinner: NgxSpinnerService,
         private router: Router,
-        private globalVar:GlobalVariablesService) { }
+        private globalVar:GlobalVariablesService,
+        private notifications:NotificationsService) { }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -52,18 +52,12 @@ export class LoginComponent implements OnInit {
                 if(reply.result === 1) {
                     this.globalVar.setCookieCurrentUser(reply);
                     this.loginWasWrong = false;
-                    this.toastr.success('Login successful!', '', {
-                        timeOut: 5000,
-                        positionClass: 'toast-bottom-right'
-                    });
+                    this.notifications.success('Login successful!', 5000);
                     this.router.navigate(['/people']);
                 } else {
                     this.loginWasWrong = true;
                     this.errorMessage = reply.message;
-                    this.toastr.warning(this.errorMessage, 'Error!', {
-                        timeOut: 10000,
-                        positionClass: 'toast-bottom-right'
-                    });
+                    this.notifications.warning(this.errorMessage, 10000);
                 }
                 this.spinner.hide();
             });
