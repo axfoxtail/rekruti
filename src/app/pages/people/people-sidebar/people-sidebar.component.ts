@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/co
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
-import { ApiService } from '../../../services/api/api.service';
+import { RekrutiApiService } from '../../../services/api/api.service';
 import { SearchService } from '../../../services/search/search.service';
 
 declare var $:any;
@@ -36,7 +36,7 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
     constructor(private globalVar:GlobalVariablesService, 
         private ref: ChangeDetectorRef, 
         private formBuilder: FormBuilder, 
-        private api:ApiService, 
+        private api:RekrutiApiService, 
         private search:SearchService) {
             
     }

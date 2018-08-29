@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpParams } from '@angular/common/http';
 import 'rxjs/add/operator/map'
 
 import { HttpService } from '../http/http.service';
@@ -6,14 +7,15 @@ import { HttpService } from '../http/http.service';
 @Injectable({
     providedIn: 'root'
 })
-export class ApiService {
+export class RekrutiApiService {
 
     constructor(private http:HttpService) { }
     
     //login start
     login(data:any):Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get("/account/wLogin?email=" + data.email + "&password=" + data.password).then(data => {
+            let params = new HttpParams().set('email', data.email).set('password', data.password);
+            this.http.get("/account/wLogin", params).then(data => {
                 resolve(data);
             }, function(error) {
                 reject(error);
@@ -49,7 +51,8 @@ export class ApiService {
     //employers list
     getEmployersList(keyword_:any, from_:any, urlFacets_:any, sort_:any):Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get("/geoPlace/wSearch?keyword=" + keyword_ + "&from=" + from_ + urlFacets_ + "&sort=" + sort_).then(data => {
+            let params = new HttpParams().set('keyword', keyword_).set('from', from_ + urlFacets_).set('sort', sort_);
+            this.http.get("/geoPlace/wSearch", params).then(data => {
                 resolve(data);
             }, function(error) {
                 reject(error);

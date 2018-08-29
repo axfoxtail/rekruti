@@ -38,7 +38,7 @@ import { TasksComponent } from './pages/tasks/tasks.component';
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { HttpService } from './services/http/http.service';
-import { ApiService } from './services/api/api.service';
+import { RekrutiApiService } from './services/api/api.service';
 import { ValidationService } from './services/validation/validation.service';
 import { GlobalVariablesService } from './services/global-variables/global-variables.service';
 import { AuthSecurityService } from './services/auth-security/auth-security.service';
@@ -87,7 +87,7 @@ import { NotificationsService } from './services/notifications/notifications.ser
   ],
   providers: [
       HttpService,
-      ApiService,
+      RekrutiApiService,
       ValidationService,
       GlobalVariablesService,
       AuthSecurityService,

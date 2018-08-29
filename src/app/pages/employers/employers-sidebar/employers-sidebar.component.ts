@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
-import { ApiService } from '../../../services/api/api.service';
+import { RekrutiApiService } from '../../../services/api/api.service';
 import { SearchService } from '../../../services/search/search.service';
 
 import * as _ from "lodash";
@@ -29,7 +29,7 @@ export class EmployersSidebarComponent implements OnInit {
     countries = '';
     default = '';
 
-    constructor(private globalVar:GlobalVariablesService, private formBuilder: FormBuilder, private api:ApiService, private ref: ChangeDetectorRef, private search:SearchService) { }
+    constructor(private globalVar:GlobalVariablesService, private formBuilder: FormBuilder, private api:RekrutiApiService, private ref: ChangeDetectorRef, private search:SearchService) { }
 
     ngOnInit() {
         this.globalVar.employersListEvent.subscribe((list:any) => {

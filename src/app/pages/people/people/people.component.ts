@@ -3,7 +3,7 @@ import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
-import { ApiService } from '../../../services/api/api.service';
+import { RekrutiApiService } from '../../../services/api/api.service';
 import { SearchService } from '../../../services/search/search.service';
 import { NotificationsService } from '../../../services/notifications/notifications.service';
 
@@ -27,7 +27,7 @@ export class PeopleComponent implements OnInit {
     openFacets:any = {};
 
     constructor(private globalVar:GlobalVariablesService, 
-        private api:ApiService, 
+        private api:RekrutiApiService, 
         private spinner: NgxSpinnerService, 
         private search:SearchService,
         private notifications:NotificationsService) {

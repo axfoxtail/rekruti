@@ -9,20 +9,17 @@ import { environment } from "../../../environments/environment";
 export class HttpService {
     
     private baseUrl = environment.endpoint;
-    private httpOptions:any;
+    private httpHeaders:any;
 
     constructor(public http: HttpClient) {
-        this.httpOptions = {
-            headers: {
-              'Content-Type':  'text/plain',
-            },
-            withCredentials: true
+        this.httpHeaders = {
+              'Content-Type':  'text/plain'
         };
     }
     
-    get(query:string): Promise<any> {
+    get(query:string, params?:any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get(this.baseUrl + query, this.httpOptions)
+            this.http.get(this.baseUrl + query, { headers: this.httpHeaders, params: params, withCredentials: true })
                 .pipe(map(response => {
                     resolve(response);
             }))
@@ -31,15 +28,9 @@ export class HttpService {
     }
     post(query:string, body:any, options?:any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.post(this.baseUrl + query, body,this.httpOptions)
+            this.http.post(this.baseUrl + query, body, { headers: this.httpHeaders, withCredentials: true })
                 .pipe(map(response=> response)).subscribe(data => resolve(data), error => reject(error));
         });
     }
-    
-    put(query:string, body:any, options?:any):Promise<any> {
-        return new Promise((resolve, reject) => {
-            this.http.put(this.baseUrl + query, body,this.httpOptions)
-                .pipe(map(response=> response)).subscribe(data => resolve(data), error => reject(error));
-        });
-    }
+
 }

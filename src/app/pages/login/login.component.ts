@@ -4,7 +4,7 @@ import { Router} from '@angular/router';
 
 import { NgxSpinnerService } from 'ngx-spinner';
 
-import { ApiService } from '../../services/api/api.service';
+import { RekrutiApiService } from '../../services/api/api.service';
 import { GlobalVariablesService } from '../../services/global-variables/global-variables.service';
 import { NotificationsService } from '../../services/notifications/notifications.service';
 
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     loginWasWrong:boolean = false;
 
     constructor(private formBuilder: FormBuilder, 
-        private api:ApiService, 
+        private api:RekrutiApiService, 
         private spinner: NgxSpinnerService,
         private router: Router,
         private globalVar:GlobalVariablesService,

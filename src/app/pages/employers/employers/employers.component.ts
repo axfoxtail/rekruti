@@ -3,7 +3,7 @@ import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
-import { ApiService } from '../../../services/api/api.service';
+import { RekrutiApiService } from '../../../services/api/api.service';
 import { UtilsService } from '../../../services/utils/utils.service';
 import { NotificationsService } from '../../../services/notifications/notifications.service';
 
@@ -24,7 +24,7 @@ export class EmployersComponent implements OnInit {
     employersData:any = {};
 
     constructor(private globalVar:GlobalVariablesService, 
-        private api:ApiService, 
+        private api:RekrutiApiService, 
         private spinner: NgxSpinnerService, 
         private utils:UtilsService,
         private notifications:NotificationsService) {

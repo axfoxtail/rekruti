@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 import { GlobalVariablesService } from '../../services/global-variables/global-variables.service';
-import { ApiService } from '../../services/api/api.service';
+import { RekrutiApiService } from '../../services/api/api.service';
 
 import 'rxjs/add/operator/pairwise';
 import 'rxjs/add/operator/filter';
@@ -23,7 +23,7 @@ export class AppLayoutHeaderComponent implements OnInit {
     constructor(private router: Router, 
         private activatedRoute:ActivatedRoute, 
         private globalVar:GlobalVariablesService, 
-        private api:ApiService,
+        private api:RekrutiApiService,
         private spinner: NgxSpinnerService) {
         
             this.checkActiveComponent(this.activatedRoute.children[0].data['_value'].component);
