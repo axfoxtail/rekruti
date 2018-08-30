@@ -67,7 +67,6 @@ export class PeopleComponent implements OnInit {
                 conditions.from = response.data.from;
                 conditions.size = response.data.size;
                 this.globalVar.setSearchConditionsPeople(conditions);
-//                this.search.setOpenFacets(response.data.aggregations, this.openFacets);
                 // that is to get the templates to work
                 this.globalVar.setCurrentPagePeople(this.search.getPage(response.data.from, response.data.size));
                 this.globalVar.peopleList(response);
@@ -86,7 +85,6 @@ export class PeopleComponent implements OnInit {
     hideSpinnerScrollToTop() {
         this.scrollToTop();
         this.spinner.hide();
-        $('ng-sidebar-container').click();
     }
     
     @HostListener('window:resize', ['$event'])

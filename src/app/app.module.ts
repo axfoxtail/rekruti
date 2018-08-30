@@ -13,6 +13,7 @@ import { CookieModule } from 'ngx-cookie';
 import { SidebarModule } from 'ng-sidebar';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgxTypeaheadModule } from 'ngx-typeahead';
+import { PopoverModule } from 'ngx-bootstrap/popover';
 
 import { AppComponent } from './app.component';
 
@@ -27,6 +28,7 @@ import { PeopleSidebarComponent } from './pages/people/people-sidebar/people-sid
 import { PeopleListComponent } from './pages/people/people-list/people-list.component';
 import { PeopleDetailsModalComponent } from './pages/people/people-details-modal/people-details-modal.component';
 import { PeopleSearchBarComponent } from './pages/people/people-search-bar/people-search-bar.component';
+import { PeoplePopoverComponent } from './pages/people/people-popover/people-popover.component';
 import { EmployersComponent } from './pages/employers/employers/employers.component';
 import { EmployersDetailsModalComponent } from './pages/employers/employers-details-modal/employers-details-modal.component';
 import { EmployersListComponent } from './pages/employers/employers-list/employers-list.component';
@@ -66,7 +68,8 @@ import { NotificationsService } from './services/notifications/notifications.ser
     EmployersDetailsModalComponent,
     EmployersListComponent,
     EmployersSearchBarComponent,
-    EmployersSidebarComponent
+    EmployersSidebarComponent,
+    PeoplePopoverComponent
   ],
   imports: [
     CommonModule,
@@ -83,7 +86,8 @@ import { NotificationsService } from './services/notifications/notifications.ser
     CookieModule.forRoot(),
     SidebarModule.forRoot(),
     NgxPaginationModule,
-    NgxTypeaheadModule
+    NgxTypeaheadModule,
+    PopoverModule.forRoot(),
   ],
   providers: [
       HttpService,

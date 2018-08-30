@@ -1,0 +1,13 @@
+.filter-label-options {
+    float: right;
+    color: #337ab7; 
+    font-size: 13px;
+    padding: 0 3px;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+    outline: none;
+    box-shadow: none;
+}

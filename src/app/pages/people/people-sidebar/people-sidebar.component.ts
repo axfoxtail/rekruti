@@ -1,25 +1,20 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
 import { RekrutiApiService } from '../../../services/api/api.service';
 import { SearchService } from '../../../services/search/search.service';
 
-declare var $:any;
-import * as _ from "lodash";
-
 @Component({
   selector: 'app-people-sidebar',
   templateUrl: './people-sidebar.component.html',
   styleUrls: ['./people-sidebar.component.css']
 })
-export class PeopleSidebarComponent implements OnInit, AfterViewInit {
+export class PeopleSidebarComponent implements OnInit {
     
     pageTitle:string = 'People';
     filtersList:any;
     peopleData:any;
-    
-    isReplyFormOpen:boolean = false;
     
     citiesList:any=[];
     statesList:any=[];
@@ -53,95 +48,6 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
         });
     }
     
-    ngAfterViewInit() {
-        var popOverSettings = {
-            placement: 'right',
-            container: 'body',
-            html: true,
-            selector: '[rel="popover"]',
-            boundary: 'window',
-            delay: { "show": 200, "hide": 100 }
-        };
-        
-        $('body').popover(popOverSettings).on("show.bs.popover", (e=>{
-            $("[rel='popover']").not(e.target).popover("hide");
-            $(".popover").remove();
-        }));
-        $('body').on("click", (e=> {
-            var container = $(".popover");
-            if (!container.is(e.target) && container.has(e.target).length === 0) {
-                container.popover("hide");
-                container.remove();
-            }
-        }));
-        $(document).on('change','#valueTimeline', (e)=>{
-            this.changeInfoFacets('valueTimeline', e.target.value);
-        });
-        $(document).on('change','#valueLogicalOperator', (e)=>{
-            this.changeInfoFacets('valueLogicalOperator', e.target.value);
-        }); 
-        $(document).on('change','#min_exp', (e)=>{
-            this.changeInfoFacets('min_exp', e.target.value);
-        });
-        $(document).on('change','#max_exp', (e)=>{
-            this.changeInfoFacets('max_exp', e.target.value);
-        });
-        $(document).on('change','#radius', (e)=>{
-            this.changeInfoFacets('radius', e.target.value);
-        });
-        $(document).on('click','#popover-submit-button', (e)=>{
-            this.saveInfoFacets();
-            $('ng-sidebar-container').click();
-        });
-    }
-
-    openOptionsPopover(key:any, id:any, filter:any) {
-        this.globalVar.setCurrentActiveFilterPopoverOptionsPeople({filter:filter, id:id, key:key});
-        var popover = $("body").data('bs.popover');
-        
-        popover.config.content = () => {
-            var str = '<div id="popover-content">' + 
-                '<div ' + ((filter !== undefined && filter !== null) ? '' : 'hidden') + ' class="popover-content-div">' +
-                    '<h3>' + filter.buckets[id].label + '</h3>' +
-                    '<div ' + ((filter.hasTimeline === true) ? '' : 'hidden') + ' class="form-group timeline-div">' +
-                        '<label class="timeline-title">Timeline</label>' + 
-                        '<select class="form-control timeline-select" name="valueTimeline" id="valueTimeline">' + 
-                            '<option ' + ((filter.buckets[id].timeline === null) ? 'selected' : '') + ' value="null">Current or Past</option>' +
-                            '<option ' + ((filter.buckets[id].timeline === 'past') ? 'selected' : '') + ' value="past">Past</option>' + 
-                            '<option ' + ((filter.buckets[id].timeline === 'current') ? 'selected' : '') + ' value="current">Current</option>' + 
-                        '</select>' + 
-                    '</div>' + 
-                    '<div ' + ((filter.hasLogicalOperator === true) ? '' : 'hidden') + ' class="form-group logical-operator-div">' + 
-                        '<label class="logical-operator-title">Logical Operator</label>' + 
-                        '<select name="valueLogicalOperator" class="form-control logical-operator-select" id="valueLogicalOperator">' + 
-                            '<option ' + ((filter.buckets[id].logicalOperator === 'and') ? 'selected' : '') + ' value="and">And</option>' + 
-                            '<option ' + ((filter.buckets[id].logicalOperator === 'or') ? 'selected' : '') + ' value="or">Or</option>' + 
-                            '<option ' + ((filter.buckets[id].logicalOperator === 'not') ? 'selected' : '') + ' value="not">Not</option>' + 
-                        '</select>' +
-                    '</div>' + 
-                    '<div ' + ((filter.hasExperience === true) ? '' : 'hidden') + ' class="form-group experience-div">' + 
-                        '<label class="experience-title">Experience (years)</label>' + 
-                        '<div class="row experience-row">' + 
-                            '<div class="col-sm-6 col-xs-12  experience-col">' + 
-                                '<input type="number" name="min_exp" class="form-control experience-input" placeholder="Min" id="min_exp" value="' + (filter.buckets[id].experienceMin !== undefined ? filter.buckets[id].experienceMin : '') + '">' +
-                            '</div>' + 
-                            '<div class="col-sm-6 col-xs-12 experience-col">' + 
-                                '<input type="number" name="max_exp" class="form-control experience-input" placeholder="Max" id="max_exp" value="' + (filter.buckets[id].experienceMax !== undefined ? filter.buckets[id].experienceMax : '') + '">' +
-                            '</div>' + 
-                        '</div>' + 
-                    '</div>' +
-                    '<div ' + ((filter.hasRadius === true && filter.name === 'cities') ? '' : 'hidden') + ' class="form-group radius-div">' + 
-                        '<label class="radius-title">Radius (in miles)</label>' + 
-                        '<input class="form-control radius-input" type="number" min="0" name="radius" id="radius" value="' + (filter.buckets[id].radius !== undefined ? filter.buckets[id].radius : '') + '">' + 
-                    '</div>' + 
-                    '<div class="submit-button-div">' + 
-                        '<button class="btn btn-primary popover-submit-button" id="popover-submit-button">Update Search</button>' + 
-                    '</div>' + 
-                '</div></div>';
-                return str;
-        };
-    }
-    
     selectBucket(bucket:any, filter:any) {
         bucket.isSelected = !bucket.isSelected;
         var body = this.search.selectBucket(bucket, filter, this.globalVar.getSearchConditionsPeople());
@@ -150,21 +56,6 @@ export class PeopleSidebarComponent implements OnInit, AfterViewInit {
     
     clearSearch() {
         this.globalVar.peopleListChanged(this.search.clearSearch());
-    }
-    
-    changeInfoFacets(field:string, value:any) {
-        var searchConditions = this.globalVar.getSearchConditionsPeople();
-        var activeFilter = this.globalVar.getCurrentActiveFilterPopoverOptionsPeople();
-        var fieldName = '';
-        field === 'valueTimeline' ? fieldName = 'timeline' : (field === 'valueLogicalOperator' ? fieldName = 'logicalOperator' : (field === 'min_exp' ? fieldName = 'experienceMin'
-                : (field === 'max_exp' ? fieldName = 'experienceMax' : fieldName = 'radius')));
-        var index = _.findIndex(searchConditions, { 'name': activeFilter.filter.name });
-        searchConditions[index].buckets[activeFilter.id][fieldName] = value;
-        this.globalVar.setSearchConditionsPeople(searchConditions);
-    }
-    
-    saveInfoFacets() { 
-        this.globalVar.peopleListChanged(this.search.buildQuery(this.globalVar.getSearchConditionsPeople()));
     }
     
     addBucket(filter:any) {

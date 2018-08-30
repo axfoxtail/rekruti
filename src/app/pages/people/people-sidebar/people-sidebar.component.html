@@ -22,9 +22,7 @@
                         <label for="{{filter.name}}_{{bucket.key}}" class="filter-check-label">
                             <span title="{{bucket.label}}"> {{bucket.label}}</span>
                         </label>
-                        <a tabindex="0" class="filter-label-options" *ngIf="bucket.isSelected" (focus)="openOptionsPopover(bucket.key, i, filter)" rel="popover">
-                            <i class="fa fa-cog"></i>
-                        </a>
+                        <app-people-popover *ngIf="bucket.isSelected" [popoverFilter]="filter" [popoverBucketKey]="bucket.key" [popoverBucketId]="i"></app-people-popover>
                     </div>
                     <div *ngIf="filter.name == 'lists'">
                         <input class="filter-check-input" *ngIf="bucket.accountOwnerId === peopleData.accountId" type="checkbox" id="{{filter.name}}_{{bucket.key}}" (ngModelChange)="selectBucket(bucket, filter)" [(ngModel)]="bucket.isSelected" />
@@ -101,5 +99,6 @@
         </div>
     </div>
 </div>
+
 
 

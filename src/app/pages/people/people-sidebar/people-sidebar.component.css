@@ -57,10 +57,6 @@
     overflow-x: hidden;
     vertical-align: middle;
 }
-.filter .filter-body .filter-item .filter-label-options {
-    float: right;
-    color: #337ab7;
-}
 
 .filter .filter-body .add-filter-block {
     margin-top: 10px;

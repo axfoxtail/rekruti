@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
 import { SearchService } from '../../../services/search/search.service';
 import * as _ from "lodash";
+declare var $:any;
 
 @Component({
   selector: 'app-people-search-bar',

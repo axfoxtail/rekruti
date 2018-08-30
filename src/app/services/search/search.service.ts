@@ -13,7 +13,7 @@ export class SearchService {
     constructor(private globalVar:GlobalVariablesService, private utils:UtilsService) { }
     
     // return object if key property matches in array
-    findItemByKey(array:any, key:any) {
+    findItemByKey(array:any, key:any):any {
         _.forEach(array, (v, i) => {
             if (i == key) {
                 return v;
@@ -22,7 +22,7 @@ export class SearchService {
         return null;
     }
     
-    buildQuery(conditions?:any) {
+    buildQuery(conditions?:any):any {
         var query = {
             from: 0,
             size: 20,
