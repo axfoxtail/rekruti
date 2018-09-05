@@ -5,17 +5,21 @@
     z-index: 9999;
     border-bottom: 2px solid #FF9800;
 }
+
 .nav-parent .navbar-brand {
     margin-right: 30px;
 }
+
 .nav-parent .brand-a {
     width: 105px;
     overflow: hidden;
     padding: 0 !important;
-    .brand-img {
-        width: 100%;
-    }
 }
+
+.nav-parent .brand-a .brand-img {
+    width: 100%;
+}
+
 .nav-parent .brand-a .brand-img {
     width: 100%;
 }
@@ -24,44 +28,52 @@
     text-decoration: none;
     cursor: pointer;
 }
+
 .nav-parent .nav-item-custome a {
     color: #337ab7;
     font-size: 13px;
 }
-.nav-parent .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+
+.nav-parent .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
     background: #ddd;
     color: #ff6b00 !important;
     border-radius: 0;
 }
+
 .nav-parent .dropdown-title {
     text-transform: capitalize;
     color: #000;
     font-size: 14px;
-}  
+}
+
 .nav-parent .dropdown-toggle::after {
     color: #000;
     vertical-align: middle;
     margin-left: 7px;
 }
+
 .nav-parent .dropdown-icon {
     color: #999;
     font-size: 14px;
     margin: 0 10px 0 0;
     width: 20px !important;
 }
+
 .nav-parent .dropdown-menu-item {
     display: flex;
     align-items: center;
     height: 100%;
     width: 100%;
 }
-.nav-parent  .dropdown-item.custome-item {
+
+.nav-parent .dropdown-item.custome-item {
     color: #555;
     font-size: 14px;
     list-style: none;
     display: flex;
     align-items: center;
 }
+
 .nav-parent .navbar-toggler {
     border: none;
 }
@@ -70,6 +82,7 @@
     color: #1192C4;
     background: transparent;
 }
+
 .dropdown-item:focus, .dropdown-item:hover {
     cursor: pointer;
 }

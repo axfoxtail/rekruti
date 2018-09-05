@@ -5,14 +5,17 @@
     z-index: 9998;
     border-bottom: 2px solid #FF9800;
 }
+
 .nav-free-parent .brand-a {
     width: 105px;
     overflow: hidden;
     padding: 0 !important;
-    .brand-img {
-        width: 100%;
-    }
 }
+
+.nav-free-parent .brand-a .brand-img {
+    width: 100%;
+}
+
 .nav-free-parent .brand-a .brand-img {
     width: 100%;
 }

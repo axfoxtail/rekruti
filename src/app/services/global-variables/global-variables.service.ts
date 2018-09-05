@@ -1,46 +1,46 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { CookieService } from 'ngx-cookie';
+import {Injectable, EventEmitter} from '@angular/core';
+import {CookieService} from 'ngx-cookie';
 
-import { UtilsService } from '../utils/utils.service';
+import {UtilsService} from '../utils/utils.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class GlobalVariablesService {
 
-    //people start
+    // people start
     public sidebarStateChangedPeopleEvent: EventEmitter<any> = new EventEmitter();
     public windowWidthChangedPeopleEvent: EventEmitter<any> = new EventEmitter();
     public scrollContentToTopPeopleEvent: EventEmitter<any> = new EventEmitter();
     public peopleListEvent: EventEmitter<any> = new EventEmitter();
     public peopleListChangedEvent: EventEmitter<any> = new EventEmitter();
-    
-    private currentPagePeople:any;
-    private currentActiveFilterPopoverOptionsPeople:any;
-    
-    private peopleSearchConditions:any;
-    private peopleSearchQuery:any;
-    //people end
-    
-    //employers start
+
+    private currentPagePeople: any;
+
+    private peopleSearchConditions: any;
+    private peopleSearchQuery: any;
+    // people end
+
+    // employers start
     public sidebarStateChangedEmployersEvent: EventEmitter<any> = new EventEmitter();
     public windowWidthChangedEmployersEvent: EventEmitter<any> = new EventEmitter();
     public scrollContentToTopEmployersEvent: EventEmitter<any> = new EventEmitter();
     public employersListEvent: EventEmitter<any> = new EventEmitter();
     public employersListChangedEvent: EventEmitter<any> = new EventEmitter();
-    
-    private urlFacetsEmployers:any;
-    private employersRequestBody:any = {};
-    private dataCheckFacetsEmployers:any = [];
-    private currentPageEmployers:any;
-    private hasFacetSelectedEmployers:any;
-    //employers end
 
-    constructor(private cookieService:CookieService, private utils:UtilsService) { }
-    
-    //general start
-    setCookieCurrentUser(_object:any) {
-        var currentUser = {
+    private urlFacetsEmployers: any;
+    private employersRequestBody: any = {};
+    private dataCheckFacetsEmployers: any = [];
+    private currentPageEmployers: any;
+    private hasFacetSelectedEmployers: any;
+    // employers end
+
+    constructor(private cookieService: CookieService, private utils: UtilsService) {
+    }
+
+    // general start
+    setCookieCurrentUser(_object: any) {
+        const currentUser = {
             currentUser: {
 //                account: _object.account,
                 authdata: _object.data.cookie,
@@ -53,109 +53,128 @@ export class GlobalVariablesService {
                 accountProfile: _object.accountProfileId,
             }
         };
-        this.cookieService.putObject( 'globals', currentUser );
+        this.cookieService.putObject('globals', currentUser);
     }
-    getCookieCurrentUser():any {
+
+    getCookieCurrentUser(): any {
         return this.cookieService.getObject('globals');
     }
+
     removeCookieCurrentUser() {
         this.cookieService.remove('globals');
     }
-    //general end
-    
-    //people start
-    setSearchConditionsPeople(data:any) {
+    // general end
+
+    // people start
+    setSearchConditionsPeople(data: any) {
         this.peopleSearchConditions = data;
     }
+
     getSearchConditionsPeople() {
         return this.peopleSearchConditions;
     }
-    setSearchQueryPeople(data:any) {
+
+    setSearchQueryPeople(data: any) {
         this.peopleSearchQuery = data;
     }
+
     getSearchQueryPeople() {
         return this.peopleSearchQuery;
     }
-    setCurrentPagePeople(data:any) {
+
+    setCurrentPagePeople(data: any) {
         this.currentPagePeople = data;
     }
+
     getCurrentPagePeople() {
         return this.currentPagePeople;
-    }
-    setCurrentActiveFilterPopoverOptionsPeople(data:any) {
-        this.currentActiveFilterPopoverOptionsPeople = data;
-    }
-    getCurrentActiveFilterPopoverOptionsPeople() {
-        return this.currentActiveFilterPopoverOptionsPeople;
     }
 
     sidebarStateChangedPeople() {
         this.sidebarStateChangedPeopleEvent.emit();
     }
-    windowWidthChangedPeople(width:any) {
+
+    windowWidthChangedPeople(width: any) {
         this.windowWidthChangedPeopleEvent.emit(width);
     }
+
     scrollContentToTopPeople() {
         this.scrollContentToTopPeopleEvent.emit();
     }
-    peopleList(list:any) {
+
+    peopleList(list: any) {
         this.peopleListEvent.emit(list);
     }
-    peopleListChanged(body:any) {
+
+    peopleListChanged(body: any) {
         this.peopleListChangedEvent.emit(body);
     }
-    //people end
-    
-    //employers start
-    setHasFacetSelectedEmployers(data:any) {
+    // people end
+
+    // employers start
+    setHasFacetSelectedEmployers(data: any) {
         this.hasFacetSelectedEmployers = data;
     }
+
     getHasFacetSelectedEmployers() {
         return this.hasFacetSelectedEmployers;
     }
-    setCurrentPageEmployers(data:any) {
+
+    setCurrentPageEmployers(data: any) {
         this.currentPageEmployers = data;
     }
+
     getCurrentPageEmployers() {
         return this.currentPageEmployers;
     }
-    setUrlFacetsEmployers(data:any) {
+
+    setUrlFacetsEmployers(data: any) {
         this.urlFacetsEmployers = this.utils.urlFacets(data);
     }
+
     getUrlFacetsEmployers() {
         return this.urlFacetsEmployers;
     }
-    setRequestBodyEmployers(keyword:any, from_:any, sort:any) {
+
+    setRequestBodyEmployers(keyword: any, from_: any, sort: any) {
         this.employersRequestBody = {
             keyword: keyword,
             from: from_,
             sort: sort
         };
     }
+
     getRequestBodyEmployers() {
         return this.employersRequestBody;
     }
-    setDataCheckFacetsEmployers(data:any) {
+
+    setDataCheckFacetsEmployers(data: any) {
         this.dataCheckFacetsEmployers = data;
     }
+
     getDataCheckFacetsEmployers() {
         return this.dataCheckFacetsEmployers;
     }
+
     sidebarStateChangedEmployers() {
         this.sidebarStateChangedEmployersEvent.emit();
     }
-    windowWidthChangedEmployers(width:any) {
+
+    windowWidthChangedEmployers(width: any) {
         this.windowWidthChangedEmployersEvent.emit(width);
     }
+
     scrollContentToTopEmployers() {
         this.scrollContentToTopEmployersEvent.emit();
     }
-    employersList(list:any) {
+
+    employersList(list: any) {
         this.employersListEvent.emit(list);
     }
+
     employersListChanged() {
         this.employersListChangedEvent.emit();
     }
-    //employers end
-    
+    // employers end
+
 }

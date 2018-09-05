@@ -1,18 +1,21 @@
 <div class="row">
     <div class="col col-1 filters-toggle">
-        <button class="filters-button" *ngIf="windowWidth <= _autoCollapseWidth" (click)="_toggleSidebar()"><fa name="filter"></fa></button>
+        <button class="filters-button" *ngIf="windowWidth <= _autoCollapseWidth" (click)="_toggleSidebar()">
+            <fa name="filter"></fa>
+        </button>
     </div>
     <div class="col col-11">
         <div class="form-search-employers">
             <form [formGroup]="searchEmployersForm" novalidate (ngSubmit)="submitSearch()">
                 <div class="step-group search-step-group">
                     <div class="form-row">
-                        <input type="string" class="form-control input-control search-input" id="inputSearch" placeholder="Search" formControlName="searchRequest" #searchField_>
+                        <input type="string" class="form-control input-control search-input" id="inputSearch"
+                               placeholder="Search" formControlName="searchRequest" #searchField_>
                         <button type="submit" class="search-submit-button"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
-            </form> 
-        </div> 
+            </form>
+        </div>
     </div>
 </div>
 

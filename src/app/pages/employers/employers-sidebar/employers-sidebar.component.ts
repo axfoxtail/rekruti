@@ -1,38 +1,42 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
+import {FormGroup, FormBuilder} from '@angular/forms';
 
-import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
-import { RekrutiApiService } from '../../../services/api/api.service';
-import { SearchService } from '../../../services/search/search.service';
-
-import * as _ from "lodash";
+import {GlobalVariablesService} from '../../../services/global-variables/global-variables.service';
+import {RekrutiApiService} from '../../../services/api/api.service';
+import {SearchService} from '../../../services/search/search.service';
 
 @Component({
-  selector: 'app-employers-sidebar',
-  templateUrl: './employers-sidebar.component.html',
-  styleUrls: ['./employers-sidebar.component.css']
+    selector: 'app-employers-sidebar',
+    templateUrl: './employers-sidebar.component.html',
+    styleUrls: ['./employers-sidebar.component.css']
 })
 export class EmployersSidebarComponent implements OnInit {
-    
-    pageTitle:string = 'Employers';
-    filtersList:any;
-    employersData:any;
-    addFilterOption:FormGroup;
-    
-    citiesList:any=[];
-    statesList:any=[];
-    countriesList:any=[];
-    defaultList:any=[];
-    
+
+    pageTitle: any = 'Employers';
+    filtersList: any;
+    employersData: any;
+    addFilterOption: FormGroup;
+
+    citiesList: any = [];
+    statesList: any = [];
+    countriesList: any = [];
+    defaultList: any = [];
+
     cities = '';
     states = '';
     countries = '';
     default = '';
 
-    constructor(private globalVar:GlobalVariablesService, private formBuilder: FormBuilder, private api:RekrutiApiService, private ref: ChangeDetectorRef, private search:SearchService) { }
+    constructor(
+        private globalVar: GlobalVariablesService,
+        private formBuilder: FormBuilder,
+        private api: RekrutiApiService,
+        private ref: ChangeDetectorRef,
+        private search: SearchService) {
+    }
 
     ngOnInit() {
-        this.globalVar.employersListEvent.subscribe((list:any) => {
+        this.globalVar.employersListEvent.subscribe((list: any) => {
             this.employersData = list;
             this.filtersList = list.data.aggregations;
         });
@@ -42,9 +46,9 @@ export class EmployersSidebarComponent implements OnInit {
             keywords: ['']
         });
     }
-    
+
     isCheckedFacets(key) {
-        var match;
+        let match;
         if (typeof key === 'undefined') {
             match = false;
         } else if (key) {
@@ -54,56 +58,62 @@ export class EmployersSidebarComponent implements OnInit {
         }
         return match;
     }
-    
-    addFilterOptionFunction(filter:any) {
-        if(filter.isReplyFormOpen === undefined) {
+
+    addFilterOptionFunction(filter: any) {
+        if (filter.isReplyFormOpen === undefined) {
             filter.isReplyFormOpen = true;
-        } else filter.isReplyFormOpen = !filter.isReplyFormOpen;
+        } else {
+            filter.isReplyFormOpen = !filter.isReplyFormOpen;
+        }
     }
-    
-    submitAddFilterOption(filter:any) {
-        if(this.addFilterOption.value.addFacetsObject) {
+
+    submitAddFilterOption(filter: any) {
+        if (this.addFilterOption.value.addFacetsObject) {
             this.search.addNewOptionToSelectedFiltersEmployers(this.addFilterOption.value.addFacets, this.filtersList, filter);
-            
+
             this.addFilterOption.patchValue({
                 addFacetsObject: null,
-                addFacets: "",
-                keywords: ""
+                addFacets: '',
+                keywords: ''
             });
-            this.cities = "";
-            this.default = "";
-            this.states = "";
-            this.countries = "";
+            this.cities = '';
+            this.default = '';
+            this.states = '';
+            this.countries = '';
         }
     }
 
     citiesChangeInputEvent() {
-        this.api.getConceptComboAPI('/geoCity/wSearchCombo?keyword=' + this.addFilterOption.value.addFacets).then(reply => {
+        this.api.geoCity_wSearchCombo(this.addFilterOption.value.addFacets).then(reply => {
             this.citiesList = reply.data;
         });
     }
+
     statesChangeInputEvent() {
-        this.api.getConceptComboAPI('/geoState/wSearchCombo?keyword=' + this.addFilterOption.value.addFacets).then(reply => {
+        this.api.geoState_wSearchCombo(this.addFilterOption.value.addFacets).then(reply => {
             this.statesList = reply.data;
         });
     }
+
     countriesChangeInputEvent() {
-        this.api.getConceptComboAPI('/geoCountry/wSearchCombo?keyword=' + this.addFilterOption.value.addFacets).then(reply => {
+        this.api.geoCountry_wSearchCombo(this.addFilterOption.value.addFacets).then(reply => {
             this.countriesList = reply.data;
         });
     }
-    defaultChangeInputEvent(filterConceptTypeId:any) {
-        this.api.getConceptComboAPI('/concept/wSearchComboType?search=' + this.addFilterOption.value.addFacets + '&conceptTypeId=' + filterConceptTypeId).then(reply => {
+
+    defaultChangeInputEvent(filterConceptTypeId: any) {
+        this.api.concept_wSearchComboType(this.addFilterOption.value.addFacets + '&conceptTypeId=' +
+            filterConceptTypeId).then(reply => {
             this.defaultList = reply.data;
             this.ref.detectChanges();
         });
     }
- 
-    optionHandleResultSelected(result:any, filterName:any) {
+
+    optionHandleResultSelected(result: any, filterName: any) {
         this.addFilterOption.value.addFacets = result.name;
         this.addFilterOption.value.addFacetsObject = result;
-        
-        switch(filterName) {
+
+        switch (filterName) {
             case 'cityFormatted':
                 this.cities = result.name;
                 break;
@@ -115,7 +125,7 @@ export class EmployersSidebarComponent implements OnInit {
                 break;
             default:
                 this.default = result.name;
-            
+
         }
     }
 

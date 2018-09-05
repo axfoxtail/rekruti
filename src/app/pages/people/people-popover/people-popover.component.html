@@ -1,45 +1,65 @@
-<button id="open-popover-button" type="button" class="btn btn-default filter-label-options" 
+<button id="open-popover-button" type="button" class="btn btn-default filter-label-options"
         placement="right" [popover]="popContent" container="body" outsideClick="true">
     <i class="fa fa-cog"></i>
 </button>
 
 <ng-template #popContent>
     <div id="popover-content">
-        <div *ngIf="(filter !== undefined && filter !== null)" class="popover-content-div">
-            <h3>{{filter.buckets[bucketId].label}}</h3>
-            <div *ngIf="filter.hasTimeline" class="form-group timeline-div">
+        <div *ngIf="(popoverFilter !== undefined && popoverFilter !== null)" class="popover-content-div">
+            <h3>{{popoverFilter.buckets[popoverBucketId].label}}</h3>
+            <div *ngIf="popoverFilter.hasTimeline" class="form-group timeline-div">
                 <label class="timeline-title">Timeline</label>
-                <select class="form-control timeline-select" name="valueTimeline" id="valueTimeline" (change)="changeInfoFacets('valueTimeline', $event)">
-                    <option [selected]="filter.buckets[bucketId].timeline === null" value="null">Current or Past</option>
-                    <option [selected]="filter.buckets[bucketId].timeline === 'past'" value="past">Past</option>
-                    <option [selected]="filter.buckets[bucketId].timeline === 'current'" value="current">Current</option>
+                <select class="form-control timeline-select" name="valueTimeline" id="valueTimeline"
+                        (change)="changeInfoFacets('valueTimeline', $event)">
+                    <option [selected]="popoverFilter.buckets[popoverBucketId].timeline === null" value="null">Current
+                        or Past
+                    </option>
+                    <option [selected]="popoverFilter.buckets[popoverBucketId].timeline === 'past'" value="past">Past
+                    </option>
+                    <option [selected]="popoverFilter.buckets[popoverBucketId].timeline === 'current'" value="current">
+                        Current
+                    </option>
                 </select>
             </div>
-            <div *ngIf="filter.hasLogicalOperator" class="form-group logical-operator-div">
+            <div *ngIf="popoverFilter.hasLogicalOperator" class="form-group logical-operator-div">
                 <label class="logical-operator-title">Logical Operator</label>
-                <select name="valueLogicalOperator" class="form-control logical-operator-select" id="valueLogicalOperator" (change)="changeInfoFacets('valueLogicalOperator', $event)">
-                    <option [selected]="filter.buckets[bucketId].logicalOperator === 'and'" value="and">And</option>
-                    <option [selected]="filter.buckets[bucketId].logicalOperator === 'or'" value="or">Or</option>
-                    <option [selected]="filter.buckets[bucketId].logicalOperator === 'not'" value="not">Not</option>
+                <select name="valueLogicalOperator" class="form-control logical-operator-select"
+                        id="valueLogicalOperator" (change)="changeInfoFacets('valueLogicalOperator', $event)">
+                    <option [selected]="popoverFilter.buckets[popoverBucketId].logicalOperator === 'and'" value="and">
+                        And
+                    </option>
+                    <option [selected]="popoverFilter.buckets[popoverBucketId].logicalOperator === 'or'" value="or">Or
+                    </option>
+                    <option [selected]="popoverFilter.buckets[popoverBucketId].logicalOperator === 'not'" value="not">
+                        Not
+                    </option>
                 </select>
             </div>
-            <div *ngIf="filter.hasExperience" class="form-group experience-div">
+            <div *ngIf="popoverFilter.hasExperience" class="form-group experience-div">
                 <label class="experience-title">Experience (years)</label>
                 <div class="row experience-row">
                     <div class="col-sm-6 col-xs-12  experience-col">
-                        <input type="number" name="min_exp" class="form-control experience-input" (change)="changeInfoFacets('min_exp', $event)" placeholder="Min" id="min_exp" [value]="(filter.buckets[bucketId].experienceMin !== undefined ? filter.buckets[bucketId].experienceMin : '')">
+                        <input type="number" name="min_exp" class="form-control experience-input"
+                               (change)="changeInfoFacets('min_exp', $event)" placeholder="Min" id="min_exp"
+                               [value]="(popoverFilter.buckets[popoverBucketId].experienceMin !== undefined ? popoverFilter.buckets[popoverBucketId].experienceMin : '')">
                     </div>
                     <div class="col-sm-6 col-xs-12 experience-col">
-                        <input type="number" name="max_exp" class="form-control experience-input" (change)="changeInfoFacets('max_exp', $event)" placeholder="Max" id="max_exp" [value]="(filter.buckets[bucketId].experienceMax !== undefined ? filter.buckets[bucketId].experienceMax : '')">
+                        <input type="number" name="max_exp" class="form-control experience-input"
+                               (change)="changeInfoFacets('max_exp', $event)" placeholder="Max" id="max_exp"
+                               [value]="(popoverFilter.buckets[popoverBucketId].experienceMax !== undefined ? popoverFilter.buckets[popoverBucketId].experienceMax : '')">
                     </div>
                 </div>
             </div>
-            <div *ngIf="filter.hasRadius && filter.name === 'cities'" class="form-group radius-div">
+            <div *ngIf="popoverFilter.hasRadius && popoverFilter.name === 'cities'" class="form-group radius-div">
                 <label class="radius-title">Radius (in miles)</label>
-                <input class="form-control radius-input" type="number" min="0" name="radius" (change)="changeInfoFacets('radius', $event)" id="radius" [value]="(filter.buckets[bucketId].radius !== undefined ? filter.buckets[bucketId].radius : '')">
+                <input class="form-control radius-input" type="number" min="0" name="radius"
+                       (change)="changeInfoFacets('radius', $event)" id="radius"
+                       [value]="(popoverFilter.buckets[popoverBucketId].radius !== undefined ? popoverFilter.buckets[popoverBucketId].radius : '')">
             </div>
             <div class="submit-button-div">
-                <button class="btn btn-primary popover-submit-button" id="popover-submit-button" (click)="saveInfoFacets()">Update Search</button>
+                <button class="btn btn-primary popover-submit-button" id="popover-submit-button"
+                        (click)="saveInfoFacets()">Update Search
+                </button>
             </div>
         </div>
     </div>

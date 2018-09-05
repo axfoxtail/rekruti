@@ -1,13 +1,16 @@
 .list-header {
     padding: 0 0 20px 0;
 }
+
 .list-header .results-col {
     font-size: 13px;
     font-weight: bold;
 }
+
 .list-header .sort-col {
     font-size: 13px;
 }
+
 .list-header .sort-col .search_sort span.input-group-addon {
     background: transparent;
     border: 0;
@@ -15,12 +18,14 @@
     padding-left: 0;
     margin-top: 2px;
 }
+
 .list-header .sort-col .search_sort .form-control {
     height: 23px;
     padding: 2px 15px 2px 5px;
     font-size: 13px;
     max-width: 60%;
 }
+
 .list-header .sort-col .input-group {
     justify-content: flex-end;
 }
@@ -31,11 +36,13 @@
     vertical-align: top;
     border-top: 1px solid #ddd;
     min-height: 145px;
-    display: block; 
+    display: block;
 }
+
 .people-list-td.active {
     background-color: #1192c4;
 }
+
 .people-list-td.active .people-list-item-div .item-title-div .people-item-title-name,
 .people-list-td.active .people-list-item-div .item-title-div .item-contact-div .option,
 .people-list-td.active .people-list-item-div .item-city-name,
@@ -43,34 +50,40 @@
 .people-list-td.active .people-list-item-div .item-last-company {
     color: white;
 }
+
 .people-list-td.active .people-list-item-div .avatar-container .default-img {
     -webkit-filter: brightness(100);
     filter: brightness(100);
 }
 
-
 .people-list-td .people-list-item-div {
     position: relative;
-    display:flex;
+    display: flex;
 }
+
 .people-list-td .people-list-item-div .avatar-container {
     width: 150px;
 }
+
 .people-list-td .people-list-item-div .details-container {
     width: calc(100% - 150px);
 }
+
 .people-list-td .people-list-item-div .avatar-container {
-    
+
 }
+
 .people-list-td .people-list-item-div .avatar-container img {
     width: 128px;
     margin: 0 5px;
 }
+
 .people-list-td .people-list-item-div .item-title-div .people-item-title-name {
-    color: #337ab7; 
-    text-decoration: none; 
+    color: #337ab7;
+    text-decoration: none;
     cursor: pointer;
 }
+
 .people-list-td .people-list-item-div .item-title-div .people-item-title-name h3 {
     font-size: 18px;
     margin: 0;
@@ -80,42 +93,50 @@
     color: inherit;
     padding: 3px 0;
 }
+
 .people-list-td .people-list-item-div .item-title-div .item-contact-div {
     display: flex;
     justify-content: flex-end;
 }
+
 .people-list-td .people-list-item-div .item-title-div .item-contact-div .option {
     margin: 0 8px;
-    color: #000; 
+    color: #000;
     font-size: 18px;
 }
+
 .people-list-td .people-list-item-div .item-title-div .item-contact-div .option .badge {
-    color: #fff; 
-    font-size: 11px; 
-    padding: 2px 5px; 
-    border-radius: 5px; 
-    margin-top: -7px; 
-    margin-left: -5px; 
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 5px;
+    border-radius: 5px;
+    margin-top: -7px;
+    margin-left: -5px;
     position: absolute;
 }
+
 .people-list-td .people-list-item-div .item-title-div .item-contact-div .option .badge.red-badge {
     background: #e03333;
 }
+
 .people-list-td .people-list-item-div .item-title-div .item-contact-div .option .badge.green-badge {
     background: green;
 }
+
 .people-list-td .people-list-item-div .item-city-name {
     color: #999;
     font-size: 13px;
     font-family: Arial;
     -webkit-font-smoothing: antialiased;
 }
+
 .people-list-td .people-list-item-div .item-last-name {
     font-size: 13px;
     font-weight: bold;
     font-family: Arial;
     -webkit-font-smoothing: antialiased;
 }
+
 .people-list-td .people-list-item-div .item-last-company {
     font-size: 13px;
     font-family: Arial;
@@ -129,6 +150,7 @@
 .active-filters-list {
     padding-bottom: 10px;
 }
+
 .active-filters-list .filter-div {
     background-color: #ddd;
     margin-right: 5px;
@@ -138,20 +160,23 @@
     margin-top: 3px;
     animation: pulse 1s;
 }
+
 @keyframes pulse {
-  0% {
-    background-color: rgba(221,221,221, 0);
-  }
-  100% {
-    background-color: rgba(221,221,221, 1);
-  }
+    0% {
+        background-color: rgba(221, 221, 221, 0);
+    }
+    100% {
+        background-color: rgba(221, 221, 221, 1);
+    }
 }
+
 .active-filters-list .filter-div .remove-active-tag {
     margin-left: 10px;
     color: #555;
     cursor: pointer;
 }
-.active-filters-list  .reset-tag-buckets {
+
+.active-filters-list .reset-tag-buckets {
     background-color: #ddd;
     margin-right: 5px;
     padding: 1px 10px;
@@ -163,7 +188,8 @@
     color: #555;
     cursor: pointer;
 }
-.active-filters-list  .reset-tag-buckets:hover {
+
+.active-filters-list .reset-tag-buckets:hover {
     background: #ddd;
     text-decoration: none;
 }

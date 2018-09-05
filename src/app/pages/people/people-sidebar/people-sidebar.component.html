@@ -7,7 +7,8 @@
     <div *ngIf="filter.isVisible">
         <div class="filter-title">
             <h4 class="title">
-                <a class="btn btn-primary collapse-btn" [ngClass]="{'collapsed': !filter.isComputed}" data-toggle="collapse" href="#{{filter.name}}" role="button">
+                <a class="btn btn-primary collapse-btn" [ngClass]="{'collapsed': !filter.isComputed}"
+                   data-toggle="collapse" href="#{{filter.name}}" role="button">
                     {{filter.label}}
                     <i class="fa icon-arrow"></i>
                 </a>
@@ -18,57 +19,78 @@
             <div class="filter-body">
                 <div class="filter-item" *ngFor="let bucket of filter.buckets; let i = index">
                     <div *ngIf="filter.hasLogicalOperator">
-                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{bucket.key}}" (ngModelChange)="selectBucket(bucket, filter)" [(ngModel)]="bucket.isSelected"/>
+                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{bucket.key}}"
+                               [(ngModel)]="bucket.isSelected" (ngModelChange)="selectBucket(bucket, filter)"/>
                         <label for="{{filter.name}}_{{bucket.key}}" class="filter-check-label">
                             <span title="{{bucket.label}}"> {{bucket.label}}</span>
                         </label>
-                        <app-people-popover *ngIf="bucket.isSelected" [popoverFilter]="filter" [popoverBucketKey]="bucket.key" [popoverBucketId]="i"></app-people-popover>
+                        <app-people-popover *ngIf="bucket.isSelected" [popoverFilter]="filter"
+                                            [popoverBucketKey]="bucket.key" [popoverBucketId]="i"></app-people-popover>
                     </div>
                     <div *ngIf="filter.name == 'lists'">
-                        <input class="filter-check-input" *ngIf="bucket.accountOwnerId === peopleData.accountId" type="checkbox" id="{{filter.name}}_{{bucket.key}}" (ngModelChange)="selectBucket(bucket, filter)" [(ngModel)]="bucket.isSelected" />
-                        <label class="filter-check-label" *ngIf="bucket.accountOwnerId === peopleData.accountId" for="{{filter.name}}_{{bucket.key}}">
+                        <input class="filter-check-input" *ngIf="bucket.accountOwnerId === peopleData.accountId"
+                               type="checkbox" id="{{filter.name}}_{{bucket.key}}"
+                               [(ngModel)]="bucket.isSelected" (ngModelChange)="selectBucket(bucket, filter)"/>
+                        <label class="filter-check-label" *ngIf="bucket.accountOwnerId === peopleData.accountId"
+                               for="{{filter.name}}_{{bucket.key}}">
                             <span title="{{bucket.label}}"> {{bucket.label}}</span>
                         </label>
                     </div>
                     <div *ngIf="filter.name == 'options'">
-                        <input class="filter-check-input" type="checkbox" id="{{filter.name}}_{{bucket.key}}" (ngModelChange)="selectBucket(bucket, filter)" [(ngModel)]="bucket.isSelected" />
+                        <input class="filter-check-input" type="checkbox" id="{{filter.name}}_{{bucket.key}}"
+                               [(ngModel)]="bucket.isSelected" (ngModelChange)="selectBucket(bucket, filter)"/>
                         <label class="filter-check-label" for="{{filter.name}}_{{bucket.key}}">
                             <span title="{{bucket.label}}"> {{bucket.label}}</span>
                         </label>
                     </div>
                 </div>
-                <div class="add-filter-block"> 
+                <div class="add-filter-block">
                     <a [hidden]="filter.isAddingFacet || !filter.isAddButton" (click)="addFilterOptionFunction(filter)"
-                        class="add-label-a">
+                       class="add-label-a">
                         <i class="fa fa-plus" aria-hidden="true"></i> Add
                     </a>
                     <div *ngIf="filter.isAddingFacet">
                         <form [formGroup]="addFilterOption" novalidate (ngSubmit)="submitAddFilterOption(filter)">
                             <div class="form-group">
-                                <input type="text" *ngIf="filter.name === 'cities'" class="form-control add-new-filter-option-input" formControlName="addFacets" (input)="citiesChangeInputEvent()"
-                                       ngxTypeahead [value]="cities" [taList]="citiesList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)"
-                                       (focusout)="addFilterOptionFunction(filter)" autofocus> 
-                                       
-                                <input type="text" *ngIf="filter.name === 'countries'" class="form-control add-new-filter-option-input" formControlName="addFacets" (input)="countriesChangeInputEvent()"
-                                       ngxTypeahead [value]="countries" [taList]="countriesList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)"
-                                       (focusout)="addFilterOptionFunction(filter)" autofocus>
-                                       
-                                <input type="text" *ngIf="filter.name === 'states'" class="form-control add-new-filter-option-input" formControlName="addFacets" (input)="statesChangeInputEvent()"
-                                       ngxTypeahead [value]="states" [taList]="statesList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)"
+                                <input type="text" *ngIf="filter.name === 'cities'"
+                                       class="form-control add-new-filter-option-input" formControlName="addFacets"
+                                       (input)="citiesChangeInputEvent()"
+                                       ngxTypeahead [value]="cities" [taList]="citiesList" [taItemTpl]="itemTpl"
+                                       (taSelected)="optionHandleResultSelected($event, filter.name)"
                                        (focusout)="addFilterOptionFunction(filter)" autofocus>
 
-                                <input type="text" *ngIf="filter.name === 'keywords'" class="form-control add-new-filter-option-input" formControlName="keywords"
+                                <input type="text" *ngIf="filter.name === 'countries'"
+                                       class="form-control add-new-filter-option-input" formControlName="addFacets"
+                                       (input)="countriesChangeInputEvent()"
+                                       ngxTypeahead [value]="countries" [taList]="countriesList" [taItemTpl]="itemTpl"
+                                       (taSelected)="optionHandleResultSelected($event, filter.name)"
                                        (focusout)="addFilterOptionFunction(filter)" autofocus>
-                                
-                                <input type="text" *ngIf="filter.name !== 'cities' && filter.name !== 'states' && filter.name !== 'countries' && filter.name !== 'keywords'" class="form-control add-new-filter-option-input" 
-                                       formControlName="addFacets" taDisplayOnFocus="true" (input)="defaultChangeInputEvent(filter.conceptTypeId)" (focusout)="addFilterOptionFunction(filter)" 
-                                       ngxTypeahead [value]="default" [taList]="defaultList" [taItemTpl]="itemTpl" (taSelected)="optionHandleResultSelected($event, filter.name)" autofocus>
-                                       
+
+                                <input type="text" *ngIf="filter.name === 'states'"
+                                       class="form-control add-new-filter-option-input" formControlName="addFacets"
+                                       (input)="statesChangeInputEvent()"
+                                       ngxTypeahead [value]="states" [taList]="statesList" [taItemTpl]="itemTpl"
+                                       (taSelected)="optionHandleResultSelected($event, filter.name)"
+                                       (focusout)="addFilterOptionFunction(filter)" autofocus>
+
+                                <input type="text" *ngIf="filter.name === 'keywords'"
+                                       class="form-control add-new-filter-option-input" formControlName="keywords"
+                                       (focusout)="addFilterOptionFunction(filter)" autofocus>
+
+                                <input type="text"
+                                       *ngIf="filter.name !== 'cities' && filter.name !== 'states' && filter.name !== 'countries' && filter.name !== 'keywords'"
+                                       class="form-control add-new-filter-option-input"
+                                       formControlName="addFacets" taDisplayOnFocus="true"
+                                       (input)="defaultChangeInputEvent(filter.conceptTypeId)"
+                                       (focusout)="addFilterOptionFunction(filter)"
+                                       ngxTypeahead [value]="default" [taList]="defaultList" [taItemTpl]="itemTpl"
+                                       (taSelected)="optionHandleResultSelected($event, filter.name)" autofocus>
+
                                 <ng-template #itemTpl let-result class="list-item">
-                                     <div>
-                                         <span>{{ result.result.name }}</span>
-                                     </div>
-                                 </ng-template>
+                                    <div>
+                                        <span>{{ result.result.name }}</span>
+                                    </div>
+                                </ng-template>
                             </div>
                         </form>
                     </div>
@@ -76,17 +98,20 @@
                 <div *ngIf="filter.name === 'lists'" class="col-xs-12">
                     <div class="filter-title shared">
                         <h4 class="title">
-                            <a class="btn btn-primary collapse-btn" [ngClass]="{'collapsed': !filter.isComputed}" data-toggle="collapse" href="#shared" role="button">
+                            <a class="btn btn-primary collapse-btn" [ngClass]="{'collapsed': !filter.isComputed}"
+                               data-toggle="collapse" href="#shared" role="button">
                                 Shared
                                 <i class="fa icon-arrow"></i>
                             </a>
                         </h4>
                     </div>
                     <div class="collapse" id="shared" [ngClass]="{'show': filter.isComputed}">
-                        <div class="filter-body">
+                        <div class="filter-body shared-class">
                             <div class="filter-item" *ngFor="let bucket of filter.buckets; let i = index">
                                 <div *ngIf="bucket.accountOwnerId !== peopleData.accountId">
-                                    <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{bucket.key}}" [(ngModel)]="bucket.isSelected" (ngModelChange)="selectBucket(bucket, filter)">
+                                    <input type="checkbox" class="filter-check-input"
+                                           id="{{filter.name}}_{{bucket.key}}" [(ngModel)]="bucket.isSelected"
+                                           (ngModelChange)="selectBucket(bucket, filter)">
                                     <label class="filter-check-label" for="{{filter.name}}_{{bucket.key}}">
                                         <span title="{{bucket.label}}"> {{bucket.label}}</span>
                                     </label>

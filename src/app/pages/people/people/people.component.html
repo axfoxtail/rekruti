@@ -1,9 +1,10 @@
 <ng-sidebar-container class="people-page-container">
- 
-    <ng-sidebar [(opened)]="_opened" [(mode)]="_sidebarMode" [(autoCollapseWidth)]="_autoCollapseWidth" class="sidebar-container">
+
+    <ng-sidebar [(opened)]="_opened" [(mode)]="_sidebarMode" [(autoCollapseWidth)]="_autoCollapseWidth"
+                class="sidebar-container">
         <app-people-sidebar></app-people-sidebar>
-    </ng-sidebar> 
- 
+    </ng-sidebar>
+
     <div ng-sidebar-content class="people-aria" #top>
         <div class="container people-list-container search-bar">
             <app-people-search-bar></app-people-search-bar>

@@ -1,22 +1,23 @@
-import { Injectable } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import {Injectable} from '@angular/core';
+import {ToastrService} from 'ngx-toastr';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class NotificationsService {
 
-    constructor(private toastr: ToastrService) { }
-    
-    success(text:string, time:any) {
-        this.toastr.success(text, '', {
+    constructor(private toaster: ToastrService) {
+    }
+
+    success(text: string, time: any) {
+        this.toaster.success(text, '', {
             timeOut: time,
             positionClass: 'toast-bottom-right'
         });
     }
-    
-    warning(text:string, time:any) {
-        this.toastr.warning(text, 'Error!', {
+
+    warning(text: string, time: any) {
+        this.toaster.warning(text, 'Error!', {
             timeOut: time,
             positionClass: 'toast-bottom-right'
         });

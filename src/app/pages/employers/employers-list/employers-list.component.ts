@@ -1,28 +1,28 @@
-import { Component, OnInit, ViewChildren } from '@angular/core';
-import { environment } from "../../../../environments/environment";
+import {Component, OnInit, ViewChildren} from '@angular/core';
+import {environment} from '../../../../environments/environment';
 
 import {PaginationInstance} from 'ngx-pagination';
 
-import { GlobalVariablesService } from '../../../services/global-variables/global-variables.service';
+import {GlobalVariablesService} from '../../../services/global-variables/global-variables.service';
+import {SearchService} from '../../../services/search/search.service';
 
-declare var $:any;
-import * as _ from "lodash";
+declare var $: any;
 
 @Component({
-  selector: 'app-employers-list',
-  templateUrl: './employers-list.component.html',
-  styleUrls: ['./employers-list.component.css']
+    selector: 'app-employers-list',
+    templateUrl: './employers-list.component.html',
+    styleUrls: ['./employers-list.component.css']
 })
 export class EmployersListComponent implements OnInit {
-    
+
     @ViewChildren('list') listItems: any;
-    
-    urlImg:any = environment.endpoint + '/personDocument/wDownload?storeGuid=';
-    
-    public maxSize: number = 8;
-    public directionLinks: boolean = true;
-    public autoHide: boolean = false;
-    public responsive: boolean = false;
+
+    urlImg: any = environment.endpoint + '/personDocument/wDownload?storeGuid=';
+
+    public maxSize: any = 8;
+    public directionLinks: any = true;
+    public autoHide: any = false;
+    public responsive: any = false;
     public config: PaginationInstance = {
         id: 'server',
         itemsPerPage: 20,
@@ -35,63 +35,64 @@ export class EmployersListComponent implements OnInit {
         screenReaderPageLabel: 'page',
         screenReaderCurrentLabel: `You're on page`
     };
-    
-    currentUserData:any;
-    employersData:any = {};
-    employersList:any = [];
-    activeFiltersList:any = [];
-    currentActiveItemInEmployersList:any;
 
-    constructor(private globalVar:GlobalVariablesService) {
+    currentUserData: any;
+    employersData: any = {};
+    employersList: any = [];
+    activeFiltersList: any = [];
+    currentActiveItemInEmployersList: any;
+
+    constructor(private globalVar: GlobalVariablesService, public search: SearchService) {
         this.employersData = {
-            total:0,
-            hits:[] 
-        }
+            total: 0,
+            hits: []
+        };
         this.currentActiveItemInEmployersList = {
-            id:null
-        }
+            id: null
+        };
     }
 
     ngOnInit() {
         this.currentUserData = this.globalVar.getCookieCurrentUser();
-        this.globalVar.employersListEvent.subscribe((list:any) => {
+        this.globalVar.employersListEvent.subscribe((list: any) => {
             this.employersData = list.data;
             this.activeFiltersList = list.data.aggregations;
             this.employersList = this.employersData.hits;
             this.config.currentPage = this.globalVar.getCurrentPageEmployers();
         });
-        
-        $('#employersDetailsModal').on('hide.bs.modal', (e=> {
-            for (var i = 0; i < this.listItems._results.length; i++) {
-                this.listItems._results[i].nativeElement.className = "employers-list-td";
+
+        $('#employersDetailsModal').on('hide.bs.modal', (e => {
+            for (let i = 0; i < this.listItems._results.length; i++) {
+                this.listItems._results[i].nativeElement.className = 'employers-list-td';
             }
         }));
     }
-    
-    updateEmployersList(start:any) {
+
+    updateEmployersList(start: any) {
         this.globalVar.setRequestBodyEmployers('', start, 'relevancy');
         this.globalVar.employersListChanged();
     }
-    
+
     onPageChange(number: number) {
         this.config.currentPage = number;
         this.globalVar.setCurrentPageEmployers(this.config.currentPage);
-        var start = this.calcFromWhichItem(number);
+        const start = this.calcFromWhichItem(number);
         this.updateEmployersList(start);
         this.globalVar.scrollContentToTopEmployers();
     }
-    
-    calcFromWhichItem(page: number):any {
+
+    calcFromWhichItem(page: number): any {
         return (page - 1) * this.config.itemsPerPage;
     }
-    
-    openDetailsModal(item:any) {
+
+    openDetailsModal(item: any) {
         this.currentActiveItemInEmployersList = item;
     }
-    
-    checkActiveItem(id:any) {
-        if(this.currentActiveItemInEmployersList.id === id)
+
+    checkActiveItem(id: any) {
+        if (this.currentActiveItemInEmployersList.id === id) {
             return 'active';
+        }
         return '';
     }
 

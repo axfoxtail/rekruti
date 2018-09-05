@@ -1,26 +1,31 @@
 .list-header {
     padding: 0 0 20px 0;
 }
+
 .list-header .results-div {
     font-size: 13px;
     font-weight: bold;
 }
+
 .employers-list-td {
     padding: 8px 8px 8px 0;
     line-height: 1.42857143;
     vertical-align: top;
     border-top: 1px solid #ddd;
     min-height: 145px;
-    display: block; 
+    display: block;
 }
+
 .employers-list-td.active {
     background-color: #1192c4;
 }
+
 .employers-list-td.active .employers-list-item-div .details-container .item-title-div .employers-item-title-name,
 .employers-list-td.active .employers-list-item-div .details-container .item-city-state-name,
-.employers-list-td.active .employers-list-item-div .details-container .item-country-name  {
+.employers-list-td.active .employers-list-item-div .details-container .item-country-name {
     color: white;
 }
+
 .employers-list-td.active .employers-list-item-div .avatar-container .default-img {
     -webkit-filter: brightness(100);
     filter: brightness(100);
@@ -28,23 +33,28 @@
 
 .employers-list-td .employers-list-item-div {
     position: relative;
-    display:flex;
+    display: flex;
 }
+
 .employers-list-td .employers-list-item-div .avatar-container {
     width: 150px;
 }
+
 .employers-list-td .employers-list-item-div .details-container {
     width: calc(100% - 150px);
 }
+
 .employers-list-td .employers-list-item-div .avatar-container img {
     width: 128px;
     margin: 0 5px;
 }
+
 .employers-list-td .employers-list-item-div .details-container .item-title-div .employers-item-title-name {
-    color: #337ab7; 
-    text-decoration: none; 
+    color: #337ab7;
+    text-decoration: none;
     cursor: pointer;
 }
+
 .employers-list-td .employers-list-item-div .details-container .item-title-div .employers-item-title-name h3 {
     font-size: 18px;
     margin: 0;
@@ -54,6 +64,7 @@
     color: inherit;
     padding: 3px 0;
 }
+
 .employers-list-td .employers-list-item-div .details-container .item-city-state-name,
 .employers-list-td .employers-list-item-div .details-container .item-country-name {
     color: #999;
@@ -69,6 +80,7 @@
 .active-filters-list {
     padding-bottom: 10px;
 }
+
 .active-filters-list .filter-div {
     background-color: #ddd;
     margin-right: 5px;
@@ -76,23 +88,26 @@
     display: inline-block;
     margin-bottom: 3px;
     margin-top: 3px;
-    
+
     animation: pulse 1s;
 }
+
 @keyframes pulse {
-  0% {
-    background-color: rgba(221,221,221, 0);
-  }
-  100% {
-    background-color: rgba(221,221,221, 1);
-  }
+    0% {
+        background-color: rgba(221, 221, 221, 0);
+    }
+    100% {
+        background-color: rgba(221, 221, 221, 1);
+    }
 }
+
 .active-filters-list .filter-div .remove-active-tag {
     margin-left: 10px;
     color: #555;
     cursor: pointer;
 }
-.active-filters-list  .reset-tag-buckets {
+
+.active-filters-list .reset-tag-buckets {
     background-color: #ddd;
     margin-right: 5px;
     padding: 1px 10px;
@@ -104,7 +119,8 @@
     color: #555;
     cursor: pointer;
 }
-.active-filters-list  .reset-tag-buckets:hover {
+
+.active-filters-list .reset-tag-buckets:hover {
     background: #ddd;
     text-decoration: none;
 }

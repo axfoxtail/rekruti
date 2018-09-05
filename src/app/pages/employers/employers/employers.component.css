@@ -1,22 +1,26 @@
 .employers-page-container {
-    height: calc(100% - 60px); 
+    height: calc(100% - 60px);
 }
+
 .employers-page-container .employers-aria {
-    height: calc(100%); 
+    height: calc(100%);
     width: 60%;
     margin-left: 5px;
 }
+
 .employers-page-container .employers-aria .employers-list-container {
     background-color: white;
     border-radius: 2px;
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     float: left;
 }
+
 .employers-page-container .employers-aria .employers-list-container.search-bar {
     height: 80px;
     width: 100%;
     max-width: 100%;
 }
+
 .employers-page-container .employers-aria .employers-list-container.content-aria {
     padding: 20px 15px;
     margin-top: 5px;
@@ -24,12 +28,12 @@
     max-width: 100%;
 }
 
-
-@media only screen and (max-width : 1100px) {
+@media only screen and (max-width: 1100px) {
     .employers-page-container .employers-aria {
         width: 100%;
         margin-left: 0;
-    } 
+    }
+
     .employers-page-container .employers-aria .employers-list-container.search-bar,
     .employers-page-container .employers-aria .employers-list-container.content-aria {
         max-width: 100%;

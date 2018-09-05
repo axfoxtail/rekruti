@@ -1,8 +1,9 @@
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
+
 body {
     background-color: #e5e5e5 !important;
     width: 100%;
@@ -15,7 +16,7 @@ body {
     -webkit-overflow-scrolling: touch;
     -moz-overflow-scrolling: touch;
     overflow-scrolling: touch;
-    
+
     font-size: 13px;
     font-family: Arial;
     -webkit-font-smoothing: antialiased;
@@ -27,17 +28,19 @@ body {
 .ng-sidebar {
     background-color: white;
     border-radius: 2px;
-    -webkit-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
-    -moz-box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     width: 18%;
     font-size: 13px;
     z-index: 999 !important;
 }
+
 .ng-sidebar__content {
     left: 18% !important;
     padding: 0 !important;
 }
+
 .ng-sidebar__backdrop {
     opacity: 0.55 !important;
 }
@@ -45,9 +48,11 @@ body {
 .modal-backdrop {
     z-index: 999 !important;
 }
+
 .modal-backdrop.show {
     opacity: .3 !important;
 }
+
 .modal {
     z-index: 9999 !important;
 }
@@ -55,6 +60,7 @@ body {
 .ngx-pagination {
     padding: 0;
 }
+
 .ngx-pagination .current {
     background: #1192c4;
 }
@@ -63,18 +69,20 @@ body {
     min-width: 350px;
     min-height: 215px;
     /*left: 4px !important;*/
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     font-size: 12px;
     z-index: 9999;
 }
+
 .popover-body {
     padding: 15px;
 }
 
 .ta-results {
-    border: 1px solid rgba(0,0,0,.15);
-    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    border: 1px solid rgba(0, 0, 0, .15);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
 }
+
 .ta-item {
     position: relative;
     z-index: 2;
@@ -84,6 +92,7 @@ body {
     padding: 3px 20px;
     border: none;
 }
+
 .list-group-item.active {
     color: #fff;
     background-color: #1192c4;
@@ -92,40 +101,47 @@ body {
 
 .popover-content-div h3 {
     font-size: 18px;
-    font-family: Arial; 
+    font-family: Arial;
 }
+
 .popover-content-div .timeline-div,
 .popover-content-div .logical-operator-div,
 .popover-content-div .experience-div,
 .popover-content-div .radius-div {
-    font-size: 12px; 
+    font-size: 12px;
 }
+
 .popover-content-div .timeline-div .timeline-title,
 .popover-content-div .logical-operator-div .logical-operator-title,
 .popover-content-div .experience-div .experience-title,
 .popover-content-div .radius-div .radius-title {
     margin-bottom: 2px;
 }
+
 .popover-content-div .timeline-div .timeline-select,
 .popover-content-div .logical-operator-div .logical-operator-select,
 .popover-content-div .experience-div .experience-row .experience-col .experience-input,
 .popover-content-div .radius-div .radius-input {
-    font-size: 12px; 
-    padding: 4px 7px;  
+    font-size: 12px;
+    padding: 4px 7px;
     height: auto;
     border-radius: 0;
 }
+
 .popover-content-div .experience-div .experience-row {
-    margin-left: -15px !important; 
-    margin-right: -15px !important; 
+    margin-left: -15px !important;
+    margin-right: -15px !important;
     font-size: 12px;
 }
+
 .popover-content-div .experience-div .experience-row .experience-col {
     margin-bottom: 0;
 }
+
 .popover-content-div .submit-button-div {
     text-align: center;
 }
+
 .popover-content-div .submit-button-div .popover-submit-button {
     background: #1192C4;
     padding: 3px 7px;
@@ -137,15 +153,17 @@ body {
     border-radius: 0;
 }
 
-@media only screen and (max-width : 1100px) {
+@media only screen and (max-width: 1100px) {
     .ng-sidebar {
         width: 35%;
     }
+
     .ng-sidebar__content {
         left: 0 !important;
-    }  
+    }
 }
-@media only screen and (max-width : 600px) {
+
+@media only screen and (max-width: 600px) {
     .ng-sidebar {
         width: 50%;
     }

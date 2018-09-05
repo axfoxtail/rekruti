@@ -13,7 +13,8 @@
                 <div *ngIf="bk.isSelected" class="filter-div">
                     <span *ngIf="filter.name !=='experience'">{{bk.label}}</span>
                     <span *ngIf="filter.name ==='experience'">{{bk.label}}</span>
-                    <a class="remove-active-tag" (click)="search.changeCheckedFacets(false, bk.key, filter.name, bk.isMore)">
+                    <a class="remove-active-tag"
+                       (click)="search.changeCheckedFacetsEmployers(false, bk.key, filter.name, bk.isMore)">
                         <i class="fa fa-times"></i>
                     </a>
                 </div>
@@ -26,41 +27,44 @@
 <div class="table-responsive" *ngIf="employersData.hits.length > 0">
     <table class="table table-hover">
         <tbody>
-            <tr *ngFor="let item of employersList | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: employersData.total }">
-                <td class="employers-list-td" data-toggle="modal" data-target="#employersDetailsModal" (click)="openDetailsModal(item)" [ngClass]="checkActiveItem(item.id)" #list>
-                    <div class="employers-list-item-div">
-                        <div class="avatar-container">
-                            <a>
-                                <img *ngIf="item.pictureKey" src="{{urlImg}}{{item.pictureKey}}" alt="{{item.name}}"/>
-                                <img class="default-img" *ngIf="!item.pictureKey" src="assets/img/employers.png" alt="{{item.name}}"/>
+        <tr *ngFor="let item of employersList | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: employersData.total }">
+            <td class="employers-list-td" data-toggle="modal" data-target="#employersDetailsModal"
+                (click)="openDetailsModal(item)" [ngClass]="checkActiveItem(item.id)" #list>
+                <div class="employers-list-item-div">
+                    <div class="avatar-container">
+                        <a>
+                            <img *ngIf="item.pictureKey" src="{{urlImg}}{{item.pictureKey}}" alt="{{item.name}}"/>
+                            <img class="default-img" *ngIf="!item.pictureKey" src="assets/img/employers.png"
+                                 alt="{{item.name}}"/>
+                        </a>
+                    </div>
+                    <div class="details-container">
+                        <div class="item-title-div">
+                            <a class="employers-item-title-name">
+                                <h3>{{item.name}}</h3>
                             </a>
                         </div>
-                        <div class="details-container">
-                            <div class="item-title-div">
-                                <a class="employers-item-title-name">
-                                    <h3>{{item.name}}</h3>
-                                </a>
-                            </div>
-                            <div class="item-city-state-name">{{item.city}}<span *ngIf="item.city">,</span> {{item.state}}</div>
-                            <div class="item-country-name">{{item.country}}</div>
+                        <div class="item-city-state-name">{{item.city}}<span *ngIf="item.city">,</span> {{item.state}}
                         </div>
+                        <div class="item-country-name">{{item.country}}</div>
                     </div>
-                </td>
-            </tr>
+                </div>
+            </td>
+        </tr>
         </tbody>
     </table>
 
     <div class="has-text-centered">
         <pagination-controls [id]="config.id"
-            [maxSize]="maxSize"
-            [directionLinks]="directionLinks"
-            [autoHide]="autoHide"
-            [responsive]="responsive"
-            [previousLabel]="labels.previousLabel"
-            [nextLabel]="labels.nextLabel"
-            [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
-            [screenReaderPageLabel]="labels.screenReaderPageLabel"
-            [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
-            (pageChange)="onPageChange($event)"></pagination-controls>
+                             [maxSize]="maxSize"
+                             [directionLinks]="directionLinks"
+                             [autoHide]="autoHide"
+                             [responsive]="responsive"
+                             [previousLabel]="labels.previousLabel"
+                             [nextLabel]="labels.nextLabel"
+                             [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+                             [screenReaderPageLabel]="labels.screenReaderPageLabel"
+                             [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+                             (pageChange)="onPageChange($event)"></pagination-controls>
     </div>
 </div>
