@@ -1,0 +1,22 @@
+.tab_profile{
+    margin-bottom: 0 !important;
+    /*overflow: hidden;*/
+    clear: both;
+    padding-top: 20px;
+}
+
+.bg_fff{
+    background: #fff;
+}
+
+/*:host { color: gray; }
+
+:host ::ng-deep .tabset1 a.nav-link {
+  color: green;
+}
+
+:host ::ng-deep .tabset1 a.nav-link.active {
+  color: red;
+  font-weight: bold;
+}*/
+

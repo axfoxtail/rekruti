@@ -11,9 +11,9 @@
         </div>
 
         <div class="container people-list-container content-aria">
-            <app-people-list></app-people-list>
+            <app-people-list (selectedPeople)="selectedPeople($event)"></app-people-list>
         </div>
-        <app-people-details-modal></app-people-details-modal>
+        <app-people-details-modal *ngIf="chosenPeople" [chosenPeople]="chosenPeople"></app-people-details-modal>
     </div>
 
 </ng-sidebar-container>

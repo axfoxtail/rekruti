@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
 declare var $: any;
 
@@ -9,10 +9,15 @@ declare var $: any;
 })
 export class PeopleDetailsModalComponent implements OnInit {
 
+	@Input() chosenPeople;
+
     constructor() {
+
     }
 
     ngOnInit() {
+
+    	
     }
 
 }

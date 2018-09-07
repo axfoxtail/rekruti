@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChildren} from '@angular/core';
+import {Component, OnInit, ViewChildren, Output, EventEmitter} from '@angular/core';
 import {environment} from '../../../../environments/environment';
 
 import {PaginationInstance} from 'ngx-pagination';
@@ -15,6 +15,7 @@ declare var $: any;
 })
 export class PeopleListComponent implements OnInit {
 
+    @Output() selectedPeople: EventEmitter<any> = new EventEmitter;
     @ViewChildren('list') listItems: any;
 
     urlImg: any = environment.endpoint + '/personDocument/wDownload?storeGuid=';
@@ -99,6 +100,7 @@ export class PeopleListComponent implements OnInit {
 
     openDetailsModal(item: any) {
         this.currentActiveItemInPeopleList = item;
+        this.selectedPeople.emit(item); 
     }
 
     checkActiveItem(id: any) {

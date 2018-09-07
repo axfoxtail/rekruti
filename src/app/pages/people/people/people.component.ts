@@ -22,6 +22,7 @@ export class PeopleComponent implements OnInit {
     _sidebarMode: any = 'push';
     _autoCollapseWidth: any = 1100;
     windowWidth: any = window.innerWidth;
+    chosenPeople: any;
 
     constructor(private globalVar: GlobalVariablesService,
                 private api: RekrutiApiService,
@@ -31,6 +32,7 @@ export class PeopleComponent implements OnInit {
 
         this._opened = this.windowWidth > this._autoCollapseWidth;
         this.globalVar.setSearchConditionsPeople([]);
+        this.chosenPeople = null;
     }
 
     ngOnInit() {
@@ -95,6 +97,10 @@ export class PeopleComponent implements OnInit {
 
     scrollToTop() {
         this.topContent.nativeElement.scrollIntoView({behavior: 'instant', block: 'start'});
+    }
+
+    selectedPeople(event){
+        this.chosenPeople = event;
     }
 
 }

@@ -14,6 +14,7 @@ import {SidebarModule} from 'ng-sidebar';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {NgxTypeaheadModule} from 'ngx-typeahead';
 import {PopoverModule} from 'ngx-bootstrap/popover';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import {AppComponent} from './app.component';
 
@@ -47,6 +48,8 @@ import {AuthSecurityService} from './services/auth-security/auth-security.servic
 import {UtilsService} from './services/utils/utils.service';
 import {SearchService} from './services/search/search.service';
 import {NotificationsService} from './services/notifications/notifications.service';
+import { DetailModalHeaderComponent } from './pages/common/detail-modal-header/detail-modal-header.component';
+import { DetailModalContentComponent } from './pages/common/detail-modal-content/detail-modal-content.component';
 
 @NgModule({
     declarations: [
@@ -69,7 +72,9 @@ import {NotificationsService} from './services/notifications/notifications.servi
         EmployersListComponent,
         EmployersSearchBarComponent,
         EmployersSidebarComponent,
-        PeoplePopoverComponent
+        PeoplePopoverComponent,
+        DetailModalHeaderComponent,
+        DetailModalContentComponent
     ],
     imports: [
         CommonModule,
@@ -88,6 +93,7 @@ import {NotificationsService} from './services/notifications/notifications.servi
         NgxPaginationModule,
         NgxTypeaheadModule,
         PopoverModule.forRoot(),
+        NgbModule
     ],
     providers: [
         HttpService,

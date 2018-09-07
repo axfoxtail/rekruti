@@ -1,0 +1,32 @@
+<div class="row profile_detail">
+    <div class="text_align_center col-sm-3 col-sm-offset-0 col-xs-4 col-xs-offset-3 margin_bottom_0 profile_detail_name left_img bg_fff" *ngIf="itemData.security && itemData.security.isSetPicture">
+        <a (click)="openSetPicture('right', true, itemData.id)" title="Click to change the picture">
+            <img *ngIf="itemData.pictureKey" [ngClass]="{
+            'notFilter' : itemData.pictureKey}" [src]="urlImg + itemData.pictureKey" alt="{{itemData.fullName}}"
+                 class="img_user_profile" />
+            <img *ngIf="!itemData.pictureKey" src="assets/images/icon/user-new.png" alt="{{itemData.fullName}}" class="img_user_profile" />
+        </a>
+    </div>
+
+    <div class="text_align_center col-sm-3 col-sm-offset-0 col-xs-4 col-xs-offset-3 margin_bottom_0 profile_detail_name left_img bg_fff" *ngIf="!itemData.security || !itemData.security.isSetPicture">
+        <img *ngIf="itemData.pictureKey" [ngClass]="{'notFilter' : itemData.pictureKey}" [src]="urlImg + itemData.pictureKey" alt="{{type === 'people' ? itemData.fullName : itemData.name}}" class="img_user_profile" />
+        <img *ngIf="!itemData.pictureKey" [src]="type === 'people' ? 'assets/images/icon/user-new.png' : 'assets/images/icon/employers.png'" alt="{{type === 'people' ? itemData.fullName : itemData.name}}" class="img_user_profile" />
+    </div>
+    <div class="col-sm-9 col-xs-12 profile_detail_name bg_fff margin_bottom_0">
+        <h3 class="name_user_profile">
+            {{type === 'people' ? itemData.fullName : itemData.name}}
+        </h3>
+        <div class="color_999" *ngIf="type === 'people'">{{itemData.cityName}} </div>
+        <div class="font_bold" *ngIf="type === 'people'">{{itemData.lastTitle}}</div>
+        <div *ngIf="type === 'people'">{{itemData.lastCompany}}</div>
+        <div class="color_999" *ngIf="type === 'people' && itemData.experience">{{itemData.experience}} years of working experience</div>
+
+        <div class="font_bold" *ngIf="type === 'employer'">{{ itemData.address[0].premise }}</div>
+        <div class="color_999 " *ngIf="type === 'employer'">{{ itemData.address[0].streetNumber }} {{ itemData.address[0].street }}
+            <span ngShow="itemData.address[0].subPremise">,</span> {{ itemData.address[0].subPremise }}</div>
+        <div class="color_999 " *ngIf="type === 'employer'">{{ itemData.address[0].city }}</div>
+        <div class="color_999 " *ngIf="type ==='employer'">{{ itemData.address[0].state }}
+            <span ngShow="itemData.address[0].zipCode">,</span> {{ itemData.address[0].zipCode }} </div>
+        <div class="color_999 " *ngIf="type === 'employer'">{{ itemData.address[0].country }}</div>
+    </div>    
+</div>
