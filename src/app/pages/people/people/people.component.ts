@@ -101,6 +101,26 @@ export class PeopleComponent implements OnInit {
 
     selectedPeople(event){
         this.chosenPeople = event;
+
+        this.api.person_wRead(this.chosenPeople.id)
+        .then(response => {
+            
+                if (response.result > 0) {
+                    
+                    console.log(response);
+                    this.chosenPeople = response.data;
+                    this.chosenPeople.pictureKey = event.pictureKey;
+                    
+                } else {
+                    this.notifications.warning(response.message, 10000);
+                }
+            },
+            err => {
+                console.log(err);
+                this.notifications.warning('', 10000);
+                this.hideSpinnerScrollToTop();
+            }
+        )
     }
 
 }

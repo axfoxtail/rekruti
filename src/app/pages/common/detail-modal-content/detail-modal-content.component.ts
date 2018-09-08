@@ -22,4 +22,8 @@ export class DetailModalContentComponent implements OnInit {
 		console.log(event.nextId);
 	}
 
+	openFullPage(personId) {
+		
+	}
+
 }

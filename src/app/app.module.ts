@@ -50,6 +50,7 @@ import {SearchService} from './services/search/search.service';
 import {NotificationsService} from './services/notifications/notifications.service';
 import { DetailModalHeaderComponent } from './pages/common/detail-modal-header/detail-modal-header.component';
 import { DetailModalContentComponent } from './pages/common/detail-modal-content/detail-modal-content.component';
+import { TabProfileComponent } from './pages/common/tab-profile/tab-profile.component';
 
 @NgModule({
     declarations: [
@@ -74,7 +75,8 @@ import { DetailModalContentComponent } from './pages/common/detail-modal-content
         EmployersSidebarComponent,
         PeoplePopoverComponent,
         DetailModalHeaderComponent,
-        DetailModalContentComponent
+        DetailModalContentComponent,
+        TabProfileComponent
     ],
     imports: [
         CommonModule,

@@ -4,13 +4,13 @@
             <img *ngIf="itemData.pictureKey" [ngClass]="{
             'notFilter' : itemData.pictureKey}" [src]="urlImg + itemData.pictureKey" alt="{{itemData.fullName}}"
                  class="img_user_profile" />
-            <img *ngIf="!itemData.pictureKey" src="assets/images/icon/user-new.png" alt="{{itemData.fullName}}" class="img_user_profile" />
+            <img *ngIf="!itemData.pictureKey" src="assets/img/icon/user-new.png" alt="{{itemData.fullName}}" class="img_user_profile" />
         </a>
     </div>
 
     <div class="text_align_center col-sm-3 col-sm-offset-0 col-xs-4 col-xs-offset-3 margin_bottom_0 profile_detail_name left_img bg_fff" *ngIf="!itemData.security || !itemData.security.isSetPicture">
         <img *ngIf="itemData.pictureKey" [ngClass]="{'notFilter' : itemData.pictureKey}" [src]="urlImg + itemData.pictureKey" alt="{{type === 'people' ? itemData.fullName : itemData.name}}" class="img_user_profile" />
-        <img *ngIf="!itemData.pictureKey" [src]="type === 'people' ? 'assets/images/icon/user-new.png' : 'assets/images/icon/employers.png'" alt="{{type === 'people' ? itemData.fullName : itemData.name}}" class="img_user_profile" />
+        <img *ngIf="!itemData.pictureKey" [src]="type === 'people' ? 'assets/img/icon/user-new.png' : 'assets/img/icon/employers.png'" alt="{{type === 'people' ? itemData.fullName : itemData.name}}" class="img_user_profile" />
     </div>
     <div class="col-sm-9 col-xs-12 profile_detail_name bg_fff margin_bottom_0">
         <h3 class="name_user_profile">

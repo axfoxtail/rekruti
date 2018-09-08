@@ -51,6 +51,21 @@ export class RekrutiApiService {
         });
     }
 
+    person_wRead(id: any, isRefresh: boolean = false): Promise<any> {
+        return new Promise((resolve, reject) => {
+
+            let params = new HttpParams().set('id', id);
+            if (isRefresh) {
+                params = params.append('isRefresh', 'true');
+            }
+            this.http.get('/person/wRead', params).then(_data => {
+                resolve(_data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
     // people list
 
     // employers list

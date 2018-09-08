@@ -2,7 +2,12 @@
     <ngb-tabset class="tabset1 nav-fill" [justify]="fill" (tabChange)="setTab($event)">
 		<ngb-tab title="Profile" id="tab0">
 			<ng-template ngbTabContent>
-				
+				<app-tab-profile 
+					[type]="type"
+              		[itemData]="itemData"
+              		*ngIf="itemData.security"
+				>
+				</app-tab-profile>
 			</ng-template>
 		</ngb-tab>
 		<ngb-tab title="Contact tab" id="tab1">
@@ -28,4 +33,8 @@
 		
 	</ngb-tabset>
 
+</div>
+
+ <div class="text_align_center padding_15" *ngIf="type === 'people'">
+    <a (click)="openFullPage(itemData.id)">Full Page View</a>
 </div>
