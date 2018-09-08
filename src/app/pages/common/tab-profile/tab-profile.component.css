@@ -32,31 +32,7 @@
     width: 100%
 }
 
-#tagcloud .popover{
-    border-radius: 2px;
-    left: 0 !important;
-    right: 0 !important;
-    max-width: 100% !important;
-}
-#tagcloud .popover.top>.arrow{
-    bottom: -10px;
-}
-#tagcloud .popover_close{
-    text-align: right;
-    font-size: 11px;
-}
-#tagcloud .popover_title{
-    font-weight: bold;
-    padding-bottom: 5px;
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 5px;
-}
-#tagcloud .popover_content{
-    color: #999;
-    padding:10px 0;
-    text-align: justify;
-    font-size: 13px;
-}
+
 
 #tagcloud span{
     display: inline-block;

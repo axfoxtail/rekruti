@@ -1,0 +1,141 @@
+ <!--email-->
+<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && itemData.emails.length > 0 || itemData.security.isAddEmail == true">
+    <div class="padding_15">
+        <h3 class="row">
+            <i class="fa fa-envelope-o font_25 icon_profile" aria-hidden="true"></i>&nbsp;Email
+            <a href="" [hidden]="itemData.security.isAddEmail == false" (click)="openAddEmail('right', true, itemData.id)" class="pull-right font-13" title="Add email" style=""><i class="fa fa-plus"></i></a>
+        </h3>
+        <div class="padding_0 margin_0" *ngIf="itemData.emails.length > 0">
+            <table class="table table-hover">
+                <tbody>
+                    <tr *ngFor="let obj of itemData.emails;">
+                        <!-- no need to put P or W for employers as it should be W by definition-->
+                        <td class="border_top_0" style="width: 30px; padding-left:0px" *ngIf="type === 'people' || currentUser.id === itemData.id">
+                            <span *ngIf="!obj.isBusiness" title="Personal" style="font-weight: bold; margin-right: 10px; cursor: pointer;">P</span>
+                            <span *ngIf="obj.isBusiness" title="Work" style="font-weight: bold; margin-right: 10px; cursor: pointer;">W</span>
+                        </td>
+                        <td class="border_top_0" style="width: 30px;" *ngIf="!(type === 'people' || currentUser.id === itemData.id)"></td>
+                        <td class="border_top_0" style="width: 20px; padding-left: 10px;" id="cell">
+                            <ng-template #popContent ><span [ngClass]="{'success': obj.isVerified, 'warning' : !obj.isVerified}">{{obj.isVerified ?  'Verified' : 'Not verified'}}</span></ng-template>
+                            <span [ngbPopover]="popContent" placement="right" triggers="mouseenter:mouseleave">
+                                <i *ngIf="obj.isVerified" class="fa fa-check-circle success" aria-hidden="true"></i>
+                                <i *ngIf="obj.isVerified === false" class="fa fa-times-circle danger" aria-hidden="true"></i>
+                                <i *ngIf="obj.isVerified === null" class="fa fa-minus-circle warning" aria-hidden="true"></i>
+                            </span>
+                        </td>
+                        <td class="border_top_0">
+                            <span>{{obj.email}}</span>
+                        </td>
+                        <td *ngIf="itemData.security.isEditEmail" class="border_top_0 text_align_right" style="width:20px; padding-right:0px;">
+                            <a href="" (click)="openEditEmail('right', true, obj)" class="pull-right font-13" title="Edit phone" style=""><i class="fa fa-pencil-square-o"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--phone-->
+<div class="border_bottom_d body_content_profile" *ngIf="itemData.phones.length > 0 || itemData.security.isAddPhone == true">
+    <div class="padding_15">
+        <h3 class="row">
+            <i class="fa fa-phone font_25 icon_profile" aria-hidden="true"></i>&nbsp;Phone
+            <a href="" [hidden]="itemData.security.isAddPhone == false " (click)="openAddPhone('right', true, itemData.id)" class="pull-right font-13" title="Add phone" style=""><i class="fa fa-plus"></i></a>
+        </h3>
+        <div class="padding_0 margin_0">
+            <table class="table table-hover">
+                <tbody>
+                    <tr *ngFor="let obj of itemData.phones;">
+                        <!-- no need to put P or W for employers as it should be W by definition-->
+                        <td class="border_top_0" style="width: 30px; padding-left: 0px;" *ngIf="type === 'people' || currentUser.id === itemData.id">
+                            <span *ngIf="!obj.isBusiness" title="Personal" style="font-weight: bold; margin-right: 10px; cursor: pointer;">P</span>
+                            <span *ngIf="obj.isBusiness" title="Work" style="font-weight: bold; margin-right: 10px; cursor: pointer;">W</span>
+                        </td>
+                        <td class="border_top_0" style="width: 30px;" *ngIf="!(type === 'people' || currentUser.id === itemData.id)"></td>
+                        <td class="border_top_0" style="width: 20px; padding-left: 10px;">
+                            <ng-template #popContent1 ><span [ngClass]="{'success': obj.isVerified, 'warning' : !obj.isVerified}">{{obj.isVerified ?  'Verified' : 'Not verified'}}</span></ng-template>
+                            <span [ngbPopover]="popContent1" placement="right" triggers="mouseenter:mouseleave">
+                                <i *ngIf="obj.isVerified" class="fa fa-check-circle success" aria-hidden="true"></i>
+                                <i *ngIf="obj.isVerified === false" class="fa fa-times-circle danger" aria-hidden="true"></i>
+                                <i *ngIf="obj.isVerified === null" class="fa fa-minus-circle warning" aria-hidden="true"></i>
+                            </span>
+                        </td>
+                        <td class="border_top_0">
+                            <div class="col-sm-6 col-xs-9 padding_0 margin_0">
+                                <span>{{obj.phone}}</span>
+                                <span class="padding_left_15" [hidden]="obj.extension == 'null'">{{obj.extension}}</span>
+                            </div>
+                            <div class="col-sm-5 col-xs-12 margin_0 padding_right_0">
+                                <span *ngIf="obj.isMobile">Mobile</span>
+                                <span *ngIf="obj.isMobile === false">Landline</span>
+                            </div>
+                        </td>
+                        <td *ngIf="itemData.security.isEditPhone" class="border_top_0 text_align_right" style="width:20px; padding-right:0px;">
+                            <a href="" (click)="openEditPhone('right', true, obj)" class="pull-right font-13" title="Edit phone" style=""><i class="fa fa-pencil-square-o"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+  <!--Web links-->
+<div class="border_bottom_d body_content_profile" *ngIf="itemData.urls.length > 0 || itemData.security.isAddUrl == true">
+    <div class="padding_15" >
+        <h4>
+            <img src="assets/img/icon-person/links.png" alt="" class="icon_profile" />&nbsp;Web Links
+            <a style="" href="" [hidden]="itemData.security.isAddUrl == false" (click)="openAddUrl('right', true, itemData.id)" class="pull-right font-13" title="Add web link"><i class="fa fa-plus"></i></a>
+        </h4>
+        <div class="padding_0 margin_0" *ngIf="itemData.urls.length > 0">
+            <table class="table table-hover weblinks">
+                <tbody>
+                    <tr *ngFor="let obj of itemData.urls;">
+                        <td class="border_top_0" style="padding-left: 0px; overflow: hidden;">
+                            <a href="{{obj.url}}" target="_blank" style="width: 430px; float: left; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">{{obj.url}}</a>
+                            <span class="pull-right color_999" style="width: 100px; float: right; text-align: right;">{{obj.lastUpdate | date:'yyyy-MM-dd'}}</span>
+                        </td>
+                        <td *ngIf="itemData.security.isEditUrl == true" class="border_top_0 text_align_right" style="width:20px; padding-right:0px;">
+                            <a href="" (click)="openEditUrl('right', true, obj)" class="pull-right font-13" title="Edit link" style=" margin-left: 30px;"><i class="fa fa-pencil-square-o"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!--Address-->
+<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && itemData.addresses != null && ( itemData.addresses.length > 0 || itemData.security.isAddAddress == true)">
+    <div class="padding_15">
+        <h3 class="row">
+            <i class="fa fa-home font_25 icon_profile" aria-hidden="true"></i>&nbsp;Address
+            <a style="" [hidden]="itemData.security.isAddAddress == false" href="" (click)="openAddAddress('right', true, itemData.id)" class="pull-right font-13" title="Add address"><i class="fa fa-plus"></i></a>
+        </h3>
+        <div class="padding_0 margin_0" *ngIf="itemData.addresses.length > 0">
+            <table class="table table-hover job_order_list">
+                <tbody>
+                    <tr *ngFor="let obj of itemData.addresses;">
+                        <!-- no need to put P or W for employers as it should be W by definition-->
+                        <td class="border_top_0" style="width: 30px; padding-left:0px;" *ngIf="type === 'people' || currentUser.id === itemData.id">
+                            <span *ngIf="!obj.isBusiness" title="Personal" style="font-weight: bold; margin-right: 10px; cursor: pointer;">P</span>
+                            <span *ngIf="obj.isBusiness" title="Work" style="font-weight: bold; margin-right: 10px; cursor: pointer;">W</span>
+                        </td>
+                        <td class="border_top_0" style="width: 30px;" *ngIf="!(type === 'people' || currentUser.id === itemData.id)"></td>
+                        <td class="border_top_0 color_999">
+                            <div>{{obj.address1}}</div>
+                            <div>{{obj.address2}}</div>
+                            <div>{{obj.cityName}}</div>
+                            <div>{{obj.zipCode}}</div>
+                        </td>
+                        <td *ngIf="itemData.security.isEditAddress" class="border_top_0 text_align_right" style="width:20px; padding-right:0px;">
+                            <a href="" (click)="openEditAddress('right', true, obj)" class="pull-right font-13" title="Edit address"><i class="fa fa-edit"></i></a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

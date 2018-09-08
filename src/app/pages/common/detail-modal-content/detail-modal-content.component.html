@@ -12,7 +12,12 @@
 		</ngb-tab>
 		<ngb-tab title="Contact tab" id="tab1">
 			<ng-template ngbTabContent>
-				
+				<app-tab-contact
+					[type]="type"
+					[itemData]="itemData"
+					*ngIf="itemData.phones"
+				>
+				</app-tab-contact>
 			</ng-template>
 		</ngb-tab>
 		<ngb-tab *ngIf="type === 'people'" title="Job Req" id="tab2">

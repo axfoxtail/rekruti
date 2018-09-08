@@ -65,10 +65,10 @@ body {
     background: #1192c4;
 }
 
-.popover {
+./*popover {
     min-width: 350px;
     min-height: 215px;
-    /*left: 4px !important;*/
+    left: 4px !important;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     font-size: 12px;
     z-index: 9999;
@@ -76,7 +76,7 @@ body {
 
 .popover-body {
     padding: 15px;
-}
+}*/
 
 .ta-results {
     border: 1px solid rgba(0, 0, 0, .15);

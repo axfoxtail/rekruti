@@ -51,6 +51,7 @@ import {NotificationsService} from './services/notifications/notifications.servi
 import { DetailModalHeaderComponent } from './pages/common/detail-modal-header/detail-modal-header.component';
 import { DetailModalContentComponent } from './pages/common/detail-modal-content/detail-modal-content.component';
 import { TabProfileComponent } from './pages/common/tab-profile/tab-profile.component';
+import { TabContactComponent } from './pages/common/tab-contact/tab-contact.component';
 
 @NgModule({
     declarations: [
@@ -76,7 +77,8 @@ import { TabProfileComponent } from './pages/common/tab-profile/tab-profile.comp
         PeoplePopoverComponent,
         DetailModalHeaderComponent,
         DetailModalContentComponent,
-        TabProfileComponent
+        TabProfileComponent,
+        TabContactComponent
     ],
     imports: [
         CommonModule,
