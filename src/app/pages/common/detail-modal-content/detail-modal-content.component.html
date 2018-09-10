@@ -31,7 +31,10 @@
 		</ngb-tab>
 		<ngb-tab *ngIf="type === 'people'" title="Note" id="tab3">
 			<ng-template ngbTabContent>
-				
+				<app-tab-note
+					[itemData]="itemData"
+				>
+				</app-tab-note>
 			</ng-template>
 		</ngb-tab>
 		<ngb-tab *ngIf="type === 'people'" title="Document" id="tab4">

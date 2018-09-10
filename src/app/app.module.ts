@@ -15,6 +15,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import {NgxTypeaheadModule} from 'ngx-typeahead';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 import {AppComponent} from './app.component';
 
@@ -101,7 +102,8 @@ import { TabNoteComponent } from './pages/common/tab-note/tab-note.component';
         NgxPaginationModule,
         NgxTypeaheadModule,
         PopoverModule.forRoot(),
-        NgbModule
+        NgbModule,
+        CKEditorModule
     ],
     providers: [
         HttpService,

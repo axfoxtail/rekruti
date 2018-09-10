@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-tab-note',
@@ -7,9 +7,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TabNoteComponent implements OnInit {
 
-  constructor() { }
+	@Input() itemData;
 
-  ngOnInit() {
-  }
+	note = {
+        id : null,
+        note: '',
+        isShared: true,
+        isSharedEveryone: false
+    }
+    ckeConfig = {
+    	allowedContent: false,
+      extraPlugins: 'divarea',
+      forcePasteAsPlainText: true
+    }
+
+	constructor() { }
+
+	ngOnInit() {
+	}
+
+	changeNote(event) {
+		this.note.note = event.target.value;
+	}
 
 }
