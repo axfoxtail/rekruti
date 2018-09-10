@@ -10,6 +10,7 @@ declare var $: any;
 export class PeopleDetailsModalComponent implements OnInit {
 
 	@Input() chosenPeople;
+	@Input() chosenTab1;
 
     constructor() {
 
@@ -17,7 +18,6 @@ export class PeopleDetailsModalComponent implements OnInit {
 
     ngOnInit() {
 
-    	
     }
 
 }

@@ -16,6 +16,7 @@ declare var $: any;
 export class PeopleListComponent implements OnInit {
 
     @Output() selectedPeople: EventEmitter<any> = new EventEmitter;
+    @Output() openProfile: EventEmitter<any> = new EventEmitter;
     @ViewChildren('list') listItems: any;
 
     urlImg: any = environment.endpoint + '/personDocument/wDownload?storeGuid=';
@@ -74,6 +75,7 @@ export class PeopleListComponent implements OnInit {
         });
 
         $('#detailsModal').on('hide.bs.modal', (e => {
+
             for (let i = 0; i < this.listItems._results.length; i++) {
                 this.listItems._results[i].nativeElement.className = 'people-list-td';
             }
@@ -123,5 +125,11 @@ export class PeopleListComponent implements OnInit {
 
     clearSearch() {
         this.globalVar.peopleListChanged(this.search.clearSearch());
+    }
+
+    openModalByTab(item: any, tabName: any) {
+
+        let data = {item: item, tab: tabName};
+        this.openProfile.emit(data);
     }
 }

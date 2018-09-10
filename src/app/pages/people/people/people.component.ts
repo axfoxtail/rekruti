@@ -23,6 +23,7 @@ export class PeopleComponent implements OnInit {
     _autoCollapseWidth: any = 1100;
     windowWidth: any = window.innerWidth;
     chosenPeople: any;
+    chosenTab: any;
 
     constructor(private globalVar: GlobalVariablesService,
                 private api: RekrutiApiService,
@@ -99,17 +100,29 @@ export class PeopleComponent implements OnInit {
         this.topContent.nativeElement.scrollIntoView({behavior: 'instant', block: 'start'});
     }
 
-    selectedPeople(event){
+    selectedPeople(event: any){
         this.chosenPeople = event;
+        this.chosenTab = "";
+        this.loadDetailData(this.chosenPeople.id, event.pictureKey)
+        
+    }
 
-        this.api.person_wRead(this.chosenPeople.id)
+    selectedByTab(event: any) {
+        this.chosenPeople = event.item;
+        this.chosenTab = event.tab;
+
+        this.loadDetailData(this.chosenPeople.id, event.pictureKey);
+    }
+
+    loadDetailData(personId, pictureKey) {
+        this.api.person_wRead(personId)
         .then(response => {
             
                 if (response.result > 0) {
                     
                     console.log(response);
                     this.chosenPeople = response.data;
-                    this.chosenPeople.pictureKey = event.pictureKey;
+                    this.chosenPeople.pictureKey = pictureKey;
                     
                 } else {
                     this.notifications.warning(response.message, 10000);

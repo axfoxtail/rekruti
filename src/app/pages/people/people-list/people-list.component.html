@@ -37,10 +37,9 @@
     <table class="table table-hover">
         <tbody>
         <tr *ngFor="let item of peopleList | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: peopleData.total }">
-            <td class="people-list-td" data-toggle="modal" data-target="#detailsModal" (click)="openDetailsModal(item)"
-                [ngClass]="checkActiveItem(item.id)" #list>
+            <td class="people-list-td"  [ngClass]="checkActiveItem(item.id)" #list>
                 <div class="people-list-item-div">
-                    <div class="avatar-container">
+                    <div class="avatar-container" (click)="openDetailsModal(item)" data-toggle="modal" data-target="#detailsModal">
                         <a>
                             <img *ngIf="item.pictureKey" src="{{urlImg}}{{item.pictureKey}}" alt="{{item.fullName}}"/>
                             <img class="default-img" *ngIf="!item.pictureKey" src="assets/img/user-new.png"
@@ -55,21 +54,21 @@
                                 </a>
                             </div>
                             <div class="col item-contact-div">
-                                <a class="option" title="View email" *ngIf="item.hasEmail">
+                                <a class="option" title="View email" *ngIf="item.hasEmail" (click)="openModalByTab(item, 'contact')" data-toggle="modal" data-target="#detailsModal">
                                     <fa name="envelope-o"></fa>
                                 </a>
-                                <a class="option" title="View phone" *ngIf="item.hasPhone">
+                                <a class="option" title="View phone" *ngIf="item.hasPhone" (click)="openModalByTab(item, 'contact')" data-toggle="modal" data-target="#detailsModal">
                                     <fa name="phone"></fa>
                                 </a>
-                                <a class="option" title="View facebook" *ngIf="item.hasFacebook">
+                                <a class="option" title="View facebook" *ngIf="item.hasFacebook" (click)="openModalByTab(item, 'contact')" data-toggle="modal" data-target="#detailsModal">
                                     <fa name="facebook"></fa>
                                 </a>
-                                <a class="option" title="Add notes">
+                                <a class="option" title="Add notes" (click)="openModalByTab(item, 'note')" data-toggle="modal" data-target="#detailsModal">
                                     <i class="fa fa-edit">
                                         <span class="badge red-badge">{{item.noteCount}}</span>
                                     </i>
                                 </a>
-                                <a class="option" title="Add to list">
+                                <a class="option" title="Add to list" (click)="openModalByTab(item, 'jobReq')" data-toggle="modal" data-target="#detailsModal">
                                     <i class="fa fa-star-o">
                                         <span class="badge green-badge">{{item.listCount}}</span>
                                     </i>

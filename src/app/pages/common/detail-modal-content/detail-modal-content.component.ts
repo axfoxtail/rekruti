@@ -1,17 +1,21 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import {RekrutiApiService} from '../../../services/api/api.service';
 import {NotificationsService} from '../../../services/notifications/notifications.service';
+
+declare var $: any;
 
 @Component({
   selector: 'app-detail-modal-content',
   templateUrl: './detail-modal-content.component.html',
   styleUrls: ['./detail-modal-content.component.css']
 })
-export class DetailModalContentComponent implements OnInit {
+export class DetailModalContentComponent implements OnInit, AfterViewInit {
 
 	@Input() type = 'people';
 	@Input() itemData;
+    @Input() chosenTab;
 
+    @ViewChild('tab') ngbTabSet;
 
 	jobReq: any = {
 		list: [],
@@ -19,12 +23,38 @@ export class DetailModalContentComponent implements OnInit {
         isAdding: false,
         newName: ''
 	}
-	selectedTabStatus = [true, false, false, false, false];
+	selectedTabStatus = [false, false, false, false, false];
+    
 
-	constructor( private api: RekrutiApiService, private notifications: NotificationsService ) { }
+	constructor( private api: RekrutiApiService, private notifications: NotificationsService, private cdRef:ChangeDetectorRef ) { }
 
 	ngOnInit() {
+        console.log(this.chosenTab);
 	}
+
+    ngAfterViewInit() {
+        if (this.chosenTab != null && this.chosenTab !== "") {
+            
+            switch (this.chosenTab) {
+                case "contact":
+                    this.ngbTabSet.select('tab1');
+                    break;
+                case "note":
+                    this.loadJobNotes(this.itemData.id);
+                    this.ngbTabSet.select('tab3');
+                    break;
+                case "jobReq":
+                    this.loadJobReqs(this.itemData.id);
+                    this.ngbTabSet.select('tab2');
+                    break;
+                default:
+                    this.ngbTabSet.select('tab0');
+                    break;
+            }
+
+            this.cdRef.detectChanges();
+        }
+    }
 
 	setTab(event) {
 
