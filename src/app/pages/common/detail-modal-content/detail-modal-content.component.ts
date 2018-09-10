@@ -37,6 +37,9 @@ export class DetailModalContentComponent implements OnInit {
 			case "tab3" : 
 				this.loadJobNotes(this.itemData.id);
 				break;
+            case "tab4" :
+                this.loadDocument(this.itemData.id);
+                break;
 			default:
 				// code...
 				break;
@@ -109,5 +112,25 @@ export class DetailModalContentComponent implements OnInit {
             }
         )
 	}
+
+    loadDocument(personId) {
+        this.api.person_document(personId)
+        .then(response => {
+            
+                if (response.result > 0) {
+                    
+                    console.log(response);
+                    this.itemData.documents = response.data;
+                    
+                } else {
+                    this.notifications.warning('error', 10000);
+                }
+            },
+            err => {
+                console.log(err);
+                
+            }
+        )
+    }
 
 }

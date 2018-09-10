@@ -55,6 +55,7 @@ import { TabProfileComponent } from './pages/common/tab-profile/tab-profile.comp
 import { TabContactComponent } from './pages/common/tab-contact/tab-contact.component';
 import { TabJobReqComponent } from './pages/common/tab-job-req/tab-job-req.component';
 import { TabNoteComponent } from './pages/common/tab-note/tab-note.component';
+import { TabDocumentComponent } from './pages/common/tab-document/tab-document.component';
 
 @NgModule({
     declarations: [
@@ -83,7 +84,8 @@ import { TabNoteComponent } from './pages/common/tab-note/tab-note.component';
         TabProfileComponent,
         TabContactComponent,
         TabJobReqComponent,
-        TabNoteComponent
+        TabNoteComponent,
+        TabDocumentComponent
     ],
     imports: [
         CommonModule,

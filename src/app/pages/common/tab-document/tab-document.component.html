@@ -1,0 +1,43 @@
+ <!--email-->
+<div class="border_bottom_d body_content_profile" *ngIf="itemData.documents != null && (itemData.documents.length > 0 || itemData.security.isAddDocument == true)">
+    <div class="padding_15">
+        <h4 >
+            <img src="assets/images/icon-person/document.png" class="img_user_icon" />&nbsp;Document
+            <a href="" [hidden]="security.isAddDocument == false" (click)="openAddDocument('right', true, itemData.id)" class="pull-right font-13" title="Add document" style=""><i class="fa fa-plus"></i></a>
+        </h4>
+        <div class="row padding_top_15" [hidden]="itemData.documents == null || itemData.documents.length == 0">
+            <div class="col-xs-12 padding_0 margin_0">
+                <div class="padding_top_2 table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr *ngFor="let obj of itemData.documents;">
+                                <td class="border_top_0" style="padding:2px;width:50px;">
+                                    <div class="col-sm-1 col-xs-3 padding_0 margin_0" >
+                                        <a href="{{urlImage + obj.storeGuid}}" target="_blank" title="Download">
+                                            <span ng-bind-html="obj.extension | fileExtensionIcon"></span>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="border_top_0" style="padding:2px;">
+                                    <div class="col-sm-11 col-xs-9 margin_0 padding_0" style="padding-top:8px">
+                                        <p *ngIf="obj.name != 'null'">
+                                            <a href="{{urlImage + obj.storeGuid}}" target="_blank" title="Download">{{obj.name + '.' +obj.extension}}</a>
+                                        </p>
+                                    </div>
+                                </td>
+                                <td class="color_999 text_align_right border_top_0" style="padding-right:0px;">
+                                    {{obj.updateDate}}
+                                    <div class="pull-right" style="margin-left: 5px;" *ngIf="obj.accountId == currentUser.accountId">
+                                        <a href="" (click)="openEditDocument('right', true, obj)" title="Edit document">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

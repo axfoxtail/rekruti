@@ -39,7 +39,11 @@
 		</ngb-tab>
 		<ngb-tab *ngIf="type === 'people'" title="Document" id="tab4">
 			<ng-template ngbTabContent>
-				
+				<app-tab-document
+					[itemData]="itemData"
+					
+				>
+				</app-tab-document>
 			</ng-template>
 		</ngb-tab>
 		

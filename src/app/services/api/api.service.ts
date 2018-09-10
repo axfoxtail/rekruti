@@ -156,4 +156,14 @@ export class RekrutiApiService {
         });
     }
 
+    person_document(personId: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.get('personDocument/nList?personId=' + personId).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
 }
