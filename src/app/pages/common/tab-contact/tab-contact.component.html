@@ -1,5 +1,5 @@
  <!--email-->
-<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && itemData.emails.length > 0 || itemData.security.isAddEmail == true">
+<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && itemData.emails != null && (itemData.emails.length > 0 || itemData.security.isAddEmail == true)">
     <div class="padding_15">
         <h3 class="row">
             <i class="fa fa-envelope-o font_25 icon_profile" aria-hidden="true"></i>&nbsp;Email
@@ -37,7 +37,7 @@
 </div>
 
 <!--phone-->
-<div class="border_bottom_d body_content_profile" *ngIf="itemData.phones.length > 0 || itemData.security.isAddPhone == true">
+<div class="border_bottom_d body_content_profile" *ngIf="itemData.phones != null && (itemData.phones.length > 0 || itemData.security.isAddPhone == true)">
     <div class="padding_15">
         <h3 class="row">
             <i class="fa fa-phone font_25 icon_profile" aria-hidden="true"></i>&nbsp;Phone
@@ -83,7 +83,7 @@
 
 
   <!--Web links-->
-<div class="border_bottom_d body_content_profile" *ngIf="itemData.urls.length > 0 || itemData.security.isAddUrl == true">
+<div class="border_bottom_d body_content_profile" *ngIf="itemData.urls != null && (itemData.urls.length > 0 || itemData.security.isAddUrl == true)">
     <div class="padding_15" >
         <h4>
             <img src="assets/img/icon-person/links.png" alt="" class="icon_profile" />&nbsp;Web Links
