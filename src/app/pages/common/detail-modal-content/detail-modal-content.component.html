@@ -22,7 +22,11 @@
 		</ngb-tab>
 		<ngb-tab *ngIf="type === 'people'" title="Job Req" id="tab2">
 			<ng-template ngbTabContent>
-				
+				<app-tab-job-req
+					[jobReq]="jobReq"
+					[itemData]="itemData"
+				>
+				</app-tab-job-req>
 			</ng-template>
 		</ngb-tab>
 		<ngb-tab *ngIf="type === 'people'" title="Note" id="tab3">

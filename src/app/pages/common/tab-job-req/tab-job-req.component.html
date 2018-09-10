@@ -1,0 +1,65 @@
+<!--Job Req-->
+<div>
+    <div class="padding_0 margin_0" style="padding-top: 10px; padding-left: 15px; padding-bottom: 15px;">
+        <h4 >
+            <img src="assets/img/icon-person/job-bins.png" alt="" class="img_user_icon" />&nbsp;Job Req
+        </h4>
+    </div>
+
+    <div class="col-sm-12 table-responsive border_bottom_d media_margin_bottom_0 media_pd_bottom_5" style="padding-bottom:15px" >
+        <table class="table table-hover margin_0" >
+            <tr *ngFor="let obj of jobReq.list;">
+                <td class="meCheckbox border_top_0" style="padding: 0px;">
+                    <input type="checkbox" id="jobsAddCheckbox_{{obj.id}}" [(ngModel)]="obj.isSelected" onChange="setJobReq(itemData.id, obj.id, obj.isSelected)" />
+                    <label class="width_100" for="jobsAddCheckbox_{{obj.id}}" style="padding-left: 25px;">
+                        <span class="font_normal">{{obj.title}}</span>
+                        <a class="pull-right" href="" style="margin-left: 15px;" (click)="openEditJobReq('right', true, obj)"><i class="fa fa-edit"></i></a>
+                        <span class="color_999 pull-right font_normal">{{obj.displayId}}</span>
+                        <br>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="meCheckbox border_top_0" style="padding: 0px;">
+                    <div [hidden]="jobReq.isAdding">
+                        <a href="#" (click)="setJobReqIsAdding(true)">
+                            <i class="fa fa-plus"></i><span style="padding-left: 15px;">New Job Req</span>
+                        </a>
+                    </div>
+                    <div [hidden]="!jobReq.isAdding" style="padding-left: 25px;">
+                        <form id="form">
+                            <input type="text" name="new_title" value="{{jobReq.newName}}" >
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<!--Shared Job Req-->
+<div class="col-xs-12 padding_0 border_bottom_d media_pd_bottom_5" style="padding-bottom:15px" *ngIf="jobReq.sharedList.length > 0">
+    <div class="col-sm-12 col-xs-12 padding_0 margin_0" style="padding-top: 10px; padding-left: 15px; padding-bottom: 15px;">
+        <h4 >
+            <img src="assets/img/icon-person/job-bins.png" alt="" class="img_user_icon" />&nbsp;Shared Job Req
+        </h4>
+    </div>
+    <div class="col-sm-12 table-responsive">
+        <table class="table table-hover margin_0">
+            <tbody>
+                <tr *ngFor="let obj of jobReq.sharedList;">
+                    <td class="meCheckbox" style="border-top: 0; padding: 0px;">
+                        <input type="checkbox" id="jobsAddCheckbox_{{obj.id}}" [(ngModel)]="obj.isSelected" onChange="setJobReq(itemData.id, obj.id, obj.isSelected)" />
+                        <label class="width_100" for="jobsAddCheckbox_{{obj.id}}" style="padding-left: 25px;">
+                            <span class="font_normal">{{obj.title}}</span>
+                            <span class="color_999 pull-right font_normal" style="margin-right: 30px;">{{obj.displayId}}</span>
+                            <br>
+                        </label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- need extra white space at bottom-->
+<div class="col-xs-12 padding_15"></div> 

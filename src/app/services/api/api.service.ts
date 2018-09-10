@@ -126,4 +126,24 @@ export class RekrutiApiService {
         });
     }
 
+    person_jobList(personId: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.get('jobReq/nListForAdd?personId=' + personId).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    person_jobSharedList(personId: any): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.get('jobReq/nListForAddShared?personId=' + personId).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
 }

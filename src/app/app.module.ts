@@ -52,6 +52,7 @@ import { DetailModalHeaderComponent } from './pages/common/detail-modal-header/d
 import { DetailModalContentComponent } from './pages/common/detail-modal-content/detail-modal-content.component';
 import { TabProfileComponent } from './pages/common/tab-profile/tab-profile.component';
 import { TabContactComponent } from './pages/common/tab-contact/tab-contact.component';
+import { TabJobReqComponent } from './pages/common/tab-job-req/tab-job-req.component';
 
 @NgModule({
     declarations: [
@@ -78,7 +79,8 @@ import { TabContactComponent } from './pages/common/tab-contact/tab-contact.comp
         DetailModalHeaderComponent,
         DetailModalContentComponent,
         TabProfileComponent,
-        TabContactComponent
+        TabContactComponent,
+        TabJobReqComponent
     ],
     imports: [
         CommonModule,
