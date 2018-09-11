@@ -33,6 +33,8 @@
 			<ng-template ngbTabContent>
 				<app-tab-note
 					[itemData]="itemData"
+					(saveJobNote)="saveJobNote($event)"
+					(deleteJobNote)="deleteJobNote($event)"
 				>
 				</app-tab-note>
 			</ng-template>

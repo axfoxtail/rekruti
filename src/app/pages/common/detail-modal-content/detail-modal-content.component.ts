@@ -80,6 +80,26 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
 		
 	}
 
+    saveJobNote(event) {
+        this.api.person_saveJobNote(event)
+        .then(response => {
+            
+                if (response.result > 0) {
+                    
+                    this.notifications.success('Saved!', 5000);
+                    this.loadJobNotes(event.personID);
+                    
+                } else {
+                    this.notifications.warning(response.message, 10000);
+                }
+            },
+            err => {
+                console.log(err);
+                this.notifications.warning('Error', 10000);
+            }
+        )
+    }
+
 	loadJobReqs(personId) {
 		this.api.person_jobList(personId)
         .then(response => {
@@ -159,6 +179,26 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
             err => {
                 console.log(err);
                 
+            }
+        )
+    }
+
+    deleteJobNote(event: any) {
+        this.api.person_deleteNOte(event)
+        .then(response => {
+            
+               if (response.result > 0) {
+                    
+                    this.notifications.success('Deleted!', 5000);
+                    this.loadJobNotes(this.itemData.id);
+                    
+                } else {
+                    this.notifications.warning(response.message, 10000);
+                }
+            },
+            err => {
+                console.log(err);
+                this.notifications.warning('Error', 10000);
             }
         )
     }

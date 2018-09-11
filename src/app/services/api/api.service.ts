@@ -128,7 +128,7 @@ export class RekrutiApiService {
 
     person_jobList(personId: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get('jobReq/nListForAdd?personId=' + personId).then(data => {
+            this.http.get('/jobReq/nListForAdd?personId=' + personId).then(data => {
                 resolve(data);
             }, function (error) {
                 reject(error);
@@ -138,7 +138,7 @@ export class RekrutiApiService {
 
     person_jobSharedList(personId: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get('jobReq/nListForAddShared?personId=' + personId).then(data => {
+            this.http.get('/jobReq/nListForAddShared?personId=' + personId).then(data => {
                 resolve(data);
             }, function (error) {
                 reject(error);
@@ -148,7 +148,7 @@ export class RekrutiApiService {
 
     person_jobNote(personId: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get('personNote/nList?personId=' + personId).then(data => {
+            this.http.get('/personNote/nList?personId=' + personId).then(data => {
                 resolve(data);
             }, function (error) {
                 reject(error);
@@ -158,7 +158,35 @@ export class RekrutiApiService {
 
     person_document(personId: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.get('personDocument/nList?personId=' + personId).then(data => {
+            this.http.get('/personDocument/nList?personId=' + personId).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    person_saveJobNote(event: any): Promise<any> {
+
+        let params = new HttpParams().set('note', event.note.note).set('isShared', event.note.isShared).set('isSharedEveryone', event.note.isSharedEveryone);
+        if (event.note.id != null) {
+            params = params.append('id', event.note.id);
+        } else {
+            params = params.append('personId', event.personID);
+        }
+
+        return new Promise((resolve, reject) => {
+            this.http.get(event.note.id != null ? '/personNote/wUpdate' : '/personNote/wCreate', params).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    person_deleteNOte(id: any) : Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.get('/personNote/wDelete?id=' + id).then(data => {
                 resolve(data);
             }, function (error) {
                 reject(error);

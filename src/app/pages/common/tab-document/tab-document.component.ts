@@ -14,4 +14,12 @@ export class TabDocumentComponent implements OnInit {
 	ngOnInit() {
 	}
 
+	openAddDocument(position, backdrop, personId) {
+
+	}
+
+	openEditDocument(position, backdrop, obj) {
+		
+	}
+
 }

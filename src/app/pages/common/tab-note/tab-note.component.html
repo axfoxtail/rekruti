@@ -4,7 +4,7 @@
         <form name="form" #form="ngForm" role="form">
             <div class="form-group">
 
-                <textarea rows="4" name="note" id="note" class="form-control" placeholder="Enter notes about {{itemData.fullName}}" (change)="changeNote($event)" required ckeditor="minimal-small"></textarea>
+                <textarea rows="4" name="note" id="note" class="form-control" placeholder="Enter notes about {{itemData.fullName}}" (change)="changeNote($event)" [(ngModel)]="note.note" required ckeditor="minimal-small"></textarea>
                 
             </div>
             <table class="table-responsive width_100">
@@ -12,16 +12,16 @@
             		
 	                <tr class="position_display width_100">
 	                    <td class="padding_0 position_display">
-	                        <div class="search_checkBox meCheckbox padding_0">
-	                            <div class="form-group" style="margin-bottom:5px">
-	                                <input name="isShared" type="checkbox" id="isShared" [(ngModel)]="note.isShared" [disabled]="note.isSharedEveryone" />
-	                                <label for="isShared">Share with Colleagues</label>
+	                        <div class="search_checkBox padding_0">
+	                            <div style="margin-bottom:5px">
+	                                <input name="isShared" type="checkbox" id="isShared" [(ngModel)]="note.isShared" [disabled]="!note.isSharedEveryone"/>
+	                                <label for="isShared" class="meCheckbox">Share with Colleagues</label>
 	                            </div>
 	                        </div>
-	                        <div class="search_checkBox meCheckbox padding_0">
-	                            <div class="form-group" style="margin-bottom:5px">
-	                                <input name="isSharedEveryone" type="checkbox" id="isSharedEveryone" [(ngModel)]="note.isSharedEveryone" />
-	                                <label for="isSharedEveryone">Share with Everyone</label>
+	                        <div class="search_checkBox padding_0">
+	                            <div style="margin-bottom:5px">
+	                                <input name="isSharedEveryone" type="checkbox" id="isSharedEveryone" [(ngModel)]="note.isSharedEveryone"/>
+	                                <label for="isSharedEveryone" class="meCheckbox">Share with Everyone</label>
 	                            </div>
 	                        </div>
 	                    </td>
@@ -30,6 +30,7 @@
 	                            <button type="submit" class="btn btn-success" (click)="saveNote(itemData.id, note)" [disabled]="form.invalid" title="Save">
 	                                <i class="fa fa-check"></i> Save
 	                            </button>
+                                {{' '}}
 	                            <button *ngIf="note.id != null" (click)="cancelNote()" class="btn btn-warning" title="Cancel">
 	                                <i class="fa fa-undo"></i> Cancel
 	                            </button>
@@ -48,6 +49,7 @@
                     <td style="padding: 15px;">
                         <span class="color_999">{{obj.accountName}}</span>
                         <div class="text_align_justify list_notes" ng-bind-html="obj.note">
+                            {{obj.note}}
                         </div>
                     </td>
                     <td class="color_999 text_align_right" style="padding: 15px;">
