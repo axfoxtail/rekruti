@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
 import {GlobalVariablesService} from '../../../services/global-variables/global-variables.service';
 
 @Component({
@@ -17,11 +17,8 @@ export class TabNoteComponent implements OnInit {
         isShared: true,
         isSharedEveryone: false
     }
-    ckeConfig = {
-    	allowedContent: false,
-      extraPlugins: 'divarea',
-      forcePasteAsPlainText: true
-    }
+  ckeConfig: any;
+  @ViewChild("myckeditor") ckeditor: any;
 
   currentUser: any;
 
@@ -30,10 +27,17 @@ export class TabNoteComponent implements OnInit {
 	ngOnInit() {
 
     this.currentUser = this.globalVar.getCookieCurrentUser();
+    this.ckeConfig = {
+      allowedContent: false,
+      extraPlugins: 'divarea',
+      forcePasteAsPlainText: true,
+      toolbar: [['Bold', 'Italic', 'Underline']]
+    }
+
 	}
 
 	changeNote(event) {
-		this.note.note = event.target.value;
+    console.log(this.note.note);
 	}
 
   saveNote(personID, note) {

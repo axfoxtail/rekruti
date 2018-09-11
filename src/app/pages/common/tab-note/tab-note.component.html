@@ -4,8 +4,8 @@
         <form name="form" #form="ngForm" role="form">
             <div class="form-group">
 
-                <textarea rows="4" name="note" id="note" class="form-control" placeholder="Enter notes about {{itemData.fullName}}" (change)="changeNote($event)" [(ngModel)]="note.note" required ckeditor="minimal-small"></textarea>
-                
+                <!-- <textarea rows="4" name="note" id="note" class="form-control" placeholder="Enter notes about {{itemData.fullName}}" (change)="changeNote($event)" [(ngModel)]="note.note" required ></textarea> -->
+                <ckeditor [(ngModel)]="note.note" #myckeditor [config]="ckeConfig" (change)="changeNote($event)" name="note" required></ckeditor>
             </div>
             <table class="table-responsive width_100">
             	<tbody class="position_display width_100">
