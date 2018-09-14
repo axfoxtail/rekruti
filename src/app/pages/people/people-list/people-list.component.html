@@ -47,9 +47,9 @@
                         </a>
                     </div>
                     <div class="details-container">
-                        <div class="row item-title-div">
+                        <div class="row item-title-div" (click)="openDetailsModal(item)" data-toggle="modal" data-target="#detailsModal">
                             <div class="col">
-                                <a class="people-item-title-name">
+                                <a class="people-item-title-name" >
                                     <h3>{{item.fullName}}</h3>
                                 </a>
                             </div>
