@@ -1,0 +1,25 @@
+<div class="fullbody" *ngIf="chosenPeople">
+    <app-detail-modal-header 
+      [type]="'people'"
+      [itemData]="chosenPeople"
+    >
+    </app-detail-modal-header>
+    
+    <app-detail-modal-content
+      [type]="'people'"
+      [itemData]="chosenPeople"
+      [chosenTab]="'tab0'"
+      [fromFull]="true"
+    >
+    </app-detail-modal-content>
+</div>
+
+<app-people-edit-modal
+    *ngIf="chosenJobReq != null"
+    [itemData]="chosenJobReq"
+    [colleagues]="chosenJobReqColleagues"
+    [modalForJobReq]="modalForJobreqOrDocument"
+    (saveOrDeleteJobReq)="saveOrDeleteJobReq($event)"
+    (saveOrDeleteDocument)="saveOrDeleteDocument($event)"
+>
+</app-people-edit-modal>

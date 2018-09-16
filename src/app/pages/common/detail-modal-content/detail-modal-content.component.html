@@ -55,6 +55,6 @@
 
 </div>
 
- <div class="text_align_center padding_15" *ngIf="type === 'people'">
-    <a (click)="openFullPage(itemData.id)">Full Page View</a>
+ <div class="text_align_center padding_15" *ngIf="type === 'people' && (fromFull == null || fromFull == false)">
+    <a routerLink="/people/{{itemData.id}}" (click)="openFullPage(itemData.id)" data-dismiss="modal">Full Page View</a>
 </div>

@@ -42,6 +42,8 @@ export class GlobalVariablesService {
     public refreshJobReqTabEvent: EventEmitter<any> = new EventEmitter();
     public openPeopleDocumentEvent: EventEmitter<any> = new EventEmitter();
     public refreshDocumentTabEvent: EventEmitter<any> = new EventEmitter();
+
+    public currentSelectedPeople: any;
     //People Edit Modal end
 
     constructor(private cookieService: CookieService, private utils: UtilsService) {

@@ -8,6 +8,7 @@ import {AppLayoutComponent} from '../_layout/app-layout/app-layout.component';
 
 import {LoginComponent} from '../pages/login/login.component';
 import {PeopleComponent} from '../pages/people/people/people.component';
+import {PeopleFullComponent} from '../pages/people/people-full/people-full.component';
 import {EmployersComponent} from '../pages/employers/employers/employers.component';
 import {MyProfileComponent} from '../pages/my-profile/my-profile.component';
 import {JobsComponent} from '../pages/jobs/jobs.component';
@@ -46,6 +47,12 @@ const routes: Routes = [
                 path: 'people',
                 component: PeopleComponent,
                 data: {access: 'private', component: 'PeopleComponent'},
+                canActivate: [Auth]
+            },
+            {
+                path: 'people/:id',
+                component: PeopleFullComponent,
+                data: {access: 'private', component: 'PeopleFullComponent'},
                 canActivate: [Auth]
             },
             {

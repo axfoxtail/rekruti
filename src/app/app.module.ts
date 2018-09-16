@@ -58,6 +58,7 @@ import { TabNoteComponent } from './pages/common/tab-note/tab-note.component';
 import { TabDocumentComponent } from './pages/common/tab-document/tab-document.component';
 import { PeopleEditModalComponent } from './pages/people/people-edit-modal/people-edit-modal.component';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
+import { PeopleFullComponent } from './pages/people/people-full/people-full.component';
 
 @NgModule({
     declarations: [
@@ -88,7 +89,8 @@ import { FileUploadModule } from '@iplab/ngx-file-upload';
         TabJobReqComponent,
         TabNoteComponent,
         TabDocumentComponent,
-        PeopleEditModalComponent
+        PeopleEditModalComponent,
+        PeopleFullComponent
     ],
     imports: [
         CommonModule,

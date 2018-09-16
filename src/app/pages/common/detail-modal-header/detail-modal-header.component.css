@@ -2,6 +2,8 @@
     position: relative;
     background: #fff;
     overflow: hidden;
+    margin-right: 0px !important;
+    margin-left:  0px !important;
 }
 
 

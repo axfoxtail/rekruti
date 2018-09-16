@@ -15,6 +15,7 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
 	@Input() type = 'people';
 	@Input() itemData;
     @Input() chosenTab;
+    @Input() fromFull;
 
     @ViewChild('tab') ngbTabSet;
 
