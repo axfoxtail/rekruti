@@ -48,8 +48,8 @@
                 <tr class="" *ngFor="let obj of itemData.notes;" (click)="loadNote(obj)" style="padding: 0 15px;">
                     <td style="padding: 15px;">
                         <span class="color_999">{{obj.accountName}}</span>
-                        <div class="text_align_justify list_notes" ng-bind-html="obj.note">
-                            {{obj.note}}
+                        <div class="text_align_justify list_notes" [innerHTML]="obj.note">
+                           
                         </div>
                     </td>
                     <td class="color_999 text_align_right" style="padding: 15px;">
