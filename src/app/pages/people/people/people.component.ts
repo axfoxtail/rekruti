@@ -24,7 +24,6 @@ export class PeopleComponent implements OnInit {
     windowWidth: any = window.innerWidth;
     chosenPeople: any;
     chosenTab: any;
-    chosenDocument: any;
     chosenJobReq: any;
     chosenJobReqColleagues: any;
     modalForJobreqOrDocument: any;
@@ -56,7 +55,12 @@ export class PeopleComponent implements OnInit {
 
         this.globalVar.openPeopleJobReqEditEvent.subscribe((data: any) => {
             this.modalForJobreqOrDocument = true;
-            this.loadPeopleEditJobReq(data);
+            this.loadPeopleEdit(data);
+        })
+
+        this.globalVar.openPeopleDocumentEvent.subscribe((data: any) => {
+            this.modalForJobreqOrDocument = false;
+            this.loadPeopleEdit(data);
         })
     }
 
@@ -144,7 +148,7 @@ export class PeopleComponent implements OnInit {
         )
     }
 
-    loadPeopleEditJobReq(data: any) {
+    loadPeopleEdit(data: any) {
         this.chosenJobReq = data;
 
         this.api.account_nListColleagues()
@@ -166,10 +170,26 @@ export class PeopleComponent implements OnInit {
         this.api.saveOrDeleteJobReq(data)
         .then(response => {
                 
-                console.log(response);
                 if (response.result > 0) {
                     this.notifications.success('Updated successfully!', 10000);
                     this.globalVar.refreshJobReqEvent();
+                } 
+            },
+            err => {
+                console.log(err);
+                
+            }
+        )
+    }
+
+    saveOrDeleteDocument(data: any) {
+        this.api.saveOrDeleteDocument(data)
+        .then(response => {
+                
+                console.log(response);
+                if (response.result > 0) {
+                    this.notifications.success('Successed!', 10000);
+                    this.globalVar.refreshDocumentEvent();
                 } 
             },
             err => {

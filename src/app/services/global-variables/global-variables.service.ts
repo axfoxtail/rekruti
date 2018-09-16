@@ -40,6 +40,8 @@ export class GlobalVariablesService {
 
     public openPeopleJobReqEditEvent: EventEmitter<any> = new EventEmitter();
     public refreshJobReqTabEvent: EventEmitter<any> = new EventEmitter();
+    public openPeopleDocumentEvent: EventEmitter<any> = new EventEmitter();
+    public refreshDocumentTabEvent: EventEmitter<any> = new EventEmitter();
     //People Edit Modal end
 
     constructor(private cookieService: CookieService, private utils: UtilsService) {
@@ -192,6 +194,14 @@ export class GlobalVariablesService {
 
     refreshJobReqEvent() {
         this.refreshJobReqTabEvent.emit();
+    }
+
+    showPeopleDocumentModal(data: any) {
+        this.openPeopleDocumentEvent.emit(data);
+    }
+
+    refreshDocumentEvent() {
+        this.refreshDocumentTabEvent.emit();
     }
 
     //People Edit Modal end

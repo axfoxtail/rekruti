@@ -247,4 +247,52 @@ export class RekrutiApiService {
         });
     }
 
+    saveOrDeleteDocument(data: any) : Promise<any> {
+
+        var url = '/';
+        var params = new HttpParams().set('id', data.itemData.itemData.id);
+        var formData = new FormData();
+        if (data.forSave) {
+                
+            if (data.forAdd) {
+                url += 'personDocument/wUpload';
+
+                formData.append('file', data.file);
+                formData.append('isShared',data.itemData.itemData.isShared);
+                formData.append('isSharedEveryone',data.itemData.itemData.isSharedEveryone);
+                formData.append('personId', data.itemData.itemData.accountId);
+
+            } else {
+                url += 'personDocument/wUpdate';
+
+                params = params.append('name', data.itemData.itemData.name);
+                params = params.append('isShared', data.itemData.itemData.isShared);
+                params = params.append('isSharedEveryone', data.itemData.itemData.isSharedEveryone);
+                params = params.append('accountOwnerId', data.itemData.itemData.accountId);
+
+            }
+
+        } else {
+            url += 'personDocument/wDelete';
+        }
+
+        if (data.forSave && data.forAdd) {
+            return new Promise((resolve, reject) => {
+                this.http.post(url, params).then(data => {
+                    resolve(data);
+                }, function (error) {
+                    reject(error);
+                });
+            });
+        }
+
+        return new Promise((resolve, reject) => {
+            this.http.get(url, params).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
 }

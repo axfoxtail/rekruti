@@ -33,6 +33,10 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
         this.globalVar.refreshJobReqTabEvent.subscribe(() => {
             this.loadJobReqs(this.itemData.id);
         })
+
+        this.globalVar.refreshDocumentTabEvent.subscribe(() => {
+            this.loadDocument(this.itemData.id);
+        })
 	}
 
     ngAfterViewInit() {

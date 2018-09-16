@@ -7,10 +7,14 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PeopleEditModalComponent implements OnInit {
 
-	@Input() itemData;
-	@Input() modalForJobReq;
-	@Input() colleagues;
-	@Output() saveOrDeleteJobReq: EventEmitter<any> = new EventEmitter;
+  	@Input() itemData;
+  	@Input() modalForJobReq;
+  	@Input() colleagues;
+  	@Output() saveOrDeleteJobReq: EventEmitter<any> = new EventEmitter;
+    @Output() saveOrDeleteDocument: EventEmitter<any> = new EventEmitter;
+
+    file: any;
+
   	constructor() { }
 
   	ngOnInit() {
@@ -24,6 +28,20 @@ export class PeopleEditModalComponent implements OnInit {
   	deleteJobReq() {
   		this.saveOrDeleteJobReq.emit({itemData: this.itemData, forSave: false});
   	}
+
+    saveDocument() {
+
+      if (this.itemData.forAdd) {
+        this.saveOrDeleteDocument.emit({itemData: this.itemData, forSave: true, forAdd: true, file: this.file});
+      } else {
+        this.saveOrDeleteDocument.emit({itemData: this.itemData, forSave: true, forAdd: false});
+      }
+      
+    }
+
+    deleteDocument() {
+      this.saveOrDeleteDocument.emit({itemData: this.itemData, forSave: false})
+    }
 
   	cancel() {
 

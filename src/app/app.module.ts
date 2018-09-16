@@ -57,6 +57,7 @@ import { TabJobReqComponent } from './pages/common/tab-job-req/tab-job-req.compo
 import { TabNoteComponent } from './pages/common/tab-note/tab-note.component';
 import { TabDocumentComponent } from './pages/common/tab-document/tab-document.component';
 import { PeopleEditModalComponent } from './pages/people/people-edit-modal/people-edit-modal.component';
+import { FileUploadModule } from '@iplab/ngx-file-upload';
 
 @NgModule({
     declarations: [
@@ -107,7 +108,8 @@ import { PeopleEditModalComponent } from './pages/people/people-edit-modal/peopl
         NgxTypeaheadModule,
         PopoverModule.forRoot(),
         NgbModule,
-        CKEditorModule
+        CKEditorModule,
+        FileUploadModule
     ],
     providers: [
         HttpService,

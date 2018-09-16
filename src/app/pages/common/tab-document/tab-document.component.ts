@@ -20,11 +20,11 @@ export class TabDocumentComponent implements OnInit {
 	}
 
 	openAddDocument(personId) {
-
+		this.globalVar.showPeopleDocumentModal({forAdd: true, personID: personId, itemData: {isShared: true, isSharedEveryone: false, accountId: this.itemData.id}});
 	}
 
 	openEditDocument(obj) {
-		
+		this.globalVar.showPeopleDocumentModal({forAdd: false, itemData: obj});
 	}
 
 	getExtension(type) {

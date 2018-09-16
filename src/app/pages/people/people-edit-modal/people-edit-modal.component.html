@@ -2,10 +2,12 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-body">
-            <div class="row header_right_popup">
+
+        	<!-- Jobreq Edit -->
+            <div class="row header_right_popup" *ngIf="modalForJobReq">
 		    	
 		    	<div class="col-md-5 padding_0 div_title">
-		    	    <h5 class="h3_title" style="font-weight: bold;">{{modalForJobReq ? 'Edit Job Req' : 'Document'}}</h5>
+		    	    <h5 class="h3_title" style="font-weight: bold;">Edit Job Req</h5>
 		    	</div>
 		    	<div class="col-md-7 text-right">
 		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveJobReq()"  title="Save">
@@ -19,10 +21,8 @@
 		    	    </button>
 		    	</div>
 		    	<div class="border_top_d padding_0 col-xs-12"></div>
-		    	
 			</div>
 
-			<!-- Jobreq Edit -->
 			<div class="padding_15" *ngIf="modalForJobReq">
 			    <form name="form" #form="ngForm" role="form">
 			        <div class="form-group">
@@ -50,7 +50,65 @@
 			    </form>
 			</div>
 
+			<!-- Document Add/Edit -->
+			<div class="row header_right_popup" *ngIf="!modalForJobReq">
+		    	
+		    	<div class="col-md-5 padding_0 div_title">
+		    	    <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Document' : 'Edit Document'}}</h5>
+		    	</div>
+		    	<div class="col-md-7 text-right">
+		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveDocument()"  title="Save">
+		    	        <i class="fa fa-check"></i> Save
+		    	    </button>
+		    	    <button *ngIf="!itemData.forAdd" (click)="deleteDocument()" class="btn btn-danger div_btn_action" title="Delete">
+		    	        <i class="fa fa-trash"></i> Delete
+		    	    </button>
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	        <i class="fa fa-undo"></i> Cancel
+		    	    </button>
+		    	</div>
+		    	<div class="border_top_d padding_0 col-xs-12"></div>
+			</div>
 
+			<div class="padding_15" *ngIf="!modalForJobReq">
+			    <form name="form" #form="ngForm" role="form">
+			        <div class="form-group" *ngIf="!itemData.forAdd">
+			            <label for="title" class="me_required">Name</label>
+			            <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.itemData.name" required />
+			        </div>
+
+			        <div class="form-group" *ngIf="!itemData.forAdd">
+			            <label class="me_required">Owner</label>
+			            <select class="form-control" [(ngModel)]="itemData.itemData.accountId" name="collegue" required >
+			                <option *ngFor="let item of colleagues;" value="{{ item.id }}">{{ item.name }}</option>
+			            </select>
+			        </div>
+
+			        <div class="form-group" *ngIf="itemData.forAdd">
+   					    <label for="title" class="me_required">Document</label>
+   					    <!-- the model does not seem to work here -->
+   					    <file-upload [(ngModel)]="file" class="drop-box-document-file" fileslimit="1" name="file"></file-upload>
+   					    
+   					</div>
+
+			       
+			        <div class="margin_0 padding_0">
+			            <div class="form-group">
+			                <div>
+			                    <input type="checkbox" id="isShared" [(ngModel)]="itemData.itemData.isShared" name="shareWithCollegue" style="position: absolute; margin-top: 4px;"/>
+			                    <label for="isShared" style="margin-left: 16px;">Share with Colleagues</label>
+			                </div>
+			            </div>
+			            <div class="form-group">
+			                <div>
+			                    <input type="checkbox" id="isShared" [(ngModel)]="itemData.itemData.isSharedEveryone" name="shareWithCollegue" style="position: absolute; margin-top: 4px;"/>
+			                    <label for="isShared" style="margin-left: 16px;">Share with EveryOne</label>
+			                </div>
+			            </div>
+			        </div>
+			        
+			    </form>
+			</div>
         </div>
     </div>
   </div>
