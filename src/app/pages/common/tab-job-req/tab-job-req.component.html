@@ -22,8 +22,8 @@
             <tr>
                 <td class="meCheckbox border_top_0" style="padding: 0px;">
                     <div [hidden]="jobReq.isAdding">
-                        <a href="#" (click)="setJobReqIsAdding(true)">
-                            <i class="fa fa-plus"></i><span style="padding-left: 15px;">New Job Req</span>
+                        <a (click)="setJobReqIsAdding(true)">
+                            <i class="fa fa-plus color_blue"></i><span class="color_blue" style="padding-left: 15px;">New Job Req</span>
                         </a>
                     </div>
                     <div [hidden]="!jobReq.isAdding" style="padding-left: 25px;">
