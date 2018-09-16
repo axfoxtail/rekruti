@@ -55,3 +55,11 @@
 .text_align_right{
     text-align: right;
 }
+
+.icon_types {
+    max-width: 30px;
+}
+
+.padding_top_15{
+    padding-top: 15px;
+}

@@ -1,0 +1,94 @@
+.modal {
+    top: 58px;
+}
+
+.modal-dialog {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 0 0 0 10px !important;
+    left: 56.0%;
+    max-width: 43.8%;
+    height: 100%;
+
+}
+
+.modal-content {
+    border-radius: 2px;
+    height: auto;
+    min-height: 100%;
+    border: none;
+}
+
+
+.modal.fade .modal-dialog {
+    -webkit-transform: translate(25%, 0);
+    transform: translate(25%, 0);
+}
+
+.modal.show .modal-dialog {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+}
+
+
+@media only screen and (max-width: 1100px) {
+    .modal-dialog {
+        left: 25%;
+        max-width: 85%;
+        height: 100%;
+    }
+}
+
+.header_right_popup{
+    
+    top: 60px;
+    /* left: 0; */
+    z-index: 5;
+    /* right: 0; */
+    background: #ffffff;
+    /*width: 40%;
+    min-width: 400px;*/
+}
+
+.padding_0{
+    padding:0;
+}
+
+.text_align_right{
+    text-align: right;
+}
+
+.padding_bottom_2{
+    padding-bottom:2%;
+}
+
+.padding_15{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.me_required_o{
+    color: #ff6600;
+}
+
+.margin_0{
+    margin: 0 !important;
+}
+
+.div_btn_action{
+    text-align: center !important;
+    margin-left: 5px;
+}
+
+.h3_title{
+    text-align: left !important;
+    padding: 0 !important;
+    margin-left: 10px;
+}
+
+.div_title{
+    padding: 0 !important;
+}

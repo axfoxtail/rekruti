@@ -19,6 +19,14 @@
             </app-people-list>
         </div>
         <app-people-details-modal *ngIf="chosenPeople" [chosenPeople]="chosenPeople" [chosenTab1]="chosenTab"></app-people-details-modal>
+        <app-people-edit-modal
+            *ngIf="chosenJobReq != null || chosenDocument != null"
+            [itemData]="chosenJobReq"
+            [colleagues]="chosenJobReqColleagues"
+            [modalForJobReq]="modalForJobreqOrDocument"
+            (saveOrDeleteJobReq)="saveOrDeleteJobReq($event)"
+        >
+        </app-people-edit-modal>
     </div>
 
 </ng-sidebar-container>

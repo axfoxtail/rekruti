@@ -1,4 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {GlobalVariablesService} from '../../../services/global-variables/global-variables.service';
+
 
 @Component({
   selector: 'app-tab-job-req',
@@ -9,11 +11,12 @@ export class TabJobReqComponent implements OnInit {
 
 	@Input() jobReq;
 	@Input() itemData;
-
- 	constructor() { }
+	@Output() addNewJob: EventEmitter<any> = new EventEmitter;
+	@Output() setJobReq: EventEmitter<any> = new EventEmitter;
+ 	constructor( private globalVar: GlobalVariablesService ) { }
 
  	ngOnInit() {
-
+ 		console.log(this.jobReq);
  	}
 
  	setJobReqIsAdding(value) {
@@ -22,8 +25,17 @@ export class TabJobReqComponent implements OnInit {
  	}
 
  	addNewJobReq(personID, newName) {
- 		return true;
+ 		
+ 		this.addNewJob.emit({personID: personID, newName: newName});
  	}
 
+ 	changeJobReq(personID, jobReqID, check) {
+
+ 		this.setJobReq.emit({personID: personID, jobReqID: jobReqID, check: check});
+ 	}
+
+ 	openEditJobReq(obj) {
+ 		this.globalVar.showPeopleJobReqEditModal(obj);
+ 	}
  	
 }

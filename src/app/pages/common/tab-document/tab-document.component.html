@@ -2,19 +2,21 @@
 <div class="border_bottom_d body_content_profile" *ngIf="itemData.documents != null && (itemData.documents.length > 0 || itemData.security.isAddDocument == true)">
     <div class="padding_15">
         <h4 >
-            <img src="assets/images/icon-person/document.png" class="img_user_icon" />&nbsp;Document
-            <a href="" [hidden]="security.isAddDocument == false" (click)="openAddDocument('right', true, itemData.id)" class="pull-right font-13" title="Add document" style=""><i class="fa fa-plus"></i></a>
+            <img src="assets/img/icon-person/document.png" class="img_user_icon" />&nbsp;Document
+            <a href="" [hidden]="itemData.security.isAddDocument == false" (click)="openAddDocument(itemData.id)" class="pull-right font-13" title="Add document" data-toggle="modal" data-target="#editModal"><i class="fa fa-plus"></i></a>
         </h4>
         <div class="row padding_top_15" [hidden]="itemData.documents == null || itemData.documents.length == 0">
-            <div class="col-xs-12 padding_0 margin_0">
-                <div class="padding_top_2 table-responsive">
+            
+            <div class="padding_top_2 table-responsive">
                     <table class="table table-hover">
                         <tbody>
                             <tr *ngFor="let obj of itemData.documents;">
                                 <td class="border_top_0" style="padding:2px;width:50px;">
                                     <div class="col-sm-1 col-xs-3 padding_0 margin_0" >
                                         <a href="{{urlImage + obj.storeGuid}}" target="_blank" title="Download">
-                                            <span ng-bind-html="obj.extension | fileExtensionIcon"></span>
+                                            <span ng-bind-html="obj.extension | fileExtensionIcon">
+                                                <img src="{{'assets/img/icon-type/' + getExtension(obj.extension) + '.png'}}" alt="Person Document" class="icon_types">
+                                            </span>
                                         </a>
                                     </div>
                                 </td>
@@ -26,9 +28,9 @@
                                     </div>
                                 </td>
                                 <td class="color_999 text_align_right border_top_0" style="padding-right:0px;">
-                                    {{obj.updateDate}}
+                                    {{obj.updateDate| date:"yyyy-MM-dd"}}
                                     <div class="pull-right" style="margin-left: 5px;" *ngIf="obj.accountId == currentUser.accountId">
-                                        <a href="" (click)="openEditDocument('right', true, obj)" title="Edit document">
+                                        <a href="" (click)="openEditDocument(obj)" title="Edit document" data-toggle="modal" data-target="#editModal">
                                             <i class="fa fa-pencil-square-o"></i>
                                         </a>
                                     </div>
@@ -36,8 +38,8 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
             </div>
+            
         </div>
     </div>
 </div>

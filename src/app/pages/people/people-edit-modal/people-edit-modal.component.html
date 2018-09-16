@@ -1,0 +1,58 @@
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row header_right_popup">
+		    	
+		    	<div class="col-md-5 padding_0 div_title">
+		    	    <h5 class="h3_title" style="font-weight: bold;">{{modalForJobReq ? 'Edit Job Req' : 'Document'}}</h5>
+		    	</div>
+		    	<div class="col-md-7 text-right">
+		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveJobReq()"  title="Save">
+		    	        <i class="fa fa-check"></i> Save
+		    	    </button>
+		    	    <button (click)="deleteJobReq()" class="btn btn-danger div_btn_action" title="Delete">
+		    	        <i class="fa fa-trash"></i> Delete
+		    	    </button>
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	        <i class="fa fa-undo"></i> Cancel
+		    	    </button>
+		    	</div>
+		    	<div class="border_top_d padding_0 col-xs-12"></div>
+		    	
+			</div>
+
+			<!-- Jobreq Edit -->
+			<div class="padding_15" *ngIf="modalForJobReq">
+			    <form name="form" #form="ngForm" role="form">
+			        <div class="form-group">
+			            <label for="title" class="me_required">Job Req</label>
+			            <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.title" required />
+			        </div>
+
+			        <div class="form-group">
+			            <label class="me_required">Owner</label>
+			            <select class="form-control" [(ngModel)]="itemData.accountOwnerId" name="collegue" required >
+			                <option *ngFor="let item of colleagues;" value="{{ item.id }}">{{ item.name }}</option>
+			            </select>
+			        </div>
+
+			       
+			        <div class="margin_0 padding_0">
+			            <div class="form-group">
+			                <div>
+			                    <input type="checkbox" id="isShared" [(ngModel)]="itemData.isShared" name="shareWithCollegue" style="position: absolute; margin-top: 4px;"/>
+			                    <label for="isShared" style="margin-left: 16px;">Share with Colleagues</label>
+			                </div>
+			            </div>
+			        </div>
+			        
+			    </form>
+			</div>
+
+
+        </div>
+    </div>
+  </div>
+
+</div>

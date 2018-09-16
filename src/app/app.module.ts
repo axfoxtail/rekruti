@@ -56,6 +56,7 @@ import { TabContactComponent } from './pages/common/tab-contact/tab-contact.comp
 import { TabJobReqComponent } from './pages/common/tab-job-req/tab-job-req.component';
 import { TabNoteComponent } from './pages/common/tab-note/tab-note.component';
 import { TabDocumentComponent } from './pages/common/tab-document/tab-document.component';
+import { PeopleEditModalComponent } from './pages/people/people-edit-modal/people-edit-modal.component';
 
 @NgModule({
     declarations: [
@@ -85,7 +86,8 @@ import { TabDocumentComponent } from './pages/common/tab-document/tab-document.c
         TabContactComponent,
         TabJobReqComponent,
         TabNoteComponent,
-        TabDocumentComponent
+        TabDocumentComponent,
+        PeopleEditModalComponent
     ],
     imports: [
         CommonModule,

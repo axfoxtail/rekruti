@@ -25,6 +25,8 @@
 				<app-tab-job-req
 					[jobReq]="jobReq"
 					[itemData]="itemData"
+					(addNewJob)="addNewJobReq($event)"
+					(setJobReq)="setJobReq($event)"
 				>
 				</app-tab-job-req>
 			</ng-template>

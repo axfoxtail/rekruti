@@ -194,4 +194,57 @@ export class RekrutiApiService {
         });
     }
 
+    person_addJob(event: any) : Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.http.get('/jobReq/nCreate?title=' + event.newName).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    person_setJobReq(data: any) : Promise<any> {
+
+        const url = data.check ? '/personJobReq/wCreate' : '/personJobReq/wDelete';
+        const params = new HttpParams().set('personId', data.personID).set('jobReqId', data.jobReqID);
+        return new Promise((resolve, reject) => {
+            this.http.get(url, params).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    account_nListColleagues() : Promise<any> {
+
+        return new Promise((resolve, reject) => {
+            this.http.get('/account/nListColleagues').then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    saveOrDeleteJobReq(data: any) : Promise<any> {
+
+        const url = data.forSave ? '/jobReq/wUpdate' : '/jobReq/wDelete';
+        var params = new HttpParams().set('id', data.itemData.id);
+        if (data.forSave) {
+            params = params.append('title', data.itemData.title);
+            params = params.append('isShared', data.itemData.isShared);
+            params = params.append('accountOwnerId', data.itemData.accountOwnerId);
+        }
+
+        return new Promise((resolve, reject) => {
+            this.http.get(url, params).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
 }

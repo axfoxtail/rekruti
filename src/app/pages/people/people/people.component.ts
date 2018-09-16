@@ -24,6 +24,10 @@ export class PeopleComponent implements OnInit {
     windowWidth: any = window.innerWidth;
     chosenPeople: any;
     chosenTab: any;
+    chosenDocument: any;
+    chosenJobReq: any;
+    chosenJobReqColleagues: any;
+    modalForJobreqOrDocument: any;
 
     constructor(private globalVar: GlobalVariablesService,
                 private api: RekrutiApiService,
@@ -49,6 +53,11 @@ export class PeopleComponent implements OnInit {
         this.globalVar.peopleListChangedEvent.subscribe((data: any) => {
             this.getPeopleList(data);
         });
+
+        this.globalVar.openPeopleJobReqEditEvent.subscribe((data: any) => {
+            this.modalForJobreqOrDocument = true;
+            this.loadPeopleEditJobReq(data);
+        })
     }
 
     getPeopleList(queryJson: any) {
@@ -120,7 +129,6 @@ export class PeopleComponent implements OnInit {
             
                 if (response.result > 0) {
                     
-                    console.log(response);
                     this.chosenPeople = response.data;
                     this.chosenPeople.pictureKey = pictureKey;
                     
@@ -132,6 +140,41 @@ export class PeopleComponent implements OnInit {
                 console.log(err);
                 this.notifications.warning('', 10000);
                 this.hideSpinnerScrollToTop();
+            }
+        )
+    }
+
+    loadPeopleEditJobReq(data: any) {
+        this.chosenJobReq = data;
+
+        this.api.account_nListColleagues()
+        .then(response => {
+                
+                console.log(response);
+                if (response.result > 0) {
+                    this.chosenJobReqColleagues = response.data; 
+                } 
+            },
+            err => {
+                console.log(err);
+                
+            }
+        )
+    }
+
+    saveOrDeleteJobReq(data: any) {
+        this.api.saveOrDeleteJobReq(data)
+        .then(response => {
+                
+                console.log(response);
+                if (response.result > 0) {
+                    this.notifications.success('Updated successfully!', 10000);
+                    this.globalVar.refreshJobReqEvent();
+                } 
+            },
+            err => {
+                console.log(err);
+                
             }
         )
     }

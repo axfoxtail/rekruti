@@ -19,6 +19,7 @@ export class GlobalVariablesService {
 
     private peopleSearchConditions: any;
     private peopleSearchQuery: any;
+
     // people end
 
     // employers start
@@ -34,6 +35,12 @@ export class GlobalVariablesService {
     private currentPageEmployers: any;
     private hasFacetSelectedEmployers: any;
     // employers end
+
+    //People Edit Modal start
+
+    public openPeopleJobReqEditEvent: EventEmitter<any> = new EventEmitter();
+    public refreshJobReqTabEvent: EventEmitter<any> = new EventEmitter();
+    //People Edit Modal end
 
     constructor(private cookieService: CookieService, private utils: UtilsService) {
     }
@@ -176,5 +183,17 @@ export class GlobalVariablesService {
         this.employersListChangedEvent.emit();
     }
     // employers end
+
+    //People Edit Modal start
+
+    showPeopleJobReqEditModal(jobReq: any) {
+        this.openPeopleJobReqEditEvent.emit(jobReq);
+    }
+
+    refreshJobReqEvent() {
+        this.refreshJobReqTabEvent.emit();
+    }
+
+    //People Edit Modal end
 
 }
