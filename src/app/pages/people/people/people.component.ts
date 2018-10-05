@@ -27,6 +27,7 @@ export class PeopleComponent implements OnInit {
     chosenJobReq: any;
     chosenJobReqColleagues: any;
     modalForJobreqOrDocument: any;
+    cityList: any;
 
     constructor(private globalVar: GlobalVariablesService,
                 private api: RekrutiApiService,
@@ -54,14 +55,52 @@ export class PeopleComponent implements OnInit {
         });
 
         this.globalVar.openPeopleJobReqEditEvent.subscribe((data: any) => {
-            this.modalForJobreqOrDocument = true;
+            this.modalForJobreqOrDocument = 'jobreq';
             this.loadPeopleEdit(data);
         })
 
         this.globalVar.openPeopleDocumentEvent.subscribe((data: any) => {
-            this.modalForJobreqOrDocument = false;
+            this.modalForJobreqOrDocument = 'document';
             this.loadPeopleEdit(data);
         })
+
+        this.globalVar.openPeopleContactEmailEvent.subscribe((data: any) => {
+            this.modalForJobreqOrDocument = 'email';
+            this.loadPeopleEdit(data);
+        })
+
+        this.globalVar.openPeopleContactPhoneEvent.subscribe((data: any) => {
+            this.modalForJobreqOrDocument = 'phone';
+            //this.loadPeopleEdit(data);
+            this.phoneType_Qbe(data);
+        })
+
+        this.globalVar.openPeopleContactWebLinkEvent.subscribe((data: any) => {
+            this.modalForJobreqOrDocument = 'weblink';
+            this.loadPeopleEdit(data);
+        })
+
+        this.globalVar.openPeopleContactAddressEvent.subscribe((data: any) => {
+            this.modalForJobreqOrDocument = 'address';
+            this.loadPeopleEdit(data);
+        })
+
+        this.globalVar.openPeopleExperienceEvent.subscribe((data: any) => {
+            this.modalForJobreqOrDocument = 'experience';
+            this.loadPeopleEdit(data);
+        })
+
+        this.globalVar.openPeopleEducationEvent.subscribe((data: any) => {
+            this.modalForJobreqOrDocument = 'education';
+            this.loadPeopleEdit(data);
+        })
+
+        this.globalVar.openPeopleLicenseEvent.subscribe((data: any) => {
+            this.modalForJobreqOrDocument = 'license';
+            this.loadPeopleEdit(data);
+        })
+
+
     }
 
     getPeopleList(queryJson: any) {
@@ -154,7 +193,7 @@ export class PeopleComponent implements OnInit {
         this.api.account_nListColleagues()
         .then(response => {
                 
-                console.log(response);
+                console.log('reload.res:',response);
                 if (response.result > 0) {
                     this.chosenJobReqColleagues = response.data; 
                 } 
@@ -194,6 +233,189 @@ export class PeopleComponent implements OnInit {
             },
             err => {
                 console.log(err);
+                
+            }
+        )
+    }
+
+    // ===== People Contact Tab
+
+    loadPeopleEmailEdit(data: any) {
+        this.chosenJobReq = data;
+        console.log(data);
+    }
+
+    refreshPeople(personId, isrefresh) {
+        this.api.person_wRead(personId, isrefresh)
+        .then(response => {
+            
+                if (response.result > 0) {
+                    
+                    this.chosenPeople = response.data;
+                    
+                } else {
+                    this.notifications.warning(response.message, 10000);
+                }
+            },
+            err => {
+                console.log(err);
+                this.notifications.warning('', 10000);
+                this.hideSpinnerScrollToTop();
+            }
+        )
+    }
+
+    saveOrDeleteEmail(data: any) {
+        this.api.saveOrDeleteEmail(data)
+        .then(response => {
+                
+                console.log('res',response);
+                if (response.result > 0) {
+                    this.notifications.success('Successed!', 10000);
+                    this.refreshPeople(data.itemData.personID, true);
+                } 
+            },
+            err => {
+                console.log('err:', err);
+                
+            }
+        )
+    }
+
+    phoneType_Qbe(data: any) {
+        this.chosenJobReq = data;
+
+        this.api.phoneType_Qbe()
+        .then(response => {
+                
+                if (response.result > 0) {
+                    this.chosenJobReqColleagues = response.data;
+                    console.log(this.chosenJobReqColleagues);
+                } 
+            },
+            err => {
+                console.log(err);
+                
+            }
+        )
+    }
+
+    // ----------- 
+
+    saveOrDeletePhone(data: any) {
+        this.api.saveOrDeletePhone(data)
+        .then(response => {
+               
+                if (response.result > 0) {
+                    this.notifications.success('Successed!', 10000);
+                    this.refreshPeople(data.itemData.personID, true);
+                } 
+            },
+            err => {
+                console.log('err:', err);
+                
+            }
+        )
+    }
+
+    saveOrDeleteWebLink(data: any) {
+        this.api.saveOrDeleteWebLink(data)
+        .then(response => {
+                
+                console.log('res',response);
+                if (response.result > 0) {
+                    this.notifications.success('Successed!', 10000);
+                    this.refreshPeople(data.itemData.personID, true);
+                } 
+            },
+            err => {
+                console.log('err:', err);
+                
+            }
+        )
+    }
+
+    saveOrDeleteAddress(data: any) {
+        this.api.saveOrDeleteAddress(data)
+        .then(response => {
+                
+                console.log('res',response);
+                if (response.result > 0) {
+                    this.notifications.success('Successed!', 10000);
+                    this.refreshPeople(data.itemData.personID, true);
+                } 
+            },
+            err => {
+                console.log('err:', err);
+                
+            }
+        )
+    }
+
+    saveOrDeleteExperience(data: any) {
+        this.api.saveOrDeleteExperience(data)
+        .then(response => {
+                
+                console.log('res',response);
+                if (response.result > 0) {
+                    this.notifications.success('Successed!', 10000);
+                    this.refreshPeople(data.itemData.personID, true);
+                } 
+            },
+            err => {
+                console.log('err:', err);
+                
+            }
+        )
+    }
+
+    saveOrDeleteEducation(data: any) {
+        this.api.saveOrDeleteEducation(data)
+        .then(response => {
+                
+                console.log('res',response);
+                if (response.result > 0) {
+                    this.notifications.success('Successed!', 10000);
+                    this.refreshPeople(data.itemData.personID, true);
+                } 
+            },
+            err => {
+                console.log('err:', err);
+                
+            }
+        )
+    }
+
+    saveOrDeleteLicense(data: any) {
+        this.api.saveOrDeleteLicense(data)
+        .then(response => {
+                
+                console.log('res',response);
+                if (response.result > 0) {
+                    this.notifications.success('Successed!', 10000);
+                    this.refreshPeople(data.itemData.personID, true);
+                } 
+            },
+            err => {
+                console.log('err:', err);
+                
+            }
+        )
+    }
+
+    initCityLists(data: any) {
+    console.log('aa -',data);
+        this.api.initCityLists(data)
+        .then(response => {
+                
+                console.log('res - query',response);
+                if (response.result > 0) {
+                    this.cityList = response.data;
+                    
+                } 
+            },
+            err => {
+                console.log('err:', err);
                 
             }
         )

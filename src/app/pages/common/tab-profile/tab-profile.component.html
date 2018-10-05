@@ -24,7 +24,7 @@
     <div class="padding_15">
         <h3 class="row">
             <img src="assets/img/icon-person/bio.png" class="img_user_icon" />&nbsp;Bio
-            <a href="" [hidden]="security.isEditSummary == false" (click)="openEditBio('right', true, itemData)" class="pull-right font-13" title="Edit summary" style=""><i class="fa fa-pencil-square-o"></i></a>
+            <a href="" [hidden]="security.isEditSummary == false" (click)="openEditBio(itemData)" class="pull-right font-13" title="Edit summary" style=""><i class="fa fa-pencil-square-o"></i></a>
         </h3>
         <div class="table-responsive profile_ctn" style="padding:10px;padding-left:0px" ng-bind-html="itemData.summary">
         </div>
@@ -36,7 +36,7 @@
     <div class="padding_15" >
         <h4 >
             <img src="assets/img/icon-person/experience.png" class="img_user_icon" />&nbsp;Experience
-            <a href="" [hidden]="itemData.security.isAddExperience == false" (click)="openAddExperience('right', true, itemData.id)" class="pull-right font-13" title="Add experience"><i class="fa fa-plus"></i></a>
+            <a href="" [hidden]="itemData.security.isAddExperience == false" (click)="openAddExperience(itemData.id)" class="pull-right font-13" title="Add experience" data-toggle="modal" data-target="#editModal"><i class="fa fa-plus"></i></a>
         </h4>
         <div class=" table-responsive profile_ctn">
             <table class="table table-hover">
@@ -55,7 +55,7 @@
                             {{obj.startYear}} <span [hidden]="obj.startYear === null">-</span> Present
                         </td>
                         <td *ngIf="itemData.security.isEditExperience == true" class="border_top_0 text_align_right" style="width:20px; padding-right:0px;">
-                            <a href="" (click)="openEditExperience('right', true, obj)" class="pull-right font-13" title="Edit experience" style=""><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="" (click)="openEditExperience(itemData.id, obj)" class="pull-right font-13" title="Edit experience" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil-square-o"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -69,7 +69,7 @@
     <div class="padding_15">
         <h4 >
             <img src="assets/img/icon-person/education.png" class="img_user_icon" />&nbsp;Education
-            <a href="" [hidden]="itemData.security.isAddEducation == false" (click)="openAddEducation('right', true, itemData.id)" class="pull-right font-13" title="Add education" style=""><i class="fa fa-plus"></i></a>
+            <a href="" [hidden]="itemData.security.isAddEducation == false" (click)="openAddEducation(itemData.id)" class="pull-right font-13" title="Add education" data-toggle="modal" data-target="#editModal"><i class="fa fa-plus"></i></a>
         </h4>
         <div class="profile_ctn table-responsive">
             <table class="table table-hover">
@@ -85,7 +85,7 @@
                             {{obj.endYear}}
                         </td>
                         <td *ngIf="itemData.security.isEditEducation == true" class="border_top_0 text_align_right" style="width:20px; padding-right:0px;">
-                            <a href="" (click)="openEditEducation('right', true, obj)" class="pull-right font-13" title="Edit education" style=""><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="" (click)="openEditEducation(itemData.id, obj)" class="pull-right font-13" title="Edit education" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil-square-o"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -99,7 +99,7 @@
     <div class="padding_15">
         <h3 class="row">
             <img src="assets/img/icon-person/certificate.png" class="img_user_icon" />&nbsp;Certification
-            <a href="" [hidden]="itemData.security.isAddCertification == false" (click)="openAddCertification('right', true, itemData.id)" class="pull-right font-13" title="Add certification" style=""><i class="fa fa-plus"></i></a>
+            <a href="" [hidden]="itemData.security.isAddCertification == false" (click)="openAddCertification(itemData.id)" class="pull-right font-13" title="Add certification" data-toggle="modal" data-target="#editModal"><i class="fa fa-plus"></i></a>
         </h3>
         <div class="profile_ctn table-responsive">
             <table class="table table-hover">
@@ -124,7 +124,7 @@
                             </div>
                         </td>
                         <td *ngIf="itemData.security.isEditCertification == true" class="border_top_0 text_align_right" style="width:20px; padding-right:0px;">
-                            <a href="" (click)="openEditCertification('right', true, obj)" class="pull-right font-13" title="Edit education" style=""><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="" (click)="openEditCertification(itemData.id, obj)" class="pull-right font-13" title="Edit education" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil-square-o"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -134,11 +134,12 @@
  </div>
 
  <!--Licenses-->
-<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && itemData.licenses != null && (itemData.licenses.length > 0 || itemData.security.isAddLicense == true)">
+<!-- <div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && itemData.licenses != null && (itemData.licenses.length > 0 || itemData.security.isAddLicense == true)"> -->
+<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && itemData.security.isAddLicense == true">
     <div class="padding_15" >
         <h4>
             <img src="assets/img/icon-person/licenses.png" class="img_user_icon" />&nbsp;License
-            <a href="" [hidden]="itemData.security.isAddLicense == false" (click)="openAddLicense('right', true, itemData.id)" class="pull-right font-13" title="Add license" style=""><i class="fa fa-plus"></i></a>
+            <a href="" [hidden]="itemData.security.isAddLicense == false" (click)="openAddLicense(itemData.id)" class="pull-right font-13" title="Add license" data-toggle="modal" data-target="#editModal"><i class="fa fa-plus"></i></a>
         </h4>
         <div class="profile_ctn table-responsive">
             <table class="table table-hover">
@@ -148,13 +149,13 @@
                             {{obj.title}}
                         </td>
                         <td class="color_999 border_top_0" style="width: 25%;">
-                            {{obj.number + ' ' + obj.state}})
+                            {{obj.number + ' (' + obj.state}})
                         </td>
                         <td class="color_999 border_top_0" style="text-align: right; width: 20%;">
-                            {{obj.startingDate + ' - ' + obj.expirationDate}}
+                            {{ obj.startingDate | date : 'yyyy' }} - {{ obj.expirationDate | date : 'yyyy' }}
                         </td>
                         <td *ngIf="itemData.security.isEditLicense" class="border_top_0 text_align_right" style="width:20px; padding-right:0px;">
-                            <a href="" (click)="openEditLicense('right', true, obj)" class="pull-right font-13" title="Edit license" style=""><i class="fa fa-pencil-square-o"></i></a>
+                            <a href="" (click)="openEditLicense(itemData.id, obj)" class="pull-right font-13" title="Edit license" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil-square-o"></i></a>
                         </td>
                     </tr>
                 </tbody>
@@ -205,7 +206,7 @@
                 <tbody>
                     <tr *ngFor="let obj of itemData.sources; let i = index">
                         <td class="font_bold border_top_0" style="width: 55%; padding-left:0px">
-                            <a href="" (click)="openSource('right', true, obj.id)">{{obj.fullName}}</a>
+                            <a href="" (click)="openSource(obj.id)">{{obj.fullName}}</a>
                         </td>
                         <td class="color_999 border_top_0" style="width: 25%;">
                             {{obj.personSourceTypeName}}
@@ -223,7 +224,7 @@
                 <tbody>
                     <tr *ngFor="let obj of itemData.sources; let i = index">
                         <td class="font_bold border_top_0" style="width: 55%; padding-left:0px">
-                            <a href="" (click)="openSource('right', true, obj.id)">{{obj.name}}</a>
+                            <a href="" (click)="openSource(obj.id)">{{obj.name}}</a>
                         </td>
                         <td class="color_999 border_top_0" style="width: 25%;">
                             {{obj.sourceTypeName}}

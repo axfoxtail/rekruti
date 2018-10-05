@@ -24,8 +24,17 @@
             [itemData]="chosenJobReq"
             [colleagues]="chosenJobReqColleagues"
             [modalForJobReq]="modalForJobreqOrDocument"
+            [cityList]="cityList"
             (saveOrDeleteJobReq)="saveOrDeleteJobReq($event)"
             (saveOrDeleteDocument)="saveOrDeleteDocument($event)"
+            (saveOrDeleteEmail)="saveOrDeleteEmail($event)"
+            (saveOrDeletePhone)="saveOrDeletePhone($event)"
+            (saveOrDeleteWebLink)="saveOrDeleteWebLink($event)"
+            (saveOrDeleteAddress)="saveOrDeleteAddress($event)"
+            (saveOrDeleteExperience)="saveOrDeleteExperience($event)"
+            (saveOrDeleteEducation)="saveOrDeleteEducation($event)"
+            (saveOrDeleteLicense)="saveOrDeleteLicense($event)"
+            (initCityLists)="initCityLists($event)"
         >
         </app-people-edit-modal>
     </div>

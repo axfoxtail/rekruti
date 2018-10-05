@@ -39,3 +39,9 @@
         max-width: 100%;
     }
 }
+
+
+.modal-content {
+    height: 100% !important;
+    overflow-y: scroll !important;
+}

@@ -114,3 +114,33 @@
     border-color: #f00;
     background-color: #EFF2FB;
 }
+
+.present-date-check {
+    position: relative;
+    top: -25px;
+    float: right;
+    right: -100px;
+}
+
+#startMonth, #endMonth {
+    margin-right: 20px;
+}
+
+.city-list {
+    border: solid 1px #ddd;
+    position: absolute;
+    background: white;
+    z-index: 99;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.17);
+    cursor: pointer;
+}
+
+.city-list p {
+    padding: 0px 20px;
+    margin: 0px;
+}
+
+.city-list p:hover {
+    background-color: #337ab7;
+    color: #ffffff;
+}

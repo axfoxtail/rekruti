@@ -111,3 +111,11 @@
     width: 100%;
     float: right;
 }
+
+.table {
+    margin-bottom: 0px;
+}
+
+.inline-block {
+    display: inline-block;
+}

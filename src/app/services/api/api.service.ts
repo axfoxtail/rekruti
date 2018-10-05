@@ -295,4 +295,383 @@ export class RekrutiApiService {
         });
     }
 
+    // ===== People Contact Email Service
+
+    saveOrDeleteEmail(data: any) : Promise<any> {
+    console.log('email:', data);
+
+        var url = '/';
+        if (data.forSave) {
+                
+            if (data.forAdd) {
+                url += 'personEmail/wCreate' +
+                        '?personId=' + data.itemData.personID +
+                        '&email=' + data.itemData.itemData.email +
+                        '&isBusiness=' + data.itemData.itemData.isBusiness;
+
+            } else {
+                url += 'personEmail/wUpdate' +
+                        '?id=' + data.itemData.itemData.id +
+                        '&email=' + data.itemData.itemData.email +
+                        '&isBusiness=' + data.itemData.itemData.isBusiness;
+
+            }
+
+        } else {
+            url += 'personEmail/wDelete' +
+                    '?id=' + data.itemData.itemData.id;
+        }
+
+        console.log('url:',url);
+        if (data.forSave && data.forAdd) {
+            return new Promise((resolve, reject) => {
+                this.http.get(url).then(data => {
+                    resolve(data);
+                }, function (error) {
+                    reject(error);
+                });
+            });
+        }
+
+        return new Promise((resolve, reject) => {
+            this.http.get(url).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    phoneType_Qbe() : Promise<any> {
+
+        return new Promise((resolve, reject) => {
+            this.http.get('/phoneType/Qbe?').then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    // ----------------------- 
+
+    saveOrDeletePhone(data: any) : Promise<any> {
+        console.log('phone:', data);
+        var url = '/';
+        if (data.forSave) {
+                
+            if (data.forAdd) {
+                url += 'personPhone/wCreate' +
+                        '?personId=' + data.itemData.personID +
+                        '&phone=' + data.itemData.itemData.phone +
+                        '&phoneTypeId=' + data.itemData.itemData.phoneTypeId +
+                        '&extension=' + data.itemData.itemData.extension +
+                        '&isBusiness=' + data.itemData.itemData.isBusiness;
+
+            } else {
+                url += 'personPhone/wUpdate' +
+                        '?id=' + data.itemData.itemData.id +
+                        '&phone=' + data.itemData.itemData.phone +
+                        '&phoneTypeId=' + data.itemData.itemData.phoneTypeId +
+                        '&extension=' + data.itemData.itemData.extension +
+                        '&isBusiness=' + data.itemData.itemData.isBusiness;
+
+            }
+
+        } else {
+            url += 'personPhone/wDelete' +
+                    '?id=' + data.itemData.itemData.id;
+        }
+
+        if (data.forSave && data.forAdd) {
+            return new Promise((resolve, reject) => {
+                this.http.get(url).then(data => {
+                    resolve(data);
+                }, function (error) {
+                    reject(error);
+                });
+            });
+        }
+
+        return new Promise((resolve, reject) => {
+            this.http.get(url).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    saveOrDeleteWebLink(data: any) : Promise<any> {
+    console.log('weblink',data);
+
+        var url = '/';
+        if (data.forSave) {
+                
+            if (data.forAdd) {
+                url += 'personUrl/wCreate' +
+                        '?personId=' + data.itemData.personID +
+                        '&url=' + data.itemData.itemData.url + 
+                        '&urlTypeId=' + data.itemData.itemData.urlTypeId;
+
+            } else {
+                url += 'personUrl/wUpdate' +
+                        '?id=' + data.itemData.itemData.id +
+                        '&url=' + data.itemData.itemData.url +
+                        '&urlTypeId=' + data.itemData.itemData.urlTypeId;
+
+            }
+
+        } else {
+            url += 'personUrl/wDelete' +
+                    '?id=' + data.itemData.itemData.id;
+        }
+
+        console.log('url:',url);
+        if (data.forSave && data.forAdd) {
+            return new Promise((resolve, reject) => {
+                this.http.get(url).then(data => {
+                    resolve(data);
+                }, function (error) {
+                    reject(error);
+                });
+            });
+        }
+
+        return new Promise((resolve, reject) => {
+            this.http.get(url).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    saveOrDeleteAddress(data: any) : Promise<any> {
+    console.log(data);
+
+        var url = '/';
+        if (data.forSave) {
+                
+            if (data.forAdd) {
+                url += 'personAddress/wCreate' +
+                        '?personId=' + data.itemData.personID +
+                        '&address1= ' + data.itemData.itemData.address1 +
+                        '&address2=' + data.itemData.itemData.address2 +
+                        '&geoCityId=' + data.itemData.itemData.geoCityId +
+                        '&zipCode=' + data.itemData.itemData.zipCode +
+                        '&isBusiness=' + data.itemData.itemData.isBusiness;
+
+            } else {
+                url += 'personAddress/wUpdate' +
+                        '?id=' + data.itemData.itemData.id +
+                        '&address1=' + data.itemData.itemData.address1 +
+                        '&address2=' + data.itemData.itemData.address2 +
+                        '&geoCityId=' + data.itemData.itemData.geoCityId +
+                        '&zipCode=' + data.itemData.itemData.zipCode +
+                        '&isBusiness=' + data.itemData.itemData.isBusiness;
+
+            }
+
+        } else {
+            url += 'personAddress/wDelete' +
+                    '?id=' + data.itemData.itemData.id;
+        }
+
+        console.log('url:',url);
+        if (data.forSave && data.forAdd) {
+            return new Promise((resolve, reject) => {
+                this.http.get(url).then(data => {
+                    resolve(data);
+                }, function (error) {
+                    reject(error);
+                });
+            });
+        }
+
+        return new Promise((resolve, reject) => {
+            this.http.get(url).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    saveOrDeleteExperience(data: any) : Promise<any> {
+    console.log('experience:', data);
+
+        var url = '/';
+        if (data.forSave) {
+                
+            if (data.forAdd) {
+                url += 'personExperience/wCreate' +
+                        '?personId=' + data.itemData.personID +
+                        '&title=' + data.itemData.itemData.jobTitle +
+                        '&company=' + data.itemData.itemData.company +
+                        '&geoId=' + data.itemData.itemData.geoId +
+                        '&startMonth=' + data.itemData.itemData.startMonth +
+                        '&startYear=' + data.itemData.itemData.startYear +
+                        '&endMonth=' + data.itemData.itemData.endMonth +
+                        '&endYear=' + data.itemData.itemData.endYear +
+                        '&isCurrent=' + data.itemData.itemData.isCurrent +
+                        '&summary=' + data.itemData.itemData.summary;
+
+            } else {
+                url += 'personExperience/wUpdate' +
+                        '?id=' + data.itemData.itemData.id +
+                        '&title=' + data.itemData.itemData.title +
+                        '&company=' + data.itemData.itemData.company +
+                        '&geoId=' + data.itemData.itemData.geoId +
+                        '&startMonth=' + data.itemData.itemData.startMonth +
+                        '&startYear=' + data.itemData.itemData.startYear +
+                        '&endMonth=' + data.itemData.itemData.endMonth +
+                        '&endYear=' + data.itemData.itemData.endYear +
+                        '&isCurrent=' + data.itemData.itemData.isCurrent +
+                        '&summary=' + data.itemData.itemData.summary;
+
+            }
+
+        } else {
+            url += 'personExperience/wDelete' +
+                    '?id=' + data.itemData.itemData.id;
+        }
+
+        console.log('url:',url);
+        if (data.forSave && data.forAdd) {
+            return new Promise((resolve, reject) => {
+                this.http.get(url).then(data => {
+                    resolve(data);
+                }, function (error) {
+                    reject(error);
+                });
+            });
+        }
+
+        return new Promise((resolve, reject) => {
+            this.http.get(url).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    saveOrDeleteEducation(data: any) : Promise<any> {
+    console.log(data);
+
+        var url = '/';
+        if (data.forSave) {
+                
+            if (data.forAdd) {
+                url += 'personEducation/wCreate' +
+                        '?personId=' + data.itemData.personID +
+                        '&title=' + data.itemData.itemData.title +
+                        '&company=' + data.itemData.itemData.company +
+                        '&geoId=' + data.itemData.itemData.geoId +
+                        '&endYear=' + data.itemData.itemData.endYear +
+                        '&summary=' + data.itemData.itemData.summary;
+
+            } else {
+                url += 'personEducation/wUpdate' +
+                        '?id=' + data.itemData.itemData.id +
+                        '&title=' + data.itemData.itemData.title +
+                        '&company=' + data.itemData.itemData.company +
+                        '&geoId=' + data.itemData.itemData.geoId +
+                        "&endYear=" + data.itemData.itemData.endYear +
+                        '&summary=' + data.itemData.itemData.summary;
+
+            }
+
+        } else {
+            url += 'personEducation/wDelete' +
+                    '?id=' + data.itemData.itemData.id;
+        }
+
+        console.log('url:',url);
+        if (data.forSave && data.forAdd) {
+            return new Promise((resolve, reject) => {
+                this.http.get(url).then(data => {
+                    resolve(data);
+                }, function (error) {
+                    reject(error);
+                });
+            });
+        }
+
+        return new Promise((resolve, reject) => {
+            this.http.get(url).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    saveOrDeleteLicense(data: any) : Promise<any> {
+    console.log('license:',data);
+    
+        var url = '/';
+        if (data.forSave) {
+                
+            if (data.forAdd) {
+                url += 'personLicense/wCreate' +
+                        '?personId=' + data.itemData.personID +
+                        '&title=' + data.itemData.itemData.title +
+                        '&number=' + data.itemData.itemData.number +
+                        '&startingDate=' + data.itemData.itemData.startingDate +
+                        //'&startingDate=' +
+                        '&expirationDate=' + data.itemData.itemData.expirationDate +
+                        //'&expirationDate=' +
+                        '&state=' + data.itemData.itemData.state;
+
+            } else {
+                url += 'personLicense/wUpdate' +
+                        '?id=' + data.itemData.itemData.id +
+                        '&title=' + data.itemData.itemData.title +
+                        '&number=' + data.itemData.itemData.number +
+                        '&startingDate=' + data.itemData.itemData.startingDate +
+                        //'&startingDate=' +
+                        '&expirationDate=' + data.itemData.itemData.expirationDate +
+                        //'&expirationDate=' +
+                        '&state=' + data.itemData.itemData.state;
+
+            }
+
+        } else {
+            url += 'personLicense/wDelete' +
+                    '?id=' + data.itemData.itemData.id;
+        }
+
+        console.log('url:',url);
+        if (data.forSave && data.forAdd) {
+            return new Promise((resolve, reject) => {
+                this.http.get(url).then(data => {
+                    resolve(data);
+                }, function (error) {
+                    reject(error);
+                });
+            });
+        }
+
+        return new Promise((resolve, reject) => {
+            this.http.get(url).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    initCityLists(data: any) : Promise<any> {
+
+        return new Promise((resolve, reject) => {
+            this.http.get('/geoCity/wSearchCombo?keyword=' + data.query).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
 }

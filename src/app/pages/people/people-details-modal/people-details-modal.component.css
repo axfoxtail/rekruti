@@ -15,9 +15,10 @@
 
 .modal-content {
     border-radius: 2px;
-    height: auto;
+    height: 100%;
     min-height: 100%;
     border: none;
+    overflow-y: scroll;
 }
 
 
@@ -39,3 +40,4 @@
         height: 100%;
     }
 }
+

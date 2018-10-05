@@ -41,7 +41,15 @@ export class GlobalVariablesService {
     public openPeopleJobReqEditEvent: EventEmitter<any> = new EventEmitter();
     public refreshJobReqTabEvent: EventEmitter<any> = new EventEmitter();
     public openPeopleDocumentEvent: EventEmitter<any> = new EventEmitter();
+    public openPeopleContactEmailEvent: EventEmitter<any> = new EventEmitter();
     public refreshDocumentTabEvent: EventEmitter<any> = new EventEmitter();
+    public refreshContactTabEvent: EventEmitter<any> = new EventEmitter();
+    public openPeopleContactPhoneEvent: EventEmitter<any> = new EventEmitter();
+    public openPeopleContactWebLinkEvent: EventEmitter<any> = new EventEmitter();
+    public openPeopleContactAddressEvent: EventEmitter<any> = new EventEmitter();
+    public openPeopleExperienceEvent: EventEmitter<any> = new EventEmitter();
+    public openPeopleEducationEvent: EventEmitter<any> = new EventEmitter();
+    public openPeopleLicenseEvent: EventEmitter<any> = new EventEmitter();
 
     public currentSelectedPeople: any;
     //People Edit Modal end
@@ -202,8 +210,40 @@ export class GlobalVariablesService {
         this.openPeopleDocumentEvent.emit(data);
     }
 
+    showPeopleContactEmailModal(data: any) {
+        this.openPeopleContactEmailEvent.emit(data);
+    }
+
     refreshDocumentEvent() {
         this.refreshDocumentTabEvent.emit();
+    }
+
+    refreshContactEvent() {
+        this.refreshContactTabEvent.emit();
+    }
+
+    showPeopleContactPhoneModal(data: any) {
+        this.openPeopleContactPhoneEvent.emit(data);   
+    }
+
+    showPeopleContactWebLinkModal(data: any) {
+        this.openPeopleContactWebLinkEvent.emit(data);
+    }
+
+    showPeopleContactAddressModal(data: any) {
+        this.openPeopleContactAddressEvent.emit(data);
+    }
+
+    showPeopleExperienceModal(data: any) {
+        this.openPeopleExperienceEvent.emit(data);
+    }
+
+    showPeopleEducationModal(data: any) {
+        this.openPeopleEducationEvent.emit(data);
+    }
+
+    showPeopleLicenseModal(data: any) {
+        this.openPeopleLicenseEvent.emit(data);
     }
 
     //People Edit Modal end
