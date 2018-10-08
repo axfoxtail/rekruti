@@ -1,0 +1,37 @@
+<ng-sidebar-container class="people-page-container" *ngIf="sourcingData">
+
+    <ng-sidebar [(opened)]="_opened" class="sidebar-container">
+        <app-sourcing-sidebar
+            [title]="pageTitle" 
+            [filtersList]="sourcingData.aggregations"
+            [keyword]="sourcingData.keyword"
+        >
+        </app-sourcing-sidebar>
+    </ng-sidebar>
+
+    <div ng-sidebar-content class="people-aria">
+        
+        <div class="container people-list-container search-bar">
+            <app-sourcing-search-bar></app-sourcing-search-bar>
+        </div>
+
+        <div class="container people-list-container content-aria">
+            <app-sourcing-results-list 
+                [itemData]="sourcingData"
+                (openViewModal)="openViewModal($event)"
+                (openMapsModal)="openMapsModal($event)"
+            >
+            </app-sourcing-results-list>
+        </div>
+
+        <app-sourcing-view-modal 
+          [jsonObj]="sourcingJson"
+        >
+        </app-sourcing-view-modal>
+        <app-sourcing-maps-modal
+            [mapsObj]="mapObj"
+        >
+        </app-sourcing-maps-modal>
+    </div>
+
+</ng-sidebar-container>

@@ -100,6 +100,10 @@ export class PeopleComponent implements OnInit {
             this.loadPeopleEdit(data);
         })
 
+        this.globalVar.openPeopleSourceEvent.subscribe((data: any) => {
+            this.modalForJobreqOrDocument = 'source';
+            this.loadPeopleSource(data);
+        })
 
     }
 
@@ -404,15 +408,50 @@ export class PeopleComponent implements OnInit {
     }
 
     initCityLists(data: any) {
-    console.log('aa -',data);
+
         this.api.initCityLists(data)
         .then(response => {
                 
-                console.log('res - query',response);
                 if (response.result > 0) {
                     this.cityList = response.data;
                     
                 } 
+            },
+            err => {
+                console.log('err:', err);
+                
+            }
+        )
+    }
+
+    loadPeopleSource(data: any) {
+    
+        this.api.loadPeopleSource(data)
+        .then(response => {
+                
+                if (response.result > 0) {
+                    this.chosenJobReqColleagues = {personId: data.personID, objId: data.objId, source: response.data};
+                    console.log('res - source',this.chosenJobReqColleagues);
+                } 
+            },
+            err => {
+                console.log('err:', err);
+                
+            }
+        )
+    }
+
+    saveOrDeleteSource(data: any) {
+    
+        this.api.deleteSource(data)
+        .then(response => {
+
+                if (response.result > 0) {
+                    this.notifications.success('Successed!', 10000);
+                    this.refreshPeople(data.personID, true);
+                } else {
+                    this.notifications.warning('Can not delete!', 10000);
+                }
             },
             err => {
                 console.log('err:', err);

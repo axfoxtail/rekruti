@@ -1,0 +1,33 @@
+ <!-- Modal -->
+<div class="modal fade" id="mapsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row header_right_popup">
+		    	<div class="col-md-12 text-right">
+		    	    <button class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	        <i class="fa fa-undo"></i> Cancel
+		    	    </button>
+		    	</div>
+		    	<div class="border_top_d padding_0 col-xs-12"></div>
+			</div>
+
+			<div class="padding_15">
+				<h3 class="font_bold">
+		        {{mapsObj.contentJson.name}}
+		    </h3>
+		    <div>{{mapsObj.contentJson.county}}
+	       	  <span *ngIf="mapsObj.contentJson.state && mapsObj.contentJson.county">,</span> {{mapsObj.contentJson.state}}
+	       	</div>
+		    <div class="padding_bottom_15">{{mapsObj.contentJson.country}}</div>
+			    <agm-map [latitude]="mapsObj.latitude" [longitude]="mapsObj.longitude">
+					  <agm-marker [latitude]="mapsObj.latitude" [longitude]="mapsObj.longitude">
+					  	
+					  </agm-marker>
+					</agm-map>
+			</div>
+        </div>
+    </div>
+  </div>
+
+</div>

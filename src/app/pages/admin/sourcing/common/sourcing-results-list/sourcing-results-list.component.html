@@ -1,0 +1,524 @@
+
+<div class="table-responsive" *ngIf="itemData.hits.length > 0">
+
+  <!-- =========================== Main Page Results Content ============================= -->
+  <!-- *********** Database usa *********** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'database-usa'">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Contact</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item)">
+        <td>
+          <a href="" class="font_bold" (click)="openJson(item);" data-toggle="modal" data-target="#viewModal">
+            <h3>{{item.company_name}}</h3>
+          </a>
+          <p class="color_999" style="margin: 0">{{item.address1}}</p>
+          <p class="color_999" style="margin: 0">{{item.city}}, {{item.state}}</p>
+          <p class="color_999" style="margin: 0">{{item.zip_code}}</p>
+          <a href="http://{{item.url}}" class="font_bold">{{item.url}}</a>
+        </td>
+        <td>
+          <p class="color_999" style="margin: 0">{{item.full_name}}</p>
+          <p class="font_bold" style="margin: 0">{{item.job_title}}</p>
+          <p class="color_999" style="margin: 0">{{item.phone}}</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- ************* facebook ************ -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'facebook'">
+    <tbody>
+      <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+        <td>
+            <a href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal">
+                <h3>{{item.contentJson.name}}</h3>
+            </a>
+            <div *ngFor="let line of item.contentJson.details">
+                <p class="color_999" style="margin: 0;">{{line}}</p>
+            </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- ************* full contact person ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'full-contact-person'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Organization</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal">{{item.contentJson.fullName}}</a>
+            </td>
+            <td>
+                {{ item.contentJson.location }}
+            </td>
+            <td>
+                {{ item.contentJson.organization }}
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* full contact company ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'full-contact-company'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal">{{item.contentJson.name}}</a>
+            </td>
+            <td>
+                {{ item.contentJson.city }}
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* glassdoor company ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'glassdoor-company'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item)">
+            <td>
+                <a href="" class="font_bold" (click)="openJson(item);" data-toggle="modal" data-target="#viewModal">{{item.name}}</a>
+            </td>
+            <td>
+                {{ item.city }}
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* glassdoor job ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'glassdoor-job'">
+    <thead>
+      <th>JobTitle</th>
+      <th>Company</th>
+      <th>Location</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal">{{item.contentJson.title}}</a>
+            </td>
+            <td>
+                {{ item.contentJson.company.name }}
+            </td>
+            <td>
+                {{ item.contentJson.location.name }}
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* google maps ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'google-maps'">
+    <thead>
+      <th>
+      </th>
+      <th>
+          Location
+      </th>
+      <th>
+          Types
+      </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td style="width:8%">
+                <a href="" *ngIf="item.contentJson.geometry.location.lng || item.contentJson.geometry.location.lat" (click)="openMap(item);" data-toggle="modal" data-target="#mapsModal">
+                    <i class="fa fa-map-marker fa-3x" style="color:#C10024" title="Map"></i>
+                </a>
+            </td>
+            <td style="width:60%">
+                <a href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal">
+                    <h3>{{item.contentJson.name}}</h3>
+                </a>
+                <div *ngIf="item.contentJson.address_components != null && item.contentJson.address_components != undefined " style="text-align: left;">
+                    <div *ngFor="let tok of item.contentJson.address_components">{{tok.long_name}}</div>
+                </div>
+            </td>
+            <td>
+                <div *ngIf="item.contentJson.types != null && item.contentJson.types != undefined " style="text-align: right;">
+                    <div *ngFor="let type of item.contentJson.types">{{type}}</div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* krystal ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'krystal'">
+    <thead>
+      <th>
+          Name
+      </th>
+      <th>
+          Contact
+      </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }">
+            <td>
+                <a *ngIf="item.website !== null" class="font_bold" href="http://{{item.website}}">
+                    <h3 style="cursor: pointer; padding: 5px 0;">{{item.name}}</h3>
+                </a>
+                <h3 *ngIf="item.website === null" style="padding: 5px 0; color: #827878;">{{item.name}}</h3>
+                <p class="color_999" style="margin: 0">{{item.address1}}</p>
+                <p class="color_999" style="margin: 0">{{item.city}}, {{item.stateCode}}</p>
+                <p class="color_999" style="margin: 0">{{item.zipCode}}</p>
+            </td>
+            <td>
+                <p class="color_999" style="margin: 0">{{item.contact}}</p>
+                <p class="font_bold" style="margin: 0">{{item.title}}</p>
+                <p class="color_999" style="margin: 0">{{item.phone}}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* license ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'license'">
+    <thead>
+      <th>
+          Name
+      </th>
+      <th>
+          License Type
+      </th>
+      <th>
+          License Number
+      </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item)">
+            <td class="font_bold" style="color: #337ab7;">
+                <a href="" class="font_bold" (click)="openJson(item);" data-toggle="modal" data-target="#viewModal">{{item.name}}</a>
+            </td>
+            <td class="color_999">
+                {{item.licenseType}}
+            </td>
+            <td class="font_bold">
+                {{item.licenseNumber}}
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* linkedin ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'linkedin'">
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal">
+                    <h3>{{item.contentJson.name}}</h3>
+                </a>
+                <p class="color_999" style="margin: 0;">{{item.contentJson.work}}</p>
+                <p class="font_bold" style="margin: 0;">{{item.contentJson.city}}</p>
+                <p class="color_999" style="margin: 0;">{{item.contentJson.snippet}}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* npi ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'npi'">
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <div *ngIf="item.contentJson.entityType === 'Individual'">
+                    <a href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal">
+                        {{item.contentJson.namePrefix}} {{item.contentJson.firstName}} {{item.contentJson.middleName}} {{item.contentJson.lastName}}
+                        <span *ngIf="item.credential">,</span> {{item.contentJson.credential}}
+                    </a>
+                </div>
+                <div *ngIf="item.contentJson.entityType === 'Organization'">
+                    <a href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal">{{item.contentJson.providerOrganizationLBN}}</a>
+                    <div class="color_999">{{item.contentJson.otherOrganizationName}}</div>
+                    <div class="color_999">{{item.contentJson.parentOrganizationLBN}}</div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* npi officer ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'npi-officer'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Phone</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a *ngFor="let obj of item.contentJson.officers" href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal" style="width: 100%; display: block;">{{obj.firstName}} {{obj.lastName}}</a>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.addresses" style="margin: 0;">{{ obj.city }}, {{ obj.state }}</p>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.officers" style="margin: 0;">{{ obj.phone }}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* Medicare Ambulatory ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'medicare-ambulatory'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a *ngFor="let obj of item.contentJson.profiles" href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal" style="width: 100%; display: block;">{{obj.asc_name}}</a>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.city }}, {{ obj.state }}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* Medicare Dialysis ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'medicare-dialysis'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Phone</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a *ngFor="let obj of item.contentJson.profiles" href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal" style="width: 100%; display: block;">{{obj.facname}}</a>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.phycity }}, {{ obj.phystate }}</p>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.phonenum }}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* medicare home health ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'medicare-home-health'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Phone</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a *ngFor="let obj of item.contentJson.profiles" href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal" style="width: 100%; display: block;">{{obj.providerName}}</a>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.city }}, {{ obj.state }}</p>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.telephone }}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* medicare hospital ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'medicare-hospital'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Phone</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a *ngFor="let obj of item.contentJson.profiles" href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal" style="width: 100%; display: block;">{{obj.hospitalName}}</a>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.city }}, {{ obj.state }}</p>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.phoneNumber }}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* medicare physician ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'medicare-physician'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>NPI</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a *ngFor="let obj of item.contentJson.profiles" href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal" style="width: 100%; display: block;">{{obj.frst_nm}} {{obj.mid_nm}} {{obj.lst_nm}}</a>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.cty }}, {{ obj.st }}</p>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.npi }}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* medicare nursing home ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'medicare-nursing-home'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Phone</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a *ngFor="let obj of item.contentJson.profiles" href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal" style="width: 100%; display: block;">{{obj.provname}}</a>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.city }}, {{ obj.state }}</p>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.phone }}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* medicare supplier ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'medicare-supplier'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Phone</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a *ngFor="let obj of item.contentJson.profiles" href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal" style="width: 100%; display: block;">{{obj.company_name}}</a>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.city }}, {{ obj.state }}</p>
+            </td>
+            <td>
+                <p *ngFor="let obj of item.contentJson.profiles" style="margin: 0;">{{ obj.phone }}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* pipl ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'pipl'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Phone</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item)">
+            <td class="font_bold" style="color: #337ab7;">
+                <a href="" class="font_bold" (click)="openJson(item);" data-toggle="modal" data-target="#viewModal" *ngFor="let name of item.contentJson.names">
+                    {{name['display']}}
+                </a>
+            </td>
+            <td class="color_999">
+                <div *ngFor="let address of item.contentJson.addresses">
+                  <div *ngIf="address.city && address.state">
+                    {{address.city}}, {{address.state}}
+                  </div>
+                </div>
+            </td>
+            <td class="color_999">
+                <div *ngFor="let phone of item.contentJson.phones">
+                    +{{phone.country_code}}{{phone.number}}
+                </div>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* sovren resume ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'sovren-resume'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a href="" class="font_bold" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal">{{item.contentJson.resume.structuredXMLResume.contactInfo.personName.formattedName}}</a>
+            </td>
+            <td>
+                {{ item.contentJson.resume.structuredXMLResume.contactInfo.contactMethod[0].postalAddress.municipality }}
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* us companies list ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'us-companies-list'">
+    <thead>
+      <th>Name</th>
+      <th>Contact</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item)">
+            <td>
+                <a href="" (click)="openJson(item);" data-toggle="modal" data-target="#viewModal">
+                    <h3>{{item.name}}</h3>
+                </a>
+                <p class="color_999" style="margin: 0">{{item.address1}}</p>
+                <p class="color_999" style="margin: 0">{{item.city}}, {{item.stateCode}}</p>
+                <p class="color_999" style="margin: 0">{{item.zipCode}}</p>
+                <a *ngIf="item.website !== null" class="font_bold" href="http://{{item.website}}">{{item.website}}</a>
+            </td>
+            <td>
+                <p class="color_999" style="margin: 0">{{item.contact}}</p>
+                <p class="font_bold" style="margin: 0">{{item.title}}</p>
+                <p class="color_999" style="margin: 0">{{item.phone}}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ************* whitepages ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'whitepages'">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Phone</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+            <td>
+                <a href="" (click)="openJson(item.contentJson);" data-toggle="modal" data-target="#viewModal">{{item.contentJson.name}}</a>
+            </td>
+            <td>
+                <p *ngFor="let lk of item.contentJson.current_addresses">
+                    <span>{{lk.city}}, {{lk.state_code}}</span>
+                </p>
+            </td>
+            <td>
+                <p *ngFor="let lk of item.contentJson.phones">
+                    <span>{{lk.phone_number}}</span>
+                </p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  <!-- ============================ ./Main Page Results Content ============================ -->
+
+  <div class="has-text-centered">
+    <pagination-controls [id]="config.id"
+               [maxSize]="maxSize"
+               [directionLinks]="directionLinks"
+               [autoHide]="autoHide"
+               [responsive]="responsive"
+               [previousLabel]="labels.previousLabel"
+               [nextLabel]="labels.nextLabel"
+               [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+               [screenReaderPageLabel]="labels.screenReaderPageLabel"
+               [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+               (pageChange)="onPageChange($event)"></pagination-controls>
+  </div>
+</div>

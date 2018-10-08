@@ -4,6 +4,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AgmCoreModule } from '@agm/core';
 
 import {NgxErrorsModule} from '@ultimate/ngxerrors';
 import {NgxSpinnerModule} from 'ngx-spinner';
@@ -16,6 +17,7 @@ import {NgxTypeaheadModule} from 'ngx-typeahead';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CKEditorModule } from 'ng2-ckeditor';
+
 
 import {AppComponent} from './app.component';
 
@@ -59,6 +61,36 @@ import { TabDocumentComponent } from './pages/common/tab-document/tab-document.c
 import { PeopleEditModalComponent } from './pages/people/people-edit-modal/people-edit-modal.component';
 import { FileUploadModule } from '@iplab/ngx-file-upload';
 import { PeopleFullComponent } from './pages/people/people-full/people-full.component';
+import { SourcingComponent } from './pages/admin/sourcing/sourcing.component';
+import { DatabaseUsaComponent } from './pages/admin/sourcing/database-usa/database-usa.component';
+import { FacebookComponent } from './pages/admin/sourcing/facebook/facebook.component';
+import { FullContactPersonComponent } from './pages/admin/sourcing/full-contact-person/full-contact-person.component';
+import { FullContactCompanyComponent } from './pages/admin/sourcing/full-contact-company/full-contact-company.component';
+import { GlassdoorCompanyComponent } from './pages/admin/sourcing/glassdoor-company/glassdoor-company.component';
+import { GlassdoorJobComponent } from './pages/admin/sourcing/glassdoor-job/glassdoor-job.component';
+import { GoogleMapsComponent } from './pages/admin/sourcing/google-maps/google-maps.component';
+import { KrystalComponent } from './pages/admin/sourcing/krystal/krystal.component';
+import { LicenseComponent } from './pages/admin/sourcing/license/license.component';
+import { LinkedinComponent } from './pages/admin/sourcing/linkedin/linkedin.component';
+import { NpiComponent } from './pages/admin/sourcing/npi/npi.component';
+import { NpiOfficerComponent } from './pages/admin/sourcing/npi-officer/npi-officer.component';
+import { MedicareAmbulatoryComponent } from './pages/admin/sourcing/medicare-ambulatory/medicare-ambulatory.component';
+import { MedicareDialysisComponent } from './pages/admin/sourcing/medicare-dialysis/medicare-dialysis.component';
+import { MedicareHomeHealthComponent } from './pages/admin/sourcing/medicare-home-health/medicare-home-health.component';
+import { MedicareHospitalComponent } from './pages/admin/sourcing/medicare-hospital/medicare-hospital.component';
+import { MedicarePhysicianComponent } from './pages/admin/sourcing/medicare-physician/medicare-physician.component';
+import { MedicareNursingHomeComponent } from './pages/admin/sourcing/medicare-nursing-home/medicare-nursing-home.component';
+import { MedicareSupplierComponent } from './pages/admin/sourcing/medicare-supplier/medicare-supplier.component';
+import { PiplComponent } from './pages/admin/sourcing/pipl/pipl.component';
+import { SovrenResumeComponent } from './pages/admin/sourcing/sovren-resume/sovren-resume.component';
+import { UsCompaniesListComponent } from './pages/admin/sourcing/us-companies-list/us-companies-list.component';
+import { WhitepagesComponent } from './pages/admin/sourcing/whitepages/whitepages.component';
+import { SourcingSidebarComponent } from './pages/admin/sourcing/common/sourcing-sidebar/sourcing-sidebar.component';
+import { SourcingSearchBarComponent } from './pages/admin/sourcing/common/sourcing-search-bar/sourcing-search-bar.component';
+import { SourcingResultsListComponent } from './pages/admin/sourcing/common/sourcing-results-list/sourcing-results-list.component';
+import { SourcingViewModalComponent } from './pages/admin/sourcing/common/sourcing-view-modal/sourcing-view-modal.component';
+import { SourcingMapsModalComponent } from './pages/admin/sourcing/common/sourcing-maps-modal/sourcing-maps-modal.component';
+
 
 @NgModule({
     declarations: [
@@ -90,7 +122,36 @@ import { PeopleFullComponent } from './pages/people/people-full/people-full.comp
         TabNoteComponent,
         TabDocumentComponent,
         PeopleEditModalComponent,
-        PeopleFullComponent
+        PeopleFullComponent,
+        SourcingComponent,
+        DatabaseUsaComponent,
+        FacebookComponent,
+        FullContactPersonComponent,
+        FullContactCompanyComponent,
+        GlassdoorCompanyComponent,
+        GlassdoorJobComponent,
+        GoogleMapsComponent,
+        KrystalComponent,
+        LicenseComponent,
+        LinkedinComponent,
+        NpiComponent,
+        NpiOfficerComponent,
+        MedicareAmbulatoryComponent,
+        MedicareDialysisComponent,
+        MedicareHomeHealthComponent,
+        MedicareHospitalComponent,
+        MedicarePhysicianComponent,
+        MedicareNursingHomeComponent,
+        MedicareSupplierComponent,
+        PiplComponent,
+        SovrenResumeComponent,
+        UsCompaniesListComponent,
+        WhitepagesComponent,
+        SourcingSidebarComponent,
+        SourcingSearchBarComponent,
+        SourcingResultsListComponent,
+        SourcingViewModalComponent,
+        SourcingMapsModalComponent
     ],
     imports: [
         CommonModule,
@@ -111,7 +172,10 @@ import { PeopleFullComponent } from './pages/people/people-full/people-full.comp
         PopoverModule.forRoot(),
         NgbModule,
         CKEditorModule,
-        FileUploadModule
+        FileUploadModule,
+        AgmCoreModule.forRoot({
+          apiKey: 'AIzaSyAFgM81Qz-SwfTzUsr4F51AgDj0HdN88CQ' //Google API key for maps
+        })
     ],
     providers: [
         HttpService,

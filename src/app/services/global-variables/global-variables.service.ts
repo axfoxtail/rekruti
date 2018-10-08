@@ -50,11 +50,19 @@ export class GlobalVariablesService {
     public openPeopleExperienceEvent: EventEmitter<any> = new EventEmitter();
     public openPeopleEducationEvent: EventEmitter<any> = new EventEmitter();
     public openPeopleLicenseEvent: EventEmitter<any> = new EventEmitter();
+    public openPeopleSourceEvent: EventEmitter<any> = new EventEmitter();
 
     public currentSelectedPeople: any;
     //People Edit Modal end
 
+    // ================ Admin Pages =============== //
+    public searchKeywoard : any = '';
+    public urlFacets: any = '';
+    public sourcingSearchEvent: EventEmitter<any> = new EventEmitter();
+    // =============== ./Admin Pages ============== //
+
     constructor(private cookieService: CookieService, private utils: UtilsService) {
+        var date = new Date();
     }
 
     // general start
@@ -246,6 +254,14 @@ export class GlobalVariablesService {
         this.openPeopleLicenseEvent.emit(data);
     }
 
+    showPeopleSourceModal(data: any) {
+        this.openPeopleSourceEvent.emit(data);
+    }
     //People Edit Modal end
+
+    // ================ Admin Sourcing Event ============== //
+    sourcingSearch(data: any) {
+        this.sourcingSearchEvent.emit(data);
+    }
 
 }

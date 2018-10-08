@@ -674,4 +674,66 @@ export class RekrutiApiService {
         });
     }
 
+    loadPeopleSource(data: any) : Promise<any> {
+        console.log('xx:', data);
+
+        return new Promise((resolve, reject) => {
+            this.http.get('/personSource/wRead?id=' + data.objId).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+
+    deleteSource(data: any) : Promise<any> {
+        console.log('aadel', data);
+        return new Promise((resolve, reject) => {
+            this.http.get('/personSource/wDelete?id=' + data.objId).then(data => {
+                resolve(data);
+            }, function (error) {
+                reject(error);
+            });
+        });
+    }
+// ============================================ Admin Sourcing API ============================================== //
+    searchForSourcing(queryJson: any) : Promise<any> {
+      var route = window.location.href.split("admin/sourcing/")[1];
+      if(route) {
+        switch(route) {
+         case 'database-usa' : route = 'databaseUsa'; break;
+         case 'full-contact-person' : route = 'fullContactPerson'; break;
+         case 'full-contact-company' : route = 'fullContactCompany'; break;
+         case 'glassdoor-company' : route = 'glassdoorCompany'; break;
+         case 'glassdoor-job' : route = 'glassdoorJob'; break;
+         case 'google-maps' : route = 'googleMap'; break;
+         case 'npi-officer' : route = 'npiOfficer'; break;
+         case 'medicare-ambulatory' : route = 'medicareAmbulatory'; break;
+         case 'medicare-dialysis' : route = 'medicareDialysis'; break;
+         case 'medicare-home-health' : route = 'medicareHomeHealth'; break;
+         case 'medicare-hospital' : route = 'medicareHospital'; break;
+         case 'medicare-physician' : route = 'medicarePhysician'; break;
+         case 'medicare-nursing-home' : route = 'medicareNursingHome'; break;
+         case 'medicare-supplier' : route = 'medicareSupplier'; break;
+         case 'sovren-resume' : route = 'sovrenResume'; break;
+         case 'us-companies-list' : route = 'databaseCorp'; break;
+         default : route = route; break;
+        }
+        
+        var page = queryJson.page === 0 ? queryJson.page : (queryJson.page - 1) * 20;
+        var sort = queryJson.sort == '' ? 'relevancy' : queryJson.sort;
+        var url = '/' + route + '/wSearch?keyword=' + queryJson.keyword +
+                  '&from=' + page + queryJson.urlFacets + 
+                  '&sort=' + sort;
+
+        return new Promise((resolve, reject) => {
+          this.http.get(url).then(data => {
+            resolve(data);
+          }, function (error) {
+            reject(error);
+          });
+        });
+      }
+    }
+
 }

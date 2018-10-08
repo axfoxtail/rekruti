@@ -20,7 +20,6 @@
         </div>
         <app-people-details-modal *ngIf="chosenPeople" [chosenPeople]="chosenPeople" [chosenTab1]="chosenTab"></app-people-details-modal>
         <app-people-edit-modal
-            *ngIf="chosenJobReq != null"
             [itemData]="chosenJobReq"
             [colleagues]="chosenJobReqColleagues"
             [modalForJobReq]="modalForJobreqOrDocument"
@@ -35,6 +34,7 @@
             (saveOrDeleteEducation)="saveOrDeleteEducation($event)"
             (saveOrDeleteLicense)="saveOrDeleteLicense($event)"
             (initCityLists)="initCityLists($event)"
+            (saveOrDeleteSource)="saveOrDeleteSource($event)"
         >
         </app-people-edit-modal>
     </div>

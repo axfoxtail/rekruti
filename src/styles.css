@@ -31,13 +31,13 @@ body {
     -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-    width: 18%;
+    width: 20%;
     font-size: 13px;
     z-index: 999 !important;
 }
 
 .ng-sidebar__content {
-    left: 18% !important;
+    left: 20% !important;
     padding: 0 !important;
 }
 
@@ -167,4 +167,18 @@ body {
     .ng-sidebar {
         width: 50%;
     }
+}
+
+tr.active {
+    background: #1091c4 !important;
+    color: #fff !important;
+}
+tr.active a {
+    color: #fff !important;
+}
+tr.active p {
+    color: #fff !important;
+}
+tr.active td {
+    color: #fff !important;
 }

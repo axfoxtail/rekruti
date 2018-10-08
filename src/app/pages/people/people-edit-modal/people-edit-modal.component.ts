@@ -22,6 +22,7 @@ export class PeopleEditModalComponent implements OnInit {
     @Output() saveOrDeleteExperience: EventEmitter<any> = new EventEmitter;
     @Output() saveOrDeleteEducation: EventEmitter<any> = new EventEmitter;
     @Output() saveOrDeleteLicense: EventEmitter<any> = new EventEmitter;
+    @Output() saveOrDeleteSource: EventEmitter<any> = new EventEmitter;
 
     @Output() initCityLists: EventEmitter<any> = new EventEmitter;
 
@@ -96,7 +97,6 @@ export class PeopleEditModalComponent implements OnInit {
   	}
 
     saveEmail() {
-    console.log('111 - email:', this.itemData);
       if(this.itemData.forAdd) {
         this.saveOrDeleteEmail.emit({itemData: this.itemData, forSave: true, forAdd: true});
       } else {
@@ -180,5 +180,8 @@ export class PeopleEditModalComponent implements OnInit {
       this.saveOrDeleteLicense.emit({itemData: this.itemData, forSave: false});
     }
 
-
+    deleteSource(personId, objId) {
+     console.log('asdf',personId, objId);
+      this.saveOrDeleteSource.emit({personId: personId, objId: objId});
+    }
 }

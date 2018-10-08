@@ -54,4 +54,7 @@ export class TabProfileComponent implements OnInit {
 		this.globalVar.showPeopleLicenseModal({forAdd: false, personID: personId, itemData: obj});
 	}
 	
+	openSource(personId, objId)  {
+		this.globalVar.showPeopleSourceModal({personID: personId, objId: objId});
+	}
 }

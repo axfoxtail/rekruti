@@ -67,8 +67,7 @@
                                 <span class="padding_left_15" [hidden]="obj.extension == 'null'">{{obj.extension}}</span>
                             </div>
                             <div class="col-sm-5 col-xs-12 margin_0 padding_right_0 inline-block">
-                                <span *ngIf="obj.isMobile">Mobile</span>
-                                <span *ngIf="!obj.isMobile">Landline</span>
+                                <span>{{obj.phoneTypeName}}</span>
                             </div>
                         </td>
                         <td *ngIf="itemData.security.isEditPhone" class="border_top_0 text_align_right" style="width:20px; padding-right:0px;">

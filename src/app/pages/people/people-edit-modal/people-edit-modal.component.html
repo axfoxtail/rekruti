@@ -453,6 +453,31 @@
 			    </form>
 			</div>
 
+			<!-- Profile Source Add/Edit -->
+            <div class="row header_right_popup" *ngIf="modalForJobReq == 'source'">
+		    	
+		    	<div class="col-md-5 padding_0 div_title">
+		    	    <h5 class="h3_title" style="font-weight: bold;">View Source</h5>
+		    	</div>
+		    	<div class="col-md-7 text-right">
+		    	    <button (click)="deleteSource(colleagues.personId, colleagues.objId)" class="btn btn-danger div_btn_action" title="Delete">
+		    	        <i class="fa fa-trash"></i> Delete
+		    	    </button>
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	        <i class="fa fa-undo"></i> Cancel
+		    	    </button>
+		    	</div>
+		    	<div class="border_top_d padding_0 col-xs-12"></div>
+			</div>
+
+			<div class="padding_15" *ngIf="modalForJobReq == 'source'">
+			    <form name="form" role="form">
+			        <div class="form-group">
+			            <pre>{{colleagues.source | json}}</pre>
+			        </div>
+			    </form>
+			</div>
+
         </div>
     </div>
   </div>

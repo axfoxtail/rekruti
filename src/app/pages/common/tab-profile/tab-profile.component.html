@@ -191,25 +191,21 @@
 </div>
 
 <!--Source-->
-<div class="border_bottom_d body_content_profile" *ngIf="currentUser.accountTypeId == 5 && itemData.sources != null && itemData.sources.length > 0">
+<div class="border_bottom_d body_content_profile" *ngIf="itemData.sources != null && itemData.sources.length > 0">
     <div class="padding_15">
-        <div class="row">
-            <div class="col-xs-9 margin_0 padding_0">
-                <h4 class="padding_bottom_20">
-                    <img src="assets/img/icon/source.png" class="img_user_icon" />&nbsp;Source
-                </h4>
-            </div>
-        </div>
+        <h4 class="">
+            <img src="assets/img/icon/source.png" class="img_user_icon" />&nbsp;Source
+        </h4>
         <!-- slightly different between people and employers -->
         <div class="profile_ctn table-responsive" *ngIf="type == 'people'">
             <table class="table table-hover">
                 <tbody>
                     <tr *ngFor="let obj of itemData.sources; let i = index">
                         <td class="font_bold border_top_0" style="width: 55%; padding-left:0px">
-                            <a href="" (click)="openSource(obj.id)">{{obj.fullName}}</a>
+                            <a href="" (click)="openSource(itemData.id, obj.id)" data-toggle="modal" data-target="#editModal">{{obj.name}}</a>
                         </td>
                         <td class="color_999 border_top_0" style="width: 25%;">
-                            {{obj.personSourceTypeName}}
+                            {{obj.sourceTypeName}}
                         </td>
                         <td class="color_999 border_top_0" style="text-align: right; width: 20%;">
                             {{obj.sourceDate| date:'yyyy-MM-dd'}}
@@ -224,7 +220,7 @@
                 <tbody>
                     <tr *ngFor="let obj of itemData.sources; let i = index">
                         <td class="font_bold border_top_0" style="width: 55%; padding-left:0px">
-                            <a href="" (click)="openSource(obj.id)">{{obj.name}}</a>
+                            <a href="" (click)="openSource(itemData.id, obj.id)" data-toggle="modal" data-target="#editModal">{{obj.name}}</a>
                         </td>
                         <td class="color_999 border_top_0" style="width: 25%;">
                             {{obj.sourceTypeName}}
