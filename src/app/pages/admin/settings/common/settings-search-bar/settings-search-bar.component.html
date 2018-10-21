@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col col-10">
+        <div class="form-search-people">
+            <form [formGroup]="searchSettingsForm" novalidate (ngSubmit)="submitSearch(searchKeyword)">
+                <div class="step-group search-step-group">
+                    <div class="form-row">
+                        <input type="string" class="form-control input-control search-input" id="searchKeyword"
+                               placeholder="Search" [(ngModel)]="searchKeyword" formControlName="searchKeyword">
+                        <button type="submit" class="search-submit-button"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col col-2 text_align_right" style="padding: 25px;">
+        <a href="" *ngIf="_router == 'account'" (click)="openAccountModal({'forAdd': true})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#accountModal">
+            <i class="fa fa-plus"></i> Add
+        </a>
+        <a href="" *ngIf="_router == 'client'" (click)="openClientModal({'forAdd': true})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#clientModal">
+            <i class="fa fa-plus"></i> Add
+        </a>
+        <a href="" *ngIf="_router == 'concept'" (click)="openConceptModal({'forAdd': true})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#conceptModal">
+            <i class="fa fa-plus"></i> Add
+        </a>
+        <a href="" *ngIf="_router == 'help-bubble'" (click)="openHelpBubbleModal({'forAdd': true})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#helpBubbleModal">
+            <i class="fa fa-plus"></i> Add
+        </a>
+    </div>
+</div>

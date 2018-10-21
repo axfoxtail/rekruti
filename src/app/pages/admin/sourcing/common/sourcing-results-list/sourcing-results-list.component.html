@@ -508,7 +508,7 @@
   </table>
   <!-- ============================ ./Main Page Results Content ============================ -->
 
-  <div class="has-text-centered">
+  <div class="has-text-centered" *ngIf="itemData.total > config.itemsPerPage">
     <pagination-controls [id]="config.id"
                [maxSize]="maxSize"
                [directionLinks]="directionLinks"

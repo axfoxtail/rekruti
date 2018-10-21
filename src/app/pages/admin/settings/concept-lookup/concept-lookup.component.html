@@ -1,0 +1,29 @@
+<ng-sidebar-container class="people-page-container" *ngIf="settingsData">
+
+    <ng-sidebar [(opened)]="_opened" class="sidebar-container">
+        <app-settings-sidebar
+            [title]="pageTitle"
+            [filtersList]="settingsData.aggregations"
+            [keyword]="settingsData.keyword"
+        >
+        </app-settings-sidebar>
+    </ng-sidebar>
+
+    <div ng-sidebar-content class="people-aria">
+        
+        <div class="container people-list-container search-bar">
+            <app-settings-search-bar></app-settings-search-bar>
+        </div>
+
+        <div class="container people-list-container content-aria">
+            <app-settings-results-list 
+                [itemData]="settingsData"
+            >
+            </app-settings-results-list>
+        </div>
+
+    </div>
+
+</ng-sidebar-container>
+<app-settings-concept-lookup-attach-modal>
+</app-settings-concept-lookup-attach-modal>

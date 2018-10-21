@@ -1,57 +1,57 @@
 <div class="tab_profile bg_fff" [ngClass]="{'col-xs-12 padding_0' : windowWidth < 768}">
     <ngb-tabset class="tabset1 nav-fill" [justify]="fill" (tabChange)="setTab($event)" #tab="ngbTabset" >
-		<ngb-tab title="Profile" id="tab0">
-			<ng-template ngbTabContent>
-				<app-tab-profile 
-					[type]="type"
-              		[itemData]="itemData"
-              		*ngIf="itemData.security"
-				>
-				</app-tab-profile>
-			</ng-template>
-		</ngb-tab>
-		<ngb-tab title="Contact" id="tab1">
-			<ng-template ngbTabContent>
-				<app-tab-contact
-					[type]="type"
-					[itemData]="itemData"
-					*ngIf="itemData.security"
-				>
-				</app-tab-contact>
-			</ng-template>
-		</ngb-tab>
-		<ngb-tab *ngIf="type === 'people'" title="Job Req" id="tab2">
-			<ng-template ngbTabContent>
-				<app-tab-job-req
-					[jobReq]="jobReq"
-					[itemData]="itemData"
-					(addNewJob)="addNewJobReq($event)"
-					(setJobReq)="setJobReq($event)"
-				>
-				</app-tab-job-req>
-			</ng-template>
-		</ngb-tab>
-		<ngb-tab *ngIf="type === 'people'" title="Note" id="tab3">
-			<ng-template ngbTabContent>
-				<app-tab-note
-					[itemData]="itemData"
-					(saveJobNote)="saveJobNote($event)"
-					(deleteJobNote)="deleteJobNote($event)"
-				>
-				</app-tab-note>
-			</ng-template>
-		</ngb-tab>
-		<ngb-tab *ngIf="type === 'people'" title="Document" id="tab4">
-			<ng-template ngbTabContent>
-				<app-tab-document
-					[itemData]="itemData"
-					
-				>
-				</app-tab-document>
-			</ng-template>
-		</ngb-tab>
-		
-	</ngb-tabset>
+    <ngb-tab title="Profile" id="tab0">
+      <ng-template ngbTabContent>
+        <app-tab-profile 
+          [type]="type"
+                  [itemData]="itemData"
+                  *ngIf="itemData.security"
+        >
+        </app-tab-profile>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Contact" id="tab1">
+      <ng-template ngbTabContent>
+        <app-tab-contact
+          [type]="type"
+          [itemData]="itemData"
+          *ngIf="itemData.security"
+        >
+        </app-tab-contact>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab *ngIf="type === 'people'" title="Job Req" id="tab2">
+      <ng-template ngbTabContent>
+        <app-tab-job-req
+          [jobReq]="jobReq"
+          [itemData]="itemData"
+          (addNewJob)="addNewJobReq($event)"
+          (setJobReq)="setJobReq($event)"
+        >
+        </app-tab-job-req>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab *ngIf="type === 'people'" title="Note" id="tab3">
+      <ng-template ngbTabContent>
+        <app-tab-note
+          [itemData]="itemData"
+          (saveJobNote)="saveJobNote($event)"
+          (deleteJobNote)="deleteJobNote($event)"
+        >
+        </app-tab-note>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab *ngIf="type === 'people'" title="Document" id="tab4">
+      <ng-template ngbTabContent>
+        <app-tab-document
+          [itemData]="itemData"
+          
+        >
+        </app-tab-document>
+      </ng-template>
+    </ngb-tab>
+    
+  </ngb-tabset>
 
 </div>
 

@@ -1,0 +1,51 @@
+ <!-- Modal -->
+<div class="modal fade" id="helpBubbleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row header_right_popup">
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">{{modalTitle}}</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button class="btn btn-success div_btn_action" title="Save" (click)="saveHelpBubble(itemData, forAdd);">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button class="btn btn-danger div_btn_action" *ngIf="!forAdd" title="Save" (click)="deleteHelpBubble(itemData);">
+                  <i class="fa fa-trash"></i> Delete
+              </button>
+              <button class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
+
+      <div class="padding_15">
+          <form name="form" role="form" *ngIf="itemData">
+              <div class="row">
+                  <div class="form-group col-md-12">
+                      <label for="context" class="me_required">Context</label>
+                      <input type="text" name="context" id="context" class="form-control" [(ngModel)]="itemData.context" required />
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col-md-12">
+                      <label for="title" class="me_required">Title</label>
+                      <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.title" required />
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col-md-12">
+                      <label for="description" class="me_required">Description</label>
+                      <ckeditor [(ngModel)]="itemData.description" #myckeditor [config]="ckeConfig" name="description" required></ckeditor>
+                  </div>
+              </div>
+          </form>
+      </div>
+        </div>
+    </div>
+  </div>
+
+</div>

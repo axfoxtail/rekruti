@@ -1,0 +1,65 @@
+ <!-- Modal -->
+<div class="modal fade" id="conceptInferenceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row header_right_popup">
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">Add Inference</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button class="btn btn-success div_btn_action" title="Save" (click)="saveInferenceForConcept();">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
+
+      <div class="padding_15">
+        <div class="col col-12">
+          <div class="form-search-people">
+            <form [formGroup]="searchSettingsForm" novalidate (ngSubmit)="submitSearch(searchKeyword)">
+              <div class="step-group search-step-group">
+                <div class="form-row">
+                  <input type="string" class="form-control input-control search-input" id="searchKeyword"
+                         placeholder="Search" [(ngModel)]="searchKeyword" formControlName="searchKeyword">
+                  <button type="submit" class="search-submit-button"><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <form name="form" role="form">
+          <div class="form-group">
+            <table class="table table-bordered table-hover table-striped">
+              <thead>
+                <tr>
+                  <th>Concept</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody *ngIf="itemData">
+                <tr *ngFor="let item of itemData.hits">
+                  <td *ngIf="item.id != conceptId">
+                    <input type="checkbox" value="{{itemData.id}}" name="{{itemData.id}}" style="position: absolute; margin-top: 4px;" (click)="clickCheckbox($event,item)" />
+                    <label for="" style="margin-left: 20px;margin-bottom: 0px;">{{item.name}}</label>
+                  </td>
+                  <td *ngIf="item.id != conceptId">
+                    {{item.conceptTypeName}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </form>
+      </div>
+        </div>
+    </div>
+  </div>
+
+</div>

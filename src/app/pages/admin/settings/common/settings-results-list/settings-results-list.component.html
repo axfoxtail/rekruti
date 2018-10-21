@@ -1,0 +1,243 @@
+
+<div class="table-responsive" *ngIf="itemData.hits.length > 0">
+
+  <!-- =========================== Main Page Results Content ============================= -->
+  <!-- *********** account *********** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'account'">
+    <thead>
+      <tr>
+        <th>Concept</th>
+        <th>Profile</th>
+        <th>Monthly Credits</th>
+        <th>Balance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item)">
+        <td>
+            <p style="margin: 0;">
+                <a href="" (click)="openAccountModal({'forAdd': false, 'itemData': item})" data-toggle="modal" data-target="#accountModal">{{item.email}}</a>
+            </p>
+            <p class="color_999" style="margin: 0;">{{item.name}}</p>
+            <p class="color_999" style="margin: 0;">
+                <a href="#/admin/settings/client/{{item.organizationId}}">{{item.clientName}}</a>
+            </p>
+            <p class="color_999" style="margin: 0;">{{item.cityName}}</p>
+            <p *ngIf="item.isPipedrive == 'Yes'" style="margin: 0;">
+                <a href="https://rekrutisolutionsinc.pipedrive.com/person/{{item.pipedriveId}}">Pipedrive</a>
+            </p>
+            <p *ngIf="item.isDeactivated == 'Yes'" class="color_999" style="margin: 0; color: red;">Deactivated</p>
+        </td>
+        <td>
+            <p style="margin: 0;">{{item.accountTypeName}}</p>
+            <p class="color_999" style="margin: 0;">{{item.accountProfileName}}</p>
+        </td>
+        <td>
+            <p>{{item.accountAllowanceName}}</p>
+        </td>
+        <td>
+            <p style="text-align: right;">{{item.accountAllowanceBalance}}</p>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- ************* client ************ -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'client'">
+    <thead>
+      <tr>
+        <th>Client</th>
+        <th>City</th>
+        <th>Creation Date</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+        <td>
+            <p style="margin: 0;">
+                <a href="#/admin/settings/client/{{item.id}}">{{item.displayId}} - {{item.name}}</a>
+            </p>
+        </td>
+        <td>
+            <p class="color_999" style="margin: 0;">{{item.cityName}}</p>
+        </td>
+        <td>
+            <p>TBD</p>
+        </td>
+        <td>
+            <a href="" (click)="openClientModal({'forAdd': false, 'itemData': item})" data-toggle="modal" data-target="#clientModal">
+                <i class="fa fa-pencil-square-o" title="Edit"></i>
+            </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- ************* concept ************ -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'concept'">
+    <thead>
+      <tr>
+        <th>Concept</th>
+        <th>Occurrences</th>
+        <th>Alternates</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+        <td style="width:40%">
+            <a href="#/admin/settings/concept/{{item.id}}">{{item.name}}</a>
+        </td>
+        <td>
+            {{item.occurrenceCount}}
+        </td>
+        <td>
+            <div *ngFor="let pk of item.alternates">
+                {{ pk.name}}
+            </div>
+        </td>
+        <td>
+            <a href="" (click)="openConceptModal({'forAdd': false, 'itemData': item})" data-toggle="modal" data-target="#conceptModal">
+                <i class="fa fa-pencil-square-o" title="Edit"></i>
+            </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- ************* geo ************ -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'geo'">
+    <thead>
+      <tr>
+        <th>Location</th>
+        <th>Occurrences</th>
+        <th>Population</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+        <td style="width:50%">
+            <div class="row">
+                <div class="col-xs-1 padding-lr-15 margin_0 text_align_center">
+                    <a href="" *ngIf="item.location" (click)="openGeoMap(item)" data-toggle="modal" data-target="#geoMapModal">
+                        <i class="fa fa-map-marker fa-3x" style="color:#C10024" title="Map"></i>
+                    </a>
+                </div>
+                <div class="col-xs-11 margin_0">
+                    <div class="font_bold">
+                        <a href="#/admin/settings/geo/{{item.id}}">{{item.name}}</a>
+                    </div>
+                    <div>{{item.address1}}</div>
+                    <div>{{item.city}}</div>
+                    <div>{{item.county}}</div>
+                    <div>{{item.state}}</div>
+                    <div>{{item.country}}</div>
+                </div>
+            </div>
+        </td>
+        <td>
+            {{item.occurrenceCount}}
+        </td>
+        <td>
+            {{item.population}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- ************* geo-lookup ************ -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'geo-lookup'">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Occurrences</th>
+        <th>Location</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+        <td>
+            <p>
+                <a href="" (click)="openGeoLookupJson(item.id)" data-toggle="modal" data-target="#geoLookupJsonModal">{{item.token}}</a>
+            </p>
+            <p>{{item.cityName}}</p>
+        </td>
+        <td>
+            {{item.occurrenceCount}}
+        </td>
+        <td style="width:45%">
+            <div class="row">
+                <div class="col-xs-1 col-sm-1 padding-lr-15 margin_0 text_align_center">
+                    <a href="" *ngIf="item.longitude || item.latitude" (click)="openGeoLookupMap(item)" data-toggle="modal" data-target="#geoLookupMapModal">
+                        <i class="fa fa-map-marker fa-3x" style="color:#C10024" title="Map"></i>
+                    </a>
+                </div>
+                <div class="col-xs-9 col-sm-9 margin_0">
+                    <div class="font_bold">
+                        <a href="#/admin/settings/geo/{{item.geoId}}" *ngIf="item.geoId">{{item.name}}</a>
+                        <span *ngIf="!item.geoId">{{item.name}}</span>
+                    </div>
+                    <div>{{item.city}}</div>
+                    <div>{{item.county}}</div>
+                    <div>{{item.state}}</div>
+                    <div>{{item.country}}</div>
+                </div>
+                <div class="col-xs-1 col-sm-1 padding_0 margin_0">
+                    <a (click)="openGeoEditModal(item)" data-toggle="modal" data-target="#linkToGeoModal">
+                        <i class="fa fa-edit" title="Edit"></i>
+                    </a>
+                </div>
+            </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- ************* concept-lookup ************ -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'concept-lookup'">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th>Occurrences</th>
+        <th>Concept</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+        <td>
+            {{item.token}}
+        </td>
+        <td>
+            {{item.occurrenceCount}}
+        </td>
+        <td style="width:45%">
+            <div class="row" *ngFor="let joint of item.concepts" ng-if="item.concepts">
+                <div class="col-sm-10 col-xs-10 margin_0 padding_0">
+                    <a href="#/admin/settings/concept/{{joint.conceptId}}">{{joint.name}}</a>
+                </div>
+                <div class="col-sm-1 col-xs-2 padding_0 margin_0 padding_0 text_align_right">
+                    <a (click)="deleteConceptLookup(joint.id)">
+                        <i class="fa fa-trash-o" title="Remove"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="text_align_right padding_top_2 padding-r-18 pull-right">
+                <a href="" (click)="openAttachConceptModal(item);" data-toggle="modal" data-target="#attachConceptModal">
+                    <i class="fa fa-plus" title="Add"></i>
+                </a>
+            </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="has-text-centered" *ngIf="itemData.total > config.itemsPerPage">
+    <pagination-controls [id]="config.id"
+               [maxSize]="maxSize"
+               [directionLinks]="directionLinks"
+               [autoHide]="autoHide"
+               [responsive]="responsive"
+               [previousLabel]="labels.previousLabel"
+               [nextLabel]="labels.nextLabel"
+               [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+               [screenReaderPageLabel]="labels.screenReaderPageLabel"
+               [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+               (pageChange)="onPageChange($event)"></pagination-controls>
+  </div>
+</div>

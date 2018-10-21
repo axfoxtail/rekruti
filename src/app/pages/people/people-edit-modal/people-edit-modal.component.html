@@ -1,4 +1,4 @@
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" #editModal>
   <div class="modal-dialog" role="document">
     <div class="modal-content">
         <div class="modal-body">
@@ -18,7 +18,7 @@
 		    	    <button (click)="deleteJobReq()" class="btn btn-danger div_btn_action" title="Delete">
 		    	        <i class="fa fa-trash"></i> Delete
 		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
 		    	        <i class="fa fa-undo"></i> Cancel
 		    	    </button>
 		    	</div>
@@ -65,7 +65,7 @@
 		    	    <button *ngIf="!itemData.forAdd" (click)="deleteDocument()" class="btn btn-danger div_btn_action" title="Delete">
 		    	        <i class="fa fa-trash"></i> Delete
 		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
 		    	        <i class="fa fa-undo"></i> Cancel
 		    	    </button>
 		    	</div>
@@ -119,13 +119,13 @@
 		    	    <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Email' : 'Edit Email'}}</h5>
 		    	</div>
 		    	<div class="col-md-7 text-right">
-		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveEmail()"  title="Save">
+		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveEmail($event)"  title="Save">
 		    	        <i class="fa fa-check"></i> Save
 		    	    </button>
 		    	    <button *ngIf="!itemData.forAdd" (click)="deleteEmail()" class="btn btn-danger div_btn_action" title="Delete">
 		    	        <i class="fa fa-trash"></i> Delete
 		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
 		    	        <i class="fa fa-undo"></i> Cancel
 		    	    </button>
 		    	</div>
@@ -164,7 +164,7 @@
 		    	    <button *ngIf="!itemData.forAdd" (click)="deletePhone()" class="btn btn-danger div_btn_action" title="Delete">
 		    	        <i class="fa fa-trash"></i> Delete
 		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
 		    	        <i class="fa fa-undo"></i> Cancel
 		    	    </button>
 		    	</div>
@@ -218,7 +218,7 @@
 		    	    <button *ngIf="!itemData.forAdd" (click)="deleteWebLink()" class="btn btn-danger div_btn_action" title="Delete">
 		    	        <i class="fa fa-trash"></i> Delete
 		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
 		    	        <i class="fa fa-undo"></i> Cancel
 		    	    </button>
 		    	</div>
@@ -247,7 +247,7 @@
 		    	    <button *ngIf="!itemData.forAdd" (click)="deleteAddress()" class="btn btn-danger div_btn_action" title="Delete">
 		    	        <i class="fa fa-trash"></i> Delete
 		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
 		    	        <i class="fa fa-undo"></i> Cancel
 		    	    </button>
 		    	</div>
@@ -302,7 +302,7 @@
 		    	    <button *ngIf="!itemData.forAdd" (click)="deleteExperience()" class="btn btn-danger div_btn_action" title="Delete">
 		    	        <i class="fa fa-trash"></i> Delete
 		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
 		    	        <i class="fa fa-undo"></i> Cancel
 		    	    </button>
 		    	</div>
@@ -369,7 +369,7 @@
 		    	    <button *ngIf="!itemData.forAdd" (click)="deleteEducation()" class="btn btn-danger div_btn_action" title="Delete">
 		    	        <i class="fa fa-trash"></i> Delete
 		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
 		    	        <i class="fa fa-undo"></i> Cancel
 		    	    </button>
 		    	</div>
@@ -417,7 +417,7 @@
 		    	    <button *ngIf="!itemData.forAdd" (click)="deleteLicense()" class="btn btn-danger div_btn_action" title="Delete">
 		    	        <i class="fa fa-trash"></i> Delete
 		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
 		    	        <i class="fa fa-undo"></i> Cancel
 		    	    </button>
 		    	</div>
@@ -463,7 +463,7 @@
 		    	    <button (click)="deleteSource(colleagues.personId, colleagues.objId)" class="btn btn-danger div_btn_action" title="Delete">
 		    	        <i class="fa fa-trash"></i> Delete
 		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal">
+		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
 		    	        <i class="fa fa-undo"></i> Cancel
 		    	    </button>
 		    	</div>

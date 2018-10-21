@@ -1,0 +1,44 @@
+<div class="col-md-9 col-sm-9 col-xs-12 detail-left-bar">
+  <div class="bg_fff margin_bottom_0 tab-header">
+    <div class="text_align_center col-sm-3 col-md-3">
+      <img src="assets/img/icon/employers.png" class="img_user_profile">
+    </div>
+    <!-- <div class="col-sm-9 col-xs-12 profile_detail_name bg_fff margin_bottom_0">
+        <h3 class="name_user_profile ">
+            {{itemData.name}}
+            <span class="font-13 pull-right">{{itemData.featureCode}}</span>
+        </h3>
+        <div>{{itemData.county}} </div>
+        <div>{{itemData.state}}</div>
+        <div>{{itemData.country}}</div>
+    </div> -->
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12 tab_profile bg_fff" [ngClass]="{'col-xs-12 padding_0' : windowWidth < 768}">
+    <ngb-tabset class="tabset1 nav-fill" [justify]="fill" (tabChange)="setTab($event)" #tab="ngbTabset" >
+      <ngb-tab title="Profile" id="tab0">
+        <ng-template ngbTabContent>
+          <app-tab-geo-profile 
+          
+          >
+          </app-tab-geo-profile>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Lookup" id="tab1">
+        <ng-template ngbTabContent>
+          <app-tab-geo-lookup
+            
+          >
+          </app-tab-geo-lookup>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Alternates" id="tab2">
+        <ng-template ngbTabContent>
+          <app-tab-geo-alternates
+            
+          >
+          </app-tab-geo-alternates>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

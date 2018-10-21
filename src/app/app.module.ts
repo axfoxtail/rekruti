@@ -90,7 +90,53 @@ import { SourcingSearchBarComponent } from './pages/admin/sourcing/common/sourci
 import { SourcingResultsListComponent } from './pages/admin/sourcing/common/sourcing-results-list/sourcing-results-list.component';
 import { SourcingViewModalComponent } from './pages/admin/sourcing/common/sourcing-view-modal/sourcing-view-modal.component';
 import { SourcingMapsModalComponent } from './pages/admin/sourcing/common/sourcing-maps-modal/sourcing-maps-modal.component';
-
+import { SettingsComponent } from './pages/admin/settings/settings.component';
+import { AccountComponent } from './pages/admin/settings/account/account.component';
+import { ClientComponent } from './pages/admin/settings/client/client.component';
+import { ConceptLookupComponent } from './pages/admin/settings/concept-lookup/concept-lookup.component';
+import { ConceptComponent } from './pages/admin/settings/concept/concept.component';
+import { GeoLookupComponent } from './pages/admin/settings/geo-lookup/geo-lookup.component';
+import { GeoComponent } from './pages/admin/settings/geo/geo.component';
+import { HelpBubbleComponent } from './pages/admin/settings/help-bubble/help-bubble.component';
+import { SettingsSidebarComponent } from './pages/admin/settings/common/settings-sidebar/settings-sidebar.component';
+import { SettingsResultsListComponent } from './pages/admin/settings/common/settings-results-list/settings-results-list.component';
+import { SettingsSearchBarComponent } from './pages/admin/settings/common/settings-search-bar/settings-search-bar.component';
+import { SettingsAccountModalComponent } from './pages/admin/settings/account/settings-account-modal/settings-account-modal.component';
+import { SettingsClientModalComponent } from './pages/admin/settings/client/settings-client-modal/settings-client-modal.component';
+import { SettingsConceptModalComponent } from './pages/admin/settings/concept/settings-concept-modal/settings-concept-modal.component';
+import { SettingsGeoMapModalComponent } from './pages/admin/settings/geo/settings-geo-map-modal/settings-geo-map-modal.component';
+import { SettingsGeoLookupMapModalComponent } from './pages/admin/settings/geo-lookup/settings-geo-lookup-map-modal/settings-geo-lookup-map-modal.component';
+import { SettingsGeoLookupJsonModalComponent } from './pages/admin/settings/geo-lookup/settings-geo-lookup-json-modal/settings-geo-lookup-json-modal.component';
+import { SettingsHelpBubbleModalComponent } from './pages/admin/settings/help-bubble/settings-help-bubble-modal/settings-help-bubble-modal.component';
+import { ClientDetailComponent } from './pages/admin/settings/client/client-detail/client-detail.component';
+import { ConceptDetailComponent } from './pages/admin/settings/concept/concept-detail/concept-detail.component';
+import { GeoDetailComponent } from './pages/admin/settings/geo/geo-detail/geo-detail.component';
+import { TabClientProfileComponent } from './pages/admin/settings/client/client-detail/tab-client-profile/tab-client-profile.component';
+import { TabClientAccountsComponent } from './pages/admin/settings/client/client-detail/tab-client-accounts/tab-client-accounts.component';
+import { TabClientBusinessComponent } from './pages/admin/settings/client/client-detail/tab-client-business/tab-client-business.component';
+import { TabClientTemplatesComponent } from './pages/admin/settings/client/client-detail/tab-client-templates/tab-client-templates.component';
+import { LeftContentBarComponent } from './pages/admin/settings/client/client-detail/left-content-bar/left-content-bar.component';
+import { RightContentBarComponent } from './pages/admin/settings/client/client-detail/right-content-bar/right-content-bar.component';
+import { ConceptLeftContentBarComponent } from './pages/admin/settings/concept/concept-detail/concept-left-content-bar/concept-left-content-bar.component';
+import { ConceptRightContentBarComponent } from './pages/admin/settings/concept/concept-detail/concept-right-content-bar/concept-right-content-bar.component';
+import { TabConceptDescriptionComponent } from './pages/admin/settings/concept/concept-detail/concept-left-content-bar/tab-concept-description/tab-concept-description.component';
+import { TabConceptSemanticComponent } from './pages/admin/settings/concept/concept-detail/concept-left-content-bar/tab-concept-semantic/tab-concept-semantic.component';
+import { TabConceptLookupComponent } from './pages/admin/settings/concept/concept-detail/concept-left-content-bar/tab-concept-lookup/tab-concept-lookup.component';
+import { ConceptInferenceSectionComponent } from './pages/admin/settings/concept/concept-detail/concept-left-content-bar/concept-inference-section/concept-inference-section.component';
+import { ConceptRuleModalComponent } from './pages/admin/settings/concept/concept-detail/concept-left-content-bar/modals/concept-rule-modal/concept-rule-modal.component';
+import { ConceptInferenceModalComponent } from './pages/admin/settings/concept/concept-detail/concept-left-content-bar/modals/concept-inference-modal/concept-inference-modal.component';
+import { ConceptLinkModalComponent } from './pages/admin/settings/concept/concept-detail/concept-left-content-bar/modals/concept-link-modal/concept-link-modal.component';
+import { GeoLeftContentBarComponent } from './pages/admin/settings/geo/geo-detail/geo-left-content-bar/geo-left-content-bar.component';
+import { GeoRightContentBarComponent } from './pages/admin/settings/geo/geo-detail/geo-right-content-bar/geo-right-content-bar.component';
+import { TabGeoProfileComponent } from './pages/admin/settings/geo/geo-detail/geo-left-content-bar/tab-geo-profile/tab-geo-profile.component';
+import { TabGeoLookupComponent } from './pages/admin/settings/geo/geo-detail/geo-left-content-bar/tab-geo-lookup/tab-geo-lookup.component';
+import { TabGeoAlternatesComponent } from './pages/admin/settings/geo/geo-detail/geo-left-content-bar/tab-geo-alternates/tab-geo-alternates.component';
+import { GeoLinkModalComponent } from './pages/admin/settings/geo/geo-detail/geo-left-content-bar/modals/geo-link-modal/geo-link-modal.component';
+import { ChecklistModule } from 'angular-checklist';
+import { SettingsGeoLookupEditModalComponent } from './pages/admin/settings/geo-lookup/settings-geo-lookup-edit-modal/settings-geo-lookup-edit-modal.component';
+import { GeoLeftFacetsBarComponent } from './pages/admin/settings/geo-lookup/settings-geo-lookup-edit-modal/geo-left-facets-bar/geo-left-facets-bar.component';
+import { SettingsConceptLookupAttachModalComponent } from './pages/admin/settings/concept-lookup/settings-concept-lookup-attach-modal/settings-concept-lookup-attach-modal.component';
+import { ConceptLeftFacetsBarComponent } from './pages/admin/settings/concept-lookup/settings-concept-lookup-attach-modal/concept-left-facets-bar/concept-left-facets-bar.component';
 
 @NgModule({
     declarations: [
@@ -151,7 +197,53 @@ import { SourcingMapsModalComponent } from './pages/admin/sourcing/common/sourci
         SourcingSearchBarComponent,
         SourcingResultsListComponent,
         SourcingViewModalComponent,
-        SourcingMapsModalComponent
+        SourcingMapsModalComponent,
+        SettingsComponent,
+        AccountComponent,
+        ClientComponent,
+        ConceptLookupComponent,
+        ConceptComponent,
+        GeoLookupComponent,
+        GeoComponent,
+        HelpBubbleComponent,
+        SettingsSidebarComponent,
+        SettingsResultsListComponent,
+        SettingsSearchBarComponent,
+        SettingsAccountModalComponent,
+        SettingsClientModalComponent,
+        SettingsConceptModalComponent,
+        SettingsGeoMapModalComponent,
+        SettingsGeoLookupMapModalComponent,
+        SettingsGeoLookupJsonModalComponent,
+        SettingsHelpBubbleModalComponent,
+        ClientDetailComponent,
+        ConceptDetailComponent,
+        GeoDetailComponent,
+        TabClientProfileComponent,
+        TabClientAccountsComponent,
+        TabClientBusinessComponent,
+        TabClientTemplatesComponent,
+        LeftContentBarComponent,
+        RightContentBarComponent,
+        ConceptLeftContentBarComponent,
+        ConceptRightContentBarComponent,
+        TabConceptDescriptionComponent,
+        TabConceptSemanticComponent,
+        TabConceptLookupComponent,
+        ConceptInferenceSectionComponent,
+        ConceptRuleModalComponent,
+        ConceptInferenceModalComponent,
+        ConceptLinkModalComponent,
+        GeoLeftContentBarComponent,
+        GeoRightContentBarComponent,
+        TabGeoProfileComponent,
+        TabGeoLookupComponent,
+        TabGeoAlternatesComponent,
+        GeoLinkModalComponent,
+        SettingsGeoLookupEditModalComponent,
+        GeoLeftFacetsBarComponent,
+        SettingsConceptLookupAttachModalComponent,
+        ConceptLeftFacetsBarComponent
     ],
     imports: [
         CommonModule,
@@ -175,7 +267,8 @@ import { SourcingMapsModalComponent } from './pages/admin/sourcing/common/sourci
         FileUploadModule,
         AgmCoreModule.forRoot({
           apiKey: 'AIzaSyAFgM81Qz-SwfTzUsr4F51AgDj0HdN88CQ' //Google API key for maps
-        })
+        }),
+        ChecklistModule,
     ],
     providers: [
         HttpService,

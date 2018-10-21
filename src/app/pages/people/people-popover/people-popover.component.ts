@@ -21,7 +21,6 @@ export class PeoplePopoverComponent implements OnInit {
 
     ngOnInit() {
         $('aside').scroll(function () {
-            console.log('scroll');
         });
     }
 

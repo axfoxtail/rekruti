@@ -1,0 +1,45 @@
+<div class="col-md-9 col-sm-9 col-xs-12 detail-left-bar">
+  <div class="bg_fff margin_bottom_0 tab-header">
+    <a class="font-13 pull-right" title="Edit">
+      <i class="fa fa-edit"></i>
+    </a>
+    <h3 class="name_user_profile">Tab Title</h3>
+    <p class="color_999">Job Title</p>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12 tab_profile bg_fff" [ngClass]="{'col-xs-12 padding_0' : windowWidth < 768}">
+    <ngb-tabset class="tabset1 nav-fill" [justify]="fill" (tabChange)="setTab($event)" #tab="ngbTabset" >
+      <ngb-tab title="Profile" id="tab0">
+        <ng-template ngbTabContent>
+          <app-tab-client-profile 
+          
+          >
+          </app-tab-client-profile>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Accounts" id="tab1">
+        <ng-template ngbTabContent>
+          <app-tab-client-accounts
+            
+          >
+          </app-tab-client-accounts>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Business Units" id="tab2">
+        <ng-template ngbTabContent>
+          <app-tab-client-business
+            
+          >
+          </app-tab-client-business>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Templates" id="tab3">
+        <ng-template ngbTabContent>
+          <app-tab-client-templates
+            
+          >
+          </app-tab-client-templates>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

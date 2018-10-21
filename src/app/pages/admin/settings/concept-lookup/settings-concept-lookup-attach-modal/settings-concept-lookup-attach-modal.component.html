@@ -1,0 +1,91 @@
+ <!-- Modal -->
+<div class="modal fade" id="attachConceptModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row header_right_popup">
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">Link to Geo</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button class="btn btn-success div_btn_action" title="Save" (click)="saveAttachConcept();">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
+
+      <div class="">
+        <div class="row" style="padding-top: 10px;">
+          <div class="col-md-6 col-sm-6">
+            <input type="checkbox" name="isGarbage" [(ngModel)]="saveObj.isGarbage" style="position: absolute; margin-top: 4px;" />
+                <label for="" style="margin-left: 20px;margin-bottom: 0px;">Is Garbage</label>
+          </div>
+        </div>
+        <div class="col col-12">
+          <div class="form-search-people">
+            <form [formGroup]="searchSettingsForm" novalidate (ngSubmit)="submitSearch(searchKeyword)">
+              <div class="step-group search-step-group">
+                <div class="form-row">
+                  <input type="string" class="form-control input-control search-input" id="searchKeyword"
+                         placeholder="Search" [(ngModel)]="searchKeyword" formControlName="searchKeyword">
+                  <button type="submit" class="search-submit-button" #btn_search><i class="fa fa-search"></i></button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <div class="row" *ngIf="itemData">
+          <div class="col-md-5 col-sm-5 col-xs-12">
+            <app-concept-left-facets-bar
+              [searchFacets]="itemData.aggregations"
+              [keyword]="itemData.keyword" 
+            >
+            </app-concept-left-facets-bar>
+          </div>
+          <div class="col-md-7 col-sm-7 col-xs-12">
+            <table class="table table-bordered table-hover table-striped">
+              <tbody>
+                <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }">
+                  <td class="col-xs-12 col-sm-12 col-md-12" style="padding: 10px 0px 0px 0px;">
+                    <label for="geoId_{{item.id}}" class="col-xs-9 col-sm-9 col-md-9 padding_left_0 margin_0" style="cursor: pointer;">
+                      <div style="font-weight: 800;">{{item.name}}</div>
+                    </label>
+                    <div class="col-xs-3 col-sm-3 col-md-3 padding_0 margin_0 text_align_right pull-right" style="display: inline-block;">
+                      <div style="float: right;">
+                        {{item.occurrenceCount}}
+                        <br>
+                        <input type="radio" style="float: right;" id="geoId_{{item.id}}" name="geoId" [(ngModel)]="saveObj.conceptId" value="{{item.id}}" />
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="has-text-centered" *ngIf="itemData.total > config.itemsPerPage">
+              <pagination-controls [id]="config.id"
+                         [maxSize]="maxSize"
+                         [directionLinks]="directionLinks"
+                         [autoHide]="autoHide"
+                         [responsive]="responsive"
+                         [previousLabel]="labels.previousLabel"
+                         [nextLabel]="labels.nextLabel"
+                         [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+                         [screenReaderPageLabel]="labels.screenReaderPageLabel"
+                         [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+                         (pageChange)="onPageChange($event)"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+        </div>
+    </div>
+  </div>
+
+</div>

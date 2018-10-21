@@ -1,0 +1,47 @@
+.people-page-container {
+    height: calc(100% - 60px);
+}
+
+.people-page-container .people-aria {
+    height: calc(100%);
+    width: 60%;
+    margin-left: 5px;
+}
+
+.people-page-container .people-aria .people-list-container {
+    background-color: white;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
+    float: left;
+}
+
+.people-page-container .people-aria .people-list-container.search-bar {
+    height: 80px;
+    width: 100%;
+    max-width: 100%;
+}
+
+.people-page-container .people-aria .people-list-container.content-aria {
+    padding: 20px 15px;
+    margin-top: 5px;
+    width: 100%;
+    max-width: 100%;
+}
+
+@media only screen and (max-width: 1100px) {
+    .people-page-container .people-aria {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .people-page-container .people-aria .people-list-container.search-bar,
+    .people-page-container .people-aria .people-list-container.content-aria {
+        max-width: 100%;
+    }
+}
+
+
+.modal-content {
+    height: 100% !important;
+    overflow-y: scroll !important;
+}

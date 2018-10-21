@@ -1,0 +1,140 @@
+<!-- ========================= Setting Pages Menu Board ========================= -->
+<div class="row padding_top_50 app-body" *ngIf="!_router">
+    <div class="col-xs-12 col-sm-12 col-md-12 margin_0">
+        <div class="row text_align_center main_setting">
+            <div class="col-md-2 col-sm-3 col-xs-6 all">
+                <a href="#/admin/settings/account/">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <img src="assets/img/settings/user.png" class="img_show" />
+                            <img src="assets/img/settings/user-1.png" class="img_hide" />
+                        </div>
+                    </div>
+                    <div class="title">
+                        <h3>Accounts</h3>
+                        <div class="description_setting">Manage user accounts</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-6 all">
+                <a href="#/admin/settings/client/">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <img src="assets/img/settings/clients.png" class="img_show" />
+                            <img src="assets/img/settings/clients-1.png" class="img_hide" />
+                        </div>
+                    </div>
+                    <div class="title">
+                        <h3>Clients</h3>
+                        <div class="description_setting">Manage Clients</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-6 all">
+                <a href="#/admin/settings/concept-lookup/">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <img src="assets/img/settings/normalization.png" class="img_show" />
+                            <img src="assets/img/settings/normalization-1.png" class="img_hide" />
+                        </div>
+                    </div>
+                    <div class="title">
+                        <h3>Concept Lookup</h3>
+                        <div class="description_setting">Strings to concept</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-6 all">
+                <a href="#/admin/settings/concept/">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <img src="assets/img/settings/tag.png" class="img_show" />
+                            <img src="assets/img/settings/tag-1.png" class="img_hide" />
+                        </div>
+                    </div>
+                    <div class="title">
+                        <h3>Concepts</h3>
+                        <div class="description_setting"> Concepts applied to People, Employers, Jobs... </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <div class="col-md-2 col-sm-3 col-xs-6 all">
+                <a href="#/admin/settings/geo-lookup/">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <img src="assets/img/settings/normalization.png" class="img_show" />
+                            <img src="assets/img/settings/normalization-1.png" class="img_hide" />
+                        </div>
+                    </div>
+                    <div class="title">
+                        <h3>Geo Lookup</h3>
+                        <div class="description_setting">Strings to Geo Location</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-6 all">
+                <a href="#/admin/settings/geo/">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <img src="assets/img/settings/cities.png" class="img_show" />
+                            <img src="assets/img/settings/cities-1.png" class="img_hide" />
+                        </div>
+                    </div>
+                    <div class="title">
+                        <h3>Geo Location</h3>
+                        <div class="description_setting">City, States, Places..</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-6 all">
+                <a href="#/admin/settings/help-bubble/">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2">
+                            <img src="assets/img/settings/help-bubbles.png" class="img_show" />
+                            <img src="assets/img/settings/help-bubbles-1.png" class="img_hide" />
+                        </div>
+                    </div>
+                    <div class="title">
+                        <h3>Help Bubbles</h3>
+                        <div class="description_setting"> </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- ======================= ./Settings Pages Menu Board ======================= -->
+
+<!-- ======================== Settings Pages Parts ======================== -->
+<!-- ************************ Settings/Account ************************* -->
+<app-account *ngIf="_router == 'account'" [settingsData]="_settingsData">
+</app-account>
+<!-- *********************** ./Settings/Account ************************ -->
+<!-- ************************ Settings/Client ************************* -->
+<app-client *ngIf="_router == 'client'" [settingsData]="_settingsData">
+</app-client>
+<!-- *********************** ./Settings/Client ************************ -->
+<!-- ************************ Settings/Concepts ************************ -->
+<app-concept *ngIf="_router == 'concept'" [settingsData]="_settingsData">
+</app-concept>
+<!-- *********************** ./Settings/Concepts *********************** -->
+<!-- ************************ Settings/Geo Lookup ************************ -->
+<app-geo-lookup *ngIf="_router == 'geo-lookup'" [settingsData]="_settingsData">
+</app-geo-lookup>
+<!-- *********************** ./Settings/Geo Lookup *********************** -->
+<!-- ************************ Settings/Geo ************************ -->
+<app-geo *ngIf="_router == 'geo'" [settingsData]="_settingsData">
+</app-geo>
+<!-- *********************** ./Settings/Geo *********************** -->
+<!-- ************************ Settings/Concept Lookup ************************ -->
+<app-concept-lookup *ngIf="_router == 'concept-lookup'" [settingsData]="_settingsData">
+</app-concept-lookup>
+<!-- *********************** ./Settings/Concept Lookup *********************** -->
+<!-- ************************ Settings/help-bubble ************************ -->
+<app-help-bubble *ngIf="_router == 'help-bubble'" [itemData]="_settingsData">
+</app-help-bubble>
+<!-- *********************** ./Settings/help-bubble *********************** -->
+<!-- ======================= ./Settings Pages Parts ======================= -->

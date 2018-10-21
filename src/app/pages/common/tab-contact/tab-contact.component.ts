@@ -28,7 +28,6 @@ export class TabContactComponent implements OnInit {
 	}
 
 	openAddPhone(personId) {
-	console.log('phone:', personId);
 		this.globalVar.showPeopleContactPhoneModal({forAdd: true, personID: personId, itemData: {isBusiness: false, phone: '', extension: '', phoneTypeId: 1}});
 	}
 

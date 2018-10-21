@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import {RekrutiApiService} from '../../../services/api/api.service';
 
 @Component({
@@ -25,6 +25,8 @@ export class PeopleEditModalComponent implements OnInit {
     @Output() saveOrDeleteSource: EventEmitter<any> = new EventEmitter;
 
     @Output() initCityLists: EventEmitter<any> = new EventEmitter;
+
+    @ViewChild('btn_cancel') btnCancel;
 
     file: any;
     ckeConfig: any;
@@ -62,34 +64,31 @@ export class PeopleEditModalComponent implements OnInit {
     }
 
     chosenCity(item) {
-      console.log(item);
       this.itemData.itemData.cityName = item.name;
       this.itemData.itemData.geoCityId = item.id
-      console.log(this.itemData);
       this.cityList = null;
     }
     // ---------------------
     
   	saveJobReq() {
-  		this.saveOrDeleteJobReq.emit({itemData: this.itemData, forSave: true});
+  		this.saveOrDeleteJobReq.emit({itemData: this.itemData, forSave: true, btnObj: this.btnCancel.nativeElement});
   	}
 
   	deleteJobReq() {
-  		this.saveOrDeleteJobReq.emit({itemData: this.itemData, forSave: false});
+  		this.saveOrDeleteJobReq.emit({itemData: this.itemData, forSave: false, btnObj: this.btnCancel.nativeElement});
   	}
 
     saveDocument() {
 
       if (this.itemData.forAdd) {
-        this.saveOrDeleteDocument.emit({itemData: this.itemData, forSave: true, forAdd: true, file: this.file});
+        this.saveOrDeleteDocument.emit({itemData: this.itemData, forSave: true, forAdd: true, file: this.file, btnObj: this.btnCancel.nativeElement});
       } else {
-        this.saveOrDeleteDocument.emit({itemData: this.itemData, forSave: true, forAdd: false});
+        this.saveOrDeleteDocument.emit({itemData: this.itemData, forSave: true, forAdd: false, btnObj: this.btnCancel.nativeElement});
       }
-      
     }
 
     deleteDocument() {
-      this.saveOrDeleteDocument.emit({itemData: this.itemData, forSave: false})
+      this.saveOrDeleteDocument.emit({itemData: this.itemData, forSave: false, btnObj: this.btnCancel.nativeElement})
     }
 
   	cancel() {
@@ -98,90 +97,89 @@ export class PeopleEditModalComponent implements OnInit {
 
     saveEmail() {
       if(this.itemData.forAdd) {
-        this.saveOrDeleteEmail.emit({itemData: this.itemData, forSave: true, forAdd: true});
+        this.saveOrDeleteEmail.emit({itemData: this.itemData, forSave: true, forAdd: true, btnObj: this.btnCancel.nativeElement});
       } else {
-        this.saveOrDeleteEmail.emit({itemData: this.itemData, forSave: true, forAdd: false});
+        this.saveOrDeleteEmail.emit({itemData: this.itemData, forSave: true, forAdd: false, btnObj: this.btnCancel.nativeElement});
       }
     }
 
     deleteEmail() {
-      this.saveOrDeleteEmail.emit({itemData: this.itemData, forSave: false});
+      this.saveOrDeleteEmail.emit({itemData: this.itemData, forSave: false, btnObj: this.btnCancel.nativeElement});
     }
 
     savePhone() {
       if(this.itemData.forAdd) {
-        this.saveOrDeletePhone.emit({itemData: this.itemData, forSave: true, forAdd: true});
+        this.saveOrDeletePhone.emit({itemData: this.itemData, forSave: true, forAdd: true, btnObj: this.btnCancel.nativeElement});
       } else {
-        this.saveOrDeletePhone.emit({itemData: this.itemData, forSave: true, forAdd: false});
+        this.saveOrDeletePhone.emit({itemData: this.itemData, forSave: true, forAdd: false, btnObj: this.btnCancel.nativeElement});
       }
     }
 
     deletePhone() {
-      this.saveOrDeletePhone.emit({itemData: this.itemData, forSave: false});
+      this.saveOrDeletePhone.emit({itemData: this.itemData, forSave: false, btnObj: this.btnCancel.nativeElement});
     }
 
     saveWebLink() {
       if(this.itemData.forAdd) {
-        this.saveOrDeleteWebLink.emit({itemData: this.itemData, forSave: true, forAdd: true});
+        this.saveOrDeleteWebLink.emit({itemData: this.itemData, forSave: true, forAdd: true, btnObj: this.btnCancel.nativeElement});
       } else {
-        this.saveOrDeleteWebLink.emit({itemData: this.itemData, forSave: true, forAdd: false});
+        this.saveOrDeleteWebLink.emit({itemData: this.itemData, forSave: true, forAdd: false, btnObj: this.btnCancel.nativeElement});
       }
     }
 
     deleteWebLink() {
-      this.saveOrDeleteWebLink.emit({itemData: this.itemData, forSave: false});
+      this.saveOrDeleteWebLink.emit({itemData: this.itemData, forSave: false, btnObj: this.btnCancel.nativeElement});
     }
 
     saveAddress() {
       if(this.itemData.forAdd) {
-        this.saveOrDeleteAddress.emit({itemData: this.itemData, forSave: true, forAdd: true});
+        this.saveOrDeleteAddress.emit({itemData: this.itemData, forSave: true, forAdd: true, btnObj: this.btnCancel.nativeElement});
       } else {
-        this.saveOrDeleteAddress.emit({itemData: this.itemData, forSave: true, forAdd: false});
+        this.saveOrDeleteAddress.emit({itemData: this.itemData, forSave: true, forAdd: false, btnObj: this.btnCancel.nativeElement});
       }
     }
 
     deleteAddress() {
-      this.saveOrDeleteAddress.emit({itemData: this.itemData, forSave: false});
+      this.saveOrDeleteAddress.emit({itemData: this.itemData, forSave: false, btnObj: this.btnCancel.nativeElement});
     }
 
     saveExperience() {
       if(this.itemData.forAdd) {
-        this.saveOrDeleteExperience.emit({itemData: this.itemData, forSave: true, forAdd: true});
+        this.saveOrDeleteExperience.emit({itemData: this.itemData, forSave: true, forAdd: true, btnObj: this.btnCancel.nativeElement});
       } else {
-        this.saveOrDeleteExperience.emit({itemData: this.itemData, forSave: true, forAdd: false});
+        this.saveOrDeleteExperience.emit({itemData: this.itemData, forSave: true, forAdd: false, btnObj: this.btnCancel.nativeElement});
       }
     }
 
     deleteExperience() {
-      this.saveOrDeleteExperience.emit({itemData: this.itemData, forSave: false});
+      this.saveOrDeleteExperience.emit({itemData: this.itemData, forSave: false, btnObj: this.btnCancel.nativeElement});
     }
 
     saveEducation() {
       if(this.itemData.forAdd) {
-        this.saveOrDeleteEducation.emit({itemData: this.itemData, forSave: true, forAdd: true});
+        this.saveOrDeleteEducation.emit({itemData: this.itemData, forSave: true, forAdd: true, btnObj: this.btnCancel.nativeElement});
       } else {
-        this.saveOrDeleteEducation.emit({itemData: this.itemData, forSave: true, forAdd: false});
+        this.saveOrDeleteEducation.emit({itemData: this.itemData, forSave: true, forAdd: false, btnObj: this.btnCancel.nativeElement});
       }
     }
 
     deleteEducation() {
-      this.saveOrDeleteEducation.emit({itemData: this.itemData, forSave: false});
+      this.saveOrDeleteEducation.emit({itemData: this.itemData, forSave: false, btnObj: this.btnCancel.nativeElement});
     }
 
     saveLicense() {
       if(this.itemData.forAdd) {
-        this.saveOrDeleteLicense.emit({itemData: this.itemData, forSave: true, forAdd: true});
+        this.saveOrDeleteLicense.emit({itemData: this.itemData, forSave: true, forAdd: true, btnObj: this.btnCancel.nativeElement});
       } else {
-        this.saveOrDeleteLicense.emit({itemData: this.itemData, forSave: true, forAdd: false});
+        this.saveOrDeleteLicense.emit({itemData: this.itemData, forSave: true, forAdd: false, btnObj: this.btnCancel.nativeElement});
       }
     }
 
     deleteLicense() {
-      this.saveOrDeleteLicense.emit({itemData: this.itemData, forSave: false});
+      this.saveOrDeleteLicense.emit({itemData: this.itemData, forSave: false, btnObj: this.btnCancel.nativeElement});
     }
 
     deleteSource(personId, objId) {
-     console.log('asdf',personId, objId);
-      this.saveOrDeleteSource.emit({personId: personId, objId: objId});
+      this.saveOrDeleteSource.emit({personId: personId, objId: objId, btnObj: this.btnCancel.nativeElement});
     }
 }

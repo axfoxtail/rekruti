@@ -56,7 +56,6 @@ export class PeopleFullComponent implements OnInit {
         this.api.account_nListColleagues()
         .then(response => {
                 
-                console.log(response);
                 if (response.result > 0) {
                     this.chosenJobReqColleagues = response.data; 
                 } 
@@ -88,7 +87,6 @@ export class PeopleFullComponent implements OnInit {
         this.api.saveOrDeleteDocument(data)
         .then(response => {
                 
-                console.log(response);
                 if (response.result > 0) {
                     this.notifications.success('Successed!', 10000);
                     this.globalVar.refreshDocumentEvent();

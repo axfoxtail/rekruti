@@ -13,11 +13,11 @@ declare var $: any;
 export class DetailModalContentComponent implements OnInit, AfterViewInit {
 
 	@Input() type = 'people';
-	@Input() itemData;
-    @Input() chosenTab;
-    @Input() fromFull;
+	@Input() itemData : any;
+  @Input() chosenTab : any;
+  @Input() fromFull;
 
-    @ViewChild('tab') ngbTabSet;
+  @ViewChild('tab') ngbTabSet;
 
 	jobReq: any = {
 		list: [],
@@ -28,46 +28,80 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
 	selectedTabStatus = [false, false, false, false, false];
     
 
-	constructor( private api: RekrutiApiService, private notifications: NotificationsService, private cdRef:ChangeDetectorRef, private globalVar: GlobalVariablesService  ) { }
+	constructor(private api: RekrutiApiService, 
+              private notifications: NotificationsService, 
+              private cdRef:ChangeDetectorRef, 
+              private globalVar: GlobalVariablesService) { }
 
 	ngOnInit() {
         this.globalVar.refreshJobReqTabEvent.subscribe(() => {
             this.loadJobReqs(this.itemData.id);
-        })
+        });
 
         this.globalVar.refreshDocumentTabEvent.subscribe(() => {
             this.loadDocument(this.itemData.id);
-        })
-	}
+        });
+        // this.ngAfterViewInit();
+        this.globalVar.openPeopleTabModalEvent.subscribe((data: any) => {
+          console.log('tab-03', data);
+          this.itemData = data.item;
+          this.chosenTab = data.tabName;
+          this.tabInit(data);
+        });
+        console.log('tab-00', this.chosenTab);
+        
+          
+  }
 
-    ngAfterViewInit() {
-        if (this.chosenTab != null && this.chosenTab !== "") {
-            
-            switch (this.chosenTab) {
-                case "contact":
-                    this.ngbTabSet.select('tab1');
-                    break;
-                case "note":
-                    this.loadJobNotes(this.itemData.id);
-                    this.ngbTabSet.select('tab3');
-                    break;
-                case "jobReq":
-                    this.loadJobReqs(this.itemData.id);
-                    this.ngbTabSet.select('tab2');
-                    break;
-                default:
-                    this.ngbTabSet.select('tab0');
-                    break;
-            }
-
-            this.cdRef.detectChanges();
+  ngAfterViewInit() {
+    if (this.chosenTab != null && this.chosenTab !== "") {
+        
+        switch (this.chosenTab) {
+            case "contact":
+                this.ngbTabSet.select('tab1');
+                break;
+            case "note":
+                this.loadJobNotes(this.itemData.id);
+                this.ngbTabSet.select('tab3');
+                break;
+            case "jobReq":
+                this.loadJobReqs(this.itemData.id);
+                this.ngbTabSet.select('tab2');
+                break;
+            default:
+                this.ngbTabSet.select('tab0');
+                break;
         }
+
+        this.cdRef.detectChanges();
     }
+  }
+
+  tabInit(data) {
+    console.log('asas:', data);
+      if (data.tabName != null && data.tabName !== "") {
+          switch (data.tabName) {
+              case "contact": 
+                  this.ngbTabSet.select('tab1');
+                  break;
+              case "note":
+                  this.loadJobNotes(this.itemData.id);
+                  this.ngbTabSet.select('tab3');
+                  break;
+              case "jobReq":
+                  this.loadJobReqs(this.itemData.id);
+                  this.ngbTabSet.select('tab2');
+                  break;
+              default:
+                  this.ngbTabSet.select('tab0');
+                  break;
+          }
+
+          this.cdRef.detectChanges();
+      }
+  }
 
 	setTab(event) {
-
-		
-
 		switch (event.nextId) {
 			case "tab2":
 				this.loadJobReqs(this.itemData.id);
@@ -75,9 +109,9 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
 			case "tab3" : 
 				this.loadJobNotes(this.itemData.id);
 				break;
-            case "tab4" :
-                this.loadDocument(this.itemData.id);
-                break;
+      case "tab4" :
+          this.loadDocument(this.itemData.id);
+          break;
 			default:
 				// code...
 				break;
@@ -136,7 +170,7 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
             
                 if (response.result > 0) {
                     
-                    this.jobReq.sharedList = response.data.data;
+                    this.jobReq.sharedList = response.data;
                     
                 } else {
                     this.notifications.warning(response.message, 10000);

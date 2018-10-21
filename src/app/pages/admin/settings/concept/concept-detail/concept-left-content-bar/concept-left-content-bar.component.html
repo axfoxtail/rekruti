@@ -1,0 +1,41 @@
+<div class="col-md-9 col-sm-9 col-xs-12 detail-left-bar">
+  <div class="bg_fff margin_bottom_0 tab-header" *ngIf="itemData">
+    <a class="font-13 pull-right" title="Edit" (click)="openConceptModal({'forAdd': false, 'itemData': itemData});" data-toggle="modal" data-target="#conceptModal">
+      <i class="fa fa-edit"></i>
+    </a>
+    <h3 class="name_user_profile">{{itemData.name}}</h3>
+    <p class="color_999">{{itemData.conceptTypeName}}</p>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12 tab_profile bg_fff" [ngClass]="{'col-xs-12 padding_0' : windowWidth < 768}">
+    <ngb-tabset class="tabset1 nav-fill" [justify]="fill" (tabChange)="setTab($event)" #tab="ngbTabset" >
+      <ngb-tab title="Description" id="tab0">
+        <ng-template ngbTabContent>
+          <app-tab-concept-description
+            *ngIf="itemData"
+            [tabData]="itemData"
+          >
+          </app-tab-concept-description>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Semantic Field" id="tab1">
+        <ng-template ngbTabContent>
+          <app-tab-concept-semantic
+            
+          >
+          </app-tab-concept-semantic>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Lookup" id="tab2">
+        <ng-template ngbTabContent>
+          <app-tab-concept-lookup
+            
+          >
+          </app-tab-concept-lookup>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>
+
+<app-settings-concept-modal>
+</app-settings-concept-modal>

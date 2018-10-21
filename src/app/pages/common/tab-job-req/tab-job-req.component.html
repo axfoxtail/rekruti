@@ -49,8 +49,8 @@
             <tbody>
                 <tr *ngFor="let obj of jobReq.sharedList;">
                     <td class="meCheckbox" style="border-top: 0; padding: 0px;">
-                        <input type="checkbox" id="jobsAddCheckbox_{{obj.id}}" [(ngModel)]="obj.isSelected" onChange="setJobReq(itemData.id, obj.id, obj.isSelected)" />
-                        <label class="width_100" for="jobsAddCheckbox_{{obj.id}}" style="padding-left: 25px;">
+                        <input type="checkbox" id="jobsAddCheckbox_{{obj.id}}" [(ngModel)]="obj.isSelected" (change)="changeJobReq(itemData.id, obj.id, obj.isSelected)" class="jobCheck" />
+                        <label class="width_100" for="jobsAddCheckbox_{{obj.id}}" style="padding-left: 25px; display: inline;">
                             <span class="font_normal">{{obj.title}}</span>
                             <span class="color_999 pull-right font_normal" style="margin-right: 30px;">{{obj.displayId}}</span>
                             <br>

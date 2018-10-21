@@ -15,7 +15,7 @@
                                     <div class="col-sm-1 col-xs-3 padding_0 margin_0" >
                                         <a href="{{urlImage + obj.storeGuid}}" target="_blank" title="Download">
                                             <span ng-bind-html="obj.extension | fileExtensionIcon">
-                                                <img src="{{'assets/img/icon-type/' + getExtension(obj.extension) + '.png'}}" alt="Person Document" class="icon_types">
+                                                <img src="assets/img/icon-type/{{getExtension(obj.extension) + '.png'}}" alt="Person Document" class="icon_types">
                                             </span>
                                         </a>
                                     </div>

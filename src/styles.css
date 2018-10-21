@@ -41,6 +41,10 @@ body {
     padding: 0 !important;
 }
 
+.help-bubble .ng-sidebar__content {
+    left: 0% !important;
+}
+
 .ng-sidebar__backdrop {
     opacity: 0.55 !important;
 }
@@ -180,5 +184,33 @@ tr.active p {
     color: #fff !important;
 }
 tr.active td {
+    color: #fff !important;
+}
+.table-responsive {
+    overflow-x: hidden !important;
+}
+.search-step-group .search-submit-button {
+    padding: 2px 12px !important;
+    border-width: 1px !important;
+}
+a {
+    color:#337ab7 !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover{
+  color:#ff6b00 !important;
+    text-decoration: none;
+}
+a:active{
+    color:#337ab7 !important;
+    text-decoration: none;
+}
+a:focus{
+    color:#337ab7 !important;
+    text-decoration: none;
+}
+
+.people-list-td.active a {
     color: #fff !important;
 }

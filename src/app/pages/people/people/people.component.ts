@@ -125,13 +125,13 @@ export class PeopleComponent implements OnInit {
                     this.globalVar.setCurrentPagePeople(this.search.getPage(response.data.from, response.data.size));
                     this.globalVar.peopleList(response);
                 } else {
-                    this.notifications.warning(response.message, 10000);
+                    this.notifications.warning(response.message, 1000);
                 }
                 this.hideSpinnerScrollToTop();
             },
             err => {
                 console.log(err);
-                this.notifications.warning('', 10000);
+                this.notifications.warning('', 1000);
                 this.hideSpinnerScrollToTop();
             });
     }
@@ -180,12 +180,12 @@ export class PeopleComponent implements OnInit {
                     this.chosenPeople.pictureKey = pictureKey;
                     
                 } else {
-                    this.notifications.warning(response.message, 10000);
+                    this.notifications.warning(response.message, 1000);
                 }
             },
             err => {
                 console.log(err);
-                this.notifications.warning('', 10000);
+                this.notifications.warning('', 1000);
                 this.hideSpinnerScrollToTop();
             }
         )
@@ -197,7 +197,6 @@ export class PeopleComponent implements OnInit {
         this.api.account_nListColleagues()
         .then(response => {
                 
-                console.log('reload.res:',response);
                 if (response.result > 0) {
                     this.chosenJobReqColleagues = response.data; 
                 } 
@@ -214,8 +213,9 @@ export class PeopleComponent implements OnInit {
         .then(response => {
                 
                 if (response.result > 0) {
-                    this.notifications.success('Updated successfully!', 10000);
+                    this.notifications.success('Updated successfully!', 1000);
                     this.globalVar.refreshJobReqEvent();
+                    data.btnObj.click();
                 } 
             },
             err => {
@@ -228,12 +228,14 @@ export class PeopleComponent implements OnInit {
     saveOrDeleteDocument(data: any) {
         this.api.saveOrDeleteDocument(data)
         .then(response => {
-                
-                console.log(response);
+                console.log('response', response);
                 if (response.result > 0) {
-                    this.notifications.success('Successed!', 10000);
+                    this.notifications.success('Successed!', 1000);
                     this.globalVar.refreshDocumentEvent();
-                } 
+                    data.btnObj.click();
+                } else {
+                    this.notifications.warning(response.message, 2000);
+                }
             },
             err => {
                 console.log(err);
@@ -246,7 +248,6 @@ export class PeopleComponent implements OnInit {
 
     loadPeopleEmailEdit(data: any) {
         this.chosenJobReq = data;
-        console.log(data);
     }
 
     refreshPeople(personId, isrefresh) {
@@ -258,12 +259,12 @@ export class PeopleComponent implements OnInit {
                     this.chosenPeople = response.data;
                     
                 } else {
-                    this.notifications.warning(response.message, 10000);
+                    this.notifications.warning(response.message, 1000);
                 }
             },
             err => {
                 console.log(err);
-                this.notifications.warning('', 10000);
+                this.notifications.warning('', 1000);
                 this.hideSpinnerScrollToTop();
             }
         )
@@ -273,10 +274,10 @@ export class PeopleComponent implements OnInit {
         this.api.saveOrDeleteEmail(data)
         .then(response => {
                 
-                console.log('res',response);
                 if (response.result > 0) {
-                    this.notifications.success('Successed!', 10000);
+                    this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
+                    data.btnObj.click();
                 } 
             },
             err => {
@@ -294,7 +295,6 @@ export class PeopleComponent implements OnInit {
                 
                 if (response.result > 0) {
                     this.chosenJobReqColleagues = response.data;
-                    console.log(this.chosenJobReqColleagues);
                 } 
             },
             err => {
@@ -311,8 +311,9 @@ export class PeopleComponent implements OnInit {
         .then(response => {
                
                 if (response.result > 0) {
-                    this.notifications.success('Successed!', 10000);
+                    this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
+                    data.btnObj.click();
                 } 
             },
             err => {
@@ -326,10 +327,10 @@ export class PeopleComponent implements OnInit {
         this.api.saveOrDeleteWebLink(data)
         .then(response => {
                 
-                console.log('res',response);
                 if (response.result > 0) {
-                    this.notifications.success('Successed!', 10000);
+                    this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
+                    data.btnObj.click();
                 } 
             },
             err => {
@@ -343,10 +344,10 @@ export class PeopleComponent implements OnInit {
         this.api.saveOrDeleteAddress(data)
         .then(response => {
                 
-                console.log('res',response);
                 if (response.result > 0) {
-                    this.notifications.success('Successed!', 10000);
+                    this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
+                    data.btnObj.click();
                 } 
             },
             err => {
@@ -360,10 +361,10 @@ export class PeopleComponent implements OnInit {
         this.api.saveOrDeleteExperience(data)
         .then(response => {
                 
-                console.log('res',response);
                 if (response.result > 0) {
-                    this.notifications.success('Successed!', 10000);
+                    this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
+                    data.btnObj.click();
                 } 
             },
             err => {
@@ -377,10 +378,10 @@ export class PeopleComponent implements OnInit {
         this.api.saveOrDeleteEducation(data)
         .then(response => {
                 
-                console.log('res',response);
                 if (response.result > 0) {
-                    this.notifications.success('Successed!', 10000);
+                    this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
+                    data.btnObj.click();
                 } 
             },
             err => {
@@ -394,10 +395,10 @@ export class PeopleComponent implements OnInit {
         this.api.saveOrDeleteLicense(data)
         .then(response => {
                 
-                console.log('res',response);
                 if (response.result > 0) {
-                    this.notifications.success('Successed!', 10000);
+                    this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
+                    data.btnObj.click();
                 } 
             },
             err => {
@@ -431,7 +432,6 @@ export class PeopleComponent implements OnInit {
                 
                 if (response.result > 0) {
                     this.chosenJobReqColleagues = {personId: data.personID, objId: data.objId, source: response.data};
-                    console.log('res - source',this.chosenJobReqColleagues);
                 } 
             },
             err => {
@@ -447,10 +447,11 @@ export class PeopleComponent implements OnInit {
         .then(response => {
 
                 if (response.result > 0) {
-                    this.notifications.success('Successed!', 10000);
+                    this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.personID, true);
+                    data.btnObj.click();
                 } else {
-                    this.notifications.warning('Can not delete!', 10000);
+                    this.notifications.warning('Can not delete!', 1000);
                 }
             },
             err => {
@@ -458,6 +459,10 @@ export class PeopleComponent implements OnInit {
                 
             }
         )
+    }
+
+    cancelModal() {
+    
     }
 
 }

@@ -1,0 +1,23 @@
+<div class="col-md-3 col-sm-3 col-xs-12 margin_0 padding_right_5 padding_left_0 detail-right-bar">
+  <div class="row right_profile bg_fff">
+    <div class="col-xs-12 col-sm-12 col-md-12 padding_0 margin_0 padding_top_15">
+        <!--Links-->
+        <div>
+            <h3 class="title">
+                <img src="assets/img/icon-person/links.png" alt="" class="icon_profile" /> Web Link
+                <a (click)="openAddLinkForConcept()" class="pull-right font-13" title="Add web link" data-toggle="modal" data-target="#conceptLinkModal">
+                    <i class="fa fa-plus"></i>
+                </a>
+            </h3>
+            <div class="padding_0 margin_0 padding_top_10 padding_bottom_10" *ngIf="itemData">
+                <div class="padding_top_2" style="padding: 5px 15px; overflow: hidden;" *ngFor="let item of itemData.urls">
+                    <a class="" target="_blank" style="width: 90%; float: left; display: inline-block; white-space: nowrap; overflow: hidden; text-overflow:ellipsis;">{{ item.url }}</a>
+                    <a (click)="deleteLinkForConcept(item)" class="pull-right" style="width: 10%; float: right; text-align: right;">
+                        <i class="fa fa-trash"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div> 

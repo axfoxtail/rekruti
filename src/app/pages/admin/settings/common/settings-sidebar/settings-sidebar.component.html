@@ -1,0 +1,72 @@
+<h3 class="padding_15">
+    <a href="{{titleSectionUrl}}">{{titleSection}}</a> {{title}}
+</h3>
+
+<div class="filter" *ngFor="let filter of filtersList">
+    <div *ngIf="filter.isVisible">
+        <div class="filter-title">
+            <h4 class="title">
+                <a class="btn btn-primary collapse-btn" [ngClass]="{'collapsed': !filter.isComputed}"
+                   data-toggle="collapse" href="#{{filter.name}}" role="button">
+                    {{filter.label}}
+                    <i class="fa icon-arrow"></i>
+                </a>
+            </h4>
+        </div>
+
+        <div class="collapse" id="{{filter.name}}" [ngClass]="{'show': filter.isComputed}">
+            <div class="filter-body">
+                <div class="filter-item" *ngIf="filter.buckets.length > 0">
+                    <div>
+                        <input type="checkbox" class="filter-check-input" id="all_{{filter.label}}" ng-model="fitler.isSelected" ng-change="changeCheckedFacetsAll(filter.isSelected, filter.name)"
+                            ng-disabled="filter.isSelected" />
+                        <label for="all_{{filter.label}}" class="filter-check-label">
+                            <span title="All">All</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="filter-item" *ngFor="let bucket of filter.buckets; let i = index">
+                    <div>
+                        <input type="checkbox" class="filter-check-input" id="{{filter.name}}_{{bucket.key}}_{{i}}"
+                               [(ngModel)]="bucket.isSelected" (ngModelChange)="selectBucket(filter.name, bucket)"/>
+                        <label for="{{filter.name}}_{{bucket.key}}" class="filter-check-label">
+                            <span title="{{bucket.label}}"> {{bucket.label}}</span>
+                            <span class="pull-right">({{bucket.doc_count}})</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div *ngIf="filter.name === 'lists'" class="col-xs-12">
+                    <div class="filter-title shared">
+                        <h4 class="title">
+                            <a class="btn btn-primary collapse-btn" [ngClass]="{'collapsed': !filter.isComputed}"
+                               data-toggle="collapse" href="#shared" role="button">
+                                Shared
+                                <i class="fa icon-arrow"></i>
+                            </a>
+                        </h4>
+                    </div>
+                    <div class="collapse" id="shared" [ngClass]="{'show': filter.isComputed}">
+                        <div class="filter-body shared-class">
+                            <div class="filter-item" *ngFor="let bucket of filter.buckets; let i = index">
+                                <div *ngIf="bucket.accountOwnerId !== peopleData.accountId">
+                                    <input type="checkbox" class="filter-check-input"
+                                           id="{{filter.name}}_{{bucket.key}}" [(ngModel)]="bucket.isSelected"
+                                           (ngModelChange)="selectBucket(bucket, filter)">
+                                    <label class="filter-check-label" for="{{filter.name}}_{{bucket.key}}">
+                                        <span title="{{bucket.label}}"> {{bucket.label}}</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,44 @@
+ <!-- Modal -->
+<div class="modal fade" id="conceptLinkModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row header_right_popup">
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">Add Link</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button class="btn btn-success div_btn_action" title="Save" (click)="saveLinkForConcept(itemData);">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
+
+      <div class="padding_15">
+          <form name="form" role="form" *ngIf="itemData">
+              <div class="row">
+                  <div class="form-group col-md-12">
+                      <label for="url" class="me_required">Web Url *</label>
+                      <input type="url" name="url" id="url" class="form-control" [(ngModel)]="itemData.url" required />
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col-md-12">
+                      <label for="urlTypeId" class="me_required">Type</label>
+                      <select name="urlTypeId" id="urlTypeId" class="form-control" [(ngModel)]="itemData.urlTypeId" required>
+                        <option value="?" selected></option>
+                      </select>
+                  </div>
+              </div>
+          </form>
+      </div>
+        </div>
+    </div>
+  </div>
+
+</div>

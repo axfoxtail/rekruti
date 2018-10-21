@@ -21,7 +21,6 @@ export class TabProfileComponent implements OnInit {
 
 	ngOnInit() {
 		this.currentUser = this.globalVar.getCookieCurrentUser().currentUser;
-		console.log('itemData:', this.itemData);
 		this.ckeConfig = {
 	      allowedContent: false,
 	      extraPlugins: 'divarea',

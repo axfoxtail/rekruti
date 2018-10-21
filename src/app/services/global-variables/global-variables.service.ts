@@ -51,6 +51,7 @@ export class GlobalVariablesService {
     public openPeopleEducationEvent: EventEmitter<any> = new EventEmitter();
     public openPeopleLicenseEvent: EventEmitter<any> = new EventEmitter();
     public openPeopleSourceEvent: EventEmitter<any> = new EventEmitter();
+    public openPeopleTabModalEvent: EventEmitter<any> = new EventEmitter();
 
     public currentSelectedPeople: any;
     //People Edit Modal end
@@ -59,6 +60,19 @@ export class GlobalVariablesService {
     public searchKeywoard : any = '';
     public urlFacets: any = '';
     public sourcingSearchEvent: EventEmitter<any> = new EventEmitter();
+    public settingsSearchEvent: EventEmitter<any> = new EventEmitter();
+    public openAccountModalEvent: EventEmitter<any> = new EventEmitter();
+    public openClientModalEvent: EventEmitter<any> = new EventEmitter();
+    public openConceptModalEvent: EventEmitter<any> = new EventEmitter();
+    public openGeoMapModalEvent: EventEmitter<any> = new EventEmitter();
+    public openGeoLookupMapModalEvent: EventEmitter<any> = new EventEmitter();
+    public openGeoLookupJsonModalEvent: EventEmitter<any> = new EventEmitter();
+    public openHelpBubbleModalEvent: EventEmitter<any> = new EventEmitter();
+    public openConceptRuleModalEvent: EventEmitter<any> = new EventEmitter();
+    public searchLinkToGeoEvent: EventEmitter<any> = new EventEmitter();
+    public openGeoEditModalEvent: EventEmitter<any> = new EventEmitter();
+    public openAttachConceptModalEvent: EventEmitter<any> = new EventEmitter();
+    public searchAttachConceptEvent: EventEmitter<any> = new EventEmitter();
     // =============== ./Admin Pages ============== //
 
     constructor(private cookieService: CookieService, private utils: UtilsService) {
@@ -257,11 +271,54 @@ export class GlobalVariablesService {
     showPeopleSourceModal(data: any) {
         this.openPeopleSourceEvent.emit(data);
     }
+
+    showPeopleTabModal(data: any) {
+        console.log('tab-02', data.tabName);
+        this.openPeopleTabModalEvent.emit(data);
+    }
     //People Edit Modal end
 
     // ================ Admin Sourcing Event ============== //
     sourcingSearch(data: any) {
         this.sourcingSearchEvent.emit(data);
     }
-
+    settingsSearch(data: any) {
+        this.settingsSearchEvent.emit(data);
+    }
+    showAccountModal(data: any) {
+        this.openAccountModalEvent.emit(data);
+    }
+    showClientModal(data: any) {
+        this.openClientModalEvent.emit(data);
+    }
+    showConceptModal(data: any) {
+        this.openConceptModalEvent.emit(data);
+    }
+    showGeoMapModal(data: any) {
+        this.openGeoMapModalEvent.emit(data);
+    }
+    showGeoLookupMapModal(data: any) {
+        this.openGeoLookupMapModalEvent.emit(data);
+    }
+    showGeoLookupJsonModal(data_id: any) {
+        this.openGeoLookupJsonModalEvent.emit(data_id);
+    }
+    showHelpBubbleModal(data: any) {
+        this.openHelpBubbleModalEvent.emit(data);
+    }
+    showConceptRuleModal(data: any) {
+        this.openConceptRuleModalEvent.emit(data);
+    }
+    searchLinkToGeo(data: any) {
+        this.searchLinkToGeoEvent.emit(data);
+    }
+    showGeoEditModal(data: any) {
+        this.openGeoEditModalEvent.emit(data);
+    }
+    showAttachConceptModal(data: any) {
+        this.openAttachConceptModalEvent.emit(data);
+    }
+    searchAttachConcept(data: any) {
+        this.searchAttachConceptEvent.emit(data);
+    }
 }

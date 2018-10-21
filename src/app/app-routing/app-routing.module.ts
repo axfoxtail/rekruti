@@ -14,6 +14,11 @@ import {MyProfileComponent} from '../pages/my-profile/my-profile.component';
 import {JobsComponent} from '../pages/jobs/jobs.component';
 import {TasksComponent} from '../pages/tasks/tasks.component';
 import {SourcingComponent} from '../pages/admin/sourcing/sourcing.component';
+import {SettingsComponent} from '../pages/admin/settings/settings.component';
+
+import {ClientDetailComponent} from '../pages/admin/settings/client/client-detail/client-detail.component';
+import {ConceptDetailComponent} from '../pages/admin/settings/concept/concept-detail/concept-detail.component';
+import {GeoDetailComponent} from '../pages/admin/settings/geo/geo-detail/geo-detail.component';
 
 const routes: Routes = [
     // no layout routes
@@ -247,6 +252,69 @@ const routes: Routes = [
         ]
     },
 
+    // -------- admin/sourcing routes -------- //
+    {
+        path: 'admin/settings',
+        component: AppLayoutComponent,
+        children: [
+            {
+                path: '',
+                component: SettingsComponent,
+                data: {access: 'private', component: 'SettingsComponent'},
+                canActivate: [Auth]
+            },{
+                path: 'account',
+                component: SettingsComponent,
+                data: {access: 'private', component: 'SettingsComponent'},
+                canActivate: [Auth]
+            },{
+                path: 'client',
+                component: SettingsComponent,
+                data: {access: 'private', component: 'SettingsComponent'},
+                canActivate: [Auth]
+            },{
+                path: 'client/:id',
+                component: ClientDetailComponent,
+                data: {access: 'private', component: 'ClientDetailComponent'},
+                canActivate: [Auth]
+            },{
+                path: 'concept-lookup',
+                component: SettingsComponent,
+                data: {access: 'private', component: 'SettingsComponent'},
+                canActivate: [Auth]
+            },{
+                path: 'concept',
+                component: SettingsComponent,
+                data: {access: 'private', component: 'SettingsComponent'},
+                canActivate: [Auth]
+            },{
+                path: 'concept/:id',
+                component: ConceptDetailComponent,
+                data: {access: 'private', component: 'ConceptDetailComponent'},
+                canActivate: [Auth]
+            },{
+                path: 'geo-lookup',
+                component: SettingsComponent,
+                data: {access: 'private', component: 'SettingsComponent'},
+                canActivate: [Auth]
+            },{
+                path: 'geo',
+                component: SettingsComponent,
+                data: {access: 'private', component: 'SettingsComponent'},
+                canActivate: [Auth]
+            },{
+                path: 'geo/:id',
+                component: GeoDetailComponent,
+                data: {access: 'private', component: 'GeoDetailComponent'},
+                canActivate: [Auth]
+            },{
+                path: 'help-bubble',
+                component: SettingsComponent,
+                data: {access: 'private', component: 'SettingsComponent'},
+                canActivate: [Auth]
+            }
+        ]
+    },
 
     // otherwise redirect to home
     {path: '**', redirectTo: ''}

@@ -60,14 +60,14 @@
                         <span class="dropdown-menu-item">Statistic</span></a>
                     <a class="dropdown-item custome-item" *ngIf="currentUser.accountType === 5">
                         <fa class="dropdown-icon" name="database"></fa>
-                        <span class="dropdown-menu-item" role="tab" (click)="navigateToNavBarPage('people-menu-item', '/admin/sourcing')">Sourcing</span></a>
+                        <span class="dropdown-menu-item" role="tab" (click)="navigateToNavBarPage('sourcing-menu-item', '/admin/sourcing')">Sourcing</span></a>
                     <a class="dropdown-item custome-item" *ngIf="currentUser.accountType === 4  && false">
                         <fa class="dropdown-icon" name="cogs"></fa>
                         <span class="dropdown-menu-item">Settings</span></a>
                     <a class="dropdown-item custome-item"
                        *ngIf="currentUser.accountType === 5  || currentUser.accountType === 6">
                         <fa class="dropdown-icon" name="cogs"></fa>
-                        <span class="dropdown-menu-item">Settings</span></a>
+                        <span class="dropdown-menu-item" role="tab" (click)="navigateToNavBarPage('settings-menu-item', '/admin/settings')">Settings</span></a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item custome-item">
                         <fa class="dropdown-icon" name="question"></fa>

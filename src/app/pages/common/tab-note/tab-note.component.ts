@@ -37,7 +37,6 @@ export class TabNoteComponent implements OnInit {
 	}
 
 	changeNote(event) {
-    console.log(this.note.note);
 	}
 
   saveNote(personID, note) {

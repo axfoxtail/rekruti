@@ -1,0 +1,79 @@
+.form-search-people {
+    padding: 25px;
+}
+
+.search-step-group {
+    width: 60%;
+    margin: 0 auto;
+}
+
+.search-step-group .search-input {
+    width: 80%;
+    height: 30px;
+    border-radius: 0;
+    font-size: 13px;
+}
+
+.search-step-group .search-submit-button {
+    border: solid 1px #000;
+    background: #434343;
+    color: #fff;
+    font-size: 13px;
+    padding: 3px 16px;
+}
+
+.filters-toggle {
+    padding: 25px 0 25px 10px;
+}
+
+.filters-toggle .filters-button {
+    height: 30px;
+    border: none;
+    background: none;
+    color: #337ab7;
+}
+
+.option-col {
+    padding: 22px 20px 25px 0px;
+}
+
+.option-col .option-dropdown-button {
+    background: none;
+    border: none;
+    height: 30px;
+    color: #337ab7;
+    float: right;
+}
+
+.option-col .dropdown-item.custome-item {
+    color: #555;
+    font-size: 14px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown.show {
+    width: 30px;
+    float: right;
+    max-width: 30px;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #1192C4;
+    background: transparent;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1100px) {
+    .search-step-group {
+        width: 100%;
+    }
+}

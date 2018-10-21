@@ -1,0 +1,63 @@
+<ng-sidebar-container class="people-page-container help-bubble" *ngIf="itemData">
+
+    <div ng-sidebar-content class="people-aria">
+        
+        <div class="container people-list-container search-bar">
+            <app-settings-search-bar></app-settings-search-bar>
+        </div>
+
+        <div class="container people-list-container content-aria">
+            <!-- ============== result list ============== -->
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover table-striped">
+                  <thead>
+                    <tr>
+                      <th>Id</th>
+                      <th>Context</th>
+                      <th>Description</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of itemData | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item.contentJson)">
+                      <td class="text_align_right" style="width: 10%;">
+                          {{item.id}}
+                      </td>
+                      <td style="width: 30%;">
+                          {{item.context}}
+                      </td>
+                      <td>
+                          {{item.title}}
+                          <div class="color_999" [innerHTML]="item.description"></div>
+                      </td>
+                      <td style="width: 30px">
+                          <a href="" (click)="openHelpBubbleModal(item);" data-toggle="modal" data-target="#helpBubbleModal">
+                              <i class="fa fa-edit" title="Edit"></i>
+                          </a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="has-text-centered">
+                  <pagination-controls [id]="config.id"
+                             [maxSize]="maxSize"
+                             [directionLinks]="directionLinks"
+                             [autoHide]="autoHide"
+                             [responsive]="responsive"
+                             [previousLabel]="labels.previousLabel"
+                             [nextLabel]="labels.nextLabel"
+                             [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+                             [screenReaderPageLabel]="labels.screenReaderPageLabel"
+                             [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+                             (pageChange)="onPageChange($event)"></pagination-controls>
+                </div>
+              </div>
+            <!-- ================== ./results list =================== -->
+        </div>
+
+    </div>
+
+</ng-sidebar-container>
+<app-settings-help-bubble-modal>
+</app-settings-help-bubble-modal>

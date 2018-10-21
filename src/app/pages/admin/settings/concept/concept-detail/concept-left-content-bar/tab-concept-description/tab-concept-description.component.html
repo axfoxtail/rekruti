@@ -1,0 +1,39 @@
+<div class="col-md-12 col-sm-12 col-xs-12 padding-tb-20 border-bottom">
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Synonym</th>
+        <th>Scope</th>
+        <th>
+          <a (click)="openConceptRuleModal({'forAdd': true})" class="pull-right font-13" data-toggle="modal" data-target="#conceptRuleModal">
+            <i class="fa fa-plus"></i>
+          </a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of tabData.synonyms">
+        <td>
+          <span *ngIf="item.isAntonym" style="color: red;">{{ item.name }}</span>
+          <span *ngIf="!item.isAntonym">{{ item.name }}</span>
+        </td>
+        <td>
+          <div *ngFor="let obj of item.conceptSqScopeJoints">{{ obj.conceptSqlScopeName }}</div>
+        </td>
+        <td>
+          <a (click)="openConceptRuleModal({'forAdd': false, 'itemData': item})" class="pull-right font-13" title="Edit" data-toggle="modal" data-target="#conceptRuleModal">
+            <i class="fa fa-edit"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-concept-inference-section
+  [inferenceData]="tabData.relations"
+>
+</app-concept-inference-section>
+
+<app-concept-rule-modal>
+</app-concept-rule-modal>

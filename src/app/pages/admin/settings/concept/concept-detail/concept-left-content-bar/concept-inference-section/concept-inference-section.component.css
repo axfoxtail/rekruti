@@ -1,0 +1,27 @@
+.padding-tb-20 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+h3 {
+  font-size: 21px;
+}
+a {
+    color:#337ab7 !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover{
+  color:#ff6b00 !important;
+    text-decoration: none;
+}
+a:active{
+    color:#337ab7 !important;
+    text-decoration: none;
+}
+a:focus{
+    color:#337ab7 !important;
+    text-decoration: none;
+}
+table tbody tr td {
+  padding: 7px !important;
+}

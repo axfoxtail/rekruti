@@ -16,7 +16,6 @@ export class TabJobReqComponent implements OnInit {
  	constructor( private globalVar: GlobalVariablesService ) { }
 
  	ngOnInit() {
- 		console.log(this.jobReq);
  	}
 
  	setJobReqIsAdding(value) {
@@ -30,7 +29,6 @@ export class TabJobReqComponent implements OnInit {
  	}
 
  	changeJobReq(personID, jobReqID, check) {
-
  		this.setJobReq.emit({personID: personID, jobReqID: jobReqID, check: check});
  	}
 

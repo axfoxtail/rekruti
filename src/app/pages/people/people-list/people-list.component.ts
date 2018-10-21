@@ -102,7 +102,8 @@ export class PeopleListComponent implements OnInit {
 
     openDetailsModal(item: any) {
         this.currentActiveItemInPeopleList = item;
-        this.selectedPeople.emit(item); 
+        // this.selectedPeople.emit(item); 
+        this.openModalByTab(item, 'profile');
     }
 
     checkActiveItem(id: any) {
@@ -128,8 +129,9 @@ export class PeopleListComponent implements OnInit {
     }
 
     openModalByTab(item: any, tabName: any) {
-
+      console.log('tab-01', tabName);
         let data = {item: item, tab: tabName};
         this.openProfile.emit(data);
+        this.globalVar.showPeopleTabModal({item: item, tabName: tabName});
     }
 }

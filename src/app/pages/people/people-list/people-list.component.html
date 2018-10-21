@@ -47,8 +47,8 @@
                         </a>
                     </div>
                     <div class="details-container">
-                        <div class="row item-title-div" (click)="openDetailsModal(item)" data-toggle="modal" data-target="#detailsModal">
-                            <div class="col">
+                        <div class="row item-title-div">
+                            <div class="col" (click)="openDetailsModal(item)" data-toggle="modal" data-target="#detailsModal">
                                 <a class="people-item-title-name" >
                                     <h3>{{item.fullName}}</h3>
                                 </a>
@@ -84,7 +84,7 @@
         </tr>
         </tbody>
     </table>
-    <div class="has-text-centered">
+    <div class="has-text-centered" *ngIf="peopleData.total > config.itemsPerPage">
         <pagination-controls [id]="config.id"
                              [maxSize]="maxSize"
                              [directionLinks]="directionLinks"
