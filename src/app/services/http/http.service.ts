@@ -36,9 +36,8 @@ export class HttpService {
 
     post_form(query: string, body: any, options?: any): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.http.post(this.baseUrl + query, body, {headers: {'Content-Type': 'multipart/form-data'}, withCredentials: true})
+            this.http.post(this.baseUrl + query, body, { withCredentials: true })
                 .pipe(map(response => response)).subscribe(data => resolve(data), error => reject(error));
         });
     }    
-
 }

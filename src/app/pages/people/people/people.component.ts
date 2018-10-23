@@ -219,15 +219,15 @@ export class PeopleComponent implements OnInit {
                 } 
             },
             err => {
-                console.log(err);
+                console.log('err:', err);
                 
             }
         )
     }
 
     saveOrDeleteDocument(data: any) {
-        this.api.saveOrDeleteDocument(data)
-        .then(response => {
+        this.api.saveOrDeleteDocument(data).then(
+            response => {
                 console.log('response', response);
                 if (response.result > 0) {
                     this.notifications.success('Successed!', 1000);
@@ -238,7 +238,7 @@ export class PeopleComponent implements OnInit {
                 }
             },
             err => {
-                console.log(err);
+                console.log('err:', err);
                 
             }
         )

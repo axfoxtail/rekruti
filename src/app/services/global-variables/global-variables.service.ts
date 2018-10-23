@@ -273,7 +273,6 @@ export class GlobalVariablesService {
     }
 
     showPeopleTabModal(data: any) {
-        console.log('tab-02', data.tabName);
         this.openPeopleTabModalEvent.emit(data);
     }
     //People Edit Modal end

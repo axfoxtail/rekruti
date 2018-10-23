@@ -28,7 +28,7 @@ export class PeopleEditModalComponent implements OnInit {
 
     @ViewChild('btn_cancel') btnCancel;
 
-    file: any;
+    file: File = null;
     ckeConfig: any;
     months: any;
     
@@ -182,4 +182,5 @@ export class PeopleEditModalComponent implements OnInit {
     deleteSource(personId, objId) {
       this.saveOrDeleteSource.emit({personId: personId, objId: objId, btnObj: this.btnCancel.nativeElement});
     }
+
 }

@@ -12,6 +12,15 @@
             </form>
         </div>
     </div>
+    <style type="text/css">
+        a.btn-primary {
+            color: #fff !important;
+        }
+        a.btn-primary:hover {
+            background-color: #ff6b00 !important;
+            border-color: #ff6b00 !important;
+        }
+    </style>
     <div class="col col-2 text_align_right" style="padding: 25px;">
         <a href="" *ngIf="_router == 'account'" (click)="openAccountModal({'forAdd': true})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#accountModal">
             <i class="fa fa-plus"></i> Add

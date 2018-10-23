@@ -43,13 +43,10 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
         });
         // this.ngAfterViewInit();
         this.globalVar.openPeopleTabModalEvent.subscribe((data: any) => {
-          console.log('tab-03', data);
           this.itemData = data.item;
           this.chosenTab = data.tabName;
           this.tabInit(data);
         });
-        console.log('tab-00', this.chosenTab);
-        
           
   }
 

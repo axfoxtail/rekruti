@@ -1,6 +1,10 @@
 
 <div class="table-responsive" *ngIf="itemData.hits.length > 0">
-
+  <div class="col col-6 results-col" *ngIf="itemData" style="font-weight: bold;">
+      {{itemData.total | currency: "": "": "0.0-0": "" }}
+      <span *ngIf="itemData.total === 0">result</span>
+      <span *ngIf="itemData.total > 0">results</span>
+  </div>
   <!-- =========================== Main Page Results Content ============================= -->
   <!-- *********** account *********** -->
   <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'account'">

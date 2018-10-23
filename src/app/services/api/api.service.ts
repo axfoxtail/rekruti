@@ -252,21 +252,18 @@ export class RekrutiApiService {
   }
 
   saveOrDeleteDocument(data: any) : Promise<any> {
-
     var url = '/';
     var params = new HttpParams().set('id', data.itemData.itemData.id);
-    var formData = new FormData();
+    var fd = new FormData();
     if (data.forSave) {
         
       if (data.forAdd) {
         url += 'personDocument/wUpload';
 
-        formData.append('file', data.file);
-        console.log('1111-data.file-', data.file[0]);
-        console.log('1234-formData-', formData);
-        formData.append('isShared',data.itemData.itemData.isShared);
-        formData.append('isSharedEveryone',data.itemData.itemData.isSharedEveryone);
-        formData.append('personId', data.itemData.itemData.accountId);
+        fd.append('personId', data.itemData.itemData.accountId);
+        fd.append('isShared', data.itemData.itemData.isShared);
+        fd.append('isSharedEveryone', data.itemData.itemData.isSharedEveryone);
+        fd.append('file', data.file[0]);
 
       } else {
         url += 'personDocument/wUpdate';
@@ -283,9 +280,8 @@ export class RekrutiApiService {
     }
 
     if (data.forSave && data.forAdd) {
-      console.log('url',url);
       return new Promise((resolve, reject) => {
-        this.http.post_form(url, formData).then(data => {
+        this.http.post_form(url, fd).then(data => {
           resolve(data);
         }, function (error) {
           reject(error);
