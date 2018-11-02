@@ -17,6 +17,8 @@ export class SettingsResultsListComponent implements OnInit {
   @Input() itemData;
   @Output() openViewModal: EventEmitter<any> = new EventEmitter;
   @Output() openMapsModal: EventEmitter<any> = new EventEmitter;
+  @Input() searchSortArray: any;
+  
 
   // ------ pagination config ------ //
   public maxSize: any = 8;
@@ -41,12 +43,13 @@ export class SettingsResultsListComponent implements OnInit {
               private notifications: NotificationsService) { }
 
   ngOnInit() {
+    this.itemData.searchSort = 'relevancy';
   }
 
   // ---------- pagination / page change --------- //
   onPageChange(number: number) {
       this.config.currentPage = number;
-      this.globalVar.settingsSearch({page: number, urlFacets: this.globalVar.urlFacets, sort: '', keyword: this.itemData.keyword == null ? '' : this.itemData.keyword});
+      this.globalVar.settingsSearch({page: number, urlFacets: this.globalVar.urlFacets, sort: this.globalVar.searchSort, keyword: this.itemData.keyword == null ? '' : this.itemData.keyword});
   }
 
   // ------ open account modal for edit ------ account ---- //
@@ -99,6 +102,10 @@ export class SettingsResultsListComponent implements OnInit {
   // ----- open concept-lookup attach modal ------- concept-lookup ------ //
   openAttachConceptModal(data) {
     this.globalVar.showAttachConceptModal(data);
+  }
+  seachByOrder(){
+    this.globalVar.searchSort = this.itemData.searchSort;
+    this.globalVar.settingsSearch({page: 0, urlFacets: this.globalVar.urlFacets, sort: this.itemData.searchSort, keyword: this.globalVar.searchKeywoard});
   }
 
 

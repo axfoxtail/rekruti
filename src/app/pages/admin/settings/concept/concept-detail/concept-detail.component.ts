@@ -36,6 +36,7 @@ export class ConceptDetailComponent implements OnInit {
         this.spinner.hide();
         if(response.result > 0){
           this._itemData = response.data;
+          console.log('224455--', response.data);
         }
       },
       err => {

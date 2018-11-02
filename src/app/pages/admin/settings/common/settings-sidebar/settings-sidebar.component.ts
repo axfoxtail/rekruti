@@ -75,6 +75,6 @@ export class SettingsSidebarComponent implements OnInit {
     }
 
     this.globalVar.urlFacets = this.urlFacets;
-    this.globalVar.settingsSearch({page: 0, urlFacets: this.urlFacets, sort: '', keyword: this.keyword == null ? '' : this.keyword});
+    this.globalVar.settingsSearch({page: 0, urlFacets: this.urlFacets, sort: this.globalVar.searchSort, keyword: this.keyword == null ? '' : this.keyword});
   }
 }

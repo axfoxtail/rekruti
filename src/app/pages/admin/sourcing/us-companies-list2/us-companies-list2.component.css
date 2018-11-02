@@ -22,7 +22,7 @@
 }
 
 .people-page-container .people-aria .people-list-container.content-aria {
-    padding: 20px 0px;
+    padding: 20px 15px;
     margin-top: 5px;
     width: 100%;
     max-width: 100%;
@@ -44,22 +44,4 @@
 .modal-content {
     height: 100% !important;
     overflow-y: scroll !important;
-}
-
-a {
-    color:#337ab7 !important;
-    text-decoration: none;
-    cursor: pointer;
-}
-a:hover{
-  color:#ff6b00 !important;
-    text-decoration: none;
-}
-a:active{
-    color:#337ab7 !important;
-    text-decoration: none;
-}
-a:focus{
-    color:#337ab7 !important;
-    text-decoration: none;
 }

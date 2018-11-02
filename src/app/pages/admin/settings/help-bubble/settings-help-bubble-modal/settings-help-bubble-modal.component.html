@@ -26,19 +26,19 @@
           <form name="form" role="form" *ngIf="itemData">
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="context" class="me_required">Context</label>
+                      <label for="context" class="">Context</label>
                       <input type="text" name="context" id="context" class="form-control" [(ngModel)]="itemData.context" required />
                   </div>
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="title" class="me_required">Title</label>
+                      <label for="title" class="">Title</label>
                       <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.title" required />
                   </div>
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="description" class="me_required">Description</label>
+                      <label for="description" class="">Description</label>
                       <ckeditor [(ngModel)]="itemData.description" #myckeditor [config]="ckeConfig" name="description" required></ckeditor>
                   </div>
               </div>

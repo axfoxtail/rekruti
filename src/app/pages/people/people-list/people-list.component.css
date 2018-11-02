@@ -1,5 +1,5 @@
 .list-header {
-    padding: 0 0 20px 0;
+    padding: 0 15px 20px 15px;
 }
 
 .list-header .results-col {
@@ -97,6 +97,7 @@
 .people-list-td .people-list-item-div .item-title-div .item-contact-div {
     display: flex;
     justify-content: flex-end;
+    padding-right: 25px !important; 
 }
 
 .people-list-td .people-list-item-div .item-title-div .item-contact-div .option {
@@ -149,6 +150,8 @@
 
 .active-filters-list {
     padding-bottom: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 .active-filters-list .filter-div {

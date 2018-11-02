@@ -9,6 +9,7 @@ export class ClientComponent implements OnInit {
 
   _opened: boolean = true;
   pageTitle = '> Clients';
+  _searchSortArray: any = '';
 
   @Input() settingsData;
 

@@ -221,7 +221,7 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
     }
 
     deleteJobNote(event: any) {
-        this.api.person_deleteNOte(event)
+        this.api.person_deleteNOte(event.id)
         .then(response => {
             
                if (response.result > 0) {
@@ -231,6 +231,9 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
                     
                 } else {
                     this.notifications.warning(response.message, 10000);
+                }
+                if(event.cancelObj){
+                  event.cancelObj.click();
                 }
             },
             err => {

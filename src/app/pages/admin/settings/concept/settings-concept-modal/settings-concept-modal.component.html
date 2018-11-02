@@ -1,7 +1,7 @@
  <!-- Modal -->
 <div class="modal fade" id="conceptModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" *ngIf="itemData">
         <div class="modal-body">
             <div class="row header_right_popup">
           
@@ -9,7 +9,7 @@
               <h5 class="h3_title" style="font-weight: bold;">{{modalTitle}}</h5>
           </div>
           <div class="col-md-7 text-right">
-              <button class="btn btn-success div_btn_action" title="Save" (click)="saveConcept(itemData, forAdd);">
+              <button class="btn btn-success div_btn_action" title="Save" [disabled]="!itemData.name || !itemData.conceptTypeId" (click)="saveConcept(itemData, forAdd);">
                   <i class="fa fa-check"></i> Save
               </button>
               <button class="btn btn-danger div_btn_action" *ngIf="!forAdd" title="Delete" (click)="deleteConcept(itemData);">
@@ -23,16 +23,16 @@
       </div>
 
       <div class="padding_15">
-          <form name="form" role="form" *ngIf="itemData">
+          <form name="form" role="form">
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="name" class="me_required">Concept *</label>
+                      <label for="name" class="me_required">Concept </label>
                       <input type="text" name="name" id="name" class="form-control" [(ngModel)]="itemData.name" required />
                   </div>
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="conceptTypeId" class="me_required">Concept Type *</label>
+                      <label for="conceptTypeId" class="me_required">Concept Type </label>
                       <select name="conceptTypeId" id="conceptTypeId" class="form-control" [(ngModel)]="itemData.conceptTypeId" required>
                         <option [ngValue]="ConceptType.id" *ngFor="let ConceptType of listConceptType">{{ConceptType.name}}</option>
                       </select>
@@ -40,7 +40,7 @@
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="definition" class="me_required">Definition</label>
+                      <label for="definition" class="">Definition</label>
                       <textarea rows="5" name="definition" id="definition" class="form-control" [(ngModel)]="itemData.definition" required>
                       </textarea>
                   </div>

@@ -19,6 +19,7 @@ export class TabNoteComponent implements OnInit {
     }
   ckeConfig: any;
   @ViewChild("myckeditor") ckeditor: any;
+  @ViewChild('note_cancel') noteCancel;
 
   currentUser: any;
 
@@ -62,8 +63,15 @@ export class TabNoteComponent implements OnInit {
     }
   }
 
-  deleteNote(id) {
-    this.deleteJobNote.emit(id);
+  deleteNote(obj) {
+    if(obj.id){
+      this.note = this.clone(obj);
+      if(this.noteCancel){
+        this.deleteJobNote.emit({id: obj.id, cancelObj: this.noteCancel.nativeElement});
+      } else {
+        this.deleteJobNote.emit({id: obj.id, cancelObj: ''});
+      }
+    }
   }
 
 }

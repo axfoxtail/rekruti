@@ -8,7 +8,12 @@ import { Component, OnInit, Input } from '@angular/core';
 export class GeoComponent implements OnInit {
 
   _opened: boolean = true;
-  pageTitle = '> Clients';
+  pageTitle = '> Geo';
+  _searchSortArray: any = [
+    { value: 'relevancy', label: 'Relevancy' },
+    { value: 'occurrences', label: 'Occurrences' },
+    { value: 'population', label: 'Population' },
+  ];
 
   @Input() settingsData;
 

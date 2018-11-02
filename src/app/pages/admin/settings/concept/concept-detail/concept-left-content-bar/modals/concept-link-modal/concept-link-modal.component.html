@@ -9,7 +9,7 @@
               <h5 class="h3_title" style="font-weight: bold;">Add Link</h5>
           </div>
           <div class="col-md-7 text-right">
-              <button class="btn btn-success div_btn_action" title="Save" (click)="saveLinkForConcept(itemData);">
+              <button class="btn btn-success div_btn_action" title="Save" [disabled]="!itemData.url || !itemData.urlTypeId" (click)="saveLinkForConcept(itemData);">
                   <i class="fa fa-check"></i> Save
               </button>
               <button class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
@@ -23,7 +23,7 @@
           <form name="form" role="form" *ngIf="itemData">
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="url" class="me_required">Web Url *</label>
+                      <label for="url" class="me_required">Web Url </label>
                       <input type="url" name="url" id="url" class="form-control" [(ngModel)]="itemData.url" required />
                   </div>
               </div>

@@ -180,7 +180,7 @@ export class PeopleEditModalComponent implements OnInit {
     }
 
     deleteSource(personId, objId) {
-      this.saveOrDeleteSource.emit({personId: personId, objId: objId, btnObj: this.btnCancel.nativeElement});
+      this.saveOrDeleteSource.emit({personId: personId, forSave: false, objId: objId, btnObj: this.btnCancel.nativeElement});
     }
 
 }

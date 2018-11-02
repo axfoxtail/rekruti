@@ -1,7 +1,7 @@
  <!-- Modal -->
 <div class="modal fade" id="clientModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" *ngIf="itemData">
         <div class="modal-body">
             <div class="row header_right_popup">
           
@@ -9,7 +9,7 @@
               <h5 class="h3_title" style="font-weight: bold;">{{modalTitle}}</h5>
           </div>
           <div class="col-md-7 text-right">
-              <button class="btn btn-success div_btn_action" title="Save" (click)="saveClient(itemData, forAdd);">
+              <button class="btn btn-success div_btn_action" [disabled]="!itemData.name || !itemData.cityName" title="Save" (click)="saveClient(itemData, forAdd);">
                   <i class="fa fa-check"></i> Save
               </button>
               <button class="btn btn-danger div_btn_action" *ngIf="!forAdd" title="Save" (click)="deleteClient(itemData);">
@@ -23,30 +23,30 @@
       </div>
 
       <div class="padding_15">
-          <form name="form" role="form" *ngIf="itemData">
+          <form name="form" role="form">
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="name" class="me_required">Name *</label>
+                      <label for="name" class="me_required">Name </label>
                       <input type="text" name="name" id="name" class="form-control" [(ngModel)]="itemData.name" required />
                   </div>
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="address" class="me_required">Address</label>
+                      <label for="address" class="">Address</label>
                       <input type="text" name="address1" id="address1" class="form-control" [(ngModel)]="itemData.address1" required style="margin-bottom: 10px;" />
                       <input type="text" name="address2" id="address2" class="form-control" [(ngModel)]="itemData.address2" required />
                   </div>
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="cityName" class="me_required">City *</label>
+                      <label for="cityName" class="me_required">City </label>
                       <input type="hidden" name="geoId" id="geoId" class="form-control" [(ngModel)]="itemData.geoId" required />
                       <input type="text" name="cityName" id="cityName" class="form-control" [(ngModel)]="itemData.cityName" required />
                   </div>
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="zipCode" class="me_required">Zip Code</label>
+                      <label for="zipCode" class="">Zip Code</label>
                       <input type="password" name="zipCode" id="zipCode" class="form-control" [(ngModel)]="itemData.zipCode" required />
                   </div>
               </div>

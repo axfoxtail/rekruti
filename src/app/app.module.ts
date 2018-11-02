@@ -17,6 +17,7 @@ import {NgxTypeaheadModule} from 'ngx-typeahead';
 import {PopoverModule} from 'ngx-bootstrap/popover';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { OrderModule } from 'ngx-order-pipe';
 
 
 import {AppComponent} from './app.component';
@@ -137,6 +138,7 @@ import { SettingsGeoLookupEditModalComponent } from './pages/admin/settings/geo-
 import { GeoLeftFacetsBarComponent } from './pages/admin/settings/geo-lookup/settings-geo-lookup-edit-modal/geo-left-facets-bar/geo-left-facets-bar.component';
 import { SettingsConceptLookupAttachModalComponent } from './pages/admin/settings/concept-lookup/settings-concept-lookup-attach-modal/settings-concept-lookup-attach-modal.component';
 import { ConceptLeftFacetsBarComponent } from './pages/admin/settings/concept-lookup/settings-concept-lookup-attach-modal/concept-left-facets-bar/concept-left-facets-bar.component';
+import { UsCompaniesList2Component } from './pages/admin/sourcing/us-companies-list2/us-companies-list2.component';
 
 @NgModule({
     declarations: [
@@ -243,7 +245,8 @@ import { ConceptLeftFacetsBarComponent } from './pages/admin/settings/concept-lo
         SettingsGeoLookupEditModalComponent,
         GeoLeftFacetsBarComponent,
         SettingsConceptLookupAttachModalComponent,
-        ConceptLeftFacetsBarComponent
+        ConceptLeftFacetsBarComponent,
+        UsCompaniesList2Component
     ],
     imports: [
         CommonModule,
@@ -269,6 +272,7 @@ import { ConceptLeftFacetsBarComponent } from './pages/admin/settings/concept-lo
           apiKey: 'AIzaSyAFgM81Qz-SwfTzUsr4F51AgDj0HdN88CQ' //Google API key for maps
         }),
         ChecklistModule,
+        OrderModule,
     ],
     providers: [
         HttpService,

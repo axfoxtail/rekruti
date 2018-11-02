@@ -485,6 +485,30 @@
         </tr>
     </tbody>
   </table>
+  <!-- ************* us companies list 2 ************** -->
+  <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'us-companies-list2'">
+    <thead>
+      <th>Name</th>
+      <th>Contact</th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of itemData.hits | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: itemData.total }" [ngClass]="checkActiveItem(item)">
+            <td>
+                <a href="" (click)="openJson(item);" data-toggle="modal" data-target="#viewModal">
+                    <h3>{{item.name}}</h3>
+                </a>
+                <p class="color_999" style="margin: 0">{{item.address}}</p>
+                <p class="color_999" style="margin: 0">{{item.city}}, {{item.state}}</p>
+                <p class="color_999" style="margin: 0">{{item.zipCode}}</p>
+                <a *ngIf="item.website !== null" class="font_bold" href="http://{{item.website}}">{{item.website}}</a>
+            </td>
+            <td>
+                <p class="color_999" style="margin: 0">{{item.email}}</p>
+                <p class="color_999" style="margin: 0">{{item.phone}}</p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
   <!-- ************* whitepages ************** -->
   <table class="table table-bordered table-hover table-striped" *ngIf="_router == 'whitepages'">
     <thead>

@@ -1,7 +1,7 @@
  <!-- Modal -->
 <div class="modal fade" id="conceptRuleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" *ngIf="itemData">
         <div class="modal-body">
             <div class="row header_right_popup">
           
@@ -9,7 +9,7 @@
               <h5 class="h3_title" style="font-weight: bold;">{{modalTitle}}</h5>
           </div>
           <div class="col-md-7 text-right">
-              <button class="btn btn-success div_btn_action" title="Save" (click)="saveRuleForConcept(itemData);">
+              <button class="btn btn-success div_btn_action" title="Save" [disabled]="!itemData.name || !itemData.roles" (click)="saveRuleForConcept(itemData);">
                   <i class="fa fa-check"></i> Save
               </button>
               <button class="btn btn-danger div_btn_action" *ngIf="!forAdd" title="Delete" (click)="deleteRuleForConcept(itemData);">
@@ -23,16 +23,16 @@
       </div>
 
       <div class="padding_15">
-          <form name="form" role="form" *ngIf="itemData">
+          <form name="form" role="form">
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="name" class="me_required">Name *</label>
+                      <label for="name" class="me_required">Name </label>
                       <input type="type" name="name" id="name" class="form-control" [(ngModel)]="itemData.name" required />
                   </div>
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="scope" class="me_required">Scope *</label>
+                      <label for="scope" class="me_required">Scope </label>
                       <div class="listScope">
                           <div *ngFor="let pk of listScope">
                               <input type="checkbox" [(checklist)]="itemData.roles" [checklistValue]="pk.id"> {{pk.name}}

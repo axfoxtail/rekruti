@@ -30,7 +30,7 @@
 	                            <button type="submit" class="btn btn-success" (click)="saveNote(itemData.id, note)" [disabled]="form.invalid" title="Save">
 	                                <i class="fa fa-check"></i> Save
 	                            </button>
-	                            <button *ngIf="note.id != null" (click)="cancelNote()" class="btn btn-warning" style="display: none;" title="Cancel">
+	                            <button *ngIf="note.id != null" (click)="cancelNote()" class="btn btn-warning" style="margin-left: 3px;" title="Cancel" #note_cancel>
 	                                <i class="fa fa-undo"></i> Cancel
 	                            </button>
 	                        </div>
@@ -54,7 +54,7 @@
                     <td class="color_999 text_align_right" style="padding: 15px;">
                         {{obj.postDate| date:"yyyy-MM-dd"}}
                         <div class="pull-right" style="margin-left: 5px;" >
-                            <a href="" style="color: red !important;" (click)="deleteNote(obj.id)">
+                            <a style="color: red !important;" (click)="deleteNote(obj)">
                                 <i class="fa fa-trash"></i>
                             </a>
                         </div>

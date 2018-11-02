@@ -29,7 +29,7 @@
 }
 
 .font_25{
-    font-size: 20px !important;
+    font-size: 25px !important;
 }
 
 .font-13{
@@ -110,6 +110,7 @@
 .weblinks tr td:last-child{
     width: 100%;
     float: right;
+    padding-right: 0px !important;
 }
 
 .table {
@@ -118,4 +119,12 @@
 
 .inline-block {
     display: inline-block;
+}
+
+h3 {
+    font-size: 18px !important;
+}
+
+.table td {
+    padding: 8px;
 }

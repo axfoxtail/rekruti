@@ -9,6 +9,10 @@ export class ConceptLookupComponent implements OnInit {
 
   _opened: boolean = true;
   pageTitle = '> Concept Lookup';
+  _searchSortArray: any = [
+    { value: 'relevancy', label: 'Relevancy' },
+    { value: 'occurrences', label: 'Occurrences' },
+  ];
 
   @Input() settingsData;
 

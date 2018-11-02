@@ -21,17 +21,17 @@
             border-color: #ff6b00 !important;
         }
     </style>
-    <div class="col col-2 text_align_right" style="padding: 25px;">
-        <a href="" *ngIf="_router == 'account'" (click)="openAccountModal({'forAdd': true})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#accountModal">
+    <div class="col col-2 text_align_right" style="padding: 25px 15px 25px 25px;">
+        <a href="" *ngIf="_router == 'account'" (click)="openAccountModal({'forAdd': true})" class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#accountModal">
             <i class="fa fa-plus"></i> Add
         </a>
-        <a href="" *ngIf="_router == 'client'" (click)="openClientModal({'forAdd': true})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#clientModal">
+        <a href="" *ngIf="_router == 'client'" (click)="openClientModal({'forAdd': true})" class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#clientModal">
             <i class="fa fa-plus"></i> Add
         </a>
-        <a href="" *ngIf="_router == 'concept'" (click)="openConceptModal({'forAdd': true})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#conceptModal">
+        <a href="" *ngIf="_router == 'concept'" (click)="openConceptModal({'forAdd': true})" class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#conceptModal">
             <i class="fa fa-plus"></i> Add
         </a>
-        <a href="" *ngIf="_router == 'help-bubble'" (click)="openHelpBubbleModal({'forAdd': true})" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#helpBubbleModal">
+        <a href="" *ngIf="_router == 'help-bubble'" (click)="openHelpBubbleModal({'forAdd': true})" class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#helpBubbleModal">
             <i class="fa fa-plus"></i> Add
         </a>
     </div>

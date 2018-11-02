@@ -21,6 +21,9 @@
     overflow-y: scroll;
 }
 
+.modal-body {
+    padding: 0px !important;
+}
 
 .modal.fade .modal-dialog {
     -webkit-transform: translate(25%, 0);

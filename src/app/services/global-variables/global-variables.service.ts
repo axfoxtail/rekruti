@@ -59,6 +59,7 @@ export class GlobalVariablesService {
     // ================ Admin Pages =============== //
     public searchKeywoard : any = '';
     public urlFacets: any = '';
+    public searchSort: any = 'relevancy';
     public sourcingSearchEvent: EventEmitter<any> = new EventEmitter();
     public settingsSearchEvent: EventEmitter<any> = new EventEmitter();
     public openAccountModalEvent: EventEmitter<any> = new EventEmitter();

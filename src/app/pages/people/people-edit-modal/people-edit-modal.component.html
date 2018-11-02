@@ -3,480 +3,483 @@
     <div class="modal-content">
         <div class="modal-body">
 
-        	
+          
 
-        	<!-- Jobreq Edit -->
-            <div class="row header_right_popup" *ngIf="modalForJobReq == 'jobreq'">
-		    	
-		    	<div class="col-md-5 padding_0 div_title">
-		    	    <h5 class="h3_title" style="font-weight: bold;">Edit Job Req</h5>
-		    	</div>
-		    	<div class="col-md-7 text-right">
-		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveJobReq()"  title="Save">
-		    	        <i class="fa fa-check"></i> Save
-		    	    </button>
-		    	    <button (click)="deleteJobReq()" class="btn btn-danger div_btn_action" title="Delete">
-		    	        <i class="fa fa-trash"></i> Delete
-		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
-		    	        <i class="fa fa-undo"></i> Cancel
-		    	    </button>
-		    	</div>
-		    	<div class="border_top_d padding_0 col-xs-12"></div>
-			</div>
+          <!-- Jobreq Edit -->
+          <div class="row header_right_popup" *ngIf="modalForJobReq == 'jobreq'">
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">Edit Job Req</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button type="submit" class="btn btn-success div_btn_action" [disabled]="!itemData.title || !itemData.accountOwnerId" (click)="saveJobReq()"  title="Save">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button (click)="deleteJobReq()" class="btn btn-danger div_btn_action" title="Delete">
+                  <i class="fa fa-trash"></i> Delete
+              </button>
+              <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
 
-			<div class="padding_15" *ngIf="modalForJobReq == 'jobreq'">
-			    <form name="form" #form="ngForm" role="form">
-			        <div class="form-group">
-			            <label for="title" class="me_required">Job Req</label>
-			            <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.title" required />
-			        </div>
+      <div class="padding_15" *ngIf="modalForJobReq == 'jobreq'">
+          <form name="form" #form="ngForm" role="form">
+              <div class="form-group">
+                  <label for="title" class="me_required">Job Req</label>
+                  <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.title" required />
+              </div>
 
-			        <div class="form-group">
-			            <label class="me_required">Owner</label>
-			            <select class="form-control" [(ngModel)]="itemData.accountOwnerId" name="collegue" required >
-			                <option *ngFor="let item of colleagues;" value="{{ item.id }}">{{ item.name }}</option>
-			            </select>
-			        </div>
+              <div class="form-group">
+                  <label class="me_required">Owner</label>
+                  <select class="form-control" [(ngModel)]="itemData.accountOwnerId" name="collegue" required >
+                      <option *ngFor="let item of colleagues;" value="{{ item.id }}">{{ item.name }}</option>
+                  </select>
+              </div>
 
-			       
-			        <div class="margin_0 padding_0">
-			            <div class="form-group">
-			                <div>
-			                    <input type="checkbox" id="isShared" [(ngModel)]="itemData.isShared" name="shareWithCollegue" style="position: absolute; margin-top: 4px;"/>
-			                    <label for="isShared" style="margin-left: 16px;">Share with Colleagues</label>
-			                </div>
-			            </div>
-			        </div>
-			        
-			    </form>
-			</div>
+             
+              <div class="margin_0 padding_0">
+                  <div class="form-group">
+                      <div>
+                          <input type="checkbox" id="isShared" [(ngModel)]="itemData.isShared" name="shareWithCollegue" style="position: absolute; margin-top: 4px;"/>
+                          <label for="isShared" style="margin-left: 16px;">Share with Colleagues</label>
+                      </div>
+                  </div>
+              </div>
+              
+          </form>
+      </div>
 
-			<!-- Document Add/Edit -->
-			<div class="row header_right_popup" *ngIf="modalForJobReq == 'document'">
-		    	
-		    	<div class="col-md-5 padding_0 div_title">
-		    	    <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Document' : 'Edit Document'}}</h5>
-		    	</div>
-		    	<div class="col-md-7 text-right">
-		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveDocument()"  title="Save">
-		    	        <i class="fa fa-check"></i> Save
-		    	    </button>
-		    	    <button *ngIf="!itemData.forAdd" (click)="deleteDocument()" class="btn btn-danger div_btn_action" title="Delete">
-		    	        <i class="fa fa-trash"></i> Delete
-		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
-		    	        <i class="fa fa-undo"></i> Cancel
-		    	    </button>
-		    	</div>
-		    	<div class="border_top_d padding_0 col-xs-12"></div>
-			</div>
+      <!-- Document Add/Edit -->
+      <div class="row header_right_popup" *ngIf="modalForJobReq == 'document'">
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Document' : 'Edit Document'}}</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button type="submit" *ngIf="itemData.forAdd" class="btn btn-success div_btn_action" [disabled]="!file" (click)="saveDocument()"  title="Save">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button type="submit" *ngIf="!itemData.forAdd" class="btn btn-success div_btn_action" [disabled]="!itemData.itemData.name || !itemData.itemData.accountId" (click)="saveDocument()"  title="Save">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button *ngIf="!itemData.forAdd" (click)="deleteDocument()" class="btn btn-danger div_btn_action" title="Delete">
+                  <i class="fa fa-trash"></i> Delete
+              </button>
+              <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
 
-			<div class="padding_15" *ngIf="modalForJobReq == 'document'">
-			    <form name="form" #form="ngForm" role="form">
-			        <div class="form-group" *ngIf="!itemData.forAdd">
-			            <label for="title" class="me_required">Name</label>
-			            <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.itemData.name" required />
-			        </div>
+      <div class="padding_15" *ngIf="modalForJobReq == 'document'">
+          <form name="form" #form="ngForm" role="form">
+              <div class="form-group" *ngIf="!itemData.forAdd">
+                  <label for="title" class="me_required">Name</label>
+                  <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.itemData.name" required />
+              </div>
 
-			        <div class="form-group" *ngIf="!itemData.forAdd">
-			            <label class="me_required">Owner</label>
-			            <select class="form-control" [(ngModel)]="itemData.itemData.accountId" name="collegue" required >
-			                <option *ngFor="let item of colleagues;" value="{{ item.id }}">{{ item.name }}</option>
-			            </select>
-			        </div>
+              <div class="form-group" *ngIf="!itemData.forAdd">
+                  <label class="me_required">Owner</label>
+                  <select class="form-control" [(ngModel)]="itemData.itemData.accountId" name="collegue" required >
+                      <option *ngFor="let item of colleagues;" value="{{ item.id }}">{{ item.name }}</option>
+                  </select>
+              </div>
 
-			        <div class="form-group" *ngIf="itemData.forAdd">
-   					    <label for="title" class="me_required">Document</label>
-   					    <!-- the model does not seem to work here -->
-   					    <file-upload [(ngModel)]="file" class="drop-box-document-file" fileslimit="1" name="file"></file-upload>
-   					    
-   					</div>
+              <div class="form-group" *ngIf="itemData.forAdd">
+                <label for="title" class="">Document</label>
+                <!-- the model does not seem to work here -->
+                <file-upload [(ngModel)]="file" class="drop-box-document-file" fileslimit="1" name="file"></file-upload>
+                
+            </div>
 
-			       
-			        <div class="margin_0 padding_0">
-			            <div class="form-group">
-			                <div>
-			                    <input type="checkbox" id="isShared" [(ngModel)]="itemData.itemData.isShared" name="shareWithCollegue" style="position: absolute; margin-top: 4px;"/>
-			                    <label for="isShared" style="margin-left: 16px;">Share with Colleagues</label>
-			                </div>
-			            </div>
-			            <div class="form-group">
-			                <div>
-			                    <input type="checkbox" id="isShared" [(ngModel)]="itemData.itemData.isSharedEveryone" name="shareWithCollegue" style="position: absolute; margin-top: 4px;"/>
-			                    <label for="isShared" style="margin-left: 16px;">Share with EveryOne</label>
-			                </div>
-			            </div>
-			        </div>
-			        
-			    </form>
-			</div>
+             
+              <div class="margin_0 padding_0">
+                  <div class="form-group">
+                      <div>
+                          <input type="checkbox" id="isShared" [(ngModel)]="itemData.itemData.isShared" name="shareWithCollegue" style="position: absolute; margin-top: 4px;"/>
+                          <label for="isShared" style="margin-left: 16px;">Share with Colleagues</label>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div>
+                          <input type="checkbox" id="isShared" [(ngModel)]="itemData.itemData.isSharedEveryone" name="shareWithCollegue" style="position: absolute; margin-top: 4px;"/>
+                          <label for="isShared" style="margin-left: 16px;">Share with EveryOne</label>
+                      </div>
+                  </div>
+              </div>
+              
+          </form>
+      </div>
 
-			<!-- Contact Email Add/Edit -->
+      <!-- Contact Email Add/Edit -->
             <div class="row header_right_popup" *ngIf="modalForJobReq == 'email'">
-		    	
-		    	<div class="col-md-5 padding_0 div_title">
-		    	    <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Email' : 'Edit Email'}}</h5>
-		    	</div>
-		    	<div class="col-md-7 text-right">
-		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveEmail($event)"  title="Save">
-		    	        <i class="fa fa-check"></i> Save
-		    	    </button>
-		    	    <button *ngIf="!itemData.forAdd" (click)="deleteEmail()" class="btn btn-danger div_btn_action" title="Delete">
-		    	        <i class="fa fa-trash"></i> Delete
-		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
-		    	        <i class="fa fa-undo"></i> Cancel
-		    	    </button>
-		    	</div>
-		    	<div class="border_top_d padding_0 col-xs-12"></div>
-			</div>
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Email' : 'Edit Email'}}</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button type="submit" class="btn btn-success div_btn_action" [disabled]="!itemData.itemData.email" (click)="saveEmail($event)"  title="Save">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button *ngIf="!itemData.forAdd" (click)="deleteEmail()" class="btn btn-danger div_btn_action" title="Delete">
+                  <i class="fa fa-trash"></i> Delete
+              </button>
+              <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
 
-			<div class="padding_15" *ngIf="modalForJobReq == 'email'">
-			    <form name="form" #form="ngForm" role="form">
-			        <div class="form-group">
-			            <label for="email" class="me_required">Email *</label>
-			            <input type="email" name="email" id="email" class="form-control" [(ngModel)]="itemData.itemData.email" required />
-			        </div>
-			       
-			        <div class="margin_0 padding_0">
-			            <div class="form-group">
-			                <div>
-			                    <input type="checkbox" id="isBusiness" [(ngModel)]="itemData.itemData.isBusiness" name="isBusiness" style="position: absolute; margin-top: 4px;"/>
-			                    <label for="isBusiness" style="margin-left: 16px;">Work email</label>
-			                </div>
-			            </div>
-			        </div>
-			        
-			    </form>
-			</div>
+      <div class="padding_15" *ngIf="modalForJobReq == 'email'">
+          <form name="form" #form="ngForm" role="form">
+              <div class="form-group">
+                  <label for="email" class="me_required">Email </label>
+                  <input type="email" name="email" id="email" class="form-control" [(ngModel)]="itemData.itemData.email" required />
+              </div>
+             
+              <div class="margin_0 padding_0">
+                  <div class="form-group">
+                      <div>
+                          <input type="checkbox" id="isBusiness" [(ngModel)]="itemData.itemData.isBusiness" name="isBusiness" style="position: absolute; margin-top: 4px;"/>
+                          <label for="isBusiness" style="margin-left: 16px;">Work email</label>
+                      </div>
+                  </div>
+              </div>
+              
+          </form>
+      </div>
 
-			<!-- Contact Phone Add/Edit -->
+      <!-- Contact Phone Add/Edit -->
             <div class="row header_right_popup" *ngIf="modalForJobReq == 'phone'">
-		    	
-		    	<div class="col-md-5 padding_0 div_title">
-		    	    <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Phone' : 'Edit Phone'}}</h5>
-		    	</div>
-		    	<div class="col-md-7 text-right">
-		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="savePhone()"  title="Save">
-		    	        <i class="fa fa-check"></i> Save
-		    	    </button>
-		    	    <button *ngIf="!itemData.forAdd" (click)="deletePhone()" class="btn btn-danger div_btn_action" title="Delete">
-		    	        <i class="fa fa-trash"></i> Delete
-		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
-		    	        <i class="fa fa-undo"></i> Cancel
-		    	    </button>
-		    	</div>
-		    	<div class="border_top_d padding_0 col-xs-12"></div>
-			</div>
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Phone' : 'Edit Phone'}}</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button type="submit" class="btn btn-success div_btn_action" [disabled]="!itemData.itemData.phone || !itemData.itemData.phoneTypeId" (click)="savePhone()"  title="Save">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button *ngIf="!itemData.forAdd" (click)="deletePhone()" class="btn btn-danger div_btn_action" title="Delete">
+                  <i class="fa fa-trash"></i> Delete
+              </button>
+              <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
 
-			<div class="padding_15" *ngIf="modalForJobReq == 'phone'">
-			    <form name="form" #form="ngForm" role="form">
-			    	<div class="row">
-				        <div class="form-group col-md-6">
-				            <label for="phone" class="me_required">Phone *</label>
-				            <input type="phone" name="phone" id="phone" class="form-control" [(ngModel)]="itemData.itemData.phone" required />
-				        </div>
-				        <div class="form-group col-md-6">
-				            <label for="extension" class="me_required">Extension</label>
-				            <input type="text" name="extension" id="extension" class="form-control" [(ngModel)]="itemData.itemData.extension" required />
-				        </div>
-			    	</div>
-			    		
-			    	<div class="row">
-				        <div class="form-group col-md-12">
-				            <label for="phoneTypeId" class="me_required">Type *</label>
-				            <select name="phoneTypeId" id="phoneTypeId" class="form-control" [(ngModel)]="itemData.itemData.phoneTypeId" required>
-				            	<option [ngValue]="item.id" *ngFor="let item of colleagues">{{item.name}}</option>
-				        	</select>
-				        </div>
-			    	</div>
-			       
-			        <div class="margin_0 padding_0">
-			            <div class="form-group">
-			                <div>
-			                    <input type="checkbox" id="isBusiness" [(ngModel)]="itemData.itemData.isBusiness" name="isBusiness" style="position: absolute; margin-top: 4px;"/>
-			                    <label for="isBusiness" style="margin-left: 16px;">Work phone</label>
-			                </div>
-			            </div>
-			        </div>
-			        
-			    </form>
-			</div>
+      <div class="padding_15" *ngIf="modalForJobReq == 'phone'">
+          <form name="form" #form="ngForm" role="form">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="phone" class="me_required">Phone </label>
+                    <input type="phone" name="phone" id="phone" class="form-control" [(ngModel)]="itemData.itemData.phone" required />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="extension" class="">Extension</label>
+                    <input type="text" name="extension" id="extension" class="form-control" [(ngModel)]="itemData.itemData.extension" required />
+                </div>
+            </div>
+              
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label for="phoneTypeId" class="me_required">Type </label>
+                    <select name="phoneTypeId" id="phoneTypeId" class="form-control" [(ngModel)]="itemData.itemData.phoneTypeId" required>
+                      <option [ngValue]="item.id" *ngFor="let item of colleagues">{{item.name}}</option>
+                  </select>
+                </div>
+            </div>
+             
+              <div class="margin_0 padding_0">
+                  <div class="form-group">
+                      <div>
+                          <input type="checkbox" id="isBusiness" [(ngModel)]="itemData.itemData.isBusiness" name="isBusiness" style="position: absolute; margin-top: 4px;"/>
+                          <label for="isBusiness" style="margin-left: 16px;">Work phone</label>
+                      </div>
+                  </div>
+              </div>
+              
+          </form>
+      </div>
 
-			<!-- Contact Web Link Add/Edit -->
+      <!-- Contact Web Link Add/Edit -->
             <div class="row header_right_popup" *ngIf="modalForJobReq == 'weblink'">
-		    	
-		    	<div class="col-md-5 padding_0 div_title">
-		    	    <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Web Link' : 'Edit Web Link'}}</h5>
-		    	</div>
-		    	<div class="col-md-7 text-right">
-		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveWebLink()"  title="Save">
-		    	        <i class="fa fa-check"></i> Save
-		    	    </button>
-		    	    <button *ngIf="!itemData.forAdd" (click)="deleteWebLink()" class="btn btn-danger div_btn_action" title="Delete">
-		    	        <i class="fa fa-trash"></i> Delete
-		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
-		    	        <i class="fa fa-undo"></i> Cancel
-		    	    </button>
-		    	</div>
-		    	<div class="border_top_d padding_0 col-xs-12"></div>
-			</div>
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Web Link' : 'Edit Web Link'}}</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button type="submit" class="btn btn-success div_btn_action" [disabled]="!itemData.itemData.url" (click)="saveWebLink()"  title="Save">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button *ngIf="!itemData.forAdd" (click)="deleteWebLink()" class="btn btn-danger div_btn_action" title="Delete">
+                  <i class="fa fa-trash"></i> Delete
+              </button>
+              <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
 
-			<div class="padding_15" *ngIf="modalForJobReq == 'weblink'">
-			    <form name="form" #form="ngForm" role="form">
-			        <div class="form-group">
-			            <label for="Web Url" class="me_required">Web Url *</label>
-			            <input type="email" name="url" id="url" class="form-control" [(ngModel)]="itemData.itemData.url" required />
-			        </div>
-			    </form>
-			</div>
+      <div class="padding_15" *ngIf="modalForJobReq == 'weblink'">
+          <form name="form" #form="ngForm" role="form">
+              <div class="form-group">
+                  <label for="Web Url" class="me_required">Web Url </label>
+                  <input type="email" name="url" id="url" class="form-control" [(ngModel)]="itemData.itemData.url" required />
+              </div>
+          </form>
+      </div>
 
-			<!-- Contact Address Add/Edit -->
+      <!-- Contact Address Add/Edit -->
             <div class="row header_right_popup" *ngIf="modalForJobReq == 'address'">
-		    	
-		    	<div class="col-md-5 padding_0 div_title">
-		    	    <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Address' : 'Edit Address'}}</h5>
-		    	</div>
-		    	<div class="col-md-7 text-right">
-		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveAddress()"  title="Save">
-		    	        <i class="fa fa-check"></i> Save
-		    	    </button>
-		    	    <button *ngIf="!itemData.forAdd" (click)="deleteAddress()" class="btn btn-danger div_btn_action" title="Delete">
-		    	        <i class="fa fa-trash"></i> Delete
-		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
-		    	        <i class="fa fa-undo"></i> Cancel
-		    	    </button>
-		    	</div>
-		    	<div class="border_top_d padding_0 col-xs-12"></div>
-			</div>
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Address' : 'Edit Address'}}</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button type="submit" class="btn btn-success div_btn_action" [disabled]="!itemData.itemData.geoCityId" (click)="saveAddress()"  title="Save">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button *ngIf="!itemData.forAdd" (click)="deleteAddress()" class="btn btn-danger div_btn_action" title="Delete">
+                  <i class="fa fa-trash"></i> Delete
+              </button>
+              <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
 
-			<div class="padding_15" *ngIf="modalForJobReq == 'address'">
-			    <form name="form" #form="ngForm" role="form">
-			        <div class="form-group">
-			            <label for="Address" class="me_required">Address</label>
-			            <input type="text" name="address1" id="address1" class="form-control" [(ngModel)]="itemData.itemData.address1" required />
-			            <input type="text" name="address2" id="address2" class="form-control" [(ngModel)]="itemData.itemData.address2" required />
-			        </div>
-			        <div class="form-group">
-			            <label for="City" class="me_required">City *</label>
-			            <input type="hidden" name="geoCityId" id="geoCityId" class="form-control" [(ngModel)]="itemData.itemData.geoCityId" required />
-			            <input type="text" [(ngModel)]="itemData.itemData.cityName" name="query" class="col-sm-12 form-control"
-					        (keyup)="handleSearch($event)"
-					    >
-					    <div *ngIf="cityList" class="city-list">
-					    	<p (click)="chosenCity(item)" *ngFor="let item of cityList">{{item.name}}</p>
-					    </div>
+      <div class="padding_15" *ngIf="modalForJobReq == 'address'">
+          <form name="form" #form="ngForm" role="form">
+              <div class="form-group">
+                  <label for="Address" class="">Address</label>
+                  <input type="text" name="address1" id="address1" class="form-control" [(ngModel)]="itemData.itemData.address1" required />
+                  <input type="text" name="address2" id="address2" class="form-control" [(ngModel)]="itemData.itemData.address2" required />
+              </div>
+              <div class="form-group">
+                  <label for="City" class="me_required">City </label>
+                  <input type="hidden" name="geoCityId" id="geoCityId" class="form-control" [(ngModel)]="itemData.itemData.geoCityId" required />
+                  <input type="text" [(ngModel)]="itemData.itemData.cityName" name="query" class="col-sm-12 form-control"
+                  (keyup)="handleSearch($event)"
+              >
+              <div *ngIf="cityList" class="city-list">
+                <p (click)="chosenCity(item)" *ngFor="let item of cityList">{{item.name}}</p>
+              </div>
 
-					        
-			        </div>
-			        <div class="form-group">
-			            <label for="Zip Code" class="me_required">Zip Code</label>
-			            <input type="text" name="zipCode" id="zipCode" class="form-control" [(ngModel)]="itemData.itemData.zipCode" required />
-			        </div>
+                  
+              </div>
+              <div class="form-group">
+                  <label for="Zip Code" class="">Zip Code</label>
+                  <input type="text" name="zipCode" id="zipCode" class="form-control" [(ngModel)]="itemData.itemData.zipCode" required />
+              </div>
 
-			        <div class="margin_0 padding_0">
-			            <div class="form-group">
-			                <div>
-			                    <input type="checkbox" id="isBusiness" [(ngModel)]="itemData.itemData.isBusiness" name="isBusiness" style="position: absolute; margin-top: 4px;"/>
-			                    <label for="isBusiness" style="margin-left: 16px;">Work address</label>
-			                </div>
-			            </div>
-			        </div>
-			    </form>
-			</div>
+              <div class="margin_0 padding_0">
+                  <div class="form-group">
+                      <div>
+                          <input type="checkbox" id="isBusiness" [(ngModel)]="itemData.itemData.isBusiness" name="isBusiness" style="position: absolute; margin-top: 4px;"/>
+                          <label for="isBusiness" style="margin-left: 16px;">Work address</label>
+                      </div>
+                  </div>
+              </div>
+          </form>
+      </div>
 
-			<!-- Profile Experience Add/Edit -->
+      <!-- Profile Experience Add/Edit -->
             <div class="row header_right_popup" *ngIf="modalForJobReq == 'experience'">
-		    	
-		    	<div class="col-md-5 padding_0 div_title">
-		    	    <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Experience' : 'Edit Experience'}}</h5>
-		    	</div>
-		    	<div class="col-md-7 text-right">
-		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveExperience()"  title="Save">
-		    	        <i class="fa fa-check"></i> Save
-		    	    </button>
-		    	    <button *ngIf="!itemData.forAdd" (click)="deleteExperience()" class="btn btn-danger div_btn_action" title="Delete">
-		    	        <i class="fa fa-trash"></i> Delete
-		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
-		    	        <i class="fa fa-undo"></i> Cancel
-		    	    </button>
-		    	</div>
-		    	<div class="border_top_d padding_0 col-xs-12"></div>
-			</div>
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Experience' : 'Edit Experience'}}</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button type="submit" class="btn btn-success div_btn_action" [disabled]="!itemData.itemData.title || !itemData.itemData.company" (click)="saveExperience()"  title="Save" >
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button *ngIf="!itemData.forAdd" (click)="deleteExperience()" class="btn btn-danger div_btn_action" title="Delete">
+                  <i class="fa fa-trash"></i> Delete
+              </button>
+              <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
 
-			<div class="padding_15" *ngIf="modalForJobReq == 'experience'">
-			    <form name="form" #form="ngForm" role="form">
-			        <div class="form-group">
-			            <label for="jobTitle" class="me_required">Job Title *</label>
-			            <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.itemData.title" required placeholder="Job Title" />
-			        </div>
-			        <div class="form-group">
-			            <label for="geoOrgnaizationId" class="me_required">Employer *</label>
-			            <input type="text" name="company" id="company" class="form-control" [(ngModel)]="itemData.itemData.company" required placeholder="Employer" />
-			        </div>
-			        <div class="form-group">
-			            <label for="City" class="me_required">City</label>
-			            <input type="hidden" name="geoId" id="geoId" class="form-control" [(ngModel)]="itemData.itemData.geoId" required />
-			            <input type="text" name="cityName" id="cityName" class="form-control" [(ngModel)]="itemData.itemData.cityName" required />
-			        </div>
-			        <div class="form-group col-md-6">
-			            <label for="startMonth" class="me_required">From</label>
-			            <div class="row">
-				            <select name="s" id="startMonth" class="form-control col-md-7" [(ngModel)]="itemData.itemData.startMonth" required>
-				            	<option [ngValue]="item.id" *ngFor="let item of months">{{item.name}}</option>
-				        	</select>
-				            <input type="number" name="startYear" id="startYear" class="form-control col-md-4 pull-right" [(ngModel)]="itemData.itemData.startYear" required placeholder="Start Year" />
-			            </div>
-			        </div>
-			        <div class="form-group col-md-6">
-			            <label for="endMonth" class="me_required">To</label>
-			            <div class="row">
-				            <select name="endMonth" id="endMonth" class="form-control col-md-7" [(ngModel)]="itemData.itemData.endMonth" required placeholder="End Year" [disabled]="itemData.itemData.isCurrent">
-				            	<option [ngValue]="item.id" *ngFor="let item of months">{{item.name}}</option>
-				        	</select>
-				            <input type="number" name="endYear" id="endYear" class="form-control col-md-4 pull-right" [(ngModel)]="itemData.itemData.endYear" required placeholder="End Year" [disabled]="itemData.itemData.isCurrent" />
-			            </div>
-			            <div class="present-date-check">
-		                    <input type="checkbox" id="isCurrent" [(ngModel)]="itemData.itemData.isCurrent" name="isCurrent" style="position: absolute; margin-top: 4px;"/>
-		                    <label for="isCurrent" style="margin-left: 16px;">Present</label>
-			            </div>
-			        </div>
+      <div class="padding_15" *ngIf="modalForJobReq == 'experience'">
+          <form name="form" #form="ngForm" role="form">
+              <div class="form-group">
+                  <label for="jobTitle" class="me_required">Job Title </label>
+                  <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.itemData.title" required placeholder="Job Title" />
+              </div>
+              <div class="form-group">
+                  <label for="geoOrgnaizationId" class="me_required">Employer </label>
+                  <input type="text" name="company" id="company" class="form-control" [(ngModel)]="itemData.itemData.company" required placeholder="Employer" />
+              </div>
+              <div class="form-group">
+                  <label for="City" class="">City</label>
+                  <input type="hidden" name="geoId" id="geoId" class="form-control" [(ngModel)]="itemData.itemData.geoId" required />
+                  <input type="text" name="cityName" id="cityName" class="form-control" [(ngModel)]="itemData.itemData.cityName" required />
+              </div>
+              <div class="form-group col-md-6">
+                  <label for="startMonth" class="">From</label>
+                  <div class="row">
+                    <select name="s" id="startMonth" class="form-control col-md-7" [(ngModel)]="itemData.itemData.startMonth" required>
+                      <option [ngValue]="item.id" *ngFor="let item of months">{{item.name}}</option>
+                  </select>
+                    <input type="number" name="startYear" id="startYear" class="form-control col-md-4 pull-right" [(ngModel)]="itemData.itemData.startYear" required placeholder="Start Year" />
+                  </div>
+              </div>
+              <div class="form-group col-md-6">
+                  <label for="endMonth" class="">To</label>
+                  <div class="row">
+                    <select name="endMonth" id="endMonth" class="form-control col-md-7" [(ngModel)]="itemData.itemData.endMonth" required placeholder="End Year" [disabled]="itemData.itemData.isCurrent">
+                      <option [ngValue]="item.id" *ngFor="let item of months">{{item.name}}</option>
+                  </select>
+                    <input type="number" name="endYear" id="endYear" class="form-control col-md-4 pull-right" [(ngModel)]="itemData.itemData.endYear" required placeholder="End Year" [disabled]="itemData.itemData.isCurrent" />
+                  </div>
+                  <div class="present-date-check">
+                        <input type="checkbox" id="isCurrent" [(ngModel)]="itemData.itemData.isCurrent" name="isCurrent" style="position: absolute; margin-top: 4px;"/>
+                        <label for="isCurrent" style="margin-left: 16px;">Present</label>
+                  </div>
+              </div>
 
 
-			       	<div class="form-group">
-			            <label for="Summary" class="me_required">Summary</label>
-		                <ckeditor [(ngModel)]="itemData.itemData.summary" #myckeditor [config]="ckeConfig" name="summary" required></ckeditor>
-		            </div>
+              <div class="form-group">
+                  <label for="Summary" class="">Summary</label>
+                    <ckeditor [(ngModel)]="itemData.itemData.summary" #myckeditor [config]="ckeConfig" name="summary" required></ckeditor>
+                </div>
 
-			    </form>
-			</div>
+          </form>
+      </div>
 
-			<!-- Profile Education Add/Edit -->
+      <!-- Profile Education Add/Edit -->
             <div class="row header_right_popup" *ngIf="modalForJobReq == 'education'">
-		    	
-		    	<div class="col-md-5 padding_0 div_title">
-		    	    <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Education' : 'Edit Education'}}</h5>
-		    	</div>
-		    	<div class="col-md-7 text-right">
-		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveEducation()"  title="Save">
-		    	        <i class="fa fa-check"></i> Save
-		    	    </button>
-		    	    <button *ngIf="!itemData.forAdd" (click)="deleteEducation()" class="btn btn-danger div_btn_action" title="Delete">
-		    	        <i class="fa fa-trash"></i> Delete
-		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
-		    	        <i class="fa fa-undo"></i> Cancel
-		    	    </button>
-		    	</div>
-		    	<div class="border_top_d padding_0 col-xs-12"></div>
-			</div>
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add Education' : 'Edit Education'}}</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button type="submit" class="btn btn-success div_btn_action" [disabled]="!itemData.itemData.title || !itemData.itemData.company" (click)="saveEducation()"  title="Save">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button *ngIf="!itemData.forAdd" (click)="deleteEducation()" class="btn btn-danger div_btn_action" title="Delete">
+                  <i class="fa fa-trash"></i> Delete
+              </button>
+              <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
 
-			<div class="padding_15" *ngIf="modalForJobReq == 'education'">
-			    <form name="form" #form="ngForm" role="form">
-			        <div class="form-group">
-			            <label for="Degree" class="me_required">Degree *</label>
-			            <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.itemData.title" required placeholder="Degree" />
-			        </div>
-			        <div class="form-group">
-			            <label for="company" class="me_required">School *</label>
-			            <input type="text" name="company" id="company" class="form-control" [(ngModel)]="itemData.itemData.company" required placeholder="School" />
-			        </div>
-			        <div class="form-group">
-			            <label for="City" class="me_required">City</label>
-			            <input type="hidden" name="geoId" id="geoId" class="form-control" [(ngModel)]="itemData.itemData.geoId" required />
-			            <input type="text" name="cityName" id="cityName" class="form-control" [(ngModel)]="itemData.itemData.cityName" required placeholder="Type in your school location" />
-			        </div>
-			        <div class="form-group">
-			            <label for="startMonth" class="me_required">Graduation Year</label>
-			            <input type="number" name="year" id="year" class="form-control" [(ngModel)]="itemData.itemData.endYear" required placeholder="Graduation Year" style="width: 30%;" />
-			        </div>
+      <div class="padding_15" *ngIf="modalForJobReq == 'education'">
+          <form name="form" #form="ngForm" role="form">
+              <div class="form-group">
+                  <label for="Degree" class="me_required">Degree </label>
+                  <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.itemData.title" required placeholder="Degree" />
+              </div>
+              <div class="form-group">
+                  <label for="company" class="me_required">School </label>
+                  <input type="text" name="company" id="company" class="form-control" [(ngModel)]="itemData.itemData.company" required placeholder="School" />
+              </div>
+              <div class="form-group">
+                  <label for="City" class="">City</label>
+                  <input type="hidden" name="geoId" id="geoId" class="form-control" [(ngModel)]="itemData.itemData.geoId" required />
+                  <input type="text" name="cityName" id="cityName" class="form-control" [(ngModel)]="itemData.itemData.cityName" required placeholder="Type in your school location" />
+              </div>
+              <div class="form-group">
+                  <label for="startMonth" class="">Graduation Year</label>
+                  <input type="number" name="year" id="year" class="form-control" [(ngModel)]="itemData.itemData.endYear" required placeholder="Graduation Year" style="width: 30%;" />
+              </div>
 
-			        <div class="form-group">
-			            <label for="Summary" class="me_required">Summary</label>
-		                <ckeditor [(ngModel)]="itemData.itemData.summary" #myckeditor [config]="ckeConfig" name="summary" required></ckeditor>
-		            </div>
+              <div class="form-group">
+                  <label for="Summary" class="">Summary</label>
+                    <ckeditor [(ngModel)]="itemData.itemData.summary" #myckeditor [config]="ckeConfig" name="summary" required></ckeditor>
+                </div>
 
-			    </form>
-			</div>
+          </form>
+      </div>
 
-			<!-- Profile License Add/Edit -->
+      <!-- Profile License Add/Edit -->
             <div class="row header_right_popup" *ngIf="modalForJobReq == 'license'">
-		    	
-		    	<div class="col-md-5 padding_0 div_title">
-		    	    <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add License' : 'Edit License'}}</h5>
-		    	</div>
-		    	<div class="col-md-7 text-right">
-		    	    <button type="submit" class="btn btn-success div_btn_action" (click)="saveLicense()"  title="Save">
-		    	        <i class="fa fa-check"></i> Save
-		    	    </button>
-		    	    <button *ngIf="!itemData.forAdd" (click)="deleteLicense()" class="btn btn-danger div_btn_action" title="Delete">
-		    	        <i class="fa fa-trash"></i> Delete
-		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
-		    	        <i class="fa fa-undo"></i> Cancel
-		    	    </button>
-		    	</div>
-		    	<div class="border_top_d padding_0 col-xs-12"></div>
-			</div>
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">{{itemData.forAdd ? 'Add License' : 'Edit License'}}</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button type="submit" class="btn btn-success div_btn_action" [disabled]="!itemData.itemData.title || !itemData.itemData.number || !itemData.itemData.state" (click)="saveLicense()"  title="Save">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button *ngIf="!itemData.forAdd" (click)="deleteLicense()" class="btn btn-danger div_btn_action" title="Delete">
+                  <i class="fa fa-trash"></i> Delete
+              </button>
+              <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
 
-			<div class="padding_15" *ngIf="modalForJobReq == 'license'">
-			    <form name="form" #form="ngForm" role="form">
-			        <div class="form-group">
-			            <label for="title" class="me_required">License Type *</label>
-			            <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.itemData.title" required placeholder="Job Title" />
-			        </div>
-			        <div class="row">
-				        <div class="form-group col-md-6">
-				            <label for="number" class="me_required">License Number *</label>
-				            <input type="text" name="number" id="number" class="form-control" [(ngModel)]="itemData.itemData.number" required />
-				        </div>
-				        <div class="form-group col-md-6">
-				            <label for="state" class="me_required">State Board *</label>
-				            <input type="text" name="state" id="state" class="form-control" [(ngModel)]="itemData.itemData.state" required />
-				        </div>
-			        </div>
-			        <div class="row">
-				        <div class="form-group col-md-6">
-				            <label for="issueDate" class="me_required">Issue Date</label>
-				            <input type="date" name="startingDate" id="startingDate" class="form-control" [(ngModel)]="itemData.itemData.startingDate" required placeholder="Issue Date" />
-				        </div>
-				        <div class="form-group col-md-6">
-				            <label for="expirationDate" class="me_required">Expiration Date</label>
-				            <input type="date" name="expirationDate" id="expirationDate" class="form-control" [(ngModel)]="itemData.itemData.expirationDate" required placeholder="Expiration Date" />
-				        </div>
-			        </div>
-			    </form>
-			</div>
+      <div class="padding_15" *ngIf="modalForJobReq == 'license'">
+          <form name="form" #form="ngForm" role="form">
+              <div class="form-group">
+                  <label for="title" class="me_required">License Type </label>
+                  <input type="text" name="title" id="title" class="form-control" [(ngModel)]="itemData.itemData.title" required placeholder="Job Title" />
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="number" class="me_required">License Number </label>
+                    <input type="text" name="number" id="number" class="form-control" [(ngModel)]="itemData.itemData.number" required />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="state" class="me_required">State Board </label>
+                    <input type="text" name="state" id="state" class="form-control" [(ngModel)]="itemData.itemData.state" required />
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6">
+                    <label for="issueDate" class="">Issue Date</label>
+                    <input type="date" name="startingDate" id="startingDate" class="form-control" [(ngModel)]="itemData.itemData.startingDate" required placeholder="Issue Date" />
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="expirationDate" class="">Expiration Date</label>
+                    <input type="date" name="expirationDate" id="expirationDate" class="form-control" [(ngModel)]="itemData.itemData.expirationDate" required placeholder="Expiration Date" />
+                </div>
+              </div>
+          </form>
+      </div>
 
-			<!-- Profile Source Add/Edit -->
+      <!-- Profile Source Add/Edit -->
             <div class="row header_right_popup" *ngIf="modalForJobReq == 'source'">
-		    	
-		    	<div class="col-md-5 padding_0 div_title">
-		    	    <h5 class="h3_title" style="font-weight: bold;">View Source</h5>
-		    	</div>
-		    	<div class="col-md-7 text-right">
-		    	    <button (click)="deleteSource(colleagues.personId, colleagues.objId)" class="btn btn-danger div_btn_action" title="Delete">
-		    	        <i class="fa fa-trash"></i> Delete
-		    	    </button>
-		    	    <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
-		    	        <i class="fa fa-undo"></i> Cancel
-		    	    </button>
-		    	</div>
-		    	<div class="border_top_d padding_0 col-xs-12"></div>
-			</div>
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">View Source</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button (click)="deleteSource(colleagues.personId, colleagues.objId)" class="btn btn-danger div_btn_action" title="Delete">
+                  <i class="fa fa-trash"></i> Delete
+              </button>
+              <button (click)="cancel()" class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
 
-			<div class="padding_15" *ngIf="modalForJobReq == 'source'">
-			    <form name="form" role="form">
-			        <div class="form-group">
-			            <pre>{{colleagues.source | json}}</pre>
-			        </div>
-			    </form>
-			</div>
+      <div class="padding_15" *ngIf="modalForJobReq == 'source'">
+          <form name="form" role="form">
+              <div class="form-group">
+                  <pre>{{colleagues.source | json}}</pre>
+              </div>
+          </form>
+      </div>
 
         </div>
     </div>

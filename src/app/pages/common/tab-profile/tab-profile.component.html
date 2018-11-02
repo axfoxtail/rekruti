@@ -1,14 +1,14 @@
 <!--tags-->
 <div class="border_bottom_d body_content_profile">
     <div class="padding_15">
-        <div class="row padding_bottom_15">
+        <div class="padding_bottom_15">
             <div class="col-xs-9 margin_0 padding_0">
                 <h4 class="">
                     <img src="assets/img/icon-person/tag-cloud.png" class="img_user_icon" />&nbsp; Tag
                 </h4>
             </div>
         </div>
-        <div class="row">
+        <div class="">
             <div class="col-xs-12 padding_0 margin_0" id="tagcloud" *ngIf="itemData.concepts" >
                 <span *ngFor="let obj of itemData.concepts; let i = index" class="tag_left_buckets">
                     <span *ngIf="!obj.description">{{obj.name}}</span>
@@ -32,7 +32,7 @@
 </div>
 
 <!-- Experience-->
-<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && (itemData.experiences.length > 0 || itemData.security.isAddExperience == true)">
+<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && (itemData.experiences || itemData.security.isAddExperience == true)">
     <div class="padding_15" >
         <h4 >
             <img src="assets/img/icon-person/experience.png" class="img_user_icon" />&nbsp;Experience
@@ -65,7 +65,7 @@
 </div>
 
  <!--Education-->
-<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && (itemData.educations.length > 0 || itemData.security.isAddEducation == true)">
+<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && (itemData.educations || itemData.security.isAddEducation == true)">
     <div class="padding_15">
         <h4 >
             <img src="assets/img/icon-person/education.png" class="img_user_icon" />&nbsp;Education

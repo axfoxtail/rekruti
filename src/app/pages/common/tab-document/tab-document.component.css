@@ -39,6 +39,9 @@
 .margin_0{
     margin: 0 !important;
 }
+.padding_0 {
+    padding: 0 !important;
+}
 
 .table-responsive{
     border:0 !important;
@@ -62,4 +65,7 @@
 
 .padding_top_15{
     padding-top: 15px;
+}
+h4 {
+    padding-right: 5px;
 }

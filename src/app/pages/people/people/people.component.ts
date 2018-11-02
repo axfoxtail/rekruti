@@ -211,16 +211,22 @@ export class PeopleComponent implements OnInit {
     saveOrDeleteJobReq(data: any) {
         this.api.saveOrDeleteJobReq(data)
         .then(response => {
-                
+                console.log(response);
                 if (response.result > 0) {
                     this.notifications.success('Updated successfully!', 1000);
                     this.globalVar.refreshJobReqEvent();
                     data.btnObj.click();
-                } 
+                } else {
+                    if(data.forSave){
+                        this.notifications.warning('Can not save!', 1000);
+                    } else {
+                        this.notifications.warning('Can not delete!', 1000);
+                    }
+                }
             },
             err => {
+                this.notifications.warning('Error!',1000);
                 console.log('err:', err);
-                
             }
         )
     }
@@ -234,12 +240,16 @@ export class PeopleComponent implements OnInit {
                     this.globalVar.refreshDocumentEvent();
                     data.btnObj.click();
                 } else {
-                    this.notifications.warning(response.message, 2000);
+                    if(data.forSave){
+                        this.notifications.warning('Can not save!', 1000);
+                    } else {
+                        this.notifications.warning('Can not delete!', 1000);
+                    }
                 }
             },
             err => {
+                this.notifications.warning('Error!',1000);
                 console.log('err:', err);
-                
             }
         )
     }
@@ -278,11 +288,17 @@ export class PeopleComponent implements OnInit {
                     this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
                     data.btnObj.click();
-                } 
+                } else {
+                    if(data.forSave){
+                        this.notifications.warning('Can not save!', 1000);
+                    } else {
+                        this.notifications.warning('Can not delete!', 1000);
+                    }
+                }
             },
             err => {
+                this.notifications.warning('Error!',1000);
                 console.log('err:', err);
-                
             }
         )
     }
@@ -314,11 +330,17 @@ export class PeopleComponent implements OnInit {
                     this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
                     data.btnObj.click();
-                } 
+                } else {
+                    if(data.forSave){
+                        this.notifications.warning('Can not save!', 1000);
+                    } else {
+                        this.notifications.warning('Can not delete!', 1000);
+                    }
+                }
             },
             err => {
+                this.notifications.warning('Error!',1000);
                 console.log('err:', err);
-                
             }
         )
     }
@@ -331,11 +353,17 @@ export class PeopleComponent implements OnInit {
                     this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
                     data.btnObj.click();
-                } 
+                } else {
+                    if(data.forSave){
+                        this.notifications.warning('Can not save!', 1000);
+                    } else {
+                        this.notifications.warning('Can not delete!', 1000);
+                    }
+                }
             },
             err => {
+                this.notifications.warning('Error!',1000);
                 console.log('err:', err);
-                
             }
         )
     }
@@ -348,11 +376,17 @@ export class PeopleComponent implements OnInit {
                     this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
                     data.btnObj.click();
-                } 
+                } else {
+                    if(data.forSave){
+                        this.notifications.warning('Can not save!', 1000);
+                    } else {
+                        this.notifications.warning('Can not delete!', 1000);
+                    }
+                }
             },
             err => {
+                this.notifications.warning('Error!',1000);
                 console.log('err:', err);
-                
             }
         )
     }
@@ -365,11 +399,17 @@ export class PeopleComponent implements OnInit {
                     this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
                     data.btnObj.click();
-                } 
+                } else {
+                    if(data.forSave){
+                        this.notifications.warning('Can not save!', 1000);
+                    } else {
+                        this.notifications.warning('Can not delete!', 1000);
+                    }
+                }
             },
             err => {
+                this.notifications.warning('Error!',1000);
                 console.log('err:', err);
-                
             }
         )
     }
@@ -382,11 +422,17 @@ export class PeopleComponent implements OnInit {
                     this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
                     data.btnObj.click();
-                } 
+                } else {
+                    if(data.forSave){
+                        this.notifications.warning('Can not save!', 1000);
+                    } else {
+                        this.notifications.warning('Can not delete!', 1000);
+                    }
+                }
             },
             err => {
+                this.notifications.warning('Error!',1000);
                 console.log('err:', err);
-                
             }
         )
     }
@@ -394,16 +440,21 @@ export class PeopleComponent implements OnInit {
     saveOrDeleteLicense(data: any) {
         this.api.saveOrDeleteLicense(data)
         .then(response => {
-                
                 if (response.result > 0) {
                     this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.itemData.personID, true);
                     data.btnObj.click();
-                } 
+                }  else {
+                    if(data.forSave){
+                        this.notifications.warning('Can not save!', 1000);
+                    } else {
+                        this.notifications.warning('Can not delete!', 1000);
+                    }
+                }
             },
             err => {
+                this.notifications.warning('Error!',1000);
                 console.log('err:', err);
-                
             }
         )
     }
@@ -450,13 +501,17 @@ export class PeopleComponent implements OnInit {
                     this.notifications.success('Successed!', 1000);
                     this.refreshPeople(data.personID, true);
                     data.btnObj.click();
-                } else {
-                    this.notifications.warning('Can not delete!', 1000);
+                }  else {
+                    if(data.forSave){
+                        this.notifications.warning('Can not save!', 1000);
+                    } else {
+                        this.notifications.warning('Can not delete!', 1000);
+                    }
                 }
             },
             err => {
+                this.notifications.warning('Error!',1000);
                 console.log('err:', err);
-                
             }
         )
     }

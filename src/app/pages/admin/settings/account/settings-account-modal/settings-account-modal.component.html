@@ -1,7 +1,7 @@
  <!-- Modal -->
 <div class="modal fade" id="accountModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
-    <div class="modal-content">
+    <div class="modal-content" *ngIf="itemData">
         <div class="modal-body">
             <div class="row header_right_popup">
           
@@ -9,7 +9,10 @@
               <h5 class="h3_title" style="font-weight: bold;">{{modalTitle}}</h5>
           </div>
           <div class="col-md-7 text-right">
-              <button class="btn btn-success div_btn_action" title="Save" (click)="saveAccount(itemData, forAdd);">
+              <button *ngIf="!forAdd" class="btn btn-success div_btn_action" title="Save" [disabled]="!itemData.email || !itemData.name || !itemData.organizationId || !itemData.accountTypeId || !itemData.accountProfileId" (click)="saveAccount(itemData, forAdd);">
+                  <i class="fa fa-check"></i> Save
+              </button>
+              <button *ngIf="forAdd" class="btn btn-success div_btn_action" title="Save" [disabled]="!itemData.email || !itemData.name || !itemData.organizationId || !itemData.accountTypeId || !itemData.accountProfileId || !itemData.password_new || !itemData.confirm_password" (click)="saveAccount(itemData, forAdd);">
                   <i class="fa fa-check"></i> Save
               </button>
               <button class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
@@ -20,17 +23,17 @@
       </div>
 
       <div class="padding_15">
-          <form name="form" role="form" *ngIf="itemData">
+          <form name="form" role="form">
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="email" class="me_required">Email *</label>
+                      <label for="email" class="me_required">Email </label>
                       <input type="email" name="email" id="email" class="form-control" [(ngModel)]="itemData.email" required *ngIf="forAdd" />
                       <input type="email" name="email" id="email" class="form-control" [(ngModel)]="itemData.email" required *ngIf="!forAdd" disabled style="cursor: not-allowed;" />
                   </div>
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="name" class="me_required">Name *</label>
+                      <label for="name" class="me_required">Name </label>
                       <input type="text" name="name" id="name" class="form-control" [(ngModel)]="itemData.name" required />
                   </div>
               </div>
@@ -45,7 +48,7 @@
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="accountTypeId" class="me_required">Account Type *</label>
+                      <label for="accountTypeId" class="me_required">Account Type </label>
                       <select name="accountTypeId" id="accountTypeId" class="form-control" [(ngModel)]="itemData.accountTypeId" required>
                         <option value="" *ngIf="forAdd">--Select--</option>
                         <option [ngValue]="accountTypeName.id" *ngFor="let accountTypeName of list_accountTypeName">{{accountTypeName.name}}</option>
@@ -54,7 +57,7 @@
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="accountProfileId" class="me_required">Profile *</label>
+                      <label for="accountProfileId" class="me_required">Profile </label>
                       <select name="accountProfileId" id="accountProfileId" class="form-control" [(ngModel)]="itemData.accountProfileId" required>
                         <option value="" *ngIf="forAdd">--Select--</option>
                         <option [ngValue]="accountProfileId.id" *ngFor="let accountProfileId of list_accountProfileId">{{accountProfileId.name}}</option>
@@ -63,7 +66,7 @@
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="accountAllowanceId" class="me_required">Monthly Credits</label>
+                      <label for="accountAllowanceId" class="">Monthly Credits</label>
                       <select name="accountAllowanceId" id="accountAllowanceId" class="form-control" [(ngModel)]="itemData.accountAllowanceId" required>
                         <option value="" *ngIf="forAdd">--Select--</option>
                         <option [ngValue]="monthlyAllowance.id" *ngFor="let monthlyAllowance of list_monthlyAllowance">{{monthlyAllowance.name}}</option>
@@ -72,20 +75,20 @@
               </div>
               <div class="row">
                   <div class="form-group col-md-12">
-                      <label for="cellPhone" class="me_required">Cell Phone</label>
+                      <label for="cellPhone" class="">Cell Phone</label>
                       <input type="text" name="cellPhone" id="cellPhone" class="form-control" [(ngModel)]="itemData.cellPhone" required />
                   </div>
               </div>
 
               <div class="row" *ngIf="forAdd">
                   <div class="form-group col-md-12">
-                      <label for="password_new" class="me_required">Password *</label>
+                      <label for="password_new" class="me_required">Password </label>
                       <input type="password" name="password_new" id="password_new" class="form-control" [(ngModel)]="itemData.password_new" required />
                   </div>
               </div>
               <div class="row" *ngIf="forAdd">
                   <div class="form-group col-md-12">
-                      <label for="confirm_password" class="me_required">Confirm password *</label>
+                      <label for="confirm_password" class="me_required">Confirm password </label>
                       <input type="password" name="confirm_password" id="confirm_password" class="form-control" [(ngModel)]="itemData.confirm_password" required />
                   </div>
               </div>

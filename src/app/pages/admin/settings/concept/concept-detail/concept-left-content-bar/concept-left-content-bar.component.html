@@ -20,7 +20,8 @@
       <ngb-tab title="Semantic Field" id="tab1">
         <ng-template ngbTabContent>
           <app-tab-concept-semantic
-            
+            *ngIf="itemData"
+            [tabData]="itemData"
           >
           </app-tab-concept-semantic>
         </ng-template>
@@ -28,7 +29,8 @@
       <ngb-tab title="Lookup" id="tab2">
         <ng-template ngbTabContent>
           <app-tab-concept-lookup
-            
+            *ngIf="itemData"
+            [tabData]="itemData"
           >
           </app-tab-concept-lookup>
         </ng-template>

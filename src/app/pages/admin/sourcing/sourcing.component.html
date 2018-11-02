@@ -291,6 +291,19 @@
                 </a>
             </div>
             <div class="col-md-2 col-sm-3 col-xs-6 all">
+                <a href="#/admin/sourcing/us-companies-list2/">
+                    <div class="row">
+                        <div class="col-xs-8 col-xs-offset-2" style="height: 60px;">
+                            <img src="assets/img/sourcing/us-companies-list.png" class="img_show" style="max-width: 260px; " />
+                            <img src="assets/img/sourcing/us-companies-list.png" class="img_hide" style="max-width: 260px; " />
+                        </div>
+                    </div>
+                    <div class="title">
+                        <h3>US Companies List 2</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-2 col-sm-3 col-xs-6 all">
                 <a href="#/admin/sourcing/whitepages">
                     <div class="row">
                         <div class="col-xs-8 col-xs-offset-2" style="height: 66px;">
@@ -375,6 +388,9 @@
 <!-- ****************** Sourcing/US Companies List ******************* -->
 <app-us-companies-list *ngIf="_router == 'us-companies-list'" [sourcingData]="_sourcingData">
 </app-us-companies-list>
+<!-- ****************** Sourcing/US Companies List 2 ******************* -->
+<app-us-companies-list2 *ngIf="_router == 'us-companies-list2'" [sourcingData]="_sourcingData">
+</app-us-companies-list2>
 <!-- ****************** Sourcing/Whitepages ******************* -->
 <app-whitepages *ngIf="_router == 'whitepages'" [sourcingData]="_sourcingData">
 </app-whitepages>

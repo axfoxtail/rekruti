@@ -5,7 +5,7 @@
             <img src="assets/img/icon-person/document.png" class="img_user_icon" />&nbsp;Document
             <a href="" [hidden]="itemData.security.isAddDocument == false" (click)="openAddDocument(itemData.id)" class="pull-right font-13" title="Add document" data-toggle="modal" data-target="#editModal"><i class="fa fa-plus"></i></a>
         </h4>
-        <div class="row padding_top_15" [hidden]="itemData.documents == null || itemData.documents.length == 0">
+        <div class="padding_top_15" [hidden]="itemData.documents == null || itemData.documents.length == 0">
             
             <div class="padding_top_2 table-responsive">
                     <table class="table table-hover">

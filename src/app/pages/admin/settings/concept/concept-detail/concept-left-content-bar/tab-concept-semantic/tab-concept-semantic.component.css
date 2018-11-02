@@ -1,0 +1,54 @@
+a {
+    color:#337ab7 !important;
+    text-decoration: none;
+    cursor: pointer;
+}
+a:hover{
+  color:#ff6b00 !important;
+    text-decoration: none;
+}
+a:active{
+    color:#337ab7 !important;
+    text-decoration: none;
+}
+a:focus{
+    color:#337ab7 !important;
+    text-decoration: none;
+}
+h3 {
+    font-size: 18px;
+}
+.color_999 {
+    color: #999;
+}
+.font_bold {
+    font-weight: bold;
+}
+.padding-lr-15 {
+  padding: 0px 15px;
+}
+.padding-r-18 {
+  padding-right: 18px; 
+}
+.padding-tb-20 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+table thead tr th {
+  padding: 7px !important;
+}
+table tbody tr td {
+  padding: 7px !important;
+}
+.border-bottom {
+  border-bottom: solid 1px #ddd;
+}
+.action-th:hover {
+  cursor: pointer;
+}
+th span {
+  visibility: hidden;
+}
+th.active span {
+  visibility: visible;
+}

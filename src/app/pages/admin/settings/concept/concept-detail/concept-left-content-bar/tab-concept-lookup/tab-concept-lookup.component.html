@@ -1,1 +1,24 @@
-<h1>Coming Soon for Lookup</h1>
+<div class="col-md-12 col-sm-12 col-xs-12 padding-tb-20 border-bottom">
+  <table class="table table-hover table-striped" *ngIf="tabData.lookups">
+    <thead>
+      <tr>
+        <th>Token</th>
+        <th class="text_align_right">Occurrences</th>
+        <th>Match Rule</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of tabData.lookups">
+        <td style="width:60%">{{item.token}}</td>
+        <td class="text_align_right">{{item.occurrenceCount}}</td>
+        <td>{{item.matchRule}}</td>
+        <td>
+          <a (click)="deleteJoint(item.id)">
+            <i class="fa fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -41,3 +41,25 @@ table thead tr th {
 table tbody tr td {
   padding: 7px !important;
 }
+.search_sort .form-control {
+    height: 23px;
+    padding: 2px 2px 2px 2px;
+}
+.search_sort {
+    max-width: 220px;
+    float: right;
+    margin-bottom: 15px;
+}
+
+.search_sort span.input-group-addon {
+    background: transparent;
+    border: 0;
+    padding-right: 10px;
+    padding-left: 0;
+}
+#searchSort {
+  font-size: 13px;
+}
+#searchSort:focus {
+  box-shadow: none !important;
+}

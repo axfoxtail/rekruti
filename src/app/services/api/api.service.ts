@@ -704,7 +704,8 @@ export class RekrutiApiService {
      case 'medicare-nursing-home' : route = 'medicareNursingHome'; break;
      case 'medicare-supplier' : route = 'medicareSupplier'; break;
      case 'sovren-resume' : route = 'sovrenResume'; break;
-     case 'us-companies-list' : route = 'databaseCorp'; break;
+     case 'us-companies-list' : route = 'usCompanies'; break;
+     case 'us-companies-list2' : route = 'usCompanies2'; break;
      default : route = route; break;
     }
     
@@ -726,11 +727,10 @@ export class RekrutiApiService {
 // ============================================== Admin Settings API ============================================= //
   searchForSettings(queryJson: any) : Promise<any> {
     var route = window.location.href.split("admin/settings/")[1];
-    //if(queryJson.sort){
-      //var sort = queryJson.sort;
-    //} else {
-      var sort = 'relevancy';
-    //}
+    var sort: any = 'relevancy';
+    if(queryJson.sort){
+      var sort = queryJson.sort;
+    }
     var searchURL = 'wSearch?keyword=';
     if(route) {
       switch(route) {
@@ -1034,6 +1034,18 @@ export class RekrutiApiService {
     return new Promise((resolve, reject) => {
       this.http.get(url).then(data => {
         resolve(data);
+      }, function(error){
+        reject(error);
+      });
+    });
+  }
+
+  deleteConceptJoint(id: any) : Promise<any> {
+    var url = '/conceptJoint/nDelete?id=' + id;
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+       resolve(data);
       }, function(error){
         reject(error);
       });

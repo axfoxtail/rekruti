@@ -16,7 +16,7 @@
 
         <div class="collapse" id="{{filter.name}}" [ngClass]="{'show': filter.isComputed}">
             <div class="filter-body">
-                <div class="filter-item" *ngIf="filter.buckets.length > 0">
+                <!-- <div class="filter-item" *ngIf="filter.buckets.length > 0">
                     <div>
                         <input type="checkbox" class="filter-check-input" id="all_{{filter.label}}" ng-model="fitler.isSelected" ng-change="changeCheckedFacetsAll(filter.isSelected, filter.name)"
                             ng-disabled="filter.isSelected" />
@@ -24,7 +24,7 @@
                             <span title="All">All</span>
                         </label>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="filter-item" *ngFor="let bucket of filter.buckets; let i = index">
                     <div>

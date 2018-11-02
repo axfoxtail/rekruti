@@ -28,7 +28,7 @@ export class SettingsSearchBarComponent implements OnInit {
   }
 
   submitSearch(searchKeyword) {
-    this.globalVar.settingsSearch({page: 0, urlFacets: this.globalVar.urlFacets, sort: '', keyword: searchKeyword});
+    this.globalVar.settingsSearch({page: 0, urlFacets: this.globalVar.urlFacets, sort: this.globalVar.searchSort, keyword: searchKeyword});
   }
 
   openAccountModal(data) {

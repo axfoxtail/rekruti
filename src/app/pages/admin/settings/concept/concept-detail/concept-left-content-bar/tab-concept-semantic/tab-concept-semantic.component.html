@@ -1,1 +1,36 @@
-<h1>Coming Soon for Semantic Field</h1>
+<div class="col-md-12 col-sm-12 col-xs-12 padding-tb-20 border-bottom">
+  <table class="table table-bordered table-hover table-striped" *ngIf="collection">
+    <thead>
+      <tr>
+        <th [class.active]="order === 'token'"
+            (click)="setOrder('token')"
+        >
+          Token <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span>
+        </th>
+        <th [class.active]="order === 'conceptSqScopeName'"
+            (click)="setOrder('conceptSqScopeName')"
+            class="mdl-data-table__cell--non-numeric"
+        >
+          Scope <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span>
+        </th>
+        <th [class.active]="order === 'frequency'"
+            (click)="setOrder('frequency')"
+        >
+          Frequency <span [hidden]="reverse">▼</span>
+          <span [hidden]="!reverse">▲</span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of collection | orderBy: order:reverse:'case-insensitive'">
+        <td>{{item.token}}</td>
+        <td>{{item.conceptSqScopeName}}</td>
+        <td>{{(item.frequency).toFixed(2)}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+ 
+</div>

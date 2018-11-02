@@ -41,9 +41,11 @@ export class SettingsComponent implements OnInit {
       response => {
         if(response.result > 0){
           this._settingsData = response.data;
+          if(queryJson.sort){
+            this._settingsData.searchSort = queryJson.sort;
+          }
         }
         this.spinner.hide();
-
       },
       err => {
         this.notifications.warning('Error!', 10000);

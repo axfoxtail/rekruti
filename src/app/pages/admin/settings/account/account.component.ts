@@ -9,6 +9,7 @@ export class AccountComponent implements OnInit {
 
   _opened: boolean = true;
   pageTitle = '> Accounts';
+  _searchSortArray: any = '';
 
   @Input() settingsData;
 
