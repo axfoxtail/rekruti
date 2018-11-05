@@ -7,49 +7,72 @@ import {SearchService} from '../../../services/search/search.service';
 declare var $: any;
 
 @Component({
-    selector: 'app-people-search-bar',
-    templateUrl: './people-search-bar.component.html',
-    styleUrls: ['./people-search-bar.component.css']
+  selector: 'app-people-search-bar',
+  templateUrl: './people-search-bar.component.html',
+  styleUrls: ['./people-search-bar.component.css']
 })
 export class PeopleSearchBarComponent implements OnInit {
 
-    @ViewChild('searchField') searchField: ElementRef;
+  @ViewChild('searchField') searchField: ElementRef;
 
-    _autoCollapseWidth: any = 1100;
-    windowWidth: any = window.innerWidth;
+  _autoCollapseWidth: any = 1100;
+  windowWidth: any = window.innerWidth;
 
-    searchPeopleForm: FormGroup;
+  searchPeopleForm: FormGroup;
 
-    constructor(private formBuilder: FormBuilder, private globalVar: GlobalVariablesService, private search: SearchService) {
+  _queryJson: any;
+
+  constructor(private formBuilder: FormBuilder, private globalVar: GlobalVariablesService, private search: SearchService) {
+  }
+
+  ngOnInit() {
+    this.searchPeopleForm = this.formBuilder.group({
+      searchRequest: ['', Validators.required]
+    });
+    this.globalVar.windowWidthChangedPeopleEvent.subscribe((width: any) => {
+      this.windowWidth = width;
+    });
+  }
+
+  _toggleSidebar() {
+    this.globalVar.sidebarStateChangedPeople();
+  }
+
+  submitSearch() {
+    if (this.searchPeopleForm.valid) {
+      const peopleSearchConditions = this.globalVar.getSearchConditionsPeople();
+      const body = this.search.addBucketKeyword(
+        this.searchPeopleForm.value.searchRequest, peopleSearchConditions[0], peopleSearchConditions
+      );
+      this._queryJson = body;
+      this.globalVar.peopleListChanged(body);
+      this.globalVar.scrollContentToTopPeople();
+
+      this.searchPeopleForm.patchValue({
+        searchRequest: ''
+      });
+      this.searchField.nativeElement.blur();
     }
+  }
 
-    ngOnInit() {
-        this.searchPeopleForm = this.formBuilder.group({
-            searchRequest: ['', Validators.required]
-        });
-        this.globalVar.windowWidthChangedPeopleEvent.subscribe((width: any) => {
-            this.windowWidth = width;
-        });
-    }
+  openSaveQuery() {
 
-    _toggleSidebar() {
-        this.globalVar.sidebarStateChangedPeople();
-    }
+  }
 
-    submitSearch() {
-        if (this.searchPeopleForm.valid) {
-            const peopleSearchConditions = this.globalVar.getSearchConditionsPeople();
-            const body = this.search.addBucketKeyword(
-                this.searchPeopleForm.value.searchRequest, peopleSearchConditions[0], peopleSearchConditions
-            );
-            this.globalVar.peopleListChanged(body);
-            this.globalVar.scrollContentToTopPeople();
+  openSavedSearch() {
+    this.globalVar.showSavedSearchModal();
+  }
 
-            this.searchPeopleForm.patchValue({
-                searchRequest: ''
-            });
-            this.searchField.nativeElement.blur();
-        }
-    }
+  openExportToCsv() {
+
+  }
+
+  openSendByMail() {
+
+  }
+
+  openAddResume() {
+    
+  }
 
 }

@@ -53,6 +53,8 @@ export class GlobalVariablesService {
     public openPeopleSourceEvent: EventEmitter<any> = new EventEmitter();
     public openPeopleTabModalEvent: EventEmitter<any> = new EventEmitter();
 
+    public openSavedSearchModalEvent: EventEmitter<any> = new EventEmitter();
+
     public currentSelectedPeople: any;
     //People Edit Modal end
 
@@ -275,6 +277,10 @@ export class GlobalVariablesService {
 
     showPeopleTabModal(data: any) {
         this.openPeopleTabModalEvent.emit(data);
+    }
+
+    showSavedSearchModal() {
+        this.openSavedSearchModalEvent.emit();
     }
     //People Edit Modal end
 

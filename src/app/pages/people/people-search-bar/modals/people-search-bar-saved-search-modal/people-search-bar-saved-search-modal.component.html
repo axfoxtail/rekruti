@@ -1,0 +1,45 @@
+ <!-- Modal -->
+<div class="modal fade" id="SavedSearchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row header_right_popup">
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">Saved Search & Alerts</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
+
+      <div class="padding_15">
+          <form name="form" role="form">
+              <div class="myhover" *ngFor="let obj of listData">
+                  <div class="row margin_0" title="Launch search {{obj.name}}">
+                      <div class="col-md-10" style="padding: 0" (click)="gotoSearch(obj.queryJson)">
+                          <a class="link_search color_777">
+                              {{ obj.name }}
+                          </a>
+                      </div>
+                      <div class="col-md-2" style="padding: 0">
+                          <button style="color: red;" title="Delete" class="icon_pin_noti pull-right btn" (click)="delete(obj.id)">
+                              <i class="fa fa-trash"></i>
+                          </button>
+                          <button title="Activate or Deactivate Email Alerts" class="icon_pin_noti pull-right btn default_{{obj.isNotify}}" (click)="setIsNotify(obj.id, !obj.isNotify)" *ngIf="hasAlert">
+                              <i class="fa fa-bell"></i>
+                          </button>
+                      </div>
+                  </div>
+              </div>
+              
+          </form>
+      </div>
+        </div>
+    </div>
+  </div>
+
+</div>

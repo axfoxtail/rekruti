@@ -1,0 +1,35 @@
+ <!-- Modal -->
+<div class="modal fade" id="AddResumeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row header_right_popup">
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">Upload a Resume</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
+
+      <div class="padding_15">
+          <form name="form" role="form">
+              <div class="row">
+                  <div class="form-group col-md-12">
+                      <label for="title" class="me_required">Resume</label>
+                      <!-- the model does not seem to work here -->
+                      <file-upload [(ngModel)]="file" (change)="saveResumeFile(file)" class="drop-box-document-file" fileslimit="1" name="file"></file-upload>
+                  </div>
+              </div>
+              
+          </form>
+      </div>
+        </div>
+    </div>
+  </div>
+
+</div>

@@ -327,3 +327,7 @@ button[disabled], a[disabled] {
 ::-webkit-scrollbar-thumb:hover {
     background: #b30000; 
 }
+
+a:focus:hover {
+    color: #ff6b00 !important;
+}

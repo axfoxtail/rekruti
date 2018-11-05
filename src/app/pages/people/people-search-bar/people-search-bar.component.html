@@ -1,35 +1,52 @@
 <div class="row">
-    <div class="col col-1 filters-toggle">
-        <button class="filters-button" *ngIf="windowWidth <= _autoCollapseWidth" (click)="_toggleSidebar()">
-            <fa name="filter"></fa>
-        </button>
-    </div>
-    <div class="col col-10">
-        <div class="form-search-people">
-            <form [formGroup]="searchPeopleForm" novalidate (ngSubmit)="submitSearch()">
-                <div class="step-group search-step-group">
-                    <div class="form-row">
-                        <input type="string" class="form-control input-control search-input" id="inputSearch"
-                               placeholder="Search" formControlName="searchRequest" #searchField>
-                        <button type="submit" class="search-submit-button"><i class="fa fa-search"></i></button>
-                    </div>
-                </div>
-            </form>
+  <div class="col col-1 filters-toggle">
+    <button class="filters-button" *ngIf="windowWidth <= _autoCollapseWidth" (click)="_toggleSidebar()">
+      <fa name="filter"></fa>
+    </button>
+  </div>
+  <div class="col col-10">
+    <div class="form-search-people">
+      <form [formGroup]="searchPeopleForm" novalidate (ngSubmit)="submitSearch()">
+        <div class="step-group search-step-group">
+          <div class="form-row">
+            <input type="string" class="form-control input-control search-input" id="inputSearch"
+                 placeholder="Search" formControlName="searchRequest" #searchField>
+            <button type="submit" class="search-submit-button"><i class="fa fa-search"></i></button>
+          </div>
         </div>
+      </form>
     </div>
-    <div class="col col-1 option-col">
-        <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle option-dropdown-button" role="button" id="dropdownMenuLink"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <fa name="ellipsis-h"></fa>
-            </a>
+  </div>
+  <div class="col col-1 option-col">
+    <div class="dropdown show">
+      <a class="btn btn-secondary dropdown-toggle option-dropdown-button" role="button" id="dropdownMenuLink"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <fa name="ellipsis-h"></fa>
+      </a>
 
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item custome-item">Save this Query</a>
-                <a class="dropdown-item custome-item">Saved Search & Alerts</a>
-                <a class="dropdown-item custome-item">Export to CSV</a>
-                <a class="dropdown-item custome-item">Send by Mail</a>
-            </div>
-        </div>
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item custome-item" (click)="openSaveQuery()" data-target="#SaveQueryModal" data-toggle="modal">Save this Query</a>
+        <a class="dropdown-item custome-item" (click)="openSavedSearch()" data-target="#SavedSearchModal" data-toggle="modal">Saved Search & Alerts</a>
+        <a class="dropdown-item custome-item" (click)="openExportToCsv()" data-target="#ExportToCsvModal" data-toggle="modal">Export to CSV</a>
+        <a class="dropdown-item custome-item" (click)="openSendByMail()" data-target="#SendByMailModal" data-toggle="modal">Send by Mail</a>
+        <a class="dropdown-item custome-item" (click)="openAddResume()" data-target="#AddResumeModal" data-toggle="modal">Upload Resume</a>
+      </div>
     </div>
+  </div>
 </div>
+
+<!-- =========== search-bar-action-modals ============ -->
+<app-people-search-bar-save-query-modal [queryJson]="_queryJson">
+  </app-people-search-bar-save-query-modal>
+
+<app-people-search-bar-saved-search-modal>
+  </app-people-search-bar-saved-search-modal>
+
+<app-people-search-bar-export-csv-modal [queryJson]="_queryJson">
+  </app-people-search-bar-export-csv-modal>
+
+<app-people-search-bar-send-mail-modal>
+  </app-people-search-bar-send-mail-modal>
+  
+<app-people-search-bar-add-resume-modal>
+  </app-people-search-bar-add-resume-modal>

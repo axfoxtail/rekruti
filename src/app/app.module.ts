@@ -139,6 +139,11 @@ import { GeoLeftFacetsBarComponent } from './pages/admin/settings/geo-lookup/set
 import { SettingsConceptLookupAttachModalComponent } from './pages/admin/settings/concept-lookup/settings-concept-lookup-attach-modal/settings-concept-lookup-attach-modal.component';
 import { ConceptLeftFacetsBarComponent } from './pages/admin/settings/concept-lookup/settings-concept-lookup-attach-modal/concept-left-facets-bar/concept-left-facets-bar.component';
 import { UsCompaniesList2Component } from './pages/admin/sourcing/us-companies-list2/us-companies-list2.component';
+import { PeopleSearchBarSaveQueryModalComponent } from './pages/people/people-search-bar/modals/people-search-bar-save-query-modal/people-search-bar-save-query-modal.component';
+import { PeopleSearchBarSavedSearchModalComponent } from './pages/people/people-search-bar/modals/people-search-bar-saved-search-modal/people-search-bar-saved-search-modal.component';
+import { PeopleSearchBarExportCsvModalComponent } from './pages/people/people-search-bar/modals/people-search-bar-export-csv-modal/people-search-bar-export-csv-modal.component';
+import { PeopleSearchBarSendMailModalComponent } from './pages/people/people-search-bar/modals/people-search-bar-send-mail-modal/people-search-bar-send-mail-modal.component';
+import { PeopleSearchBarAddResumeModalComponent } from './pages/people/people-search-bar/modals/people-search-bar-add-resume-modal/people-search-bar-add-resume-modal.component';
 
 @NgModule({
     declarations: [
@@ -246,7 +251,12 @@ import { UsCompaniesList2Component } from './pages/admin/sourcing/us-companies-l
         GeoLeftFacetsBarComponent,
         SettingsConceptLookupAttachModalComponent,
         ConceptLeftFacetsBarComponent,
-        UsCompaniesList2Component
+        UsCompaniesList2Component,
+        PeopleSearchBarSaveQueryModalComponent,
+        PeopleSearchBarSavedSearchModalComponent,
+        PeopleSearchBarExportCsvModalComponent,
+        PeopleSearchBarSendMailModalComponent,
+        PeopleSearchBarAddResumeModalComponent
     ],
     imports: [
         CommonModule,

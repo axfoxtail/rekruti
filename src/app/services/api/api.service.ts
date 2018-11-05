@@ -1194,4 +1194,99 @@ export class RekrutiApiService {
   }
   // ----------- ./help-bubble api ------------ //
 
+  // =============== People Tab ------ Search bar Action Features ================ //
+  savePeopleSearchQuery(data: any) : Promise<any> {
+    var url = "/savedSearch/wCreate";
+    var params = {
+      name: data.name,
+      queryJson: data.queryJson,
+      scope: "person"
+    };
+
+    return new Promise((resolve, reject) => {
+      this.http.post(url, params).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(error);
+      });
+    });
+  }
+
+  getListData() : Promise<any> {
+    var url = "/savedSearch/wList?scope=person";
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(error);
+      });
+    });
+  }
+
+  deleteSavedSearch(objId) : Promise<any> {
+    var url = "/savedSearch/nDelete?id=" + objId;
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(error);
+      });
+    });
+  }
+
+  setIsNotify(savedSearchId, isNotify) : Promise<any> {
+    var url = '/savedSearch/nUpdateIsNotify' +
+                '?id=' + savedSearchId +
+                '&isNotify=' + isNotify;
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(error);
+      });
+    });
+  }
+
+  saveExportCsv(data) : Promise<any> {
+    var url = '/person/wDownloadCsv';
+
+    return new Promise((resolve, reject) => {
+      this.http.post(url, data).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(error);
+      });
+    });
+  }
+
+  sendByMail(data) : Promise<any> {
+    var url = '/person/wSendByMail';
+
+    return new Promise((resolve, reject) => {
+      this.http.post(url, data).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(error);
+      });
+    });
+  }
+
+  saveResumeFile(file) : Promise<any> {
+    var url = '/person/wUpload';
+
+    var fd = new FormData();
+    fd.append('file', file);
+
+    return new Promise((resolve, reject) => {
+      this.http.post_form(url, fd).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(error);
+      });
+    });
+  }
+
 }
