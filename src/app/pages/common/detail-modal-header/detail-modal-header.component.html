@@ -1,4 +1,4 @@
-<div class="row profile_detail">
+<div class="row profile_detail" *ngIf="type == 'people'">
     <div class="text_align_center col-sm-3 col-sm-offset-0 col-xs-4 col-xs-offset-3 margin_bottom_0 profile_detail_name left_img bg_fff" *ngIf="itemData.security && itemData.security.isSetPicture">
         <a (click)="openSetPicture('right', true, itemData.id)" title="Click to change the picture">
             <img *ngIf="itemData.pictureKey" [ngClass]="{
@@ -28,5 +28,55 @@
         <div class="color_999 " *ngIf="type ==='employer'">{{ itemData.address[0].state }}
             <span ngShow="itemData.address[0].zipCode">,</span> {{ itemData.address[0].zipCode }} </div>
         <div class="color_999 " *ngIf="type === 'employer'">{{ itemData.address[0].country }}</div>
+    </div>    
+</div>
+
+<!-- ================================== for Jobs Detail ====================================== -->
+<div class="row profile_detail" *ngIf="type == 'jobs' && itemData">
+    <div class="text_align_center col-sm-3 col-sm-offset-0 col-xs-4 col-xs-offset-3 margin_bottom_0 profile_detail_name left_img bg_fff" *ngIf="itemData.security && itemData.security.isSetPicture">
+        <a (click)="openSetPicture('right', true, itemData.id)" title="Click to change the picture">
+            <img *ngIf="itemData.pictureKey" [ngClass]="{
+            'notFilter' : itemData.pictureKey}" [src]="urlImg + itemData.pictureKey" alt="{{itemData.fullName}}"
+                 class="img_user_profile" />
+            <img *ngIf="!itemData.pictureKey" src="assets/img/icon/clients.png" alt="{{itemData.fullName}}" class="img_user_profile" />
+        </a>
+    </div>
+
+    <div class="text_align_center col-sm-3 col-sm-offset-0 col-xs-4 col-xs-offset-3 margin_bottom_0 profile_detail_name left_img bg_fff" *ngIf="!itemData.security || !itemData.security.isSetPicture">
+        <img *ngIf="itemData.pictureKey" [ngClass]="{'notFilter' : itemData.pictureKey}" [src]="urlImg + itemData.pictureKey" alt="{{itemData.title}}" class="img_user_profile" />
+        <img *ngIf="!itemData.pictureKey" [src]="'assets/img/icon/clients.png'" alt="{{itemData.title}}" class="img_user_profile" />
+    </div>
+    <div class="col-sm-9 col-xs-12 profile_detail_name bg_fff margin_bottom_0">
+        <h3 class="name_user_profile">
+            {{itemData.title}}
+        </h3>
+        <div class="font_bold">{{itemData.cityName}} </div>
+        <div class="color_999">{{itemData.companyName}}</div>
+    </div>    
+</div>
+
+<!-- ================================== for Companyes Detail ====================================== -->
+<div class="row profile_detail" *ngIf="type == 'company' && itemData">
+    <div class="text_align_center col-sm-3 col-sm-offset-0 col-xs-4 col-xs-offset-3 margin_bottom_0 profile_detail_name left_img bg_fff" *ngIf="itemData.security && itemData.security.isSetPicture">
+        <a (click)="openSetPicture('right', true, itemData.id)" title="Click to change the picture">
+            <img *ngIf="itemData.pictureKey" [ngClass]="{
+            'notFilter' : itemData.pictureKey}" [src]="urlImg + itemData.pictureKey" alt="{{itemData.fullName}}"
+                 class="img_user_profile" />
+            <img *ngIf="!itemData.pictureKey" src="assets/img/icon/location.png" alt="{{itemData.fullName}}" class="img_user_profile" />
+        </a>
+    </div>
+
+    <div class="text_align_center col-sm-3 col-sm-offset-0 col-xs-4 col-xs-offset-3 margin_bottom_0 profile_detail_name left_img bg_fff" *ngIf="!itemData.security || !itemData.security.isSetPicture">
+        <img *ngIf="itemData.pictureKey" [ngClass]="{'notFilter' : itemData.pictureKey}" [src]="urlImg + itemData.pictureKey" alt="{{itemData.title}}" class="img_user_profile" />
+        <img *ngIf="!itemData.pictureKey" [src]="'assets/img/icon/location.png'" alt="{{itemData.title}}" class="img_user_profile" />
+    </div>
+    <div class="col-sm-9 col-xs-12 profile_detail_name bg_fff margin_bottom_0">
+        <h3 class="name_user_profile">
+            {{itemData.name}}
+        </h3>
+        <div class="color_999" *ngIf="itemData.addresses.length > 0 && itemData.addresses[0].address1">{{itemData.addresses[0].address1}} {{itemData.addresses[0].address2}}</div>
+        <div class="color_999" *ngIf="itemData.addresses.length > 0">{{itemData.addresses[0].cityName}}</div>
+        <div class="color_999" *ngIf="itemData.addresses.length > 0">{{itemData.addresses[0].zipCode}}</div>
+        <div class="color_999" *ngIf="!(itemData.addresses.length > 0)">{{itemData.cityName}}</div>
     </div>    
 </div>

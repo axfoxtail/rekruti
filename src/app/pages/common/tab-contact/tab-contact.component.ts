@@ -7,6 +7,7 @@ import {GlobalVariablesService} from '../../../services/global-variables/global-
   styleUrls: ['./tab-contact.component.css']
 })
 export class TabContactComponent implements OnInit {
+	_router = window.location.href.split("#/")[1];
 
 	@Input() type = 'people';
 	@Input() itemData;
@@ -36,7 +37,7 @@ export class TabContactComponent implements OnInit {
 	}
 
 	openAddUrl(personId) {
-		this.globalVar.showPeopleContactWebLinkModal({forAdd: true, personID: personId, itemData: {url: ''}});
+		this.globalVar.showPeopleContactWebLinkModal({forAdd: true, personID: personId, itemData: {url: '', urlTypeId: 1}});
 	}
 
 	openEditUrl(psersonId, obj) {

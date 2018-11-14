@@ -24,10 +24,18 @@ export class SearchService {
     }
 
     buildQuery(conditions?: any): any {
+        var _router = window.location.href.split("#")[1];
+        var _sort = 'lastUpdate';
+        switch (_router) {
+            case "/jobs": _sort = 'postedDate'; break;
+            case "/company": _sort = 'score'; break;
+            
+            default: _sort = 'lastUpdate'; break;
+        }
         const query = {
             from: 0,
             size: 20,
-            sort: 'lastUpdate'
+            sort: _sort
         };
         if (conditions === undefined || conditions === null) {
             return query;

@@ -12,6 +12,7 @@ import {PeopleFullComponent} from '../pages/people/people-full/people-full.compo
 import {EmployersComponent} from '../pages/employers/employers/employers.component';
 import {MyProfileComponent} from '../pages/my-profile/my-profile.component';
 import {JobsComponent} from '../pages/jobs/jobs.component';
+import {CompaniesComponent} from '../pages/companies/companies.component';
 import {TasksComponent} from '../pages/tasks/tasks.component';
 import {SourcingComponent} from '../pages/admin/sourcing/sourcing.component';
 import {SettingsComponent} from '../pages/admin/settings/settings.component';
@@ -77,6 +78,12 @@ const routes: Routes = [
         path: 'jobs',
         component: JobsComponent,
         data: {access: 'private', component: 'JobsComponent'},
+        canActivate: [Auth]
+      },
+      {
+        path: 'company',
+        component: CompaniesComponent,
+        data: {access: 'private', component: 'CompaniesComponent'},
         canActivate: [Auth]
       },
       {

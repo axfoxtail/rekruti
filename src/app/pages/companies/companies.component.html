@@ -1,0 +1,24 @@
+<ng-sidebar-container class="companies-page-container">
+
+    <ng-sidebar [(opened)]="_opened" [(mode)]="_sidebarMode" [(autoCollapseWidth)]="_autoCollapseWidth"
+                class="sidebar-container">
+        <app-companies-sidebar></app-companies-sidebar>
+    </ng-sidebar>
+
+    <div ng-sidebar-content class="companies-aria" #top>
+        <div class="container companies-list-container search-bar">
+            <app-companies-search-bar></app-companies-search-bar>
+        </div>
+
+        <div class="container companies-list-container content-aria">
+            <app-companies-list></app-companies-list>
+        </div>
+    </div>
+
+</ng-sidebar-container>
+
+<!-- =================== Companies Modal Parts ==================== -->
+<app-company-detail-modal [chosenItem]="companyDetailData"></app-company-detail-modal>
+<app-detail-edit-modal [modalType]="modalType"></app-detail-edit-modal>
+
+<!-- ================== ./Companies Modal Parts ===================  [queryJson]="_queryJson" -->

@@ -75,8 +75,8 @@ export class RekrutiApiService {
       _.forEach(urlFacets_, (value, key) => {
         params = params.append(key, value);
       });
-
-      this.http.get('/geoPlace/wSearch', params).then(_data => {
+      console.log('params--', {from: from_, keywords: keyword_, sort: sort_, size: 20});
+      this.http.post('/geoPlace/wSearch', {from: from_, keywords: keyword_, sort: 'score', size: 20}).then(_data => {
         resolve(_data);
       }, function (error) {
         reject(error);
@@ -147,8 +147,15 @@ export class RekrutiApiService {
   }
 
   person_jobNote(personId: any): Promise<any> {
+    var route = window.location.href.split("#/")[1];
+    if (route == 'jobs' || route == 'company') {
+      var url = '/geoNote/nList?geoId=';
+    } else {
+      var url = '/personNote/nList?personId=';
+    }
+
     return new Promise((resolve, reject) => {
-      this.http.get('/personNote/nList?personId=' + personId).then(data => {
+      this.http.get(url + personId).then(data => {
         resolve(data);
       }, function (error) {
         reject(error);
@@ -157,8 +164,15 @@ export class RekrutiApiService {
   }
 
   person_document(personId: any): Promise<any> {
+    var route = window.location.href.split("#")[1];
+    if (route == '/jobs' || route == '/company') {
+      var url = '/geoDocument/nList?geoId=' + personId;
+    } else {
+      var url = '/personDocument/nList?personId=' + personId;
+    }
+    console.log('url=', url);
     return new Promise((resolve, reject) => {
-      this.http.get('/personDocument/nList?personId=' + personId).then(data => {
+      this.http.get(url).then(data => {
         resolve(data);
       }, function (error) {
         reject(error);
@@ -167,16 +181,27 @@ export class RekrutiApiService {
   }
 
   person_saveJobNote(event: any): Promise<any> {
+    var route = window.location.href.split("#")[1];
 
     let params = new HttpParams().set('note', event.note.note).set('isShared', event.note.isShared).set('isSharedEveryone', event.note.isSharedEveryone);
-    if (event.note.id != null) {
-      params = params.append('id', event.note.id);
+    if (route == '/jobs' || route == '/company') {
+      var url = event.note.id != null ? '/geoNote/wUpdate' : '/geoNote/wCreate';
+      if (event.note.id != null) {
+        params = params.append('id', event.note.id);
+      } else {
+        params = params.append('geoId', event.personID);
+      }
     } else {
-      params = params.append('personId', event.personID);
+      var url = event.note.id != null ? '/personNote/wUpdate' : '/personNote/wCreate';
+      if (event.note.id != null) {
+        params = params.append('id', event.note.id);
+      } else {
+        params = params.append('personId', event.personID);
+      }
     }
 
     return new Promise((resolve, reject) => {
-      this.http.get(event.note.id != null ? '/personNote/wUpdate' : '/personNote/wCreate', params).then(data => {
+      this.http.get(url, params).then(data => {
         resolve(data);
       }, function (error) {
         reject(error);
@@ -185,8 +210,15 @@ export class RekrutiApiService {
   }
 
   person_deleteNOte(id: any) : Promise<any> {
+    var route = window.location.href.split("#")[1];
+    if (route == '/jobs' || route == '/company') {
+      var url = '/geoNote/wDelete?id=' + id;
+    } else {
+      var url = '/personNote/wDelete?id=' + id;
+    }
+
     return new Promise((resolve, reject) => {
-      this.http.get('/personNote/wDelete?id=' + id).then(data => {
+      this.http.get(url).then(data => {
         resolve(data);
       }, function (error) {
         reject(error);
@@ -676,8 +708,15 @@ export class RekrutiApiService {
   }
 
   deleteSource(data: any) : Promise<any> {
+    var route = window.location.href.split("#/")[1];
+    if (route == 'jobs') {
+      var url = '/jobSource/wDelete?id=' + data;
+    } else {
+      var url = '/personSource/wDelete?id=' + data.objId;
+    }
+
     return new Promise((resolve, reject) => {
-      this.http.get('/personSource/wDelete?id=' + data.objId).then(data => {
+      this.http.get(url).then(data => {
         resolve(data);
       }, function (error) {
         reject(error);
@@ -1213,7 +1252,13 @@ export class RekrutiApiService {
   }
 
   getListData() : Promise<any> {
-    var url = "/savedSearch/wList?scope=person";
+    var route = window.location.href.split('#/')[1];
+    switch (route) {
+      case "people": var scope = 'person'; break;
+      case "jobs": var scope = 'job'; break;
+      case "company": var scope = 'geoCompany'; break;
+    }
+    var url = "/savedSearch/wList?scope=" + scope;
 
     return new Promise((resolve, reject) => {
       this.http.get(url).then(data => {
@@ -1263,7 +1308,13 @@ export class RekrutiApiService {
   }
 
   sendByMail(data) : Promise<any> {
-    var url = '/person/wSendByMail';
+    var route = window.location.href.split('#/')[1];
+    switch (route) {
+      case "people": var scope = 'person'; break;
+      case "jobs": var scope = 'job'; break;
+      case "company": var scope = 'geoCompany'; break;
+    }
+    var url = '/'+ scope +'/wSendByMail';
 
     return new Promise((resolve, reject) => {
       this.http.post(url, data).then(data => {
@@ -1289,4 +1340,374 @@ export class RekrutiApiService {
     });
   }
 
+  // ===================================== Jobs Tab ==================================== //
+  // Get Jobs List
+  job_wSearch(queryJson: any): Promise<any> {
+    
+    return new Promise((resolve, reject) => {
+      this.http.post('/job/wSearch', queryJson).then(_data => {
+        resolve(_data);
+      }, function (error) {
+        reject(error);
+      });
+    });
+  }
+
+  getJobsDetail(data): Promise<any> {
+    var url = '/job/wRead' +
+              '?id=' + data.id +
+              (data.isRefresh ? '&isRefresh=true' : '');
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error) {
+        reject(error);
+      });
+    });
+  }
+
+  // ===================================== Companies Tab ================================ //
+  // Get Companies List
+  companies_wSearch(queryJson: any): Promise<any> {
+    
+    return new Promise((resolve, reject) => {
+      this.http.post('/geoCompany/wSearch', queryJson).then(_data => {
+        resolve(_data);
+      }, function (error) {
+        reject(error);
+      });
+    });
+  }
+
+  getCompanyDetail(data: any): Promise<any> {
+    var route = window.location.href.split("#")[1];
+    if (route == '/jobs') {
+      var id = data.geoCompanyId;
+    } else if(route == '/company') {
+      var id = data.id;
+    }
+    var url = '/geoCompany/wRead' +
+              '?id=' + id +
+              (data.isRefresh ? '&isRefresh=true' : '');
+              console.log('//*\\', url);
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error) {
+        reject(error);
+      });
+    });
+  }
+  // =============== Jobs and Company Detail Edit ================== //
+  getSourceData(data: any, modalType): Promise<any> {
+    var route = window.location.href.split("#/")[1];
+    if (route == 'jobs' && modalType == 'job') {
+      var url = '/jobSource/wRead?id=' + data.id;
+    } else if(route == 'company' || modalType == 'company') {
+      var url = '/geoSource/wRead?id=' + data.id;
+    }
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(error);
+      });
+    });
+  }
+
+  saveDescription(data: any): Promise<any> {
+    var url = '/job/wUpdateDescription';
+    var fd = new FormData();
+    fd.append('id', data.id);
+    fd.append('description', data.description);
+
+    return new Promise((resolve, reject) => {
+      this.http.post_form(url, fd).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(error);
+      });
+    });
+  }
+
+  saveEmail(data: any): Promise<any> {
+    if (data.forAdd) {
+      var url = '/jobEmail/wCreate?jobId=' + data.personID + 
+                '&email=' + encodeURIComponent(data.itemData.email) +
+                '&isBusiness=' + data.itemData.isBusiness;
+    } else {
+      var url = '/jobEmail/wUpdate?id=' + data.itemData.id + 
+                '&email=' + encodeURIComponent(data.itemData.email) +
+                '&isBusiness=' + data.itemData.isBusiness;
+    }
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error) {
+        reject(error);
+      });
+    });
+  }
+
+  deleteEmail(data: any): Promise<any> {
+    var url = '/jobEmail/wDelete?id=' + data.itemData.id;
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error) {
+        reject(error);
+      });
+    });
+  }
+
+  savePhone(data: any, modalType): Promise<any> {
+    if (modalType == 'company') {
+      var url_prefix = '/geoPhone';
+      var url_subfix = '?geoId=';
+    } else {
+      var url_prefix = '/jobPhone';
+      var url_subfix = '?jobId=';
+    }
+
+    if (data.forAdd) {
+      var url = url_prefix + '/wCreate' + url_subfix + data.personID +
+                '&phone=' + data.itemData.phone +
+                '&phoneTypeId=' + data.itemData.phoneTypeId +
+                '&extension=' + data.itemData.extension +
+                '&isBusiness=' + data.itemData.isBusiness;
+    } else {
+      var url = url_prefix + '/wUpdate' +
+                '?id=' + data.itemData.id +
+                '&phone=' + data.itemData.phone +
+                '&phoneTypeId=' + data.itemData.phoneTypeId +
+                '&extension=' + data.itemData.extension +
+                '&isBusiness=' + data.itemData.isBusiness;
+    }
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error) {
+        reject(data);
+      });
+    });
+  }
+
+  deletePhone(data: any, modalType): Promise<any> {
+    if (modalType == 'company') {
+      var url_prefix = '/geoPhone';
+    } else {
+      var url_prefix = '/jobPhone';
+    }
+
+    var url = url_prefix + '/wDelete?id=' + data.itemData.id;
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(data);
+      });
+    });
+  }
+
+  saveWebLink(data: any, modalType): Promise<any> {
+    if (modalType == 'company') {
+      var url_prefix = '/geoUrl';
+      var url_subfix = '?geoId=';
+    } else {
+      var url_prefix = '/jobUrl';
+      var url_subfix = '?jobId=';
+    }
+
+    if(data.forAdd) {
+      var url = url_prefix + '/wCreate' + url_subfix + data.personID +
+                '&url=' + data.itemData.url + 
+                '&urlTypeId=' + data.itemData.urlTypeId;
+    } else {
+      var url = url_prefix + '/wUpdate?id=' + data.itemData.id +
+                '&url=' + data.itemData.url + 
+                '&urlTypeId=' + data.itemData.urlTypeId;
+    }
+    console.log(url);
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(data);
+      });
+    })
+  }
+
+  deleteWebLink(data: any, modalType): Promise<any> {
+    if (modalType == 'company') {
+      var url_prefix = '/geoUrl';
+    } else {
+      var url_prefix = '/jobUrl';
+    }
+
+    var url = url_prefix + '/wDelete' + 
+              '?id=' + data.itemData.id;
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(error);
+      });
+    });
+  }
+
+  urlType_Qbe(): Promise<any> {
+    var url = '/urlType/Qbe';
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error) {
+        reject(error);
+      });
+    })
+  }
+
+  saveBio(data: any): Promise<any> {
+    var url = '/geoCompany/wUpdateSummary?geoId=' + data.id +
+              '&summary=' + data.summary +
+              // this is just for company bio. Extra parameters would 
+              // not break the call to person anyway
+              '&isApplyToCompany=' + data.isApplyToCompany;
+
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error) {
+        reject(error);
+      });
+    });
+  }
+
+  saveAddress(data: any): Promise<any> {
+    if (data.forAdd) {
+      var url = '/geoAddress/wCreate' + 
+                '?' + 'geoId' + '=' + data.personID +
+                '&address1= ' + data.itemData.address1 +
+                '&address2=' + data.itemData.address2 +
+                '&geoCityId=' + data.itemData.geoCityId +
+                '&zipCode=' + data.itemData.zipCode +
+                '&isBusiness=' + data.itemData.isBusiness;
+    } else {
+      var url = '/geoAddress/wUpdate' + 
+                '?id=' + data.itemData.id +
+                '&address1=' + data.itemData.address1 +
+                '&address2=' + data.itemData.address2 +
+                '&geoCityId=' + data.itemData.geoCityId +
+                '&zipCode=' + data.itemData.zipCode +
+                '&isBusiness=' + data.itemData.isBusiness;
+    }
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error) {
+        reject(data);
+      });
+    });
+  }
+
+  deleteAddress(data: any): Promise<any> {
+    var url = '/geoAddress/wDelete' + 
+              '?id=' + data.itemData.id;
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url).then(data => {
+        resolve(data);
+      }, function(error){
+        reject(data);
+      });
+    });
+  }
+
+  saveDocument(data: any) : Promise<any> {
+    console.log('savedoc=', data);
+    var url = '/geoDocument';
+    
+    if (data.itemData.forAdd) {
+      url += '/wUpload';
+
+      var fd = new FormData();
+      fd.append('geoId', data.itemData.itemData.accountId);
+      fd.append('isShared', data.itemData.itemData.isShared);
+      fd.append('isSharedEveryone', data.itemData.itemData.isSharedEveryone);
+      fd.append('file', data.file[0]);
+
+    } else {
+      url += '/wUpdate';
+
+      var params = new HttpParams().set('id', data.itemData.itemData.id);
+      params = params.append('name', data.itemData.itemData.name);
+      params = params.append('isShared', data.itemData.itemData.isShared);
+      params = params.append('isSharedEveryone', data.itemData.itemData.isSharedEveryone);
+      params = params.append('accountOwnerId', data.itemData.itemData.accountId);
+
+    }
+
+    if (data.itemData.forAdd) {
+      return new Promise((resolve, reject) => {
+        this.http.post_form(url, fd).then(data => {
+          resolve(data);
+        }, function (error) {
+          reject(error);
+        });
+      });
+    }
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, params).then(data => {
+        resolve(data);
+      }, function (error) {
+        reject(error);
+      });
+    });
+  }
+
+  deleteDocument(data: any) : Promise<any> {
+    var url = '/geoDocument/wDelete';
+    var params = new HttpParams().set('id', data.itemData.id);
+
+    return new Promise((resolve, reject) => {
+      this.http.get(url, params).then(data => {
+        resolve(data);
+      }, function (error) {
+        reject(error);
+      });
+    });
+  }
+
+  refreshDetailData(id: any, isRefresh: boolean = false): Promise<any> {
+    var route = window.location.href.split('#/')[1];
+    switch (route) {
+      case "jobs": var url = '/job/wRead'; break;
+      case "company": var url = '/geoCompany/wRead'; break;
+    }
+
+    return new Promise((resolve, reject) => {
+
+      let params = new HttpParams().set('id', id);
+      if (isRefresh) {
+        params = params.append('isRefresh', 'true');
+      }
+      this.http.get(url, params).then(_data => {
+        resolve(_data);
+      }, function (error) {
+        reject(error);
+      });
+    });
+  }
 }

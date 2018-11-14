@@ -1,0 +1,81 @@
+<div class="row list-header">
+  <div class="col col-6 results-col">
+    {{jobsData.total | currency: "": "": "0.0-0": "" }}
+    <span *ngIf="jobsData.total === 0">result</span>
+    <span *ngIf="jobsData.total > 0">results</span>
+  </div>
+  <div class="col col-6 sort-col">
+    <div class="input-group search_sort" *ngIf="searchSortArray">
+      <span class="input-group-addon">sort</span>
+      <select name="searchSort" id="searchSort" class="form-control" [(ngModel)]="searchSort"
+          (ngModelChange)="searchSortMain()">
+        <option *ngFor="let obj of searchSortArray" [value]="obj.value">
+          {{obj.label}}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="active-filters-list" *ngIf="hasBucketSelected">
+  <span *ngFor="let filter of searchAggregations">
+    <span *ngIf="filter.isVisible">
+      <span *ngFor="let bk of filter.buckets">
+        <div *ngIf="bk.isSelected" class="filter-div">
+          <span>{{bk.label}}</span>
+          <a class="remove-active-tag" (click)="removeBucket(bk)">
+            <i class="fa fa-times"></i>
+          </a>
+        </div>
+      </span>
+    </span>
+  </span>
+  <a (click)="clearSearch()" class="reset-tag-buckets">Reset</a>
+</div>
+
+<div class="table-responsive" *ngIf="jobsData.hits.length > 0">
+  <table class="table table-hover">
+    <tbody>
+    <tr *ngFor="let item of jobsList | paginate: { id: config.id, itemsPerPage: config.itemsPerPage, currentPage: config.currentPage, totalItems: jobsData.total }">
+      <td class="people-list-td"  [ngClass]="checkActiveItem(item.id)" #list>
+        <div class="people-list-item-div">
+          <div class="avatar-container" (click)="openDetailModal(item)" data-toggle="modal" data-target="#jobsDetailModal">
+            <a>
+              <img *ngIf="item.pictureKey" src="{{urlImg}}{{item.pictureKey}}" alt="{{item.name}}"/>
+              <img class="default-img" *ngIf="!item.pictureKey" src="assets/img/icon/clients.png"
+                 alt="{{item.name}}"/>
+            </a>
+          </div>
+          <div class="details-container">
+            <div class="row item-title-div">
+              <div class="col" (click)="openDetailModal(item)" data-toggle="modal" data-target="#jobsDetailModal">
+                <a class="people-item-title-name" >
+                  <h3>{{item.title}}</h3>
+                </a>
+              </div>
+            </div>
+            <div class="font_bold">{{item.cityName}}</div>
+            <a class="title_name" href="" (click)="openCompanyModal(item)" *ngIf="item.geoCompanyId" data-toggle="modal" data-target="#companyDetailModal">
+              {{item.companyName}}
+            </a>
+            <div class="item-city-name" *ngIf="!item.geoCompanyId">{{item.companyName}}</div>
+          </div>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="has-text-centered" *ngIf="jobsData.total > config.itemsPerPage">
+    <pagination-controls [id]="config.id"
+               [maxSize]="maxSize"
+               [directionLinks]="directionLinks"
+               [autoHide]="autoHide"
+               [responsive]="responsive"
+               [previousLabel]="labels.previousLabel"
+               [nextLabel]="labels.nextLabel"
+               [screenReaderPaginationLabel]="labels.screenReaderPaginationLabel"
+               [screenReaderPageLabel]="labels.screenReaderPageLabel"
+               [screenReaderCurrentLabel]="labels.screenReaderCurrentLabel"
+               (pageChange)="onPageChange($event)"></pagination-controls>
+  </div>
+</div>

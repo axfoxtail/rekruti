@@ -36,6 +36,46 @@ export class GlobalVariablesService {
     private hasFacetSelectedEmployers: any;
     // employers end
 
+    // Jobs start
+    public sidebarStateChangedJobsEvent: EventEmitter<any> = new EventEmitter();
+    public scrollContentToTopJobsEvent: EventEmitter<any> = new EventEmitter();
+    public windowWidthChangedJobsEvent: EventEmitter<any> = new EventEmitter();
+    public jobsListChangedEvent: EventEmitter<any> = new EventEmitter();
+    public jobsListEvent: EventEmitter<any> = new EventEmitter();
+    public openJobsDetailModalEvent: EventEmitter<any> = new EventEmitter();
+    public openJobsCompanyModalEvent: EventEmitter<any> = new EventEmitter();
+
+    private hasFacetSelectedJobs: any;
+    private jobsRequestBody: any = {};
+    private urlFacetsJobs: any;
+    private jobsSearchConditions: any;
+    private currentPageJobs: any;
+    private jobsSearchQuery: any;
+
+    // Jobs end
+
+    public openSourceModalEvent: EventEmitter<any> = new EventEmitter();
+    public openDescriptionModalEvent: EventEmitter<any> = new EventEmitter();
+    public openBioModalEvent: EventEmitter<any> = new EventEmitter();
+    public refreshDetailDataEvent: EventEmitter<any> = new EventEmitter();
+
+    // Companies start
+    public sidebarStateChangedCompaniesEvent: EventEmitter<any> = new EventEmitter();
+    public scrollContentToTopCompaniesEvent: EventEmitter<any> = new EventEmitter();
+    public windowWidthChangedCompaniesEvent: EventEmitter<any> = new EventEmitter();
+    public companiesListChangedEvent: EventEmitter<any> = new EventEmitter();
+    public companiesListEvent: EventEmitter<any> = new EventEmitter();
+    public openCompanyDetailModalEvent: EventEmitter<any> = new EventEmitter();
+
+    private hasFacetSelectedCompanies: any;
+    private companiesRequestBody: any = {};
+    private urlFacetsCompanies: any;
+    private companiesSearchConditions: any;
+    private currentPageCompanies: any;
+    private companiesSearchQuery: any;
+
+    // Companies end
+
     //People Edit Modal start
 
     public openPeopleJobReqEditEvent: EventEmitter<any> = new EventEmitter();
@@ -220,6 +260,138 @@ export class GlobalVariablesService {
         this.employersListChangedEvent.emit();
     }
     // employers end
+
+    // Jobs start ============================================================ start for jobs
+    jobsList(list: any) {
+        this.jobsListEvent.emit(list);
+    }
+    setRequestBodyJobs(keyword: any, from_: any, sort: any) {
+        this.jobsRequestBody = {
+            keyword: keyword,
+            from: from_,
+            sort: sort
+        };
+    }
+    setUrlFacetsJobs(data: any) {
+        this.urlFacetsJobs = this.utils.urlFacets(data);
+    }
+    sidebarStateChangedJobs() {
+        this.sidebarStateChangedJobsEvent.emit();
+    }
+    scrollContentToTopJobs() {
+        this.scrollContentToTopJobsEvent.emit();
+    }
+    getRequestBodyJobs() {
+        return this.jobsRequestBody;
+    }
+    getUrlFacetsJobs() {
+        return this.urlFacetsJobs;
+    }
+    setHasFacetSelectedJobs(data: any) {
+        this.hasFacetSelectedJobs = data;
+    }
+    windowWidthChangedJobs(width: any) {
+        this.windowWidthChangedJobsEvent.emit(width);
+    }
+    getSearchConditionsJobs() {
+        return this.jobsSearchConditions;
+    }
+    jobsListChanged(body: any) {
+        this.jobsListChangedEvent.emit(body);
+    }
+    setCurrentPageJobs(data: any) {
+        this.currentPageJobs = data;
+    }
+    getSearchQueryJobs() {
+        return this.jobsSearchQuery;
+    }
+    setSearchConditionsJobs(data: any) {
+        this.jobsSearchConditions = data;
+    }
+    getCurrentPageJobs() {
+        return this.currentPageJobs;
+    }
+    setSearchQueryJobs(data: any) {
+        this.jobsSearchQuery = data;
+    }
+    // --------------- jobs modals part -------------- //
+    showJobsDetailModal(data: any) {
+        this.openJobsDetailModalEvent.emit(data);
+    }
+    showJobsCompanyModal(data: any) {
+        this.openJobsCompanyModalEvent.emit(data);
+    }
+    // Jobs end ================================================================ end for jobs
+    showSourceModal(data: any) {
+        this.openSourceModalEvent.emit(data);
+    }
+    showDescriptionModal(data: any) {
+        this.openDescriptionModalEvent.emit(data);
+    }
+    showBioModal(data: any) {
+        this.openBioModalEvent.emit(data);
+    }
+    refreshDetailData(data: any) {
+        this.refreshDetailDataEvent.emit(data);
+    }
+    // Companies start ============================================================ start for companies
+    companiesList(list: any) {
+        this.companiesListEvent.emit(list);
+    }
+    setRequestBodyCompanies(keyword: any, from_: any, sort: any) {
+        this.companiesRequestBody = {
+            keyword: keyword,
+            from: from_,
+            sort: sort
+        };
+    }
+    setUrlFacetsCompanies(data: any) {
+        this.urlFacetsCompanies = this.utils.urlFacets(data);
+    }
+    sidebarStateChangedCompanies() {
+        this.sidebarStateChangedCompaniesEvent.emit();
+    }
+    scrollContentToTopCompanies() {
+        this.scrollContentToTopCompaniesEvent.emit();
+    }
+    getRequestBodyCompanies() {
+        return this.companiesRequestBody;
+    }
+    getUrlFacetsCompanies() {
+        return this.urlFacetsCompanies;
+    }
+    setHasFacetSelectedCompanies(data: any) {
+        this.hasFacetSelectedCompanies = data;
+    }
+    windowWidthChangedCompanies(width: any) {
+        this.windowWidthChangedCompaniesEvent.emit(width);
+    }
+    getSearchConditionsCompanies() {
+        return this.companiesSearchConditions;
+    }
+    companiesListChanged(body: any) {
+        this.companiesListChangedEvent.emit(body);
+    }
+    setCurrentPageCompanies(data: any) {
+        this.currentPageCompanies = data;
+    }
+    getSearchQueryCompanies() {
+        return this.companiesSearchQuery;
+    }
+    setSearchConditionsCompanies(data: any) {
+        this.companiesSearchConditions = data;
+    }
+    getCurrentPageCompanies() {
+        return this.currentPageCompanies;
+    }
+    setSearchQueryCompanies(data: any) {
+        this.companiesSearchQuery = data;
+    }
+    // ---------- 
+    showCompanyDetailModal(data: any) {
+        this.openCompanyDetailModalEvent.emit(data);
+    }
+    // Companies end ================================================================ end for companies
 
     //People Edit Modal start
 

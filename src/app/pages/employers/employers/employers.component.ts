@@ -51,9 +51,11 @@ export class EmployersComponent implements OnInit {
     getEmployersList() {
         this.spinner.show();
         const body = this.globalVar.getRequestBodyEmployers();
+                console.log('body',body,this.globalVar.getUrlFacetsEmployers());
         this.api.geoPlace_wSearch(body.keyword, body.from, this.globalVar.getUrlFacetsEmployers(), body.sort).then(
             reply => {
                 this.employersData = reply;
+                console.log('reply--',reply);
                 this.globalVar.setHasFacetSelectedEmployers(this.utils.countFacetSelected(reply.data.aggregations));
                 this.globalVar.employersList(this.employersData);
                 this.scrollToTop();

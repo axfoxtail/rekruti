@@ -144,6 +144,19 @@ import { PeopleSearchBarSavedSearchModalComponent } from './pages/people/people-
 import { PeopleSearchBarExportCsvModalComponent } from './pages/people/people-search-bar/modals/people-search-bar-export-csv-modal/people-search-bar-export-csv-modal.component';
 import { PeopleSearchBarSendMailModalComponent } from './pages/people/people-search-bar/modals/people-search-bar-send-mail-modal/people-search-bar-send-mail-modal.component';
 import { PeopleSearchBarAddResumeModalComponent } from './pages/people/people-search-bar/modals/people-search-bar-add-resume-modal/people-search-bar-add-resume-modal.component';
+import { JobsSidebarComponent } from './pages/jobs/jobs-sidebar/jobs-sidebar.component';
+import { JobsSearchBarComponent } from './pages/jobs/jobs-search-bar/jobs-search-bar.component';
+import { JobsListComponent } from './pages/jobs/jobs-list/jobs-list.component';
+import { CompaniesComponent } from './pages/companies/companies.component';
+import { CompaniesListComponent } from './pages/companies/companies-list/companies-list.component';
+import { CompaniesSearchBarComponent } from './pages/companies/companies-search-bar/companies-search-bar.component';
+import { CompaniesSidebarComponent } from './pages/companies/companies-sidebar/companies-sidebar.component';
+import { JobsDetailModalComponent } from './pages/jobs/modals/jobs-detail-modal/jobs-detail-modal.component';
+import { CompanyDetailModalComponent } from './pages/companies/modals/company-detail-modal/company-detail-modal.component';
+import { DetailEditModalComponent } from './pages/common/detail-edit-modal/detail-edit-modal.component';
+import { SaveQueryModalComponent } from './pages/common/header-modals/save-query-modal/save-query-modal.component';
+import { SavedSearchModalComponent } from './pages/common/header-modals/saved-search-modal/saved-search-modal.component';
+import { SendByMailModalComponent } from './pages/common/header-modals/send-by-mail-modal/send-by-mail-modal.component';
 
 @NgModule({
     declarations: [
@@ -256,7 +269,20 @@ import { PeopleSearchBarAddResumeModalComponent } from './pages/people/people-se
         PeopleSearchBarSavedSearchModalComponent,
         PeopleSearchBarExportCsvModalComponent,
         PeopleSearchBarSendMailModalComponent,
-        PeopleSearchBarAddResumeModalComponent
+        PeopleSearchBarAddResumeModalComponent,
+        JobsSidebarComponent,
+        JobsSearchBarComponent,
+        JobsListComponent,
+        CompaniesComponent,
+        CompaniesListComponent,
+        CompaniesSearchBarComponent,
+        CompaniesSidebarComponent,
+        JobsDetailModalComponent,
+        CompanyDetailModalComponent,
+        DetailEditModalComponent,
+        SaveQueryModalComponent,
+        SavedSearchModalComponent,
+        SendByMailModalComponent
     ],
     imports: [
         CommonModule,

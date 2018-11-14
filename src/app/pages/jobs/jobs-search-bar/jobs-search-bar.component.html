@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col col-1 filters-toggle">
+    <button class="filters-button" *ngIf="windowWidth <= _autoCollapseWidth" (click)="_toggleSidebar()">
+      <fa name="filter"></fa>
+    </button>
+  </div>
+  <div class="col col-10">
+    <div class="form-search-people">
+      <form [formGroup]="searchJobsForm" novalidate (ngSubmit)="submitSearch()">
+        <div class="step-group search-step-group">
+          <div class="form-row">
+            <input type="string" class="form-control input-control search-input" id="inputSearch"
+                 placeholder="Search" formControlName="searchRequest" #searchField>
+            <button type="submit" class="search-submit-button"><i class="fa fa-search"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col col-1 option-col">
+    <div class="dropdown show">
+      <a class="btn btn-secondary dropdown-toggle option-dropdown-button" role="button" id="dropdownMenuLink"
+         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <fa name="ellipsis-h"></fa>
+      </a>
+
+      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item custome-item" (click)="openSaveQuery()" data-target="#SaveQueryModal" data-toggle="modal">Save this Query</a>
+        <a class="dropdown-item custome-item" (click)="openSavedSearch()" data-target="#SavedSearchModal" data-toggle="modal">Saved Search & Alerts</a>
+        <a class="dropdown-item custome-item" (click)="openSendByMail()" data-target="#SendByMailModal" data-toggle="modal">Send by Mail</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========== search-bar-action-modals ============ -->
+<app-save-query-modal [queryJson]="_queryJson">
+  </app-save-query-modal>
+
+<app-saved-search-modal>
+  </app-saved-search-modal>
+
+<app-send-by-mail-modal>
+  </app-send-by-mail-modal>
+  

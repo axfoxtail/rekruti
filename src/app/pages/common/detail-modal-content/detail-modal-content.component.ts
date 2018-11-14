@@ -12,7 +12,8 @@ declare var $: any;
 })
 export class DetailModalContentComponent implements OnInit, AfterViewInit {
 
-	@Input() type = 'people';
+  @Input() type;
+	@Input() modalType;
 	@Input() itemData : any;
   @Input() chosenTab : any;
   @Input() fromFull;
@@ -119,25 +120,25 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
 		
 	}
 
-    saveJobNote(event) {
-        this.api.person_saveJobNote(event)
-        .then(response => {
-            
-                if (response.result > 0) {
-                    
-                    this.notifications.success('Saved!', 5000);
-                    this.loadJobNotes(event.personID);
-                    
-                } else {
-                    this.notifications.warning(response.message, 10000);
-                }
-            },
-            err => {
-                console.log(err);
-                this.notifications.warning('Error', 10000);
-            }
-        )
-    }
+  saveJobNote(event) {
+      this.api.person_saveJobNote(event)
+      .then(response => {
+          
+              if (response.result > 0) {
+                  
+                  this.notifications.success('Saved!', 5000);
+                  this.loadJobNotes(event.personID);
+                  
+              } else {
+                  this.notifications.warning(response.message, 10000);
+              }
+          },
+          err => {
+              console.log(err);
+              this.notifications.warning('Error', 10000);
+          }
+      )
+  }
 
 	loadJobReqs(personId) {
 		this.api.person_jobList(personId)
@@ -183,19 +184,14 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
 	loadJobNotes(personId) {
 		this.api.person_jobNote(personId)
         .then(response => {
-            
                 if (response.result > 0) {
-                    
-                    
                     this.itemData.notes = response.data;
-                    
                 } else {
                     this.notifications.warning('error', 10000);
                 }
             },
             err => {
                 console.log(err);
-                
             }
         )
 	}
@@ -203,6 +199,7 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
     loadDocument(personId) {
         this.api.person_document(personId)
         .then(response => {
+          console.log('doc-res=', response);
             
                 if (response.result > 0) {
                     
@@ -223,10 +220,8 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
     deleteJobNote(event: any) {
         this.api.person_deleteNOte(event.id)
         .then(response => {
-            
                if (response.result > 0) {
-                    
-                    this.notifications.success('Deleted!', 5000);
+                    this.notifications.success('Deleted!', 1000);
                     this.loadJobNotes(this.itemData.id);
                     
                 } else {
@@ -237,7 +232,7 @@ export class DetailModalContentComponent implements OnInit, AfterViewInit {
                 }
             },
             err => {
-                console.log(err);
+                console.log('err:', err);
                 this.notifications.warning('Error', 10000);
             }
         )

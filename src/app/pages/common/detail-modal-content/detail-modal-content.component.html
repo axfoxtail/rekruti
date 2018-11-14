@@ -1,16 +1,37 @@
-<div class="tab_profile bg_fff" [ngClass]="{'col-xs-12 padding_0' : windowWidth < 768}">
+<div class="tab_profile bg_fff" [ngClass]="{'col-xs-12 padding_0' : windowWidth < 768}" *ngIf="itemData">
     <ngb-tabset class="tabset1 nav-fill" [justify]="fill" (tabChange)="setTab($event)" #tab="ngbTabset" >
-    <ngb-tab title="Profile" id="tab0">
+    <ngb-tab title="Job" id="tab0" *ngIf="modalType == 'detail' && type == 'jobs'">
       <ng-template ngbTabContent>
         <app-tab-profile 
           [type]="type"
-                  [itemData]="itemData"
-                  *ngIf="itemData.security"
+          [itemData]="itemData"
+          *ngIf="itemData.security"
         >
         </app-tab-profile>
       </ng-template>
     </ngb-tab>
-    <ngb-tab title="Contact" id="tab1">
+    <ngb-tab title="Apply" id="tab1" *ngIf="modalType == 'detail' && type == 'jobs'">
+      <ng-template ngbTabContent>
+        <app-tab-contact
+          [type]="type"
+          [itemData]="itemData"
+          *ngIf="itemData.security"
+        >
+        </app-tab-contact>
+      </ng-template>
+    </ngb-tab>
+    <!-- ================================================================ -->
+    <ngb-tab title="Profile" id="tab0" *ngIf="type != 'jobs'">
+      <ng-template ngbTabContent>
+        <app-tab-profile 
+          [type]="type"
+          [itemData]="itemData"
+          *ngIf="itemData.security"
+        >
+        </app-tab-profile>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Contact" id="tab1" *ngIf="type != 'jobs'">
       <ng-template ngbTabContent>
         <app-tab-contact
           [type]="type"
@@ -31,7 +52,7 @@
         </app-tab-job-req>
       </ng-template>
     </ngb-tab>
-    <ngb-tab *ngIf="type === 'people'" title="Note" id="tab3">
+    <ngb-tab *ngIf="type === 'people' || type === 'company'" title="Note" id="tab3">
       <ng-template ngbTabContent>
         <app-tab-note
           [itemData]="itemData"
@@ -41,7 +62,7 @@
         </app-tab-note>
       </ng-template>
     </ngb-tab>
-    <ngb-tab *ngIf="type === 'people'" title="Document" id="tab4">
+    <ngb-tab *ngIf="type === 'people' || type === 'company'" title="Document" id="tab4">
       <ng-template ngbTabContent>
         <app-tab-document
           [itemData]="itemData"

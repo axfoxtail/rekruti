@@ -20,13 +20,13 @@
 </div>
 
 <!-- bio -->
-<div *ngIf="type === 'people' && currentUser.id === itemData.id" class="border_bottom_d body_content_profile">
+<div *ngIf="(type === 'people' && currentUser.id === itemData.id) || type == 'company'" class="border_bottom_d body_content_profile">
     <div class="padding_15">
-        <h3 class="row">
+        <h4 class="">
             <img src="assets/img/icon-person/bio.png" class="img_user_icon" />&nbsp;Bio
-            <a href="" [hidden]="security.isEditSummary == false" (click)="openEditBio(itemData)" class="pull-right font-13" title="Edit summary" style=""><i class="fa fa-pencil-square-o"></i></a>
-        </h3>
-        <div class="table-responsive profile_ctn" style="padding:10px;padding-left:0px" ng-bind-html="itemData.summary">
+            <a [hidden]="itemData.security.isEditSummary == false" (click)="openEditBio(itemData)" class="pull-right font-13" title="Edit summary" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil-square-o"></i></a>
+        </h4>
+        <div class="table-responsive profile_ctn" style="padding:10px;padding-left:0px" [innerHtml]="itemData.summary">
         </div>
     </div>
 </div>
@@ -190,6 +190,49 @@
     </div>
 </div>
 
+<!-- ================ Jobs Tab Description ================= -->
+<div *ngIf="type === 'jobs'" class="border_bottom_d body_content_profile">
+    <div class="padding_15">
+        <h4 class="">
+            <img src="assets/img/icon-person/job-description.png" class="img_user_icon" />&nbsp;Description
+            <a (click)="openEditDescription(itemData)" class="pull-right font-13" title="Edit description" data-toggle="modal" data-target="#editModal"><i class="fa fa-pencil-square-o"></i></a>
+        </h4>
+        <div class="table-responsive profile_ctn" style="padding:10px;padding-left:0px" [innerHTML]="itemData.description">
+        </div>
+    </div>
+</div>
+<!-- ================= ./Jobs Tab Description ================= -->
+
+<!-- ================= Companies Tab Name ================ -->
+<!-- Name -->
+<div class="border_bottom_d body_content_profile" *ngIf="itemData.names != null && itemData.names.length > 0">
+    <div class="padding_15">
+        <h4 class="">
+            <img src="assets/img/icon/source.png" class="img_user_icon" />&nbsp;Name
+        </h4>
+        <!-- slightly different between people and employers -->
+        <div class="profile_ctn table-responsive" *ngIf="type == 'company'">
+            <table class="table table-hover">
+                <tbody>
+                    <tr *ngFor="let obj of itemData.names; let i = index">
+                        <td class="font_bold border_top_0" style="width: 55%; padding-left:0px">
+                            {{obj.name}}
+                        </td>
+                        <td class="color_999 border_top_0" style="width: 25%;">
+                            {{obj.sourceTypeName}}
+                        </td>
+                        <td class="color_999 border_top_0" style="text-align: left; width: 20%;">
+                            {{obj.code}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- ================ ./Companies Tab Name =============== -->
+
 <!--Source-->
 <div class="border_bottom_d body_content_profile" *ngIf="itemData.sources != null && itemData.sources.length > 0">
     <div class="padding_15">
@@ -221,6 +264,24 @@
                     <tr *ngFor="let obj of itemData.sources; let i = index">
                         <td class="font_bold border_top_0" style="width: 55%; padding-left:0px">
                             <a href="" (click)="openSource(itemData.id, obj.id)" data-toggle="modal" data-target="#editModal">{{obj.name}}</a>
+                        </td>
+                        <td class="color_999 border_top_0" style="width: 25%;">
+                            {{obj.sourceTypeName}}
+                        </td>
+                        <td class="color_999 border_top_0" style="text-align: right; width: 20%;">
+                            {{obj.sourceDate| date:'yyyy-MM-dd'}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- jobs and company -->
+        <div class="profile_ctn table-responsive" *ngIf="type == 'jobs' || type == 'company'">
+            <table class="table table-hover">
+                <tbody>
+                    <tr *ngFor="let obj of itemData.sources; let i = index">
+                        <td class="font_bold border_top_0" style="width: 55%; padding-left:0px">
+                            <a href="" (click)="openSource(itemData.id, obj)" data-toggle="modal" data-target="#editModal">{{obj.name}}</a>
                         </td>
                         <td class="color_999 border_top_0" style="width: 25%;">
                             {{obj.sourceTypeName}}

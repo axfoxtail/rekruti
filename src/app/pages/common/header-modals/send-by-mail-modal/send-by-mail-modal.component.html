@@ -1,0 +1,48 @@
+ <!-- Modal -->
+<div class="modal fade" id="SendByMailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="row header_right_popup">
+          
+          <div class="col-md-5 padding_0 div_title">
+              <h5 class="h3_title" style="font-weight: bold;">Send by eMail</h5>
+          </div>
+          <div class="col-md-7 text-right">
+              <button class="btn btn-success div_btn_action" title="Save" (click)="sendByMail();" [disabled]="!itemData.email || (itemData.from < 1) || (itemData.size > 100)">
+                  <i class="fa fa-check"></i> Send
+              </button>
+              <button class="btn btn-warning div_btn_action" title="Cancel" data-dismiss="modal" #btn_cancel>
+                  <i class="fa fa-undo"></i> Cancel
+              </button>
+          </div>
+          <div class="border_top_d padding_0 col-xs-12"></div>
+      </div>
+
+      <div class="padding_15">
+          <form name="form" role="form">
+              <div class="row">
+                  <div class="form-group col-md-12">
+                      <label for="email" class="me_required">Email </label>
+                      <input type="email" name="email" id="email" class="form-control" [(ngModel)]="itemData.email" placeholder="Email" required />
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col-md-12">
+                      <label for="start" class="me_required">Start at entry </label>
+                      <input type="number" min="1" name="start" id="start" class="form-control" [(ngModel)]="itemData.from" required />
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="form-group col-md-12">
+                      <label for="size" class="me_required">Maximum number of entries</label>
+                      <input type="number" max="100" name="size" id="size" class="form-control" [(ngModel)]="itemData.size" required />
+                  </div>
+              </div>
+          </form>
+      </div>
+        </div>
+    </div>
+  </div>
+
+</div>

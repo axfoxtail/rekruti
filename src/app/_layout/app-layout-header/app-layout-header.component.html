@@ -35,6 +35,10 @@
                    [ngClass]="{'active': activeMenuItem === 'employers-menu-item' }" role="tab"
                    (click)="navigateToNavBarPage('employers-menu-item', '/employers')">Employers</a>
             </li>
+            <li class="nav-item nav-item-custome">
+                <a class="nav-link" id="company-menu-item" [ngClass]="{'active': activeMenuItem === 'company-menu-item' }"
+                   role="tab" (click)="navigateToNavBarPage('company-menu-item', '/company')">Companies</a>
+            </li>
             <li class="nav-item nav-item-custome"
                 *ngIf="currentUser.accountProfile === 4 || currentUser.accountType === 5">
                 <a class="nav-link" id="tasks-menu-item" [ngClass]="{'active': activeMenuItem === 'tasks-menu-item' }"

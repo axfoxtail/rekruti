@@ -55,6 +55,9 @@ export class AppLayoutHeaderComponent implements OnInit {
             case 'JobsComponent':
                 this.activeMenuItem = 'jobs-menu-item';
                 break;
+            case 'CompaniesComponent':
+                this.activeMenuItem = 'company-menu-item';
+                break;
             case 'TasksComponent':
                 this.activeMenuItem = 'tasks-menu-item';
                 break;

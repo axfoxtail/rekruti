@@ -1,5 +1,5 @@
  <!--email-->
-<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && itemData.emails != null && (itemData.emails.length > 0 || itemData.security.isAddEmail == true)">
+<div class="border_bottom_d body_content_profile" *ngIf="(type === 'people' || type === 'jobs') && itemData.emails != null && (itemData.emails.length > 0 || itemData.security.isAddEmail == true)">
   <div class="padding_15">
     <h3>
       <i class="fa fa-envelope-o font_25 icon_profile" aria-hidden="true"></i>&nbsp;Email
@@ -15,7 +15,7 @@
               <span *ngIf="obj.isBusiness" title="Work" style="font-weight: bold; margin-right: 10px; cursor: pointer;">W</span>
             </td>
             <td class="border_top_0" style="width: 30px;" *ngIf="!(type === 'people' || currentUser.id === itemData.id)"></td>
-            <td class="border_top_0" style="width: 20px; padding-left: 10px;" id="cell">
+            <td class="border_top_0" style="width: 20px; padding-left: 10px;" id="cell" *ngIf="type == 'people'">
               <ng-template #popContent ><span [ngClass]="{'success': obj.isVerified, 'warning' : !obj.isVerified}">{{obj.isVerified ?  'Verified' : 'Not verified'}}</span></ng-template>
               <span [ngbPopover]="popContent" placement="right" triggers="mouseenter:mouseleave">
                 <i *ngIf="obj.isVerified" class="fa fa-check-circle success" aria-hidden="true"></i>
@@ -53,7 +53,7 @@
               <span *ngIf="obj.isBusiness" title="Work" style="font-weight: bold; margin-right: 10px; cursor: pointer;">W</span>
             </td>
             <td class="border_top_0" style="width: 30px;" *ngIf="!(type === 'people' || currentUser.id === itemData.id)"></td>
-            <td class="border_top_0" style="width: 20px; padding-left: 10px;">
+            <td class="border_top_0" style="width: 20px; padding-left: 10px;" *ngIf="type == 'people'">
               <ng-template #popContent1 ><span [ngClass]="{'success': obj.isVerified, 'warning' : !obj.isVerified}">{{obj.isVerified ?  'Verified' : 'Not verified'}}</span></ng-template>
               <span [ngbPopover]="popContent1" placement="right" triggers="mouseenter:mouseleave">
                 <i *ngIf="obj.isVerified" class="fa fa-check-circle success" aria-hidden="true"></i>
@@ -107,7 +107,7 @@
 </div>
 
 <!--Address-->
-<div class="border_bottom_d body_content_profile" *ngIf="type === 'people' && itemData.addresses != null && ( itemData.addresses.length > 0 || itemData.security.isAddAddress == true)">
+<div class="border_bottom_d body_content_profile" *ngIf="(type === 'people' || type === 'company') && itemData.addresses != null && ( itemData.addresses.length > 0 || itemData.security.isAddAddress == true)">
   <div class="padding_15">
     <h3>
       <i class="fa fa-home font_25 icon_profile" aria-hidden="true"></i>&nbsp;Address

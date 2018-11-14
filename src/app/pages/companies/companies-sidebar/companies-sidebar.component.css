@@ -1,0 +1,120 @@
+.search-label-left {
+    padding: 7px 0 13px;
+}
+
+.search-label-left span {
+    background: #1192C4;
+    color: #fff;
+    padding: 10px 15px;
+    border-top-left-radius: 2px;
+}
+
+.search-label-left .pull-right {
+    margin-right: 15px;
+    color: #337ab7;
+    cursor: pointer;
+}
+
+.filter .filter-title {
+    background: transparent;
+    padding: 10px 15px 10px 15px;
+    border-top: 1px solid #ddd;
+    border-radius: 0;
+}
+
+.filter .filter-title.shared {
+    border: none;
+    padding: 0;
+}
+
+.filter .filter-title .title {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.filter .filter-title .title .collapse-btn {
+    color: #555;
+    background: none;
+    border: none;
+    font-size: 13px;
+    font-weight: bold;
+    width: 100%;
+    text-align: left;
+    padding: 0;
+}
+
+.filter .filter-title .title .collapse-btn .icon-arrow {
+    float: right;
+}
+
+.filter .filter-body {
+    padding: 0 15px 15px 15px;
+}
+
+.filter .filter-body.shared-class {
+    padding-left: 0;
+    padding-top: 10px;
+}
+
+.filter .filter-body .filter-item .filter-check-label {
+    margin-left: 10px;
+    margin-bottom: 0;
+    font-size: 12px;
+    line-height: 16px;
+    max-height: 19px;
+    cursor: pointer;
+    max-width: calc(100% - 40px);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-x: hidden;
+    vertical-align: middle;
+}
+
+.filter .filter-body .add-filter-block {
+    margin-top: 10px;
+}
+
+.filter .filter-body .add-filter-block .add-label-a {
+    font-size: 12px;
+    cursor: pointer;
+    color: #337ab7;
+}
+
+.filter .filter-body .add-filter-block .add-new-filter-option-input {
+    font-size: 12px;
+    height: 25px;
+    padding: 2px 12px;
+    border-radius: 0;
+}
+
+.filter .filter-body .add-filter-block .form-group {
+    margin-bottom: 0;
+}
+
+[data-toggle="collapse"] .fa:before {
+    content: "\f0d8";
+}
+
+[data-toggle="collapse"].collapsed .fa:before {
+    content: "\f0d7";
+}
+
+btn-primary.focus, .btn-primary:focus {
+    box-shadow: none;
+}
+
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show > .btn-primary.dropdown-toggle:focus {
+    box-shadow: none;
+}
+
+a:hover,
+a:active,
+a:focus {
+    outline: none;
+}
+
+.filter-body [type="checkbox"]:not(:checked) + label:hover, .filter-body [type="checkbox"]:checked + label:hover {
+    color: #999;
+}
+

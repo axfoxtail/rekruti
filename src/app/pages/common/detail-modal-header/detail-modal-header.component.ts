@@ -8,7 +8,8 @@ import {environment} from '../../../../environments/environment';
 })
 export class DetailModalHeaderComponent implements OnInit {
 
-	@Input() type = 'people';
+	@Input() type;
+	@Input() modalType;
 	@Input() itemData;
 
 
@@ -19,7 +20,11 @@ export class DetailModalHeaderComponent implements OnInit {
 	}
 
 	ngOnInit() {
-
+		if (this.type == 'jobs' || this.type == 'company') {
+			this.urlImg = environment.endpoint + '/geoDocument/wDownload?storeGuid=';
+		} else {
+			this.urlImg = environment.endpoint + '/personDocument/wDownload?storeGuid=';
+		}
 	}
 
 	openSetPicture(position, backdrop, personId){

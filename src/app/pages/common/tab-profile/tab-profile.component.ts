@@ -10,6 +10,7 @@ import {GlobalVariablesService} from '../../../services/global-variables/global-
 
 
 export class TabProfileComponent implements OnInit {
+	_router = window.location.href.split("#/")[1];
 
 	@Input() type = 'people';
 	@Input() itemData;
@@ -52,8 +53,18 @@ export class TabProfileComponent implements OnInit {
 	openEditLicense(personId, obj) {
 		this.globalVar.showPeopleLicenseModal({forAdd: false, personID: personId, itemData: obj});
 	}
-	
-	openSource(personId, objId)  {
-		this.globalVar.showPeopleSourceModal({personID: personId, objId: objId});
+	// ---------- //
+	openSource(personId, obj)  {
+		if (this._router == 'people') {
+			this.globalVar.showPeopleSourceModal({personID: personId, objId: obj.id});
+		} else {
+			this.globalVar.showSourceModal({personID: personId,obj: obj});
+		}
+	}
+	openEditDescription(itemData) {
+		this.globalVar.showDescriptionModal(itemData);
+	}
+	openEditBio(itemData) {
+		this.globalVar.showBioModal(itemData);
 	}
 }
